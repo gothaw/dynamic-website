@@ -4,7 +4,8 @@
   "description": "dynamic website design in PHP",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "wp:dev": "webpack --mode development --progress --watch",
+    "wp:prod": "webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,19 @@
   "bugs": {
     "url": "https://github.com/gothaw/dynamic-website/issues"
   },
-  "homepage": "https://github.com/gothaw/dynamic-website#readme"
+  "homepage": "https://github.com/gothaw/dynamic-website#readme",
+  "devDependencies": {
+    "autoprefixer": "~9.4.10",
+    "compass-mixins": "~0.12.10",
+    "css-loader": "~2.1.1",
+    "mini-css-extract-plugin": "~0.5.0",
+    "node-sass": "~4.11.0",
+    "optimize-css-assets-webpack-plugin": "~5.0.1",
+    "postcss-loader": "~3.0.0",
+    "sass-loader": "~7.1.0",
+    "terser-webpack-plugin": "~1.2.3",
+    "webpack": "~4.29.6",
+    "webpack-cli": "~3.2.3",
+    "webpack-dev-server": "~3.2.1"
+  }
 }
