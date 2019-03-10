@@ -1,0 +1,31 @@
+/* 7. Service */
+.service-area {
+    background-color: $placeholder;
+    background-image: url('../images/service-bg.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 50%;
+        height: 100%;
+        background: $overlay3;
+        @include tablet(){
+            background: none;
+        }
+        @include landscape-phone(){
+            background: none;
+        }
+        @include portrait-phone(){
+            background: none;
+        }
+    }
+    h3,
+    h5 {
+        color: $light;
+    }
+}

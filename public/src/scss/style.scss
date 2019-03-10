@@ -1,0 +1,72 @@
+/*-------------------------------------------------------------
+    Template Name:
+    Template URL:
+    Author Name:
+    Author URL:
+    Version:
+--------------------------------------------------------------*/
+/*-------------------------------------------------------------
+    1. Author CSS
+    2. Preloader
+    3. Main Menu
+    4. Header
+    5. Banner
+    6. Feature
+    7. Service
+    8. Coaches
+    9. Discount
+    10. BMI
+    11. Client
+    12. Friend
+    13. Footer
+    14. About
+    15. Service Page
+    16. Schedule
+    17. Trainers
+    18. Contact
+    19. Blog Home
+    20. Blog Details
+    21. Elements
+--------------------------------------------------------------*/
+
+// Compass Framework
+@import 'compass';
+
+// Setting
+@import 'setting/variable';
+@import 'setting/mixin';
+
+// Base
+@import 'base/base';
+
+// Google Font
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+@import url('https://fonts.googleapis.com/css?family=Rubik:400,500,700');
+
+
+// Layout
+@import 'layout/preloader';
+@import 'layout/nav';
+@import 'layout/header';
+@import 'layout/banner';
+@import 'layout/feature';
+@import 'layout/service';
+@import 'layout/coaches';
+@import 'layout/discount';
+@import 'layout/bmi';
+@import 'layout/client';
+@import 'layout/friend';
+@import 'layout/footer';
+@import 'layout/about';
+@import 'layout/service-page';
+@import 'layout/schedule';
+@import 'layout/trainers';
+@import 'layout/contact';
+@import 'layout/blog-home';
+@import 'layout/blog-details';
+@import 'layout/elements';
+
+// Module
+@import 'module/btn';
+@import 'module/form';
+@import 'module/other';

@@ -8,6 +8,10 @@
 
 node_modules/
 
+# images
+
+public/img/
+
 # User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml

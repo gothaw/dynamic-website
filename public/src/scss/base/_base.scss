@@ -1,0 +1,93 @@
+/* 1. Author CSS */
+body {
+    padding: 0 10% 0;
+    color: $body-text;
+    font-family: $body-font;
+    font-weight: 400;
+    @include desktop() {
+        padding: 0 5%;
+    }
+    @include tablet() {
+        padding: 0 5%;
+    }
+    @include landscape-phone() {
+        padding: 0 5%;
+    }
+    @include portrait-phone() {
+        padding: 0 5%;
+    }
+}
+h1 {
+    color: $light;
+    text-transform: uppercase;
+    font-family: $body-font;
+    font-size: 150px!important;
+    font-weight: 700;
+    line-height: 120px;
+    @include desktop() {
+        font-size: 100px!important;
+    }
+    @include tablet() {
+        font-size: 100px!important;
+    }
+    @include landscape-phone() {
+        font-size: 100px!important;
+    }
+    @include portrait-phone() {
+        font-size: 80px!important;
+        line-height: 80px;
+    }
+}
+h2 {
+    color: $light;
+    font-family: $body-font;
+    text-transform: uppercase;
+    font-size: 90px!important;
+    font-weight: 700;
+    @include portrait-phone() {
+        font-size: 70px!important;
+        line-height: 70px;
+    }
+}
+h3 {
+    color: $heading-text;
+    text-transform: uppercase;
+    font-family: $heading-font;
+    font-size: 36px!important;
+    font-weight: 500;
+}
+h4 {
+    color: $light;
+    font-family: $heading-font;
+    font-size: 20px!important;
+    font-weight: 400;
+}
+h5 {
+    color: $heading-text;
+    font-family: $heading-font;
+    text-transform: uppercase;
+    font-size: 18px!important;
+    font-weight: 500;
+}
+h6 {
+    color: $body-text;
+    font-family: $body-font;
+    text-transform: capitalize;
+    font-size: 14px!important;
+    font-weight: 400;
+}
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+a:hover {
+    text-decoration: none;
+}
+a:focus {
+    text-decoration: none;
+}
+input:focus,
+textarea:focus {
+    outline: none;
+}

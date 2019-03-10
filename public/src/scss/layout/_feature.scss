@@ -1,0 +1,52 @@
+/* 6. Feature */
+.feature-area {
+    background: $dark;
+}
+
+.single-feature {
+    &:hover {
+        .hover-state {
+            @include opacity(1);
+            visibility: visible;
+        }
+        .feature-footer {
+            @include box-shadow(0 10px 20px $shadow);
+        }
+    }
+}
+.feature-img {
+    position: relative;
+    img {
+        width: 100%;
+    }
+    .hover-state {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: $overlay;
+        @include transition(.5s);
+        @include opacity(0);
+        visibility: hidden;
+        .template-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            @include translate(-50%,-50%);
+            color: $heading-text!important;
+            background: $overlay2;
+            border: 1px solid transparent;
+            &:hover {
+                color: $light!important;
+                background: transparent;
+                border: 1px solid $light;
+            }
+        }   
+    }
+}
+.feature-footer {
+    padding: 30px 40px;
+    background: $light;
+    @include transition(.5s);
+}

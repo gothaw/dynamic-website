@@ -1,0 +1,43 @@
+/* 10. BMI */
+.bmi-area {
+    background: $dark;
+    .bmi-text {
+        padding-left: 30%;
+        @include desktop() {
+            padding-left: 10%;
+        }
+        @include tablet() {
+            padding: 0 5%;
+        }
+        @include landscape-phone() {
+            padding: 0 5%;
+        }
+        @include portrait-phone() {
+            padding: 0 5%;
+        }
+    }
+    .bmi-btn {
+        width: 100%;
+        overflow: hidden;
+    }
+    .form-group {
+        width: 30%;
+        float: left;
+        overflow: hidden;
+        margin-right: 3%;
+        @include portrait-phone() {
+            width: 100%;
+            margin-right: 0;
+        }
+        label {
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+        input {
+            border: none;
+            display: inline-block;
+            padding: 13px 20px;
+        }
+    }
+}
+

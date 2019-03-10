@@ -1,0 +1,41 @@
+/* 9. Discount */
+.discount-area {
+    background-color: $placeholder;
+    background-image: url('../images/discount-bg.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    text-align: center;
+    h3,
+    h4 {
+        color: $light;
+    }
+    span {
+        color: $primary-color;
+    }
+    input {
+        display: inline-block;
+        margin: auto;
+        width: 360px;
+        border: none;
+        @include border-radius(3px);
+        padding: 13px 20px;
+        @include landscape-phone() {
+            width: 300px;
+        }
+        @include portrait-phone() {
+            width: 100%;
+        }
+    }
+    .template-btn {
+        margin-left: 10px;
+        &:hover {
+            color: $light!important;
+        }
+        @include portrait-phone() {
+            margin-left: 0;
+            margin-top: 30px;
+        }
+    }
+}

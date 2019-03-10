@@ -1,0 +1,17 @@
+/* 12. Friend */
+.friend-area {
+    background-color: $placeholder;
+    background-image: url('../images/frined-bg.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    text-align: center;
+    h3 {
+        color: $light;
+    }
+    .template-btn {
+        &:hover {
+            color: $light!important;
+        }
+    }
+}

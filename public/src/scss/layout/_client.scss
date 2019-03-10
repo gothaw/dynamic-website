@@ -1,0 +1,20 @@
+/* 11. Client */
+.client-slider.owl-carousel {
+    img {
+        width: 70px;
+        height: 70px;
+        @include border-radius(50%);
+    }
+}
+
+
+.single-slide {
+    background: $dark;
+    padding: 30px 20px;
+    @include transition(.5s);
+    margin: 0 5px 20px;
+    &:hover {
+        background: $light;
+        @include box-shadow(0 10px 20px $shadow);
+    }
+}

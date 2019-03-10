@@ -1,0 +1,12 @@
+/* 4. Header */
+.header-area.main-header {
+    padding: 24px 0;
+    background: $light;
+    @include border-radius(5px);
+    margin: 0 5%;
+    position: relative;
+    z-index: 2;
+    @include desktop() {
+        margin: 0;
+    }
+}
