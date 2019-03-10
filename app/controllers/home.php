@@ -6,5 +6,4 @@ class Home extends Controller{
         $user->name = $name;
         $this->view('index', ['name' => $user->name ]);
     }
-
 }
