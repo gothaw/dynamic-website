@@ -43,6 +43,7 @@ h2 {
     font-family: $body-font;
     text-transform: uppercase;
     font-size: 90px!important;
+    line-height: 90px;
     font-weight: 700;
     @include portrait-phone() {
         font-size: 70px!important;

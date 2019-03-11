@@ -75,6 +75,7 @@ h2 {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   font-size: 90px !important;
+  line-height: 90px;
   font-weight: 700; }
   @media (max-width: 575.98px) {
     h2 {
@@ -361,12 +362,12 @@ textarea:focus {
 
 .banner-bg {
   background-color: #b0b0b0;
-  background-image: url("../images/banner-bg.jpg");
+  background-image: url("../img/banner-bg.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover; }
   .banner-bg .banner-text {
-    padding-left: 100px; }
+    padding-left: 30px; }
     @media (max-width: 575.98px) {
       .banner-bg .banner-text {
         padding-left: 0; } }
