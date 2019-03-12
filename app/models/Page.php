@@ -1,7 +1,9 @@
 <?php
 class Page extends Database {
 
-    public function getAllPages() {
+    private $data;
+
+    private function loadData() {
         $sql = "
                 SELECT
                     `page`.`pgName`,
@@ -17,7 +19,12 @@ class Page extends Database {
             while($row = $result->fetch_assoc()){
                 $data[] = $row;
             }
-            return $data;
+            $this->data = $data;
         }
+    }
+
+    public function getAllPages(){
+        $this->loadData();
+        return $this->data;
     }
 }

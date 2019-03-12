@@ -1,8 +1,3 @@
-
-<?php
-    print_r($this);
-?>
-
 <!-- Header Area Starts -->
 <header class="header-area main-header">
     <div class="container">

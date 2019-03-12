@@ -19,9 +19,7 @@ class View
     }
 
     public function render(){
-        if(file_exists('../app/views/' . $this->view_file . '.php')){
-            require_once '../app/views/' . $this->view_file . '.php';
-        }
+        require_once '../app/views/' . $this->view_file . '.php';
     }
 
     public function getTitle(){
@@ -31,7 +29,6 @@ class View
     public function setTitle($view_title){
         $this->view_title=$view_title;
     }
-
 
     public function getAction(){
         return $this->view_data['name'];
