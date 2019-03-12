@@ -1,6 +1,6 @@
 <?php
 
-require_once 'config.php';
+require_once 'config/config.php';
 
 require_once 'core/Database.php';
 require_once 'core/View.php';

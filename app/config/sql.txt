@@ -1,0 +1,21 @@
+***********
+CREATE A DB
+***********
+
+CREATE DATABASE `php-website`
+
+*************
+CREATE PAGES
+*************
+
+CREATE TABLE IF NOT EXISTS `page` (
+  `pgID` smallint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `pgName` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pgOrder` int(3) unsigned DEFAULT NULL,
+  `pgUrl` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pgTitle` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pgBody` text COLLATE utf8_unicode_ci,
+  `pgDesc` text COLLATE utf8_unicode_ci,
+  `pgKeys` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`pgID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
