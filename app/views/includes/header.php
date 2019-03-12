@@ -1,10 +1,15 @@
+
+<?php
+    print_r($this);
+?>
+
 <!-- Header Area Starts -->
 <header class="header-area main-header">
     <div class="container">
         <div class="row">
             <div class="col-lg-2">
                 <div class="logo-area">
-                    <a href="#"><img src="<?php echo Constants::ROOT;?>/dist/img/logo.png" alt="logo"></a>
+                    <a href="#"><img src="<?php echo ROOT;?>/dist/img/logo.png" alt="logo"></a>
                 </div>
             </div>
             <div class="col-lg-10">
@@ -42,3 +47,4 @@
     </div>
 </header>
 <!-- Header Area End -->
+<body>

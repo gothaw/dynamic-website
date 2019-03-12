@@ -1,5 +1,5 @@
 <?php
 class User
 {
-    public $name;
+    public $name="Mark";
 }

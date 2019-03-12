@@ -1,6 +1,9 @@
 <?php
 
-class Controller{
+class Controller {
+
+    protected $view;
+    protected $model;
 
     public function model($model){
         if(file_exists('../app/models/' . $model . '.php')){
@@ -9,9 +12,11 @@ class Controller{
         }
     }
 
-    public function view($view, $data=[]){
-        if(file_exists('../app/views/' . $view .'.php')){
-            require_once '../app/views/' . $view .'.php';
-        }
+    public function view($viewName, $data=[]){
+        $this->view = new View($viewName,$data);
+        return $this->view;
+        /*if(file_exists('../app/views/' . $viewName .'.php')){
+            require_once '../app/views/' . $viewName .'.php';
+        }*/
     }
 }
