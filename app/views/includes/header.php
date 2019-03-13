@@ -15,25 +15,15 @@
                 </div>
                 <div class="main-menu">
                     <ul>
-                        <li class="active"><a href="#">home</a></li>
-                        <li><a href="#">about us</a></li>
-                        <li><a href="#">schedule</a></li>
-                        <li><a href="#">trainers</a></li>
-                        <li><a href="#">blog</a>
-                            <ul class="sub-menu">
-                                <li><a href="#">Blog Home</a></li>
-                                <li><a href="#">Blog Details</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">contact</a></li>
-                        <li><a href="#">pages</a>
-                            <ul class="sub-menu">
-                                <li><a href="#">Service</a></li>
-                                <li><a href="#">Elements</a></li>
-                            </ul>
-                        </li>
+                        <?php foreach ($this->view_data['nav_pages'] as $page) {?>
+                            <li>
+                                <a class="menu-link <?php echo "menu-link-active"; ?>" href="<?php echo ROOT . $page['pgUrl']?>">
+                                    <?php echo $page['pgName']?>
+                                </a>
+                            </li>
+                        <?php }?>
                         <li class="menu-btn">
-                            <a href="#" class="template-btn">book now</a>
+                            <a href="#" class="template-btn">Login</a>
                         </li>
                     </ul>
                 </div>

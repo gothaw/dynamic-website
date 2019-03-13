@@ -1,4 +1,5 @@
 <?php
+
 class NavBarPages extends Database {
 
     private $data;

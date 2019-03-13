@@ -3,16 +3,15 @@ class Page extends Database {
 
     private $data;
 
-    private function loadData() {
+    private function loadData($page_name) {
         $sql = "
                 SELECT
-                    `page`.`pgName`,
-                    `page`.`pgUrl`
+                    *
                 FROM
                     `page`
-                ORDER BY
-                    `page`.`pgOrder`
-                ASC";
+                WHERE
+                    `page`.`pgName` = ?;
+               ";
         $result = $this->connect()->query($sql);
         $numRows = $result->num_rows;
         if($numRows > 0){

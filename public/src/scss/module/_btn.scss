@@ -11,6 +11,7 @@
     padding: 13px 24px!important;
     @include border-radius(3px);
     @include transition(all .5s);
+    //transition: all 1s!important;
     &:hover {
         color: $heading-text!important;
         background: transparent;
