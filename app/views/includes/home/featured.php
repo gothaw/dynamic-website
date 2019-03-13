@@ -9,12 +9,12 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-3 col-md-6">
                     <div class="single-feature mb-5 mb-lg-0">
                         <div class="feature-img">
                             <img src="<?php echo DIST?>img/feature1.jpg" alt="">
                             <div class="hover-state">
-                                <a href="#" class="template-btn">details</a>
+                                <a href="#" class="template-btn">schedule</a>
                             </div>
                         </div>
                         <div class="feature-footer text-center">
@@ -23,12 +23,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-3 col-md-6">
                     <div class="single-feature mb-5 mb-lg-0">
                         <div class="feature-img">
                             <img src="<?php echo DIST?>img/feature2.jpg" alt="">
                             <div class="hover-state">
-                                <a href="#" class="template-btn">details</a>
+                                <a href="#" class="template-btn">schedule</a>
                             </div>
                         </div>
                         <div class="feature-footer text-center">
@@ -37,12 +37,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-3 col-md-6">
                     <div class="single-feature">
                         <div class="feature-img">
                             <img src="<?php echo DIST?>img/feature3.jpg" alt="">
                             <div class="hover-state">
-                                <a href="#" class="template-btn">details</a>
+                                <a href="#" class="template-btn">schedule</a>
                             </div>
                         </div>
                         <div class="feature-footer text-center">
@@ -51,12 +51,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-3 col-md-6">
                     <div class="single-feature">
                         <div class="feature-img">
                             <img src="<?php echo DIST?>img/feature3.jpg" alt="">
                             <div class="hover-state">
-                                <a href="#" class="template-btn">details</a>
+                                <a href="#" class="template-btn">schedule</a>
                             </div>
                         </div>
                         <div class="feature-footer text-center">

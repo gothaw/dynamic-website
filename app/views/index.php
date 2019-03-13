@@ -8,8 +8,7 @@
     include ("includes/home/featured.php");
 
     echo 'Hello World. My Name is '. $this->view_data['name'].'</br>';
-    echo 'This is another way to do it '. $this->getAction().'</br>';
-    echo $this->getTitle().'</br>';
+    //echo 'This is another way to do it '. $this->getAction().'</br>';
 
     //echo 'Hello World. My Name is '. $data['name'];
 

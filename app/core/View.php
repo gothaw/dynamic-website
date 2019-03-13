@@ -10,7 +10,7 @@ class View
 {
     protected $view_file;
     protected $view_data;
-    protected $view_title;
+    protected $view_name;
 
     public function __construct($view_file,$view_data)
     {
@@ -18,19 +18,15 @@ class View
         $this->view_data = $view_data;
     }
 
-    public function render(){
+    public function renderView(){
         require_once '../app/views/' . $this->view_file . '.php';
     }
 
-    public function getTitle(){
-        return $this->view_title;
+    public function getViewName(){
+        return $this->view_name;
     }
 
-    public function setTitle($view_title){
-        $this->view_title=$view_title;
-    }
-
-    public function getAction(){
-        return $this->view_data['name'];
+    public function setViewName($view_name){
+        $this->view_name=$view_name;
     }
 }

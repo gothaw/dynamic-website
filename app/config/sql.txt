@@ -14,8 +14,26 @@ CREATE TABLE IF NOT EXISTS `page` (
   `pgOrder` int(3) unsigned DEFAULT NULL,
   `pgUrl` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `pgTitle` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `pgBody` text COLLATE utf8_unicode_ci,
   `pgDesc` text COLLATE utf8_unicode_ci,
   `pgKeys` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`pgID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+*************
+INSERT PAGES
+*************
+
+INSERT INTO `page` (
+`pgName` ,
+`pgOrder` ,
+`pgUrl` ,
+`pgTitle` ,
+`pgDesc`,
+`pgKeys`
+)
+VALUES
+('home', '0', 'index.php', 'home', 'fitzone home page', 'home fitzone fitness club gym'),
+('blog', '1', 'blog.php', 'latest news', 'fitzone blog page', 'blog latest news gym'),
+('about', '2', 'about.php', 'about us', 'fitzone about page', 'about us team couches gym'),
+('schedule', '3', 'schedule.php', 'upcoming classes', 'fitzone classes page', 'upcoming classes gym'),
+('contact', '4', 'contact.php', 'contact us', 'fitzone contact page', 'contact page email map address');

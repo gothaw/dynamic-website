@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- Page Title -->
-    <title>Fitzone | <?php echo $this->getTitle()?></title>
+    <title>Fitzone | </title>
     <!-- Favicon -->
     <link rel="shortcut icon" href="<?php echo DIST?>/img/logo/favicon.png" type="image/x-icon">
     <!-- CSS Files -->
