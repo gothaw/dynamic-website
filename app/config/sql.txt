@@ -32,8 +32,8 @@ INSERT INTO `page` (
 `pgKeys`
 )
 VALUES
-('home', '0', 'index.php', 'home', 'fitzone home page', 'home fitzone fitness club gym'),
-('blog', '1', 'blog.php', 'latest news', 'fitzone blog page', 'blog latest news gym'),
-('about', '2', 'about.php', 'about us', 'fitzone about page', 'about us team couches gym'),
-('schedule', '3', 'schedule.php', 'upcoming classes', 'fitzone classes page', 'upcoming classes gym'),
-('contact', '4', 'contact.php', 'contact us', 'fitzone contact page', 'contact page email map address');
+('home', '0', 'index/', 'home', 'fitzone home page', 'home fitzone fitness club gym'),
+('blog', '1', 'blog/', 'latest news', 'fitzone blog page', 'blog latest news gym'),
+('about', '2', 'about/', 'about us', 'fitzone about page', 'about us team couches gym'),
+('schedule', '3', 'schedule/', 'upcoming classes', 'fitzone classes page', 'upcoming classes gym'),
+('contact', '4', 'contact/', 'contact us', 'fitzone contact page', 'contact page email map address');

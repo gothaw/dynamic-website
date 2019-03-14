@@ -685,6 +685,8 @@ textarea:focus {
           background: #f61b55; }
   .footer-copyright .copyright-wrapper {
     align-items: center; }
+    .footer-copyright .copyright-wrapper p {
+      margin-bottom: 5px; }
 
 /* 14. About */
 .banner-area.about-page {
@@ -2479,4 +2481,14 @@ h6 {
 
 .section-margin-bottom {
   margin-bottom: 130px; }
+
+/* 18. Fail Message */
+.fail-message {
+  background-color: #f61b55;
+  color: #ffffff;
+  text-align: center;
+  font-size: 45px;
+  margin: 130px 0; }
+  .fail-message-wrapper {
+    padding: 0 25px; }
 

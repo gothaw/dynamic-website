@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- Page Title -->
     <title>Fitzone<?php
-        if(!empty($data['page_details']['pgTitle'])){
+        if(isset($data['page_details']['pgTitle'])){
             echo ' | ' . ucfirst($data['page_details']['pgTitle']);
         }?>
     </title>
@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="<?php echo DIST?>/css/main.css">
     <meta name="author" content="Radoslaw Soltan">
     <meta name="description" content="<?php
-        if(!empty($data['page_details']['pgDesc'])){
+        if(isset($data['page_details']['pgDesc'])){
             echo $data['page_details']['pgDesc'];
         }
         else{
@@ -31,7 +31,7 @@
         }
     ?>">
     <meta name="keywords" content="<?php
-        if(!empty($data['page_details']['pgKeys'])){
+        if(isset($data['page_details']['pgKeys'])){
             echo ucfirst($data['page_details']['pgKeys']);
         }
         else{
