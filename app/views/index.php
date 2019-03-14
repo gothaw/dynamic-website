@@ -1,25 +1,24 @@
 <?php
+    //simplifying variables
     $data=$this->view_data;
+    $name=$this->view_name;
 
-    trace($this);
-    $data=$this->view_data;
-    trace($data);
-    trace($data['name']);
+    //trace($this);
+    //trace($data);
+    //trace($data['name']);
 
+    //HEAD
     include ("includes/top.php");
+    //HEADER AND PRELOADER
     include ("includes/preloader.php");
     include ("includes/header.php");
+    //CONTENT
     include ("includes/home/banner.php");
     include ("includes/home/home-about.php");
     include ("includes/home/featured.php");
-
-    echo 'Hello World. My Name is '. $data['name'].'</br>';
-
-    echo ROOT .'</br>';
-
-    if(array_key_exists('pages',$this->view_data)){
-        print_r($this->view_data['pages']);
-    }
-
-
+    include ("includes/home/services.php");
+    include ("includes/home/discount.php");
+    include ("includes/home/client-opinions.php");
+    include ("includes/home/join.php");
+    //FOOTER
     include ("includes/footer.php");

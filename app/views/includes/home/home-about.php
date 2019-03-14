@@ -1,5 +1,5 @@
 <!-- About Area Starts -->
-<section class="about-area section-padding">
+<section class="about-area section-padding4">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 align-self-center mb-5 mb-lg-0">

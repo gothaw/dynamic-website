@@ -34,8 +34,8 @@ h1 {
         font-size: 100px!important;
     }
     @include portrait-phone() {
-        font-size: 80px!important;
-        line-height: 80px;
+        font-size: 60px!important;
+        line-height: 60px;
     }
 }
 h2 {
@@ -46,8 +46,8 @@ h2 {
     line-height: 90px;
     font-weight: 700;
     @include portrait-phone() {
-        font-size: 70px!important;
-        line-height: 70px;
+        font-size: 55px!important;
+        line-height: 55px;
     }
 }
 h3 {

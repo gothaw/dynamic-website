@@ -85,6 +85,9 @@
                     left: 0;
                     position: absolute;
                     width: 100%;
+                    @include phone-and-tablet(){
+                        bottom: 0;
+                    }
                 }
             }
             &:hover {
@@ -124,20 +127,11 @@
         @include desktop() {
             margin-left: 0;
         }
-        @include tablet() {
+        @include phone-and-tablet() {
             margin-left: 0;
-            .login {
-                display: block;
-            }
-        }
-        @include landscape-phone() {
-            margin-left: 0;
-            .login {
-                display: block;
-            }
-        }
-        @include portrait-phone() {
-            margin-left: 0;
+            display: block;
+            padding-top: 20px;
+            text-align: center;
             .login {
                 display: block;
             }

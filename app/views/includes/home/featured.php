@@ -1,5 +1,5 @@
 <!-- Feature Area Starts -->
-    <section class="feature-area section-padding">
+    <section class="feature-area section-padding3 section-padding5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">

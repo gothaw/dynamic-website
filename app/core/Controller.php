@@ -19,9 +19,11 @@ class Controller {
         }
     }
 
-    /*public function view($view_name, $view_file, $data=[]){
-        if(file_exists('../app/views/' . $view_file . '.php')){
-            require_once '../app/views/' . $view_file . '.php';
+    public function databaseMsg(){
+        if(file_exists('../app/core/DbCheck.php')){
+            require_once '../app/core/DbCheck.php';
+            $db_check = new DbCheck();
+            return $db_check->returnFailMessage();
         }
-    }*/
+    }
 }

@@ -26,5 +26,6 @@ class contact extends Controller
         $this->user->name = $name;
 
         $this->view($this_page,$path, ['name'=>$name,'nav_pages' => $nav_pages, 'page_details' => $page_details ]);
+        $this->view->renderView();
     }
 }

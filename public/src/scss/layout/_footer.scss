@@ -2,7 +2,7 @@
 .footer-area {
     background: $dark;
     a {
-        color: $light;
+        color: $primary-color;
     }
     form {
         position: relative;
@@ -27,21 +27,28 @@
         font-weight: 700;
         display: block;
     }
+    @include portrait-phone{
+        text-align: center;
+    }
+    @include landscape-phone{
+        text-align: center;
+    }
 }
 .footer-copyright {
-    margin-top: 70px;
+    margin-top: 40px;
+    font-size: 0.8rem;
     .color {
         color: $primary-color;
     }
     ul {
         float: right;
         @include landscape-phone() {
-            float: left;
-            margin-top: 30px;
+            width: 100%;
+            margin: 30px auto 0;
         }
         @include portrait-phone() {
-            float: left;
-            margin-top: 30px;
+            width: 100%;
+            margin: 30px auto 0;
         }
         li {
             display: inline;
@@ -62,5 +69,8 @@
                 }
             }
         }
+    }
+    .copyright-wrapper{
+        align-items: center;
     }
 }

@@ -15,15 +15,17 @@
                 </div>
                 <div class="main-menu">
                     <ul>
-                        <?php foreach ($this->view_data['nav_pages'] as $page) {?>
+                        <?php
+                        if(!empty($data['nav_pages'])) {
+                            foreach ($data['nav_pages'] as $page) {?>
                             <li>
-                                <a class="menu-link <?php
-                                                            echo "menu-link-active";
-                                                    ?>" href="<?php echo ROOT . $page['pgUrl']?>">
-                                    <?php echo $page['pgName']?>
+                                <a class="menu-link
+                                <?php if($page['pgName']==='home'){echo "menu-link-active";}?>" href="<?php echo ROOT . $page['pgUrl']?>">
+                                   <?php echo $page['pgName']?>
                                 </a>
                             </li>
-                        <?php }?>
+                        <?php }
+                        }?>
                         <li class="menu-btn">
                             <a href="#" class="template-btn">Login</a>
                         </li>
@@ -34,4 +36,3 @@
     </div>
 </header>
 <!-- Header Area End -->
-<body>

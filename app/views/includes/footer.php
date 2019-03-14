@@ -1,26 +1,20 @@
 <!-- Footer Area Starts -->
-    <footer class="footer-area section-padding">
+    <footer class="footer-area section-padding4">
         <div class="footer-widget">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3">
-                        <div class="single-widget-home mb-5 mb-lg-0">
-                            <h5 class="mb-4">about us</h5>
-                            <p>Give dry stars form us called won't winged had abundantly land Midst appear for you, good fill. Kind isn't form and. Their shall Whose them life be seed them green.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="single-widget-home mb-5 mb-lg-0">
                             <h5 class="mb-4">contact us</h5>
-                            <p>56/8, rockybeach road, santa monica, Los angeles, California - 59620</p>
-                            <span class="span-style">012-6532-568-9746</span>
-                            <span class="span-style">012-6532-569-9748</span>
+                            <p>20 Fenchurch St, London EC3M 1DT</p>
+                            <span class="span-style">+44 7654 321 123</span>
+                            <span class="span-style">fitzone@mail.com</span>
                         </div>
                     </div>
-                    <div class="col-lg-5">
+                    <div class="col-lg-6">
                         <div class="single-widget-home">
                             <h5 class="mb-4">newsletter</h5>
-                            <p class="mb-4">You can trust us. we only send promo offers, not a single.</p>
+                            <p class="mb-4">Sign up to our newsletter. We send discount codes and only the best offers!</p>
                             <form action="#">
                                 <input type="email" placeholder="Your email here" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your email here'" required>
                                 <button type="submit" class="template-btn"><i class="fa fa-long-arrow-right"></i></button>
@@ -32,11 +26,13 @@
         </div>
         <div class="footer-copyright">
             <div class="container">
-                <div class="row">
+                <div class="row copyright-wrapper">
                     <div class="col-lg-8 col-md-6">
-                            <span><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-    Copyright &copy;<?php echo date("Y")?> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></span>
+                        <div class="footer-disclaimer">
+                            <p>Radoslaw Soltan &copy;<?php echo date("Y")?></p>
+                            <p>This website was done as a part of portfolio project. It is not for commercial use and I do not own any of the assets shown on this website.</p>
+                            <p>Website layout based on template by <a class="colorlib-link" href="https://colorlib.com" target="_blank">Colorlib</a> | Copyright &copy;<?php echo date("Y")?> | All rights reserved</p>
+                        </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
                         <div class="social-icons">

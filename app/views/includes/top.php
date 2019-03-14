@@ -6,7 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- Page Title -->
-    <title>Fitzone | </title>
+    <title>Fitzone<?php
+        if(!empty($data['page_details']['pgTitle'])){
+            echo ' | ' . ucfirst($data['page_details']['pgTitle']);
+        }?>
+    </title>
     <!-- Favicon -->
     <link rel="shortcut icon" href="<?php echo DIST?>/img/logo/favicon.png" type="image/x-icon">
     <!-- CSS Files -->
@@ -17,4 +21,22 @@
     <link rel="stylesheet" href="<?php echo DIST?>/css/owl-carousel.min.css">
     <link rel="stylesheet" href="<?php echo DIST?>/css/nice-select.css">
     <link rel="stylesheet" href="<?php echo DIST?>/css/main.css">
+    <meta name="author" content="Radoslaw Soltan">
+    <meta name="description" content="<?php
+        if(!empty($data['page_details']['pgDesc'])){
+            echo $data['page_details']['pgDesc'];
+        }
+        else{
+            echo "Fitzone website";
+        }
+    ?>">
+    <meta name="keywords" content="<?php
+        if(!empty($data['page_details']['pgKeys'])){
+            echo ucfirst($data['page_details']['pgKeys']);
+        }
+        else{
+            echo "Fitzone Gym Fitness Join Premium";
+        }
+    ?>">
 </head>
+<body>

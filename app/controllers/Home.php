@@ -5,9 +5,11 @@ class Home extends Controller{
     protected $page;
     protected $nav_pages;
     protected $user;
+    protected $fail_message;
 
     public function __construct()
     {
+        $this->fail_message = $this->databaseMsg();
         $this->nav_pages = $this->model('NavBarPages');
         $this->page = $this->model('CurrentPage');
         $this->user = $this->model('User');
@@ -17,9 +19,7 @@ class Home extends Controller{
         $this_page='home';
         $path='index';
 
-        if(!empty($this->nav_pages->returnFailMessage())){
-            print_r($this->nav_pages->returnFailMessage());
-        }
+        print_r($this->fail_message);
 
         $nav_pages = $this->nav_pages->getNavBarPages();
         $page_details = $this->page->getPageDetails($this_page);
