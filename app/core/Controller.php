@@ -18,4 +18,10 @@ class Controller {
             $this->view = new View($view_name,$view_file,$data);
         }
     }
+
+    /*public function view($view_name, $view_file, $data=[]){
+        if(file_exists('../app/views/' . $view_file . '.php')){
+            require_once '../app/views/' . $view_file . '.php';
+        }
+    }*/
 }

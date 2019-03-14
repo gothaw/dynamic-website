@@ -17,7 +17,9 @@
                     <ul>
                         <?php foreach ($this->view_data['nav_pages'] as $page) {?>
                             <li>
-                                <a class="menu-link <?php echo "menu-link-active"; ?>" href="<?php echo ROOT . $page['pgUrl']?>">
+                                <a class="menu-link <?php
+                                                            echo "menu-link-active";
+                                                    ?>" href="<?php echo ROOT . $page['pgUrl']?>">
                                     <?php echo $page['pgName']?>
                                 </a>
                             </li>

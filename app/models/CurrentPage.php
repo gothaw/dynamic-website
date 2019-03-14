@@ -1,5 +1,5 @@
 <?php
-class Page extends Database {
+class CurrentPage extends Database {
 
     private $data;
 
@@ -10,20 +10,19 @@ class Page extends Database {
                 FROM
                     `page`
                 WHERE
-                    `page`.`pgName` = ?;
+                    `page`.`pgName` = '$page_name';
                ";
-        $result = $this->connect()->query($sql);
-        $numRows = $result->num_rows;
-        if($numRows > 0){
-            while($row = $result->fetch_assoc()){
-                $data[] = $row;
-            }
+        $mysqli = $this->connectToDatabase();
+        $result = $mysqli->query($sql);
+        $num_rows = $result->num_rows;
+        if($num_rows > 0){
+            $data = $result->fetch_assoc();
             $this->data = $data;
         }
     }
 
-    public function getAllPages(){
-        $this->loadData();
+    public function getPageDetails($page_name){
+        $this->loadData($page_name);
         return $this->data;
     }
 }

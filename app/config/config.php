@@ -12,6 +12,7 @@
         echo "</pre>";
     }
 
-    //===========  ERROR HANDLING (PRODUCTION):
+
+//===========  ERROR HANDLING (PRODUCTION):
     /*ini_set('display_errors','off');
     error_reporting(0);*/

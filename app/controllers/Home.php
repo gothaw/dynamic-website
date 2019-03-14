@@ -2,19 +2,31 @@
 
 class Home extends Controller{
 
-    public function index($name = ''){
-        $user = $this->model('User');
-        $nav_pages = $this->model('NavBarPages');
+    protected $page;
+    protected $nav_pages;
+    protected $user;
 
-        if(!empty($nav_pages->returnFailMessage())){
-            print_r($nav_pages->returnFailMessage());
+    public function __construct()
+    {
+        $this->nav_pages = $this->model('NavBarPages');
+        $this->page = $this->model('CurrentPage');
+        $this->user = $this->model('User');
+    }
+
+    public function index($name = ''){
+        $this_page='home';
+        $path='index';
+
+        if(!empty($this->nav_pages->returnFailMessage())){
+            print_r($this->nav_pages->returnFailMessage());
         }
 
-        $user->name = $name;
-        $nav_pages = $nav_pages->getNavBarPages();
+        $nav_pages = $this->nav_pages->getNavBarPages();
+        $page_details = $this->page->getPageDetails($this_page);
+        $this->user->name = $name;
 
-
-        $this->view('home','index', ['name' => $user->name, 'nav_pages' => $nav_pages ]);
+        $this->view($this_page,$path, ['name'=>$name,'nav_pages' => $nav_pages, 'page_details' => $page_details ]);
         $this->view->renderView();
     }
+
 }
