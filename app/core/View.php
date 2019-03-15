@@ -2,18 +2,18 @@
 
 class View
 {
-    protected $view_name;
-    protected $view_file;
-    protected $view_data;
+    protected $viewName;
+    protected $viewFile;
+    protected $viewData;
 
-    public function __construct($view_name,$view_file,$view_data)
+    public function __construct($viewName,$viewFile,$viewData)
     {
-        $this->view_name = $view_name;
-        $this->view_file = $view_file;
-        $this->view_data = $view_data;
+        $this->viewName = $viewName;
+        $this->viewFile = $viewFile;
+        $this->viewData = $viewData;
     }
 
     public function renderView(){
-        require_once '../app/views/' . $this->view_file . '.php';
+        require_once '../app/views/' . $this->viewFile . '.php';
     }
 }

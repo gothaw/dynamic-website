@@ -16,12 +16,12 @@
                 <div class="main-menu">
                     <ul>
                         <?php
-                        if(isset($data['nav_pages'])) {
-                            foreach ($data['nav_pages'] as $page) {?>
+                        if(isset($data['navPages'])) {
+                            foreach ($data['navPages'] as $page) {?>
                             <li>
                                 <a class="menu-link
-                                <?php if($page['pgName']===$name){echo "menu-link-active";}?>" href="<?php echo ROOT . $page['pgUrl']?>">
-                                   <?php echo $page['pgName']?>
+                                <?php if($page['pg_name']===$name){echo "menu-link-active";}?>" href="<?php echo ROOT . $page['pg_url']?>">
+                                   <?php echo $page['pg_name']?>
                                 </a>
                             </li>
                         <?php }

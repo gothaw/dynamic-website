@@ -9,14 +9,14 @@ CREATE PAGES
 *************
 
 CREATE TABLE IF NOT EXISTS `page` (
-  `pgID` smallint(3) unsigned NOT NULL AUTO_INCREMENT,
-  `pgName` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `pgOrder` int(3) unsigned DEFAULT NULL,
-  `pgUrl` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `pgTitle` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `pgDesc` text COLLATE utf8_unicode_ci,
-  `pgKeys` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`pgID`)
+  `pg_ID` smallint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `pg_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pg_order` int(3) unsigned DEFAULT NULL,
+  `pg_url` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pg_title` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pg_desc` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pg_keys` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`pg_ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 *************
@@ -24,16 +24,93 @@ INSERT PAGES
 *************
 
 INSERT INTO `page` (
-`pgName` ,
-`pgOrder` ,
-`pgUrl` ,
-`pgTitle` ,
-`pgDesc`,
-`pgKeys`
+`pg_name` ,
+`pg_order` ,
+`pg_url` ,
+`pg_title` ,
+`pg_desc`,
+`pg_keys`
 )
 VALUES
 ('home', '0', 'index/', 'home', 'fitzone home page', 'home fitzone fitness club gym'),
-('blog', '1', 'blog/', 'latest news', 'fitzone blog page', 'blog latest news gym'),
-('about', '2', 'about/', 'about us', 'fitzone about page', 'about us team couches gym'),
-('schedule', '3', 'schedule/', 'upcoming classes', 'fitzone classes page', 'upcoming classes gym'),
-('contact', '4', 'contact/', 'contact us', 'fitzone contact page', 'contact page email map address');
+('blog', '1', 'blog/', 'blog', 'latest news', 'blog latest news gym'),
+('about', '2', 'about/', 'about us', 'what we do', 'about us team couches gym'),
+('schedule', '3', 'schedule/', 'schedule', 'upcoming classes', 'upcoming classes gym'),
+('contact', '4', 'contact/', 'contact us', 'where to find us', 'contact page email map address');
+
+***************
+CREATE CLASSES
+***************
+
+CREATE TABLE IF NOT EXISTS .`class` (
+    `cl_id` SMALLINT(3) UNSIGNED NOT NULL AUTO_INCREMENT ,
+    `cl_name` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+    `cl_desc` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+    `cl_duration` SMALLINT(3) UNSIGNED NULL DEFAULT NULL ,
+    `cl_max_people` SMALLINT(3) UNSIGNED NOT NULL DEFAULT '10' ,
+    PRIMARY KEY (`cl_id`)
+) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_unicode_ci;
+
+ALTER TABLE `class` ADD `cl_img_id` SMALLINT(3) UNSIGNED NULL DEFAULT NULL AFTER `cl_max_people`, ADD INDEX (`cl_img_id`);
+
+ALTER TABLE `class` ADD FOREIGN KEY (`cl_img_id`) REFERENCES `class_image`(`cl_img_id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+**********************
+CREATE CLASSES IMAGES
+**********************
+
+CREATE TABLE `php-website`.`class_image` (
+`cl_img_id` SMALLINT(3) UNSIGNED NOT NULL AUTO_INCREMENT ,
+`cl_img_url` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+`cl_img_alt` VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL , PRIMARY KEY (`cl_img_id`))
+ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_unicode_ci;
+
+*************
+INSERT CLASSES
+*************
+
+INSERT INTO `class` (
+	`cl_id`,
+	`cl_name` ,
+	`cl_desc` ,
+	`cl_duration` ,
+	`cl_max_people` ,
+    `cl_img_id`
+)
+VALUES
+('101','boxing', 'Hath creeping subdue he fish green face whose spirit that seasons today multiply female midst upon.', '120', '15', '201');
+
+INSERT INTO `class` (
+	`cl_name` ,
+	`cl_desc` ,
+	`cl_duration` ,
+	`cl_max_people` ,
+    `cl_img_id`
+)
+VALUES
+('crossfit', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam eligendi id labore repellat rerum.', '60', '20', '202'),
+('yoga', 'Ad adipisci aspernatur autem consequatur dolor dolores esse iste, laborum nam, nihil, nobis quo.', '60', '25', '203'),
+('metcon', 'Consectetur adipisicing elit. Aperiam delectus doloremque pariatur suscipit ullam. Laboriosam.', '45', '20', '204'),
+('high intensity', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi dignissimos est hic incidunt.', '30', '20', '205'),
+('kickboxing', 'Praesentium recusandae repellat, tenetur velit? A, dolore doloremque iure necessitatibus non odio odit.', '90', '12', '206'),
+('pilates', 'Ipsum dolor sit amet, consectetur adipisicing elit. Error id impedit quo, ratione similique soluta.', '60', '30', '207'),
+('rope training', 'Consectetur adipisicing elit. Alias et necessitatibus praesentium quia reiciendis odio odit.', '45', '30', '208');
+
+*************
+INSERT CLASSES IMG
+*************
+
+INSERT INTO `class_image` (
+	`cl_img_id`,
+	`cl_img_url` ,
+	`cl_img_alt`
+)
+VALUES
+('201','img/classes/1-boxing.jpg', 'a man with boxing gloves'),
+('202','img/classes/2-crossfit.jpg', 'olympic bar'),
+('203','img/classes/3-yoga.jpg', 'women doing yoga'),
+('204','img/classes/4-metcon.jpg', 'man stretching'),
+('205','img/classes/5-high-intensity.jpg', 'man lifting a tyre'),
+('206','img/classes/6-kickboxing.jpg', 'man kicking a punching bar'),
+('207','img/classes/7-pilates.jpg', 'woman exercising on a ball'),
+('208','img/classes/8-rope-training.jpg', 'man pulling a rope');

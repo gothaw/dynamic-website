@@ -1,7 +1,7 @@
 <?php
 //simplifying variables
-$data=$this->view_data;
-$name=$this->view_name;
+$data=$this->viewData;
+$name=$this->viewName;
 
 //trace($this);
 trace($data);

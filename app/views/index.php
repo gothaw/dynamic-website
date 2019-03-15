@@ -1,11 +1,11 @@
 <?php
     //simplifying variables
-    $data=$this->view_data;
-    $name=$this->view_name;
+    $data=$this->viewData;
+    $name=$this->viewName;
 
     //trace($this);
     //trace($data);
-    //trace(!isset($data['fail_message']));
+    //trace(!isset($data['failMessage']));
 
     //HEAD
     include ("includes/top.php");
@@ -14,7 +14,7 @@
     include ("includes/header.php");
     //CONTENT
     include ("includes/home/banner.php");
-    if(isset($data['fail_message'])){
+    if(isset($data['failMessage'])){
         include ("includes/fail-message.php");
     }
     else{

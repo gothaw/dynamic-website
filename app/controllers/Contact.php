@@ -1,31 +1,31 @@
 <?php
 
-class contact extends Controller
+class Contact extends Controller
 {
     protected $page;
-    protected $nav_pages;
+    protected $navPages;
     protected $user;
-    protected $fail_message;
+    protected $failMessage;
 
     public function __construct()
     {
-        $this->fail_message = $this->databaseMsg();
-        $this->nav_pages = $this->model('NavBarPages');
+        $this->failMessage = $this->returnDatabaseMessage();
+        $this->navPages = $this->model('NavBarPages');
         $this->page = $this->model('CurrentPage');
         $this->user = $this->model('User');
     }
 
     public function index($name = ''){
-        $this_page='contact';
+        $thisPage='contact';
         $path='contact';
 
-        print_r($this->fail_message);
+        print_r($this->failMessage);
 
-        $nav_pages = $this->nav_pages->getNavBarPages();
-        $page_details = $this->page->getPageDetails($this_page);
+        $navPages = $this->navPages->getNavBarPages();
+        $pageDetails = $this->page->getPageDetails($thisPage);
         $this->user->name = $name;
 
-        $this->view($this_page,$path, ['name'=>$name,'nav_pages' => $nav_pages, 'page_details' => $page_details ]);
+        $this->view($thisPage,$path, ['name'=>$name,'navPages' => $navPages, 'pageDetails' => $pageDetails ]);
         $this->view->renderView();
     }
 }

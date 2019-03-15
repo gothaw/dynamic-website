@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- Page Title -->
     <title>Fitzone<?php
-        if(isset($data['page_details']['pgTitle'])){
-            echo ' | ' . ucfirst($data['page_details']['pgTitle']);
+        if(isset($data['pageDetails']['pg_title'])){
+            echo ' | ' . ucwords($data['pageDetails']['pg_title']);
         }?>
     </title>
     <!-- Favicon -->
@@ -23,16 +23,16 @@
     <link rel="stylesheet" href="<?php echo DIST?>/css/main.css">
     <meta name="author" content="Radoslaw Soltan">
     <meta name="description" content="<?php
-        if(isset($data['page_details']['pgDesc'])){
-            echo $data['page_details']['pgDesc'];
+        if(isset($data['pageDetails']['pg_desc'])){
+            echo ucwords($data['pageDetails']['pg_desc']);
         }
         else{
-            echo "Fitzone website";
+            echo "Fitzone Website";
         }
     ?>">
     <meta name="keywords" content="<?php
-        if(isset($data['page_details']['pgKeys'])){
-            echo ucfirst($data['page_details']['pgKeys']);
+        if(isset($data['pageDetails']['pg_keys'])){
+            echo ucwords($data['pageDetails']['pg_keys']);
         }
         else{
             echo "Fitzone Gym Fitness Join Premium";

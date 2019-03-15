@@ -4,7 +4,7 @@ class App {
 
     protected $controller = 'home';
     protected $method = 'index';
-    protected $params = [];
+    protected $parameters = [];
 
     public function __construct()
     {
@@ -26,8 +26,8 @@ class App {
             }
         }
 
-        $this->params = $url ? array_values($url) : [];
-        call_user_func_array([$this->controller, $this->method],$this->params);
+        $this->parameters = $url ? array_values($url) : [];
+        call_user_func_array([$this->controller, $this->method],$this->parameters);
     }
 
 

@@ -1,7 +1,8 @@
 <?php
-    class header extends Controller {
 
-        public function index(){
-            echo "header";
-        }
+class Header extends Controller {
+
+    public function index(){
+        echo "header";
     }
+}

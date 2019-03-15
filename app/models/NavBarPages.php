@@ -7,17 +7,17 @@ class NavBarPages extends Database {
     private function loadData() {
         $sql = "
                 SELECT
-                    `page`.`pgName`,
-                    `page`.`pgUrl`
+                    `page`.`pg_name`,
+                    `page`.`pg_url`
                 FROM
                     `page`
                 ORDER BY
-                    `page`.`pgOrder`
+                    `page`.`pg_order`
                 ASC";
         $mysqli = $this->connectToDatabase();
         $result = $mysqli->query($sql);
-        $num_rows = $result->num_rows;
-        if($num_rows > 0){
+        $numRows = $result->num_rows;
+        if($numRows > 0){
             $pages = [];
             while($row = $result->fetch_assoc()){
                 array_push($pages,$row);
