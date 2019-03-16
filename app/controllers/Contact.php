@@ -18,14 +18,21 @@ class Contact extends Controller
     public function index($name = ''){
         $thisPage='contact';
         $path='contact';
-
-        print_r($this->_failMessage);
+        $footerTheme = 'dark';
+        $bannerIndex = '2';
 
         $navPages = $this->_navPages->getNavBarPages();
         $pageDetails = $this->_page->getPageDetails($thisPage);
         $this->_user->name = $name;
 
-        $this->view($thisPage,$path, ['name'=>$name,'navPages' => $navPages, 'pageDetails' => $pageDetails ]);
+        $this->view($thisPage,$path, [
+            'name'=>$name,
+            'navPages' => $navPages,
+            'pageDetails' => $pageDetails,
+            'bannerIndex'=>$bannerIndex,
+            'footerTheme' => $footerTheme,
+            'failMessage'=>$this->_failMessage ]
+        );
         $this->_view->renderView();
     }
 }

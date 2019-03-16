@@ -1,12 +1,12 @@
 <?php
 
-class Home extends Controller{
-
+class About extends Controller
+{
     protected $_page;
     protected $_navPages;
     protected $_failMessage;
     protected $_classes;
-    protected $_opinions;
+    protected $_coaches;
 
     public function __construct()
     {
@@ -14,28 +14,29 @@ class Home extends Controller{
         $this->_navPages = $this->model('NavBarPages');
         $this->_page = $this->model('CurrentPage');
         $this->_classes = $this->model('Classes');
-        $this->_opinions = $this->model('ClientOpinions');
+        $this->_coaches = $this->model('Coaches');
     }
 
     public function index(){
-        $thisPage='home';
-        $path='index';
-        $footerTheme = 'light';
+        $thisPage='about';
+        $path='about';
+        $footerTheme = 'dark';
+        $bannerIndex = '2';
 
         $navPages = $this->_navPages->getNavBarPages();
         $pageDetails = $this->_page->getPageDetails($thisPage);
-        $classes = $this->_classes->getClassesDetails(4);
-        $opinions = $this->_opinions->getClientOpinions();
+        $classes = $this->_classes->getClassesDetails();
+        $coaches = $this->_coaches->getCoachesDetails();
 
         $this->view($thisPage,$path, [
             'navPages' => $navPages,
             'pageDetails' => $pageDetails,
-            'classes' => $classes ,
-            'opinions' => $opinions,
+            'classes' => $classes,
+            'coaches' => $coaches ,
+            'bannerIndex'=>$bannerIndex,
             'footerTheme' => $footerTheme,
             'failMessage'=>$this->_failMessage]
         );
         $this->_view->renderView();
     }
-
 }

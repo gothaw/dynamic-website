@@ -5,7 +5,8 @@ class ClientOpinions extends Database
     private $_data;
 
     private function loadData() {
-        $sql = "SELECT
+        $sql = "
+                SELECT
                     `op_id`,
                     `op_client_name`,
                     `op_photo_url`,
@@ -17,7 +18,8 @@ class ClientOpinions extends Database
                   `opinion`.`cl_id` = `class`.`cl_id`
                 ORDER BY `op_id`
                 DESC
-                LIMIT 6";
+                LIMIT 6;
+                ";
         $mysqli = $this->connectToDatabase();
         $result = $mysqli->query($sql);
         $numRows = $result->num_rows;
@@ -34,16 +36,5 @@ class ClientOpinions extends Database
         $this->loadData();
         return $this->_data;
     }
-
-
-
-
-
-
-
-
-
-
-
 
 }

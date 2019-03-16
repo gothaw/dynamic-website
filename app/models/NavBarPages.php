@@ -13,7 +13,8 @@ class NavBarPages extends Database {
                     `page`
                 ORDER BY
                     `page`.`pg_order`
-                ASC";
+                ASC;
+                ";
         $mysqli = $this->connectToDatabase();
         $result = $mysqli->query($sql);
         $numRows = $result->num_rows;

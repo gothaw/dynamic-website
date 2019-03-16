@@ -163,3 +163,55 @@ ON
 ORDER BY
 	DESC
 LIMIT 6
+
+**********************
+CREATE COACH
+**********************
+
+CREATE TABLE `php-website`.`coach` (
+    `co_id` SMALLINT(3) UNSIGNED NOT NULL AUTO_INCREMENT ,
+    `co_first_name` VARCHAR(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+    `co_last_name` VARCHAR(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+    `co_email` VARCHAR(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+    `co_focus` VARCHAR(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+    `co_img` VARCHAR(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+    `co_facebook` VARCHAR(60) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+    `co_twitter` VARCHAR(60) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+    `co_linkedin` VARCHAR(60) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+PRIMARY KEY (`co_id`))
+    ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_unicode_ci;
+
+**********************
+INSERT COACH
+**********************
+
+INSERT INTO `coach` (
+	`co_id`,
+	`co_first_name`,
+	`co_last_name` ,
+	`co_email` ,
+	`co_focus` ,
+	`co_img`,
+	`co_facebook` ,
+	`co_twitter` ,
+    `co_linkedin`
+)
+VALUES
+('301','jamie', 'hart', 'j.hart@mail.com', 'personal trainer', 'img/coaches/coach-1.jpg', 'facebookuk/','twitter','uas/login');
+
+INSERT INTO `coach` (
+	`co_first_name`,
+	`co_last_name` ,
+	`co_email` ,
+	`co_focus` ,
+	`co_img`,
+	`co_facebook` ,
+	`co_twitter` ,
+    `co_linkedin`
+)
+VALUES
+('jack', 'fraser', 'j.fraser@mail.com', 'boxing', 'img/coaches/coach-2.jpg', 'facebookuk/','twitter','uas/login'),
+('elsa', 'watson', 'e.watson@mail.com', 'weight loss', 'img/coaches/coach-3.jpg', 'facebookuk/','twitter','uas/login'),
+('arthur', 'wood', 'a.wood@mail.com', 'gym fitness', 'img/coaches/coach-4.jpg', 'facebookuk/','twitter','uas/login'),
+('laura', 'mason', 'l.mason@mail.com', 'yoga', 'img/coaches/coach-5.jpg', 'facebookuk/','twitter','uas/login'),
+('matt', 'rogers', 'm.rogers@mail.com', 'personal trainer', 'img/coaches/coach-6.jpg', 'facebookuk/','twitter','uas/login');

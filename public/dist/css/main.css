@@ -11,7 +11,7 @@
     1. Author CSS
     2. Preloader
     3. Main Menu
-    4. Header
+    4. Schedule
     5. Banner
     6. Feature
     7. Service
@@ -340,7 +340,7 @@ textarea:focus {
     margin: 6px 0;
     height: 2px; }
 
-/* 4. Header */
+/* 4. Schedule */
 .header-area.main-header {
   padding: 24px 0;
   background: #ffffff;
@@ -371,7 +371,7 @@ textarea:focus {
 
 .banner-bg {
   background-color: #b0b0b0;
-  background-image: url("../img/banner-bg.jpg");
+  background-image: url("../img/banners/banner.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover; }
@@ -390,13 +390,14 @@ textarea:focus {
 .feature-area {
   background: #f5f5f5; }
 
-.single-feature:hover .hover-state {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-  opacity: 1;
-  visibility: visible; }
-
-.single-feature:hover .feature-footer {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); }
+.single-feature {
+  padding-top: 60px; }
+  .single-feature:hover .hover-state {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+    visibility: visible; }
+  .single-feature:hover .feature-footer {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); }
 
 .feature-img {
   position: relative; }
@@ -462,16 +463,17 @@ textarea:focus {
     color: #ffffff; }
 
 /* 8. Coaches */
-.single-coaches:hover .hover-state {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-  opacity: 1;
-  visibility: visible; }
-
-.single-coaches:hover .coaches-footer {
-  background: #ffffff;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); }
-  .single-coaches:hover .coaches-footer h5 {
-    color: #f61b55; }
+.single-coaches {
+  padding-top: 60px; }
+  .single-coaches:hover .hover-state {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+    visibility: visible; }
+  .single-coaches:hover .coaches-footer {
+    background: #ffffff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); }
+    .single-coaches:hover .coaches-footer h5 {
+      color: #f61b55; }
 
 .coaches-img {
   position: relative; }
@@ -690,7 +692,6 @@ textarea:focus {
 
 /* 14. About */
 .banner-area.about-page {
-  background-image: url("../images/about-bg.jpg") !important;
   position: relative;
   z-index: 1; }
   .banner-area.about-page:after {
@@ -713,6 +714,12 @@ textarea:focus {
       color: #f61b55; }
   .banner-area.about-page .banner-text {
     padding: 0; }
+
+.banner-area-1 {
+  background-image: url("../img/banners/banner-1.jpg") !important; }
+
+.banner-area-2 {
+  background-image: url("../img/banners/banner-2.jpg") !important; }
 
 /* 15. Service Page */
 .feature-area.services {

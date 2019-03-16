@@ -3,8 +3,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="section-top text-center">
-                        <h3>featured classes</h3>
+                    <div class="text-center">
+                        <h3><?php
+                            if($data['pageDetails']['pg_name']==='about'){
+                                echo "our classes";
+                            } else{
+                                echo "featured classes";
+                            }?>
+                        </h3>
                     </div>
                 </div>
             </div>
@@ -16,7 +22,7 @@
                                 <div class="feature-img">
                                     <img src="<?php echo DIST . $class['cl_img_url']?>" alt="<?php echo $class['cl_img_alt']?>">
                                     <div class="hover-state">
-                                        <a href="#" class="template-btn">schedule</a>
+                                        <a href="<?php echo ROOT . 'schedule/'?>" class="template-btn">schedule</a>
                                     </div>
                                 </div>
                                 <div class="feature-footer text-center">
