@@ -114,3 +114,52 @@ VALUES
 ('206','img/classes/6-kickboxing.jpg', 'man kicking a punching bar'),
 ('207','img/classes/7-pilates.jpg', 'woman exercising on a ball'),
 ('208','img/classes/8-rope-training.jpg', 'man pulling a rope');
+
+**********************
+CREATE OPINION
+**********************
+
+CREATE TABLE `php-website`.`opinion` (
+    `op_id` SMALLINT(3) UNSIGNED NOT NULL AUTO_INCREMENT ,
+    `op_client_name` VARCHAR(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+    `op_photo_url` VARCHAR(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+    `op_desc` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+    `cl_id` SMALLINT(3) UNSIGNED NULL DEFAULT NULL ,
+    PRIMARY KEY (`op_id`), INDEX (`cl_id`)) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_unicode_ci;
+
+**********************
+INSERT OPINIONS
+**********************
+
+INSERT INTO `opinion` (
+    `op_id`,
+	`op_client_name` ,
+	`op_photo_url` ,
+	`op_desc` ,
+    `cl_id`
+)
+VALUES
+('1','john doe', 'img/opinions/client1.png', 'Atque aut dignissimos dolor labore molestiae placeat quas quo tenetur ullam veniam.', '101'),
+('2','mark may', 'img/opinions/client2.png', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam deleniti facere illum.', NULL),
+('3','john brown', 'img/opinions/client3.png', 'Accusantium assumenda dolorem doloremque, eligendi esse est hic laborum nulla.', '105'),
+('4','jenny wills', 'img/opinions/client4.png', 'Rperiam aspernatur atque aut autem consectetur consequatur cumque cupiditate deleniti ducimus.', '107'),
+('5','james king', 'img/opinions/client5.png', 'Etque aut dignissimos dolor labore molestiae placeat quas quo tenetur ullam veniam! Accusantium.', '104'),
+('6','anna gordon', 'img/opinions/client6.png', 'Adipisci alias aliquam aperiam at, corporis cum cupiditate deleniti deserunt dolorem doloremque.', NULL),
+('7','jay clarke', 'img/opinions/client7.png', 'Ab accusamus aut blanditiis consequuntur dolor earum enim excepturi explicabo illo impedit labor.', '106'),
+('8','sophie phillips', 'img/opinions/client8.png', 'Aut autem consequatur eaque labore laborum laudantium magni, maiores mollitia, necessitatibus.', '102');
+
+
+
+SELECT
+	`op_id`,
+    `op_client_name`,
+    `op_photo_url`,
+    `op_text`
+
+FROM
+	`opinion` LEFT JOIN `class`
+ON
+	`opinion`.`cl_id` = `class`.`cl_id`
+ORDER BY
+	DESC
+LIMIT 6
