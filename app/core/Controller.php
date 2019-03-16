@@ -2,7 +2,7 @@
 
 class Controller {
 
-    protected $view;
+    protected $_view;
     protected $model;
 
     public function model($model){
@@ -15,15 +15,15 @@ class Controller {
 
     public function view($viewName,$view, $data=[]){
         if(file_exists('../app/views/' . $view . '.php')){
-            $this->view = new View($viewName,$view,$data);
+            $this->_view = new View($viewName,$view,$data);
         }
     }
 
     public function returnDatabaseMessage(){
         if(file_exists('../app/core/DatabaseCheck.php')){
             require_once '../app/core/DatabaseCheck.php';
-            $database_check = new DatabaseCheck();
-            return $database_check->checkDatabaseConnection();
+            $databaseMessage = new DatabaseCheck();
+            return $databaseMessage->checkDatabaseConnection();
         }
     }
 }

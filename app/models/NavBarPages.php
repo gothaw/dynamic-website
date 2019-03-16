@@ -2,7 +2,7 @@
 
 class NavBarPages extends Database {
 
-    private $data;
+    private $_data;
 
     private function loadData() {
         $sql = "
@@ -22,12 +22,12 @@ class NavBarPages extends Database {
             while($row = $result->fetch_assoc()){
                 array_push($pages,$row);
             }
-            $this->data = $pages;
+            $this->_data = $pages;
         }
     }
 
     public function getNavBarPages(){
         $this->loadData();
-        return $this->data;
+        return $this->_data;
     }
 }

@@ -2,12 +2,12 @@
 
 class DatabaseCheck extends Database {
 
-    private $message;
+    private $_message;
 
     public function checkDatabaseConnection(){
         $mysqli = $this->connectToDatabase();
         if($mysqli->connect_error){
-            return $this->message="Something went wrong. It is our fault. Sorry. =(";
+            return $this->_message="Something went wrong. It is our fault. Sorry. =(";
         }
     }
 

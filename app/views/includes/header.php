@@ -15,8 +15,7 @@
                 </div>
                 <div class="main-menu">
                     <ul>
-                        <?php
-                        if(isset($data['navPages'])) {
+                        <?php if(isset($data['navPages'])) {
                             foreach ($data['navPages'] as $page) {?>
                             <li>
                                 <a class="menu-link

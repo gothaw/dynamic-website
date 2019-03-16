@@ -2,7 +2,7 @@
 
 class CurrentPage extends Database {
 
-    private $data;
+    private $_data;
 
     private function loadData($pageName) {
         $sql = "
@@ -18,12 +18,12 @@ class CurrentPage extends Database {
         $numRows = $result->num_rows;
         if($numRows > 0){
             $data = $result->fetch_assoc();
-            $this->data = $data;
+            $this->_data = $data;
         }
     }
 
     public function getPageDetails($pageName){
         $this->loadData($pageName);
-        return $this->data;
+        return $this->_data;
     }
 }

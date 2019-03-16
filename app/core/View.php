@@ -2,9 +2,9 @@
 
 class View
 {
-    protected $viewName;
-    protected $viewFile;
-    protected $viewData;
+    public $viewName;
+    public $viewFile;
+    public $viewData;
 
     public function __construct($viewName,$viewFile,$viewData)
     {

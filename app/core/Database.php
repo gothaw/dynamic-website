@@ -2,17 +2,17 @@
 
 class Database{
 
-    private $host;
-    private $user;
-    private $password;
-    private $databaseName;
+    private $_host;
+    private $_user;
+    private $_password;
+    private $_databaseName;
 
     protected function connectToDatabase(){
-        $this->host = "localhost";
-        $this->user = "root";
-        $this->password = "";
-        $this->databaseName = "php-website";
-        $mysqli = new mysqli($this->host, $this->user, $this->password, $this->databaseName);
+        $this->_host = "localhost";
+        $this->_user = "root";
+        $this->_password = "";
+        $this->_databaseName = "php-website";
+        $mysqli = new mysqli($this->_host, $this->_user, $this->_password, $this->_databaseName);
         return $mysqli;
     }
 }

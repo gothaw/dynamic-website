@@ -3,8 +3,8 @@
     $data=$this->viewData;
     $name=$this->viewName;
 
-    //trace($this);
-    //trace($data);
+//    trace($this);
+//    trace($data);
     //trace(!isset($data['failMessage']));
 
     //HEAD

@@ -9,62 +9,24 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="single-feature mb-5 mb-lg-0">
-                        <div class="feature-img">
-                            <img src="<?php echo DIST?>img/classes/1-boxing.jpg" alt="">
-                            <!--<div class="hover-state">
-                                <a href="#" class="template-btn">schedule</a>
-                            </div>-->
-                        </div>
-                        <div class="feature-footer text-center">
-                            <h5>cycling training</h5>
-                            <p>Hath creeping subdue he fish green face whose spirit that seasons today multiply female midst upon.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="single-feature mb-5 mb-lg-0">
-                        <div class="feature-img">
-                            <img src="<?php echo DIST?>img/classes/2-crossfit.jpg" alt="">
-                            <div class="hover-state">
-                                <a href="#" class="template-btn">schedule</a>
+                <?php if(isset($data['classes'])) {
+                    foreach ($data['classes'] as $class){ ?>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="single-feature mb-5 mb-lg-0">
+                                <div class="feature-img">
+                                    <img src="<?php echo DIST . $class['cl_img_url']?>" alt="<?php echo $class['cl_img_alt']?>">
+                                    <div class="hover-state">
+                                        <a href="#" class="template-btn">schedule</a>
+                                    </div>
+                                </div>
+                                <div class="feature-footer text-center">
+                                    <h5><?php echo $class['cl_name']?></h5>
+                                    <p><?php echo $class['cl_desc']?></p>
+                                </div>
                             </div>
                         </div>
-                        <div class="feature-footer text-center">
-                            <h5>tone muscle</h5>
-                            <p>Hath creeping subdue he fish green face whose spirit that seasons today multiply female midst upon</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="single-feature">
-                        <div class="feature-img">
-                            <img src="<?php echo DIST?>img/classes/3-yoga.jpg" alt="">
-                            <div class="hover-state">
-                                <a href="#" class="template-btn">schedule</a>
-                            </div>
-                        </div>
-                        <div class="feature-footer text-center">
-                            <h5>meditation work</h5>
-                            <p>Hath creeping subdue he fish green face whose spirit that seasons today multiply female midst upon</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="single-feature">
-                        <div class="feature-img">
-                            <img src="<?php echo DIST?>img/classes/4-metcon.jpg" alt="">
-                            <div class="hover-state">
-                                <a href="#" class="template-btn">schedule</a>
-                            </div>
-                        </div>
-                        <div class="feature-footer text-center">
-                            <h5>training work</h5>
-                            <p>Hath creeping subdue he fish green face whose spirit that seasons today multiply female midst upon</p>
-                        </div>
-                    </div>
-                </div>
+                <?php }
+                }?>
             </div>
         </div>
     </section>
