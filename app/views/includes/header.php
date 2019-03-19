@@ -26,7 +26,7 @@
                         <?php }
                         }?>
                         <li class="menu-btn">
-                            <a href="#" class="template-btn">Login</a>
+                            <a href="<?php echo ROOT . 'login/'?>" class="template-btn">Login</a>
                         </li>
                     </ul>
                 </div>
