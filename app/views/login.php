@@ -1,7 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Radosław
- * Date: 19.03.2019
- * Time: 22:20
- */
+$data=$this->viewData;
+$name=$this->viewName;
+
+//HEAD
+include ("includes/top.php");
+//HEADER AND PRELOADER
+include ("includes/preloader.php");
+include ("includes/header.php");
+//CONTENT
+include ("includes/banner.php");
+
+
+//FOOTER
+include ("includes/footer.php");
