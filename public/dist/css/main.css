@@ -2499,3 +2499,19 @@ h6 {
   .fail-message-wrapper {
     padding: 0 25px; }
 
+/* 19. Fail Message */
+.login-text {
+  text-align: center;
+  padding-bottom: 10px; }
+
+.login-field {
+  text-align: center; }
+  .login-field input {
+    width: 300px;
+    margin: 5px auto;
+    padding: 5px; }
+
+.login-button {
+  text-align: center;
+  margin: 10px 0; }
+

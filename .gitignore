@@ -15,6 +15,7 @@ vendor/
 #composer config
 
 app/config/composer-config.php
+app/config/sql.txt
 
 # images
 

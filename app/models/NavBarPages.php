@@ -11,6 +11,8 @@ class NavBarPages extends Database {
                     `page`.`pg_url`
                 FROM
                     `page`
+                WHERE
+                    `pg_order` < 100
                 ORDER BY
                     `page`.`pg_order`
                 ASC;
