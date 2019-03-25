@@ -11,12 +11,16 @@
                         <input type="text" placeholder="Enter username" name="username" id="username" autocomplete="off" required>
                     </div>
                     <div class="login-field">
-                        <input type="password" placeholder="Enter password"  autocomplete="off" required>
+                        <input type="password" placeholder="Enter password" name="password" id="password" autocomplete="off" required>
                     </div>
                     <div class="login-button">
-                        <button type="submit" class="template-btn">Log In</button>
+                        <input type="hidden" name="token" value="">
+                        <input type="submit" class="template-btn" value="log in">
                     </div>
                 </form>
+                <div class="login-text">
+                    If you don't have an account please register <a class="link" href="<?php echo ROOT;?>register/">here</a>.
+                </div>
             </div>
         </div>
     </div>
