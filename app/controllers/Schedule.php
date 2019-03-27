@@ -4,11 +4,9 @@ class Schedule extends Controller {
 
     protected $_page;
     protected $_navPages;
-    protected $_failMessage;
 
     public function __construct()
     {
-        $this->_failMessage = $this->returnDatabaseMessage();
         $this->_navPages = $this->model('NavBarPages');
         $this->_page = $this->model('CurrentPage');
     }
@@ -25,10 +23,9 @@ class Schedule extends Controller {
         $this->view($thisPage,$path, [
             'navPages' => $navPages,
             'pageDetails' => $pageDetails,
-            'bannerIndex'=>$bannerIndex,
-            'footerTheme' => $footerTheme,
-            'failMessage'=>$this->_failMessage]
-        );
+            'bannerIndex'=> $bannerIndex,
+            'footerTheme' => $footerTheme
+        ]);
         $this->_view->renderView();
     }
 }

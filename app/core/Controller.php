@@ -22,8 +22,6 @@ class Controller {
     public function returnDatabaseMessage(){
         if(file_exists('../app/core/DatabaseCheck.php')){
             require_once '../app/core/DatabaseCheck.php';
-            $databaseMessage = new DatabaseCheck();
-            return $databaseMessage->checkDatabaseConnection();
         }
     }
 }

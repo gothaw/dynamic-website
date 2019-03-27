@@ -3,6 +3,7 @@
 $data=$this->viewData;
 $name=$this->viewName;
 
+//trace($data);
 //trace($this);
 //trace($data);
 //trace($name);

@@ -1,10 +1,11 @@
 <?php
 
-class NavBarPages extends Database {
+class NavBarPages {
 
     private $_data;
 
     private function loadData() {
+        $database = Database::getInstance();
         $sql = "
                 SELECT
                     `page`.`pg_name`,
@@ -12,21 +13,12 @@ class NavBarPages extends Database {
                 FROM
                     `page`
                 WHERE
-                    `pg_order` < 100
+                    `pg_order` < ?
                 ORDER BY
                     `page`.`pg_order`
                 ASC;
                 ";
-        $mysqli = $this->connectToDatabase();
-        $result = $mysqli->query($sql);
-        $numRows = $result->num_rows;
-        if($numRows > 0){
-            $pages = [];
-            while($row = $result->fetch_assoc()){
-                array_push($pages,$row);
-            }
-            $this->_data = $pages;
-        }
+        $this->_data = $database->query($sql,[100])->getResult();
     }
 
     public function getNavBarPages(){

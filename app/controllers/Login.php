@@ -30,4 +30,9 @@ class Login extends Controller{
         );
         $this->_view->renderView();
     }
+
+    public function form(){
+        trace($this);
+        $this->_view->renderView();
+    }
 }

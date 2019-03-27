@@ -1,25 +1,20 @@
 <?php
 
-class CurrentPage extends Database {
+class CurrentPage{
 
     private $_data;
 
     private function loadData($pageName) {
+        $database = Database::getInstance();
         $sql = "
                 SELECT
                     *
                 FROM
                     `page`
                 WHERE
-                    `page`.`pg_name` = '$pageName';
+                    `page`.`pg_name` = ?;
                ";
-        $mysqli = $this->connectToDatabase();
-        $result = $mysqli->query($sql);
-        $numRows = $result->num_rows;
-        if($numRows > 0){
-            $data = $result->fetch_assoc();
-            $this->_data = $data;
-        }
+        $this->_data = $database->query($sql,[$pageName])->getResult();
     }
 
     public function getPageDetails($pageName){
