@@ -1,10 +1,11 @@
 <?php
 
-class ClientOpinions extends Database
-{
+class ClientOpinions {
+
     private $_data;
 
     private function loadData() {
+        $database = Database::getInstance();
         $sql = "
                 SELECT
                     `op_id`,
@@ -20,16 +21,7 @@ class ClientOpinions extends Database
                 DESC
                 LIMIT 6;
                 ";
-        $mysqli = $this->connectToDatabase();
-        $result = $mysqli->query($sql);
-        $numRows = $result->num_rows;
-        if($numRows > 0){
-            $opinions = [];
-            while($row = $result->fetch_assoc()){
-                array_push($opinions,$row);
-            }
-            $this->_data = $opinions;
-        }
+        $this->_data = $database->query($sql)->getResult();
     }
 
     public function getClientOpinions(){

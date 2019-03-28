@@ -1,15 +1,13 @@
 <?php
 
-class Contact extends Controller
-{
+class Contact extends Controller {
+
     protected $_page;
     protected $_navPages;
     protected $_user;
-    protected $_failMessage;
 
     public function __construct()
     {
-        $this->_failMessage = $this->returnDatabaseMessage();
         $this->_navPages = $this->model('NavBarPages');
         $this->_page = $this->model('CurrentPage');
         $this->_user = $this->model('User');
@@ -30,8 +28,7 @@ class Contact extends Controller
             'navPages' => $navPages,
             'pageDetails' => $pageDetails,
             'bannerIndex'=>$bannerIndex,
-            'footerTheme' => $footerTheme,
-            'failMessage'=>$this->_failMessage ]
+            'footerTheme' => $footerTheme]
         );
         $this->_view->renderView();
     }

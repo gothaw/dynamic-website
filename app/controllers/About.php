@@ -1,16 +1,14 @@
 <?php
 
-class About extends Controller
-{
+class About extends Controller {
+
     protected $_page;
     protected $_navPages;
-    protected $_failMessage;
     protected $_classes;
     protected $_coaches;
 
     public function __construct()
     {
-        $this->_failMessage = $this->returnDatabaseMessage();
         $this->_navPages = $this->model('NavBarPages');
         $this->_page = $this->model('CurrentPage');
         $this->_classes = $this->model('Classes');
@@ -34,8 +32,7 @@ class About extends Controller
             'classes' => $classes,
             'coaches' => $coaches ,
             'bannerIndex'=>$bannerIndex,
-            'footerTheme' => $footerTheme,
-            'failMessage'=>$this->_failMessage]
+            'footerTheme' => $footerTheme]
         );
         $this->_view->renderView();
     }

@@ -1,16 +1,15 @@
 <?php
 
-class Home extends Controller{
+class Home extends Controller {
 
-    protected $_page;
-    protected $_navPages;
-    protected $_failMessage;
-    protected $_classes;
-    protected $_opinions;
+    private $_page;
+    private $_navPages;
+    private $_failMessage;
+    private $_classes;
+    private $_opinions;
 
     public function __construct()
     {
-        $this->_failMessage = $this->returnDatabaseMessage();
         $this->_navPages = $this->model('NavBarPages');
         $this->_page = $this->model('CurrentPage');
         $this->_classes = $this->model('Classes');
@@ -32,8 +31,7 @@ class Home extends Controller{
             'pageDetails' => $pageDetails,
             'classes' => $classes ,
             'opinions' => $opinions,
-            'footerTheme' => $footerTheme,
-            'failMessage'=>$this->_failMessage]
+            'footerTheme' => $footerTheme]
         );
         $this->_view->renderView();
     }

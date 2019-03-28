@@ -1,11 +1,11 @@
 <?php
 
-class Classes extends Database {
+class Classes {
 
     private $_data;
 
     private function loadData($numberOfClasses) {
-
+        $database = Database::getInstance();
         if(isset($numberOfClasses)){
             $sql = "
                 SELECT 
@@ -39,16 +39,7 @@ class Classes extends Database {
                 ASC;
                 ";
         }
-        $mysqli = $this->connectToDatabase();
-        $result = $mysqli->query($sql);
-        $numRows = $result->num_rows;
-        if($numRows > 0){
-            $classes = [];
-            while($row = $result->fetch_assoc()){
-                array_push($classes,$row);
-            }
-            $this->_data = $classes;
-        }
+        $this->_data = $database->query($sql)->getResult();
     }
 
     public function getClassesDetails($numberOfClasses = NULL){

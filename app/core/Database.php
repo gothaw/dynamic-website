@@ -14,7 +14,6 @@ class Database{
     private $_query;
     private $_result;
     private $_rowCount;
-    private $_connectMessage = "";
 
     private function __construct(){
         try{
@@ -24,8 +23,15 @@ class Database{
             $this->_databaseName = "php-website";
             $this->_pdo = new PDO("mysql:host=" . $this->_host . ";dbname=" . $this->_databaseName,$this->_user,$this->_password);
         } catch (PDOException $e){
-            exit($this->_connectMessage="Something went wrong. It is our fault. Sorry. =(");
+            exit("Something went wrong. It is our fault. Sorry. = (");
         }
+    }
+
+    public static function getInstance() {
+        if(!isset(self::$_instance)){
+            self::$_instance = new Database();
+        }
+        return self::$_instance;
     }
 
     public function query($sql, $parameters = []){
@@ -40,7 +46,6 @@ class Database{
                 }
             }
             if($this->_query->execute()){
-//                $this->_result = $this->_query->fetchAll(PDO::FETCH_OBJ);
                 $this->_result = $this->_query->fetchAll(PDO::FETCH_ASSOC);
                 $this->_rowCount = $this->_query->rowCount();
             }
@@ -60,10 +65,4 @@ class Database{
         }
     }
 
-    public static function getInstance() {
-        if(!isset(self::$_instance)){
-            self::$_instance = new Database();
-        }
-        return self::$_instance;
-    }
 }

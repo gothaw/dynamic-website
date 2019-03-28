@@ -1,6 +1,6 @@
 <?php
 
-class CurrentPage{
+class CurrentPage {
 
     private $_data;
 

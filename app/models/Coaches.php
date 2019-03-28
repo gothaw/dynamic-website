@@ -1,10 +1,11 @@
 <?php
 
-class Coaches extends Database {
+class Coaches {
 
     private $_data;
 
     private function loadData() {
+        $database = Database::getInstance();
         $sql = "
                 SELECT 
                     `co_first_name`,
@@ -19,16 +20,7 @@ class Coaches extends Database {
                     `co_id`
                 ASC;
                 ";
-        $mysqli = $this->connectToDatabase();
-        $result = $mysqli->query($sql);
-        $numRows = $result->num_rows;
-        if($numRows > 0){
-            $coaches = [];
-            while($row = $result->fetch_assoc()){
-                array_push($coaches,$row);
-            }
-            $this->_data = $coaches;
-        }
+        $this->_data = $database->query($sql)->getResult();
     }
 
     public function getCoachesDetails(){

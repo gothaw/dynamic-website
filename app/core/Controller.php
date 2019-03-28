@@ -18,10 +18,4 @@ class Controller {
             $this->_view = new View($viewName,$view,$data);
         }
     }
-
-    public function returnDatabaseMessage(){
-        if(file_exists('../app/core/DatabaseCheck.php')){
-            require_once '../app/core/DatabaseCheck.php';
-        }
-    }
 }
