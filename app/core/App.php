@@ -2,9 +2,9 @@
 
 class App {
 
-    protected $_controller = 'home';
-    protected $_method = 'index';
-    protected $_parameters = [];
+    private $_controller = 'home';
+    private $_method = 'index';
+    private $_parameters = [];
 
     public function __construct()
     {

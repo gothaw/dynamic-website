@@ -13,18 +13,16 @@ class Register extends Controller {
     public function index(){
         $thisPage='register';
         $path='register';
-        $footerTheme = 'dark';
-        $bannerIndex = '1';
 
         $navPages = $this->_navPages->getNavBarPages();
         $pageDetails = $this->_page->getPageDetails($thisPage);
 
         $this->view($thisPage,$path, [
                 'navPages' => $navPages,
-                'pageDetails' => $pageDetails,
-                'bannerIndex'=>$bannerIndex,
-                'footerTheme' => $footerTheme]
-        );
+                'pageDetails' => $pageDetails
+        ]);
+        $this->_view->setFooterTheme('dark');
+        $this->_view->setBannerImg('light');
         $this->_view->renderView();
     }
 }

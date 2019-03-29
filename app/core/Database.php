@@ -4,12 +4,13 @@ class Database{
 
     private static $_instance = null;
 
+    //PDO object instance variables
     private $_host;
     private $_user;
     private $_password;
     private $_databaseName;
-
     private $_pdo;
+    //Other instance variables
     private $_error = false;
     private $_query;
     private $_result;

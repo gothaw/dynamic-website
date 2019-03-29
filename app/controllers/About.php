@@ -18,7 +18,6 @@ class About extends Controller {
     public function index(){
         $thisPage='about';
         $path='about';
-        $footerTheme = 'dark';
         $bannerIndex = '2';
 
         $navPages = $this->_navPages->getNavBarPages();
@@ -31,9 +30,10 @@ class About extends Controller {
             'pageDetails' => $pageDetails,
             'classes' => $classes,
             'coaches' => $coaches ,
-            'bannerIndex'=>$bannerIndex,
-            'footerTheme' => $footerTheme]
-        );
+            'bannerIndex'=>$bannerIndex
+        ]);
+        $this->_view->setBannerImg('dark');
+        $this->_view->setFooterTheme('dark');
         $this->_view->renderView();
     }
 }

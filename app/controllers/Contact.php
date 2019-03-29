@@ -16,7 +16,6 @@ class Contact extends Controller {
     public function index($name = ''){
         $thisPage='contact';
         $path='contact';
-        $footerTheme = 'dark';
         $bannerIndex = '2';
 
         $navPages = $this->_navPages->getNavBarPages();
@@ -27,9 +26,10 @@ class Contact extends Controller {
             'name'=>$name,
             'navPages' => $navPages,
             'pageDetails' => $pageDetails,
-            'bannerIndex'=>$bannerIndex,
-            'footerTheme' => $footerTheme]
-        );
+            'bannerIndex'=>$bannerIndex
+        ]);
+        $this->_view->setFooterTheme('dark');
+        $this->_view->setBannerImg('dark');
         $this->_view->renderView();
     }
 }

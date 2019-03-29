@@ -1,5 +1,5 @@
 <!-- Footer Area Starts -->
-    <footer class="footer-area <?php if($data['footerTheme']==='dark') {echo 'footer';}?> section-padding4">
+    <footer class="footer-area <?php if($this->footerTheme === 'dark') {echo 'footer';}?> section-padding4">
         <div class="footer-widget">
             <div class="container">
                 <div class="row">

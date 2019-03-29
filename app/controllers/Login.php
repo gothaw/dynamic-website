@@ -13,18 +13,16 @@ class Login extends Controller {
     public function index(){
         $thisPage='login';
         $path='login';
-        $footerTheme = 'dark';
-        $bannerIndex = '2';
 
         $navPages = $this->_navPages->getNavBarPages();
         $pageDetails = $this->_page->getPageDetails($thisPage);
 
         $this->view($thisPage,$path, [
                 'navPages' => $navPages,
-                'pageDetails' => $pageDetails,
-                'bannerIndex'=>$bannerIndex,
-                'footerTheme' => $footerTheme]
-        );
+                'pageDetails' => $pageDetails
+        ]);
+        $this->_view->setFooterTheme('dark');
+        $this->_view->setBannerImg('dark');
         $this->_view->renderView();
     }
 

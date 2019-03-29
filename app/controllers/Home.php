@@ -4,7 +4,6 @@ class Home extends Controller {
 
     private $_page;
     private $_navPages;
-    private $_failMessage;
     private $_classes;
     private $_opinions;
 
@@ -19,7 +18,6 @@ class Home extends Controller {
     public function index(){
         $thisPage='home';
         $path='index';
-        $footerTheme = 'light';
 
         $navPages = $this->_navPages->getNavBarPages();
         $pageDetails = $this->_page->getPageDetails($thisPage);
@@ -30,9 +28,9 @@ class Home extends Controller {
             'navPages' => $navPages,
             'pageDetails' => $pageDetails,
             'classes' => $classes ,
-            'opinions' => $opinions,
-            'footerTheme' => $footerTheme]
-        );
+            'opinions' => $opinions
+        ]);
+        $this->_view->setFooterTheme('light');
         $this->_view->renderView();
     }
 

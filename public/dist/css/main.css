@@ -386,6 +386,12 @@ textarea:focus {
     .banner-bg .template-btn:hover {
       color: #ffffff !important; }
 
+.banner-area-light {
+  background-image: url("../img/banners/banner-1.jpg") !important; }
+
+.banner-area-dark {
+  background-image: url("../img/banners/banner-2.jpg") !important; }
+
 /* 6. Feature */
 .feature-area {
   background: #f5f5f5; }
@@ -714,12 +720,6 @@ textarea:focus {
       color: #f61b55; }
   .banner-area.about-page .banner-text {
     padding: 0; }
-
-.banner-area-1 {
-  background-image: url("../img/banners/banner-1.jpg") !important; }
-
-.banner-area-2 {
-  background-image: url("../img/banners/banner-2.jpg") !important; }
 
 /* 15. Service Page */
 .feature-area.services {
