@@ -3,9 +3,10 @@
 $data=$this->viewData;
 $name=$this->viewName;
 
-    trace($this);
+//    trace($this);
 //    trace($data);
 //trace(!isset($data['failMessage']));
+
 
 //HEAD
 include ("includes/top.php");

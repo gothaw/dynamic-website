@@ -28,6 +28,7 @@ class Login extends Controller {
 
     public function form(){
         trace($this);
-        $this->_view->renderView();
+        print_r($_SESSION);
+//        $this->_view->renderView();
     }
 }

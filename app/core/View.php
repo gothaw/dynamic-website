@@ -1,7 +1,7 @@
 <?php
 
-class View
-{
+class View {
+
     private $viewName;
     private $viewFile;
     private $viewData;

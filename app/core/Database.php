@@ -1,6 +1,6 @@
 <?php
 
-class Database{
+class Database {
 
     private static $_instance = null;
 
