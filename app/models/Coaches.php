@@ -1,10 +1,11 @@
 <?php
 
-class Coaches {
-
+class Coaches
+{
     private $_data;
 
-    private function loadData() {
+    private function loadData()
+    {
         $database = Database::getInstance();
         $sql = "
                 SELECT 
@@ -23,7 +24,8 @@ class Coaches {
         $this->_data = $database->query($sql)->getResult();
     }
 
-    public function getCoachesDetails(){
+    public function getCoachesDetails()
+    {
         $this->loadData();
         return $this->_data;
     }

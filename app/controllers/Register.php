@@ -1,28 +1,23 @@
 <?php
 
-class Register extends Controller {
+class Register extends Controller
+{
+    private $_page;
 
-    protected $_page;
-    protected $_navPages;
+    public function __construct()
+    {
+        $this->_page = 'register';
 
-    public function __construct() {
-        $this->_navPages = $this->model('NavBarPages');
-        $this->_page = $this->model('CurrentPage');
+        parent::__construct($this->_page);
+
+        $this->view($this->_page, $this->_path, [
+            'navPages' => $this->_navPages,
+            'pageDetails' => $this->_pageDetails
+        ]);
     }
 
-    public function index(){
-        $thisPage='register';
-        $path='register';
-
-        $navPages = $this->_navPages->getNavBarPages();
-        $pageDetails = $this->_page->getPageDetails($thisPage);
-
-        $this->view($thisPage,$path, [
-                'navPages' => $navPages,
-                'pageDetails' => $pageDetails
-        ]);
-        $this->_view->setFooterTheme('dark');
-        $this->_view->setBannerImg('light');
+    public function index()
+    {
         $this->_view->renderView();
     }
 }

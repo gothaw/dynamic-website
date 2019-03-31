@@ -1,37 +1,32 @@
 <?php
 
-class Home extends Controller {
-
+class Home extends Controller
+{
     private $_page;
-    private $_navPages;
     private $_classes;
     private $_opinions;
 
     public function __construct()
     {
-        $this->_navPages = $this->model('NavBarPages');
-        $this->_page = $this->model('CurrentPage');
-        $this->_classes = $this->model('Classes');
-        $this->_opinions = $this->model('ClientOpinions');
-    }
+        $this->_page = 'home';
+        $this->_classes = $this->model('Classes')->getClassesDetails(4);
+        $this->_opinions = $this->model('ClientOpinions')->getClientOpinions();
 
-    public function index(){
-        $thisPage='home';
-        $path='index';
+        parent::__construct($this->_page);
 
-        $navPages = $this->_navPages->getNavBarPages();
-        $pageDetails = $this->_page->getPageDetails($thisPage);
-        $classes = $this->_classes->getClassesDetails(4);
-        $opinions = $this->_opinions->getClientOpinions();
-
-        $this->view($thisPage,$path, [
-            'navPages' => $navPages,
-            'pageDetails' => $pageDetails,
-            'classes' => $classes ,
-            'opinions' => $opinions
+        $this->view($this->_page, $this->_path, [
+            'navPages' => $this->_navPages,
+            'pageDetails' => $this->_pageDetails,
+            'classes' => $this->_classes,
+            'opinions' => $this->_opinions
         ]);
-        $this->_view->setFooterTheme('light');
-        $this->_view->renderView();
     }
 
+    public function index()
+    {
+        // home banner used instead of standard banner
+        $includeStandardBanner = false;
+
+        $this->_view->renderView($includeStandardBanner);
+    }
 }

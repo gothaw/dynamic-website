@@ -1,6 +1,7 @@
 <?php
 
-class Newsletter {
+class Newsletter
+{
 
 }
 

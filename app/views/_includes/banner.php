@@ -1,5 +1,8 @@
 <!-- Banner Area Starts -->
-<section class="banner-area <?php if(isset($this->bannerImg)){ echo 'banner-area-' . $this->bannerImg; }?> banner-bg about-page text-center">
+<section class="banner-area <?php
+    if(isset($data['pageDetails']['pg_banner'])) {
+        echo 'banner-area-' . $data['pageDetails']['pg_banner'];
+    }?> banner-bg about-page text-center">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">

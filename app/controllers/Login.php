@@ -1,34 +1,33 @@
 <?php
 
-class Login extends Controller {
+class Login extends Controller
+{
+    private $_page;
 
-    protected $_page;
-    protected $_navPages;
+    public function __construct()
+    {
+        $this->_page = 'login';
 
-    public function __construct() {
-        $this->_navPages = $this->model('NavBarPages');
-        $this->_page = $this->model('CurrentPage');
-    }
+        parent::__construct($this->_page);
 
-    public function index(){
-        $thisPage='login';
-        $path='login';
-
-        $navPages = $this->_navPages->getNavBarPages();
-        $pageDetails = $this->_page->getPageDetails($thisPage);
-
-        $this->view($thisPage,$path, [
-                'navPages' => $navPages,
-                'pageDetails' => $pageDetails
+        $this->view($this->_page, $this->_path, [
+            'navPages' => $this->_navPages,
+            'pageDetails' => $this->_pageDetails
         ]);
-        $this->_view->setFooterTheme('dark');
-        $this->_view->setBannerImg('dark');
-        $this->_view->renderView();
     }
 
-    public function form(){
+    public function index()
+    {
+        $this->_view->renderView();
+        if (Input::exists()) {
+            trace($_POST);
+        }
+    }
+
+    public function form()
+    {
         trace($this);
         print_r($_SESSION);
-//        $this->_view->renderView();
+        $this->_view->renderView();
     }
 }

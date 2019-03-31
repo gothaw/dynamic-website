@@ -1,10 +1,11 @@
 <?php
 
-class ClientOpinions {
-
+class ClientOpinions
+{
     private $_data;
 
-    private function loadData() {
+    private function loadData()
+    {
         $database = Database::getInstance();
         $sql = "
                 SELECT
@@ -24,7 +25,8 @@ class ClientOpinions {
         $this->_data = $database->query($sql)->getResult();
     }
 
-    public function getClientOpinions(){
+    public function getClientOpinions()
+    {
         $this->loadData();
         return $this->_data;
     }

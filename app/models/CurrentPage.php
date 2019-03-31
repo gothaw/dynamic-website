@@ -1,10 +1,11 @@
 <?php
 
-class CurrentPage {
-
+class CurrentPage
+{
     private $_data;
 
-    private function loadData($pageName) {
+    private function loadData($pageName)
+    {
         $database = Database::getInstance();
         $sql = "
                 SELECT
@@ -14,11 +15,17 @@ class CurrentPage {
                 WHERE
                     `page`.`pg_name` = ?;
                ";
-        $this->_data = $database->query($sql,[$pageName])->getResult();
+        $this->_data = $database->query($sql, [$pageName])->getResult();
     }
 
-    public function getPageDetails($pageName){
+    public function getPageDetails($pageName)
+    {
         $this->loadData($pageName);
         return $this->_data;
+    }
+
+    public function getPageUrl($pageName)
+    {
+        return $this->getPageDetails($pageName)['pg_url'];
     }
 }

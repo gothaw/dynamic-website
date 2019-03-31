@@ -1,12 +1,13 @@
 <?php
 
-class Classes {
-
+class Classes
+{
     private $_data;
 
-    private function loadData($numberOfClasses) {
+    private function loadData($numberOfClasses)
+    {
         $database = Database::getInstance();
-        if(isset($numberOfClasses)){
+        if (isset($numberOfClasses)) {
             $sql = "
                 SELECT 
                     `cl_name`,
@@ -22,8 +23,7 @@ class Classes {
                 ASC 
                 LIMIT $numberOfClasses;
                 ";
-        }
-        else{
+        } else {
             $sql = "
                 SELECT 
                     `cl_name`,
@@ -42,7 +42,8 @@ class Classes {
         $this->_data = $database->query($sql)->getResult();
     }
 
-    public function getClassesDetails($numberOfClasses = NULL){
+    public function getClassesDetails($numberOfClasses = NULL)
+    {
         $this->loadData($numberOfClasses);
         return $this->_data;
     }

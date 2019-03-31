@@ -1,30 +1,14 @@
 <?php
-//simplifying variables
-$data=$this->viewData;
-$name=$this->viewName;
 
 //    trace($this);
 //    trace($data);
-//trace(!isset($data['failMessage']));
 
 
-//HEAD
-include ("includes/top.php");
-//HEADER AND PRELOADER
-include ("includes/preloader.php");
-include ("includes/header.php");
 //CONTENT
-include("includes/home/home-banner.php");
-if(isset($data['failMessage'])){
-    include ("includes/fail-message.php");
-}
-else{
-    include ("includes/home/home-about.php");
-    include ("includes/classes.php");
-    include ("includes/home/services.php");
-    include ("includes/home/discount.php");
-    include ("includes/home/client-opinions.php");
-    include ("includes/home/join.php");
-}
-//FOOTER
-include ("includes/footer.php");
+include("../app/views/home/home-banner.php");
+include("../app/views/home/home-about.php");
+include("../app/views/_includes/classes.php");
+include("../app/views/home/services.php");
+include("../app/views/home/discount.php");
+include("../app/views/home/client-opinions.php");
+include("../app/views/home/join.php");

@@ -1,10 +1,11 @@
 <?php
 
-class NavBarPages {
-
+class NavBarPages
+{
     private $_data;
 
-    private function loadData() {
+    private function loadData()
+    {
         $database = Database::getInstance();
         $sql = "
                 SELECT
@@ -18,10 +19,11 @@ class NavBarPages {
                     `page`.`pg_order`
                 ASC;
                 ";
-        $this->_data = $database->query($sql,[100])->getResult();
+        $this->_data = $database->query($sql, [100])->getResult();
     }
 
-    public function getNavBarPages(){
+    public function getNavBarPages()
+    {
         $this->loadData();
         return $this->_data;
     }
