@@ -1,7 +1,7 @@
 <?php
 
-class Controller {
-
+class Controller
+{
     protected $_view;
     protected $_model;
     protected $_navPages;
@@ -16,8 +16,9 @@ class Controller {
         $this->_path = $currentPage->getPageUrl($page);
     }
 
-    public function model($model){
-        if(file_exists('../app/models/' . $model . '.php')){
+    public function model($model)
+    {
+        if (file_exists('../app/models/' . $model . '.php')) {
             require_once '../app/models/' . $model . '.php';
             $this->_model = new $model;
             return $this->_model;
@@ -25,9 +26,10 @@ class Controller {
         return null;
     }
 
-    public function view($viewName, $view, $data=[]){
-        if(file_exists('../app/views/' . $view . 'index.php')){
-            $this->_view = new View($viewName,$view,$data);
+    public function view($viewName, $view, $data = [])
+    {
+        if (file_exists('../app/views/' . $view . 'index.php')) {
+            $this->_view = new View($viewName, $view, $data);
         }
     }
 }
