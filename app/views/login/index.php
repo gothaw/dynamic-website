@@ -3,7 +3,6 @@ $data=$this->viewData;
 $name=$this->viewName;
 
 //trace($data);
-
 //HEAD
 include ("includes/top.php");
 //HEADER AND PRELOADER
@@ -15,7 +14,7 @@ if(isset($data['failMessage'])){
     include ("includes/fail-message.php");
 }
 else{
-    include ("includes/login/login.php");
+    include("includes/login/login-form.php");
 
 }
 

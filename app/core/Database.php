@@ -24,6 +24,7 @@ class Database {
             $this->_databaseName = "php-website";
             $this->_pdo = new PDO("mysql:host=" . $this->_host . ";dbname=" . $this->_databaseName,$this->_user,$this->_password);
         } catch (PDOException $e){
+            // redirect to error page
             exit("Something went wrong. It is our fault. Sorry. = (");
         }
     }
