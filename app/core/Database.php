@@ -19,10 +19,10 @@ class Database
     private function __construct()
     {
         try {
-            $this->_host = "localhost";
-            $this->_user = "root";
-            $this->_password = "";
-            $this->_databaseName = "php-website";
+            $this->_host = Config::get('mysql/host');
+            $this->_user = Config::get('mysql/username');
+            $this->_password = Config::get('mysql/password');
+            $this->_databaseName = Config::get('mysql/db_name');
             $this->_pdo = new PDO("mysql:host=" . $this->_host . ";dbname=" . $this->_databaseName, $this->_user, $this->_password);
         } catch (PDOException $e) {
             // redirect to error page
