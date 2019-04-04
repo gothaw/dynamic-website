@@ -18,6 +18,7 @@ class Register extends Controller
 
     public function index()
     {
+//        trace($_POST);
         $this->_view->renderView();
     }
 }

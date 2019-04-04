@@ -1,4 +1,4 @@
-/* 19. Fail Message */
+/* 19. Login */
 .login-text{
   text-align: center;
   padding-bottom: 10px;
@@ -16,5 +16,12 @@
   margin: 10px 0;
   input{
     cursor: pointer;
+  }
+}
+.login-link{
+  color: $primary-color;
+  @include transition(.4s);
+  &:active{
+    color: complement($primary-color);
   }
 }

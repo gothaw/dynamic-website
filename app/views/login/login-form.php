@@ -19,7 +19,7 @@
                     </div>
                 </form>
                 <div class="login-text">
-                    If you don't have an account please register <a class="link" href="<?php echo ROOT;?>register/">here</a>.
+                    If you don't have an account please register <a class="login-link" href="<?php echo ROOT;?>register/">here</a>.
                 </div>
             </div>
         </div>

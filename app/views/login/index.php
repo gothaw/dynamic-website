@@ -1,6 +1,6 @@
 <?php
 
-trace($data);
+//trace($data);
 
 //CONTENT
 include("../app/views/login/login-form.php");

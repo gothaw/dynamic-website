@@ -1,4 +1,4 @@
 <?php
 
 //CONTENT
-echo "form goes here";
+include ("../app/views/register/register-form.php");

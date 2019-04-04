@@ -1,0 +1,31 @@
+/* 16. Register */
+.register-form{
+  max-width: 700px;
+  margin: 0 auto;
+}
+.register-text{
+  text-align: center;
+  padding-bottom: 10px;
+}
+.register-field{
+  text-align: center;
+  margin: 5px auto;
+  input{
+    width: 100%;
+    padding: 5px;
+  }
+  label{
+    width: 100%;
+    text-align: left;
+    display: block;
+    font-weight: bold;
+    margin: 0 auto;
+  }
+}
+.register-button{
+  text-align: center;
+  margin: 10px auto;
+  input{
+    cursor: pointer;
+  }
+}

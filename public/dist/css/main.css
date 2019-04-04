@@ -2461,7 +2461,34 @@ h6 {
     background: transparent;
     border: 1px solid #f61b55; }
 
-/* 16. Form */
+/* 16. Register */
+.register-form {
+  max-width: 700px;
+  margin: 0 auto; }
+
+.register-text {
+  text-align: center;
+  padding-bottom: 10px; }
+
+.register-field {
+  text-align: center;
+  margin: 5px auto; }
+  .register-field input {
+    width: 100%;
+    padding: 5px; }
+  .register-field label {
+    width: 100%;
+    text-align: left;
+    display: block;
+    font-weight: bold;
+    margin: 0 auto; }
+
+.register-button {
+  text-align: center;
+  margin: 10px auto; }
+  .register-button input {
+    cursor: pointer; }
+
 /* 17. Other */
 .section-padding {
   padding: 130px 0; }
@@ -2499,7 +2526,7 @@ h6 {
   .fail-message-wrapper {
     padding: 0 25px; }
 
-/* 19. Fail Message */
+/* 19. Login */
 .login-text {
   text-align: center;
   padding-bottom: 10px; }
@@ -2516,4 +2543,10 @@ h6 {
   margin: 10px 0; }
   .login-button input {
     cursor: pointer; }
+
+.login-link {
+  color: #f61b55;
+  transition: 0.4s; }
+  .login-link:active {
+    color: #1bf6bc; }
 
