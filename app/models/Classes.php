@@ -2,7 +2,7 @@
 
 class Classes
 {
-    private $_data;
+    private $_data = null;
 
     private function loadData($numberOfClasses)
     {

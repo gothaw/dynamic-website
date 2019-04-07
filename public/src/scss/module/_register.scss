@@ -1,6 +1,6 @@
 /* 16. Register */
 .register-form{
-  max-width: 700px;
+  max-width: 800px;
   margin: 0 auto;
 }
 .register-text{
@@ -28,4 +28,16 @@
   input{
     cursor: pointer;
   }
+}
+.password-hint{
+  font-weight: normal;
+  font-size: 12px;
+  text-align: left;
+}
+.error-wrapper{
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 25px;
+  background-color: $primary-color;
+  color: $dark;
 }

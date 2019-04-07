@@ -18,7 +18,25 @@ class Register extends Controller
 
     public function index()
     {
-//        trace($_POST);
         $this->_view->renderView();
     }
+
+    public function form()
+    {
+        if (Input::exists()) {
+            if (Token::check(Input::get('token'))) {
+                $validate = new Validate();
+                $validate->check($_POST, $validate->getValidUserRules());
+                if ($validate->checkIfPassed()) {
+                    echo "ok";
+                    Redirect::to('home');
+                } else {
+                    $errorMessage = $validate->getFirstErrorMessage();
+                    $this->_view->setViewError($errorMessage);
+                }
+            }
+        }
+        $this->_view->renderView();
+    }
+
 }

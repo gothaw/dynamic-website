@@ -5,6 +5,7 @@ class View
     private $viewName;
     private $viewPath;
     private $viewData;
+    private $error;
 
     public function __construct($viewName, $viewPath, $viewData)
     {
@@ -36,5 +37,15 @@ class View
 
         // FOOTER
         include("../app/views/_includes/footer.php");
+    }
+
+    public function setViewError($error)
+    {
+        $this->error = $error;
+    }
+
+    public function getViewError()
+    {
+        return $this->error;
     }
 }

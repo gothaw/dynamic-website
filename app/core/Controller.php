@@ -2,11 +2,11 @@
 
 class Controller
 {
-    protected $_view;
-    protected $_model;
-    protected $_navPages;
-    protected $_pageDetails;
-    protected $_path;
+    protected $_view        = null;
+    protected $_model       = null;
+    protected $_navPages    = null;
+    protected $_pageDetails = null;
+    protected $_path        = null;
 
     public function __construct($page)
     {

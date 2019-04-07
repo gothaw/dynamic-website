@@ -2,7 +2,7 @@
 
 class CurrentPage
 {
-    private $_data;
+    private $_data = null;
 
     private function loadData($pageName)
     {
@@ -15,7 +15,7 @@ class CurrentPage
                 WHERE
                     `page`.`pg_name` = ?;
                ";
-        $this->_data = $database->query($sql, [$pageName])->getResult();
+        $this->_data = $database->query($sql, [$pageName])->getResultSingleRecord();
     }
 
     public function getPageDetails($pageName)

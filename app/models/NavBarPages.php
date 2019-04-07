@@ -2,7 +2,7 @@
 
 class NavBarPages
 {
-    private $_data;
+    private $_data = null;
 
     private function loadData()
     {

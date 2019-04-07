@@ -3,8 +3,8 @@
 class About extends Controller
 {
     private $_page;
-    private $_classes;
-    private $_coaches;
+    private $_classes = null;
+    private $_coaches = null;
 
     public function __construct()
     {

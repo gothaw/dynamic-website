@@ -3,8 +3,8 @@
 class Home extends Controller
 {
     private $_page;
-    private $_classes;
-    private $_opinions;
+    private $_classes = null;
+    private $_opinions = null;
 
     public function __construct()
     {
