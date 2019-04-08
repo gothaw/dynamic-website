@@ -4,7 +4,7 @@ class ClientOpinions
 {
     private $_data = null;
 
-    private function loadData()
+    private function loadData($numberOfOpinions)
     {
         $database = Database::getInstance();
         $sql = "
@@ -20,14 +20,14 @@ class ClientOpinions
                   `opinion`.`cl_id` = `class`.`cl_id`
                 ORDER BY `op_id`
                 DESC
-                LIMIT 6;
+                LIMIT ?;
                 ";
-        $this->_data = $database->query($sql)->getResult();
+        $this->_data = $database->query($sql,[(int)$numberOfOpinions])->getResult();
     }
 
-    public function getClientOpinions()
+    public function getClientOpinions($numberOfOpinions)
     {
-        $this->loadData();
+        $this->loadData($numberOfOpinions);
         return $this->_data;
     }
 

@@ -21,8 +21,9 @@ class Classes
                 ORDER BY 
                     `cl_id`
                 ASC 
-                LIMIT $numberOfClasses;
+                LIMIT ?;
                 ";
+            $this->_data = $database->query($sql, [(int)$numberOfClasses])->getResult();
         } else {
             $sql = "
                 SELECT 
@@ -38,8 +39,8 @@ class Classes
                     `cl_id`
                 ASC;
                 ";
+            $this->_data = $database->query($sql)->getResult();
         }
-        $this->_data = $database->query($sql)->getResult();
     }
 
     public function getClassesDetails($numberOfClasses = NULL)

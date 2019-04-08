@@ -14,12 +14,12 @@ class NavBarPages
                 FROM
                     `page`
                 WHERE
-                    `pg_order` < ?
+                    `pg_order` < 100
                 ORDER BY
                     `page`.`pg_order`
                 ASC;
                 ";
-        $this->_data = $database->query($sql, [100])->getResult();
+        $this->_data = $database->query($sql)->getResult();
     }
 
     public function getNavBarPages()

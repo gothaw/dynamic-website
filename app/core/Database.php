@@ -51,7 +51,8 @@ class Database
      * @method              query
      * @param               $sql {an sql query}
      * @param               $parameters {an array of parameters that require to be bound in a prepare statement}
-     * @desc                Method executes a query. The
+     * @desc                Method prepares a query statement by looping through the $parameters array.
+     *                      The statement is executed and method retrieves the result as an associative array and assigns it to the $_result.
      * @return              $this
      */
     public function query($sql, $parameters = [])
@@ -62,7 +63,11 @@ class Database
             if (count($parameters)) {
                 $i = 1;
                 foreach ($parameters as $parameter) {
-                    $this->_query->bindValue($i, $parameter);
+                    if(is_integer($parameter)){
+                        $this->_query->bindValue($i, $parameter, PDO::PARAM_INT);
+                    }else{
+                        $this->_query->bindValue($i, $parameter);
+                    }
                     $i++;
                 }
             }
@@ -166,6 +171,15 @@ class Database
     public function delete($table,$where){
         return $this->simpleQuery('DELETE',$table,$where);
     }
+
+
+
+
+
+
+
+
+
 
 
     public function insert($table, $fields = array()){

@@ -2562,3 +2562,12 @@ h6 {
   .login-link:active {
     color: #1bf6bc; }
 
+/* Flash Message */
+.flash {
+  background-color: #f61b55;
+  color: #f5f5f5;
+  padding: 25px;
+  text-align: center;
+  font-size: 20px;
+  border-radius: 0 0 6px 6px; }
+

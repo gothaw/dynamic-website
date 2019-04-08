@@ -25,14 +25,24 @@ class Register extends Controller
     {
         if (Input::exists()) {
             if (Token::check(Input::get('token'))) {
+
+                // Validation using Validate object
                 $validate = new Validate();
                 $validate->check($_POST, $validate->getValidUserRules());
+
                 if ($validate->checkIfPassed()) {
-                    echo "ok";
+
+                    // Register a User
+
+                    Session::flash('home', 'You have been register you can now log in.');
                     Redirect::to('home');
+
                 } else {
+
+                    //Display an Error
                     $errorMessage = $validate->getFirstErrorMessage();
                     $this->_view->setViewError($errorMessage);
+
                 }
             }
         }
