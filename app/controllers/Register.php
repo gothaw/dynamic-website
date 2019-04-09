@@ -33,10 +33,29 @@ class Register extends Controller
                 if ($validate->checkIfPassed()) {
 
                     // Register a User
-
-                    Session::flash('home', 'You have been register you can now log in.');
-                    Redirect::to('home');
-
+                    $user = $this->model('User');
+                    try{
+                        $user->createUser([
+                            'u_first_name' => '',
+                            'u_last_name' => '',
+                            'u_address_1' => '',
+                            'u_address_2' => '',
+                            'u_postcode' => '',
+                            'u_city' => '',
+                            'u_username' => '',
+                            'u_email' => '',
+                            'u_password' => '',
+                            'u_salt' => '',
+                            'u_group_id' => '',
+                            'u_joined' => ''
+                        ]);
+                        Session::flash('home', 'You have been register you can now log in.');
+                        Redirect::to('home');
+                    }
+                    catch (Exception $e){
+                        $errorMessage = $e->getMessage();
+                        $this->_view->setViewError($errorMessage);
+                    }
                 } else {
 
                     //Display an Error

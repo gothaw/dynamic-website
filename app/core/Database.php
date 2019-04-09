@@ -172,32 +172,34 @@ class Database
         return $this->simpleQuery('DELETE',$table,$where);
     }
 
-
-
-
-
-
-
-
-
-
-
-    public function insert($table, $fields = array()){
+    /**
+     * @method              insert
+     * @param               $table {table name in database}
+     * @param               $fields {fields to be inserted as an associative array}
+     * @desc                Method creates an INSERT INTO statement template with ? as placeholders, for example,
+     *                      INSERT INTO `user` (`name`, `age`, `email`) VALUES ?, ?, ?;
+     *                      String with column names is created by imploding keys of $fields associative array by `,`
+     *                      Method invokes query method to prepare and execute the query.
+     * @return              bool
+     */
+    public function insert($table, $fields = []){
         $keys = array_keys($fields);
+        $parameters = array_values($fields);
         $values = '';
-        $x = 1;
 
+        // creates a string with ? depending on the size of $fields array
+        $i = 1;
         foreach($fields as $field){
             $values .= "?";
-            if($x < count($fields)) {
+            if($i < count($fields)) {
                 $values .= ', ';
             }
-            $x++;
+            $i++;
         }
 
         $sql = "INSERT INTO {$table} (`". implode("`,`",$keys) . "`) VALUES ({$values})";
 
-        if(!$this->query($sql, $fields)->getQueryError()){
+        if(!$this->query($sql, $parameters)->getQueryError()){
             return true;
         }
         return false;
