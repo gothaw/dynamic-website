@@ -20,8 +20,8 @@ class Contact extends Controller
 
         $this->view($this->_page, $this->_path, [
             'navPages' => $this->_navPages,
-            'pageDetails' => $this->_pageDetails,
-            'userName' => $this->_user->name
+            'pageDetails' => $this->_pageDetails
+            //'userName' => $this->_user->name
         ]);
 
         $this->_view->renderView();

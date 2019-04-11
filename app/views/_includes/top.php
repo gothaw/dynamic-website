@@ -40,7 +40,7 @@
     ?>">
 </head>
 <body>
-<?php if($name === 'home' && Session::exists($name)){ ?>
+<?php if(isset($name) && $name === 'home' && Session::exists($name)){ ?>
     <div class="flash">
         <?php echo Session::flash($name)?>
     </div>

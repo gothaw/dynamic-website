@@ -2528,15 +2528,9 @@ h6 {
 .section-margin-bottom {
   margin-bottom: 130px; }
 
-/* 18. Fail Message */
-.fail-message {
-  background-color: #f61b55;
-  color: #ffffff;
-  text-align: center;
-  font-size: 45px;
-  margin: 130px 0; }
-  .fail-message-wrapper {
-    padding: 0 25px; }
+.img-responsive {
+  width: 100%;
+  height: auto; }
 
 /* 19. Login */
 .login-text {

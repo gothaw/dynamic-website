@@ -24,7 +24,7 @@ class Register extends Controller
     public function form()
     {
         if (Input::exists()) {
-            if (Token::check(Input::get('token'))) {
+            if (Token::check(Input::getValue('token'))) {
 
                 // Validation using Validate object
                 $validate = new Validate();
@@ -34,20 +34,22 @@ class Register extends Controller
 
                     // Register a User
                     $user = $this->model('User');
+                    $salt = Hash::generateSalt(32);
+
                     try{
                         $user->createUser([
-                            'u_first_name' => '',
-                            'u_last_name' => '',
-                            'u_address_1' => '',
-                            'u_address_2' => '',
-                            'u_postcode' => '',
-                            'u_city' => '',
-                            'u_username' => '',
-                            'u_email' => '',
-                            'u_password' => '',
-                            'u_salt' => '',
-                            'u_group_id' => '',
-                            'u_joined' => ''
+                            'u_first_name' => Input::getValue('first_name'),
+                            'u_last_name' => Input::getValue('last_name'),
+                            'u_address_1' => Input::getValue('address_first_line'),
+                            'u_address_2' => Input::getValue('address_second_line'),
+                            'u_postcode' => Input::getValue('postcode'),
+                            'u_city' => Input::getValue('city'),
+                            'u_username' => Input::getValue('username'),
+                            'u_email' => Input::getValue('email'),
+                            'u_password' => Hash::generateHash(Input::getValue('password'),$salt),
+                            'u_salt' => $salt,
+                            'u_group_id' => 1,
+                            'u_joined' => date('Y-m-d H-i-s')
                         ]);
                         Session::flash('home', 'You have been register you can now log in.');
                         Redirect::to('home');
