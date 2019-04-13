@@ -19,15 +19,30 @@ class Login extends Controller
     public function index()
     {
         $this->_view->renderView();
-        if (Input::exists()) {
-            trace($_POST);
-        }
     }
 
     public function form()
     {
-        trace($this);
-        print_r($_SESSION);
+        if (Input::exists()) {
+            if (Token::check(Input::getValue('token'))) {
+
+                // Validation using Validate object
+                $validate = new Validate();
+                $validate->check($_POST, Validate::getValidLoginRules());
+
+                if ($validate->checkIfPassed()) {
+
+                    // Log user in
+
+                } else {
+
+                    // Display an Error
+                    $errorMessage = $validate->getFirstErrorMessage();
+                    $this->_view->setViewError($errorMessage);
+
+                }
+            }
+        }
         $this->_view->renderView();
     }
 }

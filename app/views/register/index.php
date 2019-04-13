@@ -1,4 +1,4 @@
 <?php
 //CONTENT
-include ("../app/views/register/register-message.php");
+include("../app/views/_includes/view-error.php");
 include ("../app/views/register/register-form.php");

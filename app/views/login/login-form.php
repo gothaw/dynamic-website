@@ -6,15 +6,15 @@
                 <div class="login-text">
                     Please enter your username and password to login.
                 </div>
-                <form action="" method="post">
+                <form action="<?php echo ROOT . "login/form"?>" method="post">
                     <div class="login-field">
-                        <input type="text" placeholder="Enter username" name="username" id="username" autocomplete="off" required>
+                        <input type="text" placeholder="Enter username" name="username" id="username" autocomplete="off"> <!--required-->
                     </div>
                     <div class="login-field">
-                        <input type="password" placeholder="Enter password" name="password" id="password" autocomplete="off" required>
+                        <input type="password" placeholder="Enter password" name="password" id="password" autocomplete="off"> <!--required-->
                     </div>
                     <div class="login-button">
-                        <input type="hidden" name="token" value="">
+                        <input type="hidden" name="token" value="<?php echo Token::generate();?>">
                         <input type="submit" class="template-btn" value="log in">
                     </div>
                 </form>

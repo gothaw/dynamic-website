@@ -28,7 +28,7 @@ class Register extends Controller
 
                 // Validation using Validate object
                 $validate = new Validate();
-                $validate->check($_POST, $validate->getValidUserRules());
+                $validate->check($_POST, Validate::getValidUserRules());
 
                 if ($validate->checkIfPassed()) {
 

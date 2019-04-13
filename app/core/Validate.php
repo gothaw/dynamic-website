@@ -117,7 +117,7 @@ class Validate
         return $this->_passed;
     }
 
-    public function getValidUserRules()
+    public static function getValidUserRules()
     {
         $rulesArray = [
             'first_name' => [
@@ -168,6 +168,20 @@ class Validate
                 'name' => 'repeating password',
                 'required' => true,
                 'matches' => 'password'
+            ]
+        ];
+        return $rulesArray;
+    }
+
+    public static function getValidLoginRules(){
+        $rulesArray = [
+            'username' => [
+                'name' => 'username',
+                'required' => true
+            ],
+            'password' => [
+                'name' => 'password',
+                'required' => true
             ]
         ];
         return $rulesArray;
