@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-lg-2">
                 <div class="logo-area">
-                    <a href="<?php echo ROOT?>"><img src="<?php echo DIST?>/img/logo.png" alt="logo"></a>
+                    <a href="<?php echo ROOT ?>"><img src="<?php echo DIST ?>/img/logo.png" alt="logo"></a>
                 </div>
             </div>
             <div class="col-lg-10">
@@ -15,19 +15,34 @@
                 </div>
                 <div class="main-menu">
                     <ul>
-                        <?php if(isset($data['navPages'])) {
-                            foreach ($data['navPages'] as $page) {?>
+                        <?php if (isset($data['navPages'])) {
+                            foreach ($data['navPages'] as $page) { ?>
+                                <li>
+                                    <a class="menu-link
+                                <?php if ($page['pg_name'] === $name) {
+                                        echo "menu-link-active";
+                                    } ?>" href="<?php echo ROOT . $page['pg_url'] ?>">
+                                        <?php echo $page['pg_name'] ?>
+                                    </a>
+                                </li>
+                            <?php }
+                        }
+                        if (isset($loggedIn)) { ?>
                             <li>
-                                <a class="menu-link
-                                <?php if($page['pg_name']===$name){echo "menu-link-active";}?>" href="<?php echo ROOT . $page['pg_url']?>">
-                                   <?php echo $page['pg_name']?>
-                                </a>
+                                <a class="menu-link menu-account-link <?php if ($name === 'dashboard') {
+                                    echo "menu-link-active";
+                                } ?>" href="<?php echo ROOT . 'dashboard/' ?>">My
+                                    Account</a>
+                                <span class="menu-link-slash">/</span>
                             </li>
-                        <?php }
-                        }?>
-                        <li class="menu-btn">
-                            <a href="<?php echo ROOT . 'login/'?>" class="template-btn">Login</a>
-                        </li>
+                            <li>
+                                <a class="menu-logout-link" href="<?php echo ROOT . 'dashboard/logout/' ?>">Log out</a>
+                            </li>
+                        <?php } else { ?>
+                            <li class="menu-btn">
+                                <a href="<?php echo ROOT . 'login/' ?>" class="template-btn">Login</a>
+                            </li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>

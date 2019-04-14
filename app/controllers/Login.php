@@ -10,10 +10,15 @@ class Login extends Controller
 
         parent::__construct($this->_page);
 
-        $this->view($this->_page, $this->_path, [
-            'navPages' => $this->_navPages,
-            'pageDetails' => $this->_pageDetails
-        ]);
+        // View is instantiated if user not logged in
+        if (!$this->_user->isLoggedIn()) {
+            $this->view($this->_page, $this->_path, [
+                'navPages' => $this->_navPages,
+                'pageDetails' => $this->_pageDetails
+            ]);
+        } else {
+            Redirect::to('home');
+        }
     }
 
     public function index()
@@ -36,11 +41,11 @@ class Login extends Controller
                     $user = $this->model('User');
                     $login = $user->loginUser(Input::getValue('username'), Input::getValue('password'));
 
-                    if($login){
+                    if ($login) {
+                        // Successful login
+                        Redirect::to('dashboard');
 
-                        Redirect::to('home');
-
-                    } else{
+                    } else {
 
                         $errorMessage = 'Sorry username or password are incorrect.';
                         $this->_view->setViewError($errorMessage);

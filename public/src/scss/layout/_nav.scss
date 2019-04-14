@@ -68,11 +68,10 @@
                 font-size: 14px;
                 font-weight: 600;
                 display: inline-block;
-                padding: 15px;
-
             }
             .menu-link{
-                @include transition(.2s);
+                padding: 15px;
+                @include transition(.3s);
                 &:hover{
                     color: $primary-color;
                 }
@@ -117,6 +116,28 @@
                             color: $primary-color;
                         }
                     }
+                }
+            }
+            .menu-account-link{
+                padding-right: 8px;
+                @include phone-and-tablet(){
+                    padding-right: 15px;
+                }
+            }
+            .menu-logout-link{
+                color: $primary-color;
+                @include transition(.3s);
+                padding: 15px 15px 15px 8px;
+                @include phone-and-tablet(){
+                    padding: 15px;
+                }
+                &:hover{
+                    color: $secondary-color;
+                }
+            }
+            .menu-link-slash{
+                @include phone-and-tablet(){
+                    display: none;
                 }
             }
         }

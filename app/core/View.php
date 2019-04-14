@@ -2,24 +2,45 @@
 
 class View
 {
-    private $viewName;
-    private $viewPath;
-    private $viewData;
-    private $error;
+    private $_viewName;
+    private $_viewPath;
+    private $_viewData;
+    private $_error;
+    private $_isLoggedIn;
 
     public function __construct($viewName, $viewPath, $viewData)
     {
-        $this->viewName = $viewName;
-        $this->viewPath = $viewPath;
-        $this->viewData = $viewData;
+        $this->_viewName = $viewName;
+        $this->_viewPath = $viewPath;
+        $this->_viewData = $viewData;
+    }
+
+    public function setViewError($error)
+    {
+        $this->_error = $error;
+    }
+
+    public function getViewError()
+    {
+        return $this->_error;
+    }
+
+    public function setIsLoggedIn($boolean)
+    {
+        $this->_isLoggedIn = $boolean;
+    }
+
+    public function getIsLoggedIn()
+    {
+        return $this->_isLoggedIn;
     }
 
     public function renderView($includeStandardBanner = true)
     {
-
         // SIMPLIFYING VARIABLES
-        $data = $this->viewData;
-        $name = $this->viewName;
+        $data = $this->_viewData;
+        $name = $this->_viewName;
+        $loggedIn = $this->_isLoggedIn;
 
         // HEAD
         include("../app/views/_includes/top.php");
@@ -33,19 +54,9 @@ class View
         }
 
         // CONTENT
-        require_once '../app/views/' . $this->viewPath . 'index.php';
+        require_once '../app/views/' . $this->_viewPath . 'index.php';
 
         // FOOTER
         include("../app/views/_includes/footer.php");
-    }
-
-    public function setViewError($error)
-    {
-        $this->error = $error;
-    }
-
-    public function getViewError()
-    {
-        return $this->error;
     }
 }

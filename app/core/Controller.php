@@ -32,6 +32,7 @@ class Controller
     {
         if (file_exists('../app/views/' . $view . 'index.php')) {
             $this->_view = new View($viewName, $view, $data);
+            $this->_view->setIsLoggedIn($this->_user->isLoggedIn());
         }
     }
 }

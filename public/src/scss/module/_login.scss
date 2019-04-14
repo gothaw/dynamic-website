@@ -21,7 +21,7 @@
 .login-link{
   color: $primary-color;
   @include transition(.4s);
-  &:active{
-    color: complement($primary-color);
+  &:hover{
+    color: $secondary-color;
   }
 }

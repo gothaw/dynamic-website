@@ -234,10 +234,10 @@ textarea:focus {
       text-transform: uppercase;
       font-size: 14px;
       font-weight: 600;
-      display: inline-block;
-      padding: 15px; }
+      display: inline-block; }
     .main-menu ul li .menu-link {
-      transition: 0.2s; }
+      padding: 15px;
+      transition: 0.3s; }
       .main-menu ul li .menu-link:hover {
         color: #f61b55; }
       .main-menu ul li .menu-link-active::before {
@@ -276,6 +276,23 @@ textarea:focus {
           transition: 0.3s; }
           .main-menu ul li ul.sub-menu li a:hover {
             color: #f61b55; }
+    .main-menu ul li .menu-account-link {
+      padding-right: 8px; }
+      @media (max-width: 991.98px) {
+        .main-menu ul li .menu-account-link {
+          padding-right: 15px; } }
+    .main-menu ul li .menu-logout-link {
+      color: #f61b55;
+      transition: 0.3s;
+      padding: 15px 15px 15px 8px; }
+      @media (max-width: 991.98px) {
+        .main-menu ul li .menu-logout-link {
+          padding: 15px; } }
+      .main-menu ul li .menu-logout-link:hover {
+        color: #4494f6; }
+    @media (max-width: 991.98px) {
+      .main-menu ul li .menu-link-slash {
+        display: none; } }
 
 .main-menu .menu-btn {
   display: inline;
@@ -2553,8 +2570,8 @@ h6 {
 .login-link {
   color: #f61b55;
   transition: 0.4s; }
-  .login-link:active {
-    color: #1bf6bc; }
+  .login-link:hover {
+    color: #4494f6; }
 
 /* Flash Message */
 .flash {

@@ -10,10 +10,15 @@ class Register extends Controller
 
         parent::__construct($this->_page);
 
-        $this->view($this->_page, $this->_path, [
-            'navPages' => $this->_navPages,
-            'pageDetails' => $this->_pageDetails
-        ]);
+        // View is instantiated if user not logged in
+        if (!$this->_user->isLoggedIn()) {
+            $this->view($this->_page, $this->_path, [
+                'navPages' => $this->_navPages,
+                'pageDetails' => $this->_pageDetails
+            ]);
+        } else {
+            Redirect::to('home');
+        }
     }
 
     public function index()
@@ -36,7 +41,7 @@ class Register extends Controller
                     $user = $this->model('User');
                     $salt = Hash::generateSalt(32);
 
-                    try{
+                    try {
                         $user->createUser([
                             'u_first_name' => Input::getValue('first_name'),
                             'u_last_name' => Input::getValue('last_name'),
@@ -46,15 +51,14 @@ class Register extends Controller
                             'u_city' => Input::getValue('city'),
                             'u_username' => Input::getValue('username'),
                             'u_email' => Input::getValue('email'),
-                            'u_password' => Hash::generateHash(Input::getValue('password'),$salt),
+                            'u_password' => Hash::generateHash(Input::getValue('password'), $salt),
                             'u_salt' => $salt,
                             'u_group_id' => 1,
                             'u_joined' => date('Y-m-d H-i-s')
                         ]);
                         Session::flash('home', 'You have been register you can now log in.');
                         Redirect::to('home');
-                    }
-                    catch (Exception $e){
+                    } catch (Exception $e) {
                         $errorMessage = $e->getMessage();
                         $this->_view->setViewError($errorMessage);
                     }
