@@ -3,7 +3,7 @@
 class Contact extends Controller
 {
     private $_page;
-    private $_user = null;
+    //private $_user = null;
 
     public function __construct()
     {

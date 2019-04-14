@@ -28,7 +28,7 @@ class Database
             $this->_databaseName = Config::get('mysql/db_name');
             $this->_pdo = new PDO("mysql:host=" . $this->_host . ";dbname=" . $this->_databaseName, $this->_user, $this->_password);
         } catch (PDOException $e) {
-            // redirect to error page
+            // Redirect to error page.
             Redirect::to(500);
         }
     }
@@ -92,11 +92,11 @@ class Database
     }
 
     /**
-     * @method              getResultSingleRecord
-     * @desc                Gets a single (first) record from query result.
+     * @method              getResultFirstRecord
+     * @desc                Gets a first record from query result.
      * @return              array
      */
-    public function getResultSingleRecord(){
+    public function getResultFirstRecord(){
         return $this->getResult()[0];
     }
 

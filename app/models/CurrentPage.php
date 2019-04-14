@@ -7,7 +7,7 @@ class CurrentPage
     private function loadData($pageName)
     {
         $database = Database::getInstance();
-        $this->_data = $database->select('page', ['pg_name', '=', $pageName])->getResultSingleRecord();
+        $this->_data = $database->select('page', ['pg_name', '=', $pageName])->getResultFirstRecord();
     }
 
     public function getPageDetails($pageName)

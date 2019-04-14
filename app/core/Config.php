@@ -2,6 +2,12 @@
 
 class Config
 {
+    /**
+     * @method                  get
+     * @param                   $path {path as a string to the relevant variable in $GLOBALS, for example, mysql/host or session/token_name}
+     * @desc                    Method gets the value of a constant in $GLOBALS in config.php. It explodes the path by '/' and loops through the $GLOBALS associative array.
+     * @return                  bool|mixed
+     */
     public static function get($path = null)
     {
         if ($path) {

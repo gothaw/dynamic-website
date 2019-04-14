@@ -7,6 +7,7 @@ class Controller
     protected $_navPages    = null;
     protected $_pageDetails = null;
     protected $_path        = null;
+    protected $_user        = null;
 
     public function __construct($page)
     {
@@ -14,6 +15,7 @@ class Controller
         $currentPage = $this->model('CurrentPage');
         $this->_pageDetails = $currentPage->getPageDetails($page);
         $this->_path = $currentPage->getPageUrl($page);
+        $this->_user = $this->model('User');
     }
 
     public function model($model)
