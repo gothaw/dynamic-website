@@ -27,16 +27,10 @@
                                 </li>
                             <?php }
                         }
-                        if (isset($loggedIn)) { ?>
-                            <li>
-                                <a class="menu-link menu-account-link <?php if ($name === 'dashboard') {
-                                    echo "menu-link-active";
-                                } ?>" href="<?php echo ROOT . 'dashboard/' ?>">My
-                                    Account</a>
-                                <span class="menu-link-slash">/</span>
-                            </li>
-                            <li>
-                                <a class="menu-logout-link" href="<?php echo ROOT . 'dashboard/logout/' ?>">Log out</a>
+                        if (isset($isLoggedIn)) { ?>
+                            <li class="menu-btn menu-btn-logged-in">
+                                <a class="template-btn" href="<?php echo ROOT . 'dashboard/' ?>">My Account</a>
+                                <a class="template-btn" href="<?php echo ROOT . 'dashboard/logout/' ?>">Log out</a>
                             </li>
                         <?php } else { ?>
                             <li class="menu-btn">

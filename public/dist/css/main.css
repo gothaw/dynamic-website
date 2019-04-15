@@ -252,6 +252,9 @@ textarea:focus {
         @media (max-width: 991.98px) {
           .main-menu ul li .menu-link-active::before {
             bottom: 0; } }
+        @media (min-width: 992px) and (max-width: 1199.98px) {
+          .main-menu ul li .menu-link-active::before {
+            bottom: 0; } }
     .main-menu ul li:hover ul.sub-menu {
       filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
       opacity: 1;
@@ -276,38 +279,42 @@ textarea:focus {
           transition: 0.3s; }
           .main-menu ul li ul.sub-menu li a:hover {
             color: #f61b55; }
-    .main-menu ul li .menu-account-link {
-      padding-right: 8px; }
-      @media (max-width: 991.98px) {
-        .main-menu ul li .menu-account-link {
-          padding-right: 15px; } }
     .main-menu ul li .menu-logout-link {
       color: #f61b55;
       transition: 0.3s;
-      padding: 15px 15px 15px 8px; }
+      padding: 15px 15px 15px 6px; }
       @media (max-width: 991.98px) {
         .main-menu ul li .menu-logout-link {
           padding: 15px; } }
       .main-menu ul li .menu-logout-link:hover {
         color: #4494f6; }
-    @media (max-width: 991.98px) {
-      .main-menu ul li .menu-link-slash {
-        display: none; } }
 
 .main-menu .menu-btn {
   display: inline;
-  margin-left: 60px; }
+  margin-left: 60px;
+  text-align: center; }
   @media (min-width: 992px) and (max-width: 1199.98px) {
     .main-menu .menu-btn {
-      margin-left: 0; } }
+      margin-left: 0;
+      display: block;
+      padding-top: 20px; } }
   @media (max-width: 991.98px) {
     .main-menu .menu-btn {
       margin-left: 0;
       display: block;
-      padding-top: 20px;
-      text-align: center; }
+      padding-top: 20px; }
       .main-menu .menu-btn .login {
         display: block; } }
+  .main-menu .menu-btn-logged-in {
+    margin-left: 30px; }
+    @media (min-width: 992px) and (max-width: 1199.98px) {
+      .main-menu .menu-btn-logged-in {
+        margin-left: 0; } }
+    @media (max-width: 991.98px) {
+      .main-menu .menu-btn-logged-in {
+        margin-left: 0; } }
+    .main-menu .menu-btn-logged-in a {
+      padding: 13px !important; }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
   .main-menu.main-menu-light ul {
@@ -2462,6 +2469,7 @@ h6 {
 
 /* 15. Button */
 .template-btn {
+  cursor: pointer;
   color: #ffffff !important;
   background: #f61b55;
   font-family: "Rubik", sans-serif;

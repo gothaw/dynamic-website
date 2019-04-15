@@ -40,7 +40,7 @@ class View
         // SIMPLIFYING VARIABLES
         $data = $this->_viewData;
         $name = $this->_viewName;
-        $loggedIn = $this->_isLoggedIn;
+        $isLoggedIn = $this->_isLoggedIn;
 
         // HEAD
         include("../app/views/_includes/top.php");

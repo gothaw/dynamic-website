@@ -1,5 +1,6 @@
 /* 15. Button */
 .template-btn {
+    cursor: pointer;
     color: $light!important;
     background: $primary-color;
     font-family: $heading-font;
@@ -11,10 +12,12 @@
     padding: 13px 24px!important;
     @include border-radius(3px);
     @include transition(all .5s);
-    //transition: all 1s!important;
     &:hover {
         color: $heading-text!important;
         background: transparent;
         border: 1px solid $primary-color;
     }
+}
+.menu-login-btn{
+
 }

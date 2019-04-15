@@ -8,7 +8,11 @@
                     <h1>For</h1>
                     <h2>Fitness</h2>
                     <div class="banner-btn">
-                        <a href="#" class="template-btn">become a member</a>
+                        <?php if (isset($isLoggedIn)) { ?>
+                            <a href="<?php echo ROOT . 'schedule/'?>" class="template-btn">sign up for a class</a>
+                        <?php } else { ?>
+                            <a href="<?php echo ROOT . 'login/'?>" class="template-btn">become a member</a>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
