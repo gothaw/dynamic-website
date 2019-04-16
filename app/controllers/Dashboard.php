@@ -28,6 +28,7 @@ class Dashboard extends Controller
 
     public function logout()
     {
-        echo "Logging out";
+        $this->_user->logoutUser();
+        Redirect::to('home');
     }
 }

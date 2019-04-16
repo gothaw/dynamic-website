@@ -13,6 +13,11 @@
                     <div class="login-field">
                         <input type="password" placeholder="Enter password" name="password" id="password" autocomplete="off"> <!--required-->
                     </div>
+                    <div class="remember-me-field">
+                        <label for="remember">
+                            <input type="checkbox" name="remember" id="remember"> <span>Remember me</span>
+                        </label>
+                    </div>
                     <div class="login-button">
                         <input type="hidden" name="token" value="<?php echo Token::generate();?>">
                         <input type="submit" class="template-btn" value="log in">

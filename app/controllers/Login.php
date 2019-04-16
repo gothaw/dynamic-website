@@ -39,7 +39,10 @@ class Login extends Controller
 
                     // Log user in
                     $user = $this->model('User');
-                    $login = $user->loginUser(Input::getValue('username'), Input::getValue('password'));
+
+                    $rememberUser = (Input::getValue('remember') === 'on') ? true : false;
+
+                    $login = $user->loginUser(Input::getValue('username'), Input::getValue('password'), $rememberUser);
 
                     if ($login) {
                         // Successful login

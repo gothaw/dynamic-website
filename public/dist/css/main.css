@@ -2569,6 +2569,12 @@ h6 {
     margin: 5px auto;
     padding: 5px; }
 
+.remember-me-field {
+  width: 300px;
+  margin: 0 auto; }
+  .remember-me-field label span {
+    padding-left: 5px; }
+
 .login-button {
   text-align: center;
   margin: 10px 0; }

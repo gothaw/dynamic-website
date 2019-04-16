@@ -36,7 +36,8 @@ class User
      * @desc                Getter for _data field.
      * @return              mixed
      */
-    public function getData(){
+    public function getData()
+    {
         return $this->_data;
     }
 
@@ -45,7 +46,8 @@ class User
      * @desc                Getter for _isLoggedIn field.
      * @return              bool
      */
-    public function isLoggedIn(){
+    public function isLoggedIn()
+    {
         return $this->_isLoggedIn;
     }
 
@@ -84,7 +86,7 @@ class User
         return false;
     }
 
-    public function loginUser($username = null, $password = null)
+    public function loginUser($username = null, $password = null, $rememberUser)
     {
         $user = $this->findUser($username);
 
@@ -93,10 +95,29 @@ class User
 
                 // Password matches and adds u_id to the session.
                 Session::add($this->_sessionName, $this->_data['u_id']);
+
+                if ($rememberUser) {
+                    $hash = Hash::generateFromUniqueId();
+                    $hashCheck = $this->_database->getResultFirstRecord('user_session',['user_id','=',$this->_data['u_id']]);
+
+                    if(!$hashCheck->){
+
+                    }
+                }
+
                 return true;
             }
         }
 
         return false;
+    }
+
+    /**
+     * @method              logoutUser
+     * @desc                Logs the user out by deleting _sessionName from the session.
+     */
+    public function logoutUser()
+    {
+        Session::delete($this->_sessionName);
     }
 }
