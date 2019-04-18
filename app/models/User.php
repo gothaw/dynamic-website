@@ -18,9 +18,21 @@ class User
         $this->_sessionName = Config::get('session/session_name');
         $this->_cookieName = Config::get('remember/cookie_name');
 
-        if (!$user) {
+        if (Cookie::exists(Config::get('remember/cookie_name')) && !Session::exists(Config::get('session/session_name'))) {
+            // Logs user in using hash stored in cookie i.e. remember me.
+            $hash = Cookie::get(Config::get('remember/cookie_name'));
+            $hashCheck = Database::getInstance()->select('user_session', ['us_hash', '=', $hash]);
+
+            if ($hashCheck->getResultRowCount()) {
+
+                $this->findUser($hashCheck->getResultFirstRecord()['user_id']);
+                $this->loginUser();
+            }
+        }
+        else if (!$user) {
+            // Checks if user is signed by getting user id from the session.
             if (Session::exists($this->_sessionName)) {
-                // Gets user id from the session
+
                 $user = Session::get($this->_sessionName);
 
                 if ($this->findUser($user)) {
@@ -29,6 +41,7 @@ class User
                 }
             }
         } else {
+            // Finds user if id or username were provided.
             $this->findUser($user);
         }
     }
@@ -101,12 +114,14 @@ class User
     {
         if (!$username && !$password && !empty($this->_data)) {
 
-            // Login using remember me cookie
+            // Login using remember me cookie.
             Session::add($this->_sessionName, $this->_data['u_id']);
+            $this->_isLoggedIn = true;
+            return true;
 
         } else {
 
-            // Default login functionality
+            // Default login functionality.
             $user = $this->findUser($username);
             if ($user) {
 
@@ -121,7 +136,7 @@ class User
 
                         if (!$hashCheck->getResultRowCount()) {
 
-                            // Inserts cookie hash to the Database
+                            // Inserts cookie hash to the Database.
                             $hash = Hash::generateFromUniqueId();
                             $this->_database->insert('user_session', [
                                 'user_id' => $this->_data['u_id'],
@@ -130,12 +145,13 @@ class User
 
                         } else {
 
-                            // Gets cookie has from the Database
+                            // Gets cookie has from the Database.
                             $hash = $hashCheck->getResultFirstRecord()['us_hash'];
 
                         }
                         Cookie::add($this->_cookieName, $hash, Config::get('remember/cookie_expiry'));
                     }
+                    $this->_isLoggedIn = true;
                     return true;
                 }
             }
@@ -154,26 +170,5 @@ class User
 
         Session::delete($this->_sessionName);
         Cookie::delete($this->_cookieName);
-    }
-
-    /**
-     * @method              checkIfRememberedUser
-     * @desc                Method checks if hash exists in $_COOKIE super global and user is not logged in session.
-     *                      It gets the hash from the cookie and compares it to the hash stored in the database.
-     *                      If it matches it creates new instance of the user with 'user_id' and logs user in.
-     */
-    public static function checkIfRememberedUser()
-    {
-        if (Cookie::exists(Config::get('remember/cookie_name')) && !Session::exists(Config::get('session/session_name'))) {
-
-            $hash = Cookie::get(Config::get('remember/cookie_name'));
-            $hashCheck = Database::getInstance()->select('user_session', ['us_hash', '=', $hash]);
-
-            if ($hashCheck->getResultRowCount()) {
-                // Instantiates new User.
-                $user = new User($hashCheck->getResultFirstRecord()['user_id']);
-                $user->loginUser();
-            }
-        }
     }
 }

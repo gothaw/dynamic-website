@@ -15,7 +15,3 @@ spl_autoload_register(function ($class) {
     }
 
 });
-
-// Remember user using hash stored in cookie
-require_once '../app/models/User.php';
-User::checkIfRememberedUser();
