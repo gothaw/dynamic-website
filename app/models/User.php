@@ -2,7 +2,6 @@
 
 class User
 {
-    // Database property
     private $_database;
     private $_data;
     private $_sessionName;
@@ -19,7 +18,7 @@ class User
         $this->_cookieName = Config::get('remember/cookie_name');
 
         if (Cookie::exists(Config::get('remember/cookie_name')) && !Session::exists(Config::get('session/session_name'))) {
-            // Logs user in using hash stored in cookie i.e. remember me.
+            // Logs user in using hash stored in cookie i.e. remember me functionality.
             $hash = Cookie::get(Config::get('remember/cookie_name'));
             $hashCheck = Database::getInstance()->select('user_session', ['us_hash', '=', $hash]);
 
@@ -28,8 +27,7 @@ class User
                 $this->findUser($hashCheck->getResultFirstRecord()['user_id']);
                 $this->loginUser();
             }
-        }
-        else if (!$user) {
+        } else if (!$user) {
             // Checks if user is signed by getting user id from the session.
             if (Session::exists($this->_sessionName)) {
 
@@ -107,7 +105,9 @@ class User
      * @param               $username {string}
      * @param               $password {string}
      * @param               $rememberUser {bool}
-     * @desc                Method logs user in. If no name and password is provided...
+     * @desc                Method logs user in. If no name and password is provided and _data field is not empty the user is logged in (cookie remember me functionality).
+     *                      Alternatively, if user is set and password in database matches password provided in login form, user is logged in.
+     *                      The method also included functionality for remember me checkbox, which generates a new cookie hash that is stored in the database or gets the hash from the database if it exists.
      * @return              bool
      */
     public function loginUser($username = null, $password = null, $rememberUser = false)
@@ -142,12 +142,10 @@ class User
                                 'user_id' => $this->_data['u_id'],
                                 'us_hash' => $hash
                             ]);
-
                         } else {
 
                             // Gets cookie has from the Database.
                             $hash = $hashCheck->getResultFirstRecord()['us_hash'];
-
                         }
                         Cookie::add($this->_cookieName, $hash, Config::get('remember/cookie_expiry'));
                     }
@@ -166,7 +164,7 @@ class User
      */
     public function logoutUser()
     {
-        $this->_database->delete('user_session',['user_id','=',$this->_data['u_id']]);
+        $this->_database->delete('user_session', ['user_id', '=', $this->_data['u_id']]);
 
         Session::delete($this->_sessionName);
         Cookie::delete($this->_cookieName);

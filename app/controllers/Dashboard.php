@@ -11,12 +11,15 @@ class Dashboard extends Controller
 
         // View instantiated if user is logged in
         if ($this->_user->isLoggedIn()) {
+
+            $userData = $this->_user->getData();
+
             $this->view($this->_page, $this->_path, [
                 'navPages' => $this->_navPages,
-                'pageDetails' => $this->_pageDetails
+                'pageDetails' => $this->_pageDetails,
+                'user' => $userData
             ]);
-        }
-        else{
+        } else {
             Redirect::to('home');
         }
     }
@@ -30,5 +33,11 @@ class Dashboard extends Controller
     {
         $this->_user->logoutUser();
         Redirect::to('home');
+    }
+
+    public function edit()
+    {
+        $this->_view->setSubName(__FUNCTION__);
+        $this->_view->renderView();
     }
 }

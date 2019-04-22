@@ -3,6 +3,7 @@
 class View
 {
     private $_viewName;
+    private $_viewSubName = 'index';
     private $_viewPath;
     private $_viewData;
     private $_error;
@@ -35,11 +36,16 @@ class View
         return $this->_isLoggedIn;
     }
 
+    public function setSubName($name){
+        $this->_viewSubName = $name;
+    }
+
     public function renderView($includeStandardBanner = true)
     {
         // SIMPLIFYING VARIABLES
         $data = $this->_viewData;
         $name = $this->_viewName;
+        $subName = $this->_viewSubName;
         $isLoggedIn = $this->_isLoggedIn;
 
         // HEAD

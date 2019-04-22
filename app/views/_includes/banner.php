@@ -7,7 +7,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="banner-text">
-                    <h3><?php echo $data['pageDetails']['pg_name']?></h3>
+                    <?php if($name === 'dashboard') {?>
+                        <h3><?php echo  "Welcome {$data['user']['u_first_name']}!"?></h3>
+                    <?php } else {?>
+                        <h3><?php echo $data['pageDetails']['pg_name']?></h3>
+                    <?php }?>
                     <a href="<?php echo ROOT?>">home</a>
                     <span class="mx-2">/</span>
                     <a href="<?php echo ROOT . $data['pageDetails']['pg_url']?>"><?php echo $data['pageDetails']['pg_name']?></a>

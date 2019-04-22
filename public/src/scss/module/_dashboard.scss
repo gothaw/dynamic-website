@@ -1,0 +1,32 @@
+/* Dashboard */
+.user-details{
+  @include tablet-and-desktop(){
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    align-items: center;
+    grid-column-gap: 20px;
+    grid-row-gap: 5px;
+  }
+  li{
+    font-size: 1.125rem;
+    &:nth-child(2n+1){
+      font-weight: bold;
+    }
+  }
+}
+.dashboard-buttons-wrapper{
+  @include tablet-and-desktop(){
+    display: flex;
+    .dashboard-button{
+      &:nth-child(2){
+        padding-left: 15px;
+      }
+    }
+  }
+}
+.dashboard-button{
+  margin: 10px 0;
+  @include phone(){
+    text-align: center;
+  }
+}

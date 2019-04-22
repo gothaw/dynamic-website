@@ -1,9 +1,5 @@
 <?php
 
-//    trace($this);
-//    trace($data);
-
-
 //CONTENT
 include("../app/views/home/home-banner.php");
 include("../app/views/home/home-about.php");

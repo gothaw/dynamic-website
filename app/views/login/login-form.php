@@ -8,10 +8,10 @@
                 </div>
                 <form action="<?php echo ROOT . "login/form"?>" method="post">
                     <div class="login-field">
-                        <input type="text" placeholder="Enter username" name="username" id="username" autocomplete="off"> <!--required-->
+                        <input type="text" placeholder="Enter username" name="username" id="username" required autocomplete="off">
                     </div>
                     <div class="login-field">
-                        <input type="password" placeholder="Enter password" name="password" id="password" autocomplete="off"> <!--required-->
+                        <input type="password" placeholder="Enter password" name="password" id="password" required autocomplete="off">
                     </div>
                     <div class="remember-me-field">
                         <label for="remember">
