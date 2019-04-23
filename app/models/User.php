@@ -101,6 +101,24 @@ class User
     }
 
     /**
+     * @method              updateUser
+     * @param               $fields {fields to be updated in the database as an associative array}
+     * @param               $id {user id}
+     * @desc                Method updates row in the database using update method. If user id is not provided it updates current user, otherwise it updates user with given id.
+     * @throws              Exception
+     */
+    public function updateUser($fields = [], $id = null)
+    {
+        if(!$id && $this->isLoggedIn()){
+            $id = $this->_data['u_id'];
+        }
+
+        if(!$this->_database->update('user','u_id',$id,$fields)){
+            throw new Exception('There was a problem updating your account details.');
+        }
+    }
+
+    /**
      * @method              loginUser
      * @param               $username {string}
      * @param               $password {string}

@@ -45,21 +45,19 @@ class Login extends Controller
                     $login = $user->loginUser(Input::getValue('username'), Input::getValue('password'), $rememberUser);
 
                     if ($login) {
+
                         // Successful login
                         Redirect::to('dashboard');
-
                     } else {
 
                         $errorMessage = 'Sorry username or password are incorrect.';
                         $this->_view->setViewError($errorMessage);
-
                     }
                 } else {
 
                     // Display an Error
                     $errorMessage = $validate->getFirstErrorMessage();
                     $this->_view->setViewError($errorMessage);
-
                 }
             }
         }

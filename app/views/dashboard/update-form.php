@@ -1,5 +1,5 @@
 <!-- Update Details Form Area Starts -->
-<section class="section-padding5 section-padding3">
+<section class="section-padding4">
     <div class="container">
         <form class="update-form" action="<?php echo ROOT . "dashboard/edit/"?>" method="post">
             <div class="form-text">
@@ -29,10 +29,6 @@
                     <div class="form-field">
                         <label for="city">City</label>
                         <input type="text" name="city" id="city" value="<?php echo escape($data['user']['u_city']);?>" required autocomplete="off">
-                    </div>
-                    <div class="form-field">
-                        <label for="username">Username</label>
-                        <input type="text" name="username" id="username" value="<?php echo escape($data['user']['u_username']);?>" required autocomplete="off">
                     </div>
                     <div class="form-field">
                         <label for="email">Email</label>

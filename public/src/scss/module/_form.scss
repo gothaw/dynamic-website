@@ -1,13 +1,21 @@
-/* 16. Register */
+/* 16. Form */
 .register-form{
   max-width: 800px;
   margin: 0 auto;
 }
-.register-text{
+.update-form{
+  max-width: 400px;
+  margin: 0 auto;
+}
+.change-password-form{
+  max-width: 400px;
+  margin: 0 auto;
+}
+.form-text{
   text-align: center;
   padding-bottom: 10px;
 }
-.register-field{
+.form-field{
   text-align: center;
   margin: 5px auto;
   input{
@@ -22,7 +30,7 @@
     margin: 0 auto;
   }
 }
-.register-button{
+.form-button{
   text-align: center;
   margin: 10px auto;
   input{

@@ -2486,32 +2486,40 @@ h6 {
     background: transparent;
     border: 1px solid #f61b55; }
 
-/* 16. Register */
+/* 16. Form */
 .register-form {
   max-width: 800px;
   margin: 0 auto; }
 
-.register-text {
+.update-form {
+  max-width: 400px;
+  margin: 0 auto; }
+
+.change-password-form {
+  max-width: 400px;
+  margin: 0 auto; }
+
+.form-text {
   text-align: center;
   padding-bottom: 10px; }
 
-.register-field {
+.form-field {
   text-align: center;
   margin: 5px auto; }
-  .register-field input {
+  .form-field input {
     width: 100%;
     padding: 5px; }
-  .register-field label {
+  .form-field label {
     width: 100%;
     text-align: left;
     display: block;
     font-weight: bold;
     margin: 0 auto; }
 
-.register-button {
+.form-button {
   text-align: center;
   margin: 10px auto; }
-  .register-button input {
+  .form-button input {
     cursor: pointer; }
 
 .password-hint {

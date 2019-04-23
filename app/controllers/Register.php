@@ -33,15 +33,15 @@ class Register extends Controller
 
                 // Validation using Validate object
                 $validate = new Validate();
-                $validate->check($_POST, ValidationRules::getValidUserRules());
+                $validate->check($_POST, ValidationRules::getRegisterUserRules());
 
                 if ($validate->checkIfPassed()) {
 
                     // Register a User
                     $user = $this->model('User');
-                    $salt = Hash::generateSalt(32);
 
                     try {
+                        $salt = Hash::generateSalt(32);
                         $user->createUser([
                             'u_first_name' => Input::getValue('first_name'),
                             'u_last_name' => Input::getValue('last_name'),
@@ -67,7 +67,6 @@ class Register extends Controller
                     //Display an Error
                     $errorMessage = $validate->getFirstErrorMessage();
                     $this->_view->setViewError($errorMessage);
-
                 }
             }
         }

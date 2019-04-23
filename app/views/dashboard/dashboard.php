@@ -29,7 +29,7 @@
                         <a class="template-btn" href="<?php echo ROOT . 'dashboard/edit/'?>">Edit</a>
                     </div>
                     <div class="dashboard-button">
-                        <a class="template-btn" href="#">Change Password</a>
+                        <a class="template-btn" href="<?php echo ROOT . 'dashboard/changepass/'?>">Change Password</a>
                     </div>
                 </div>
             </section>

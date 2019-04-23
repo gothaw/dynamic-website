@@ -20,20 +20,20 @@ class Validate
                 $item = escape($item);
 
                 if ($rule === 'required' && empty($value)) {
-                    $this->addError("{$items[$item]['name']} is required.");
+                    $this->addError("{$items[$item]['desc']} is required.");
                 } else if (!empty($value)) {
                     switch ($rule) {
                         case 'min':
 
                             if (strlen($value) < $ruleValue) {
-                                $this->addError("{$items[$item]['name']} must be a minimum of {$ruleValue} characters.");
+                                $this->addError("{$items[$item]['desc']} must be a minimum of {$ruleValue} characters.");
                             }
 
                             break;
                         case 'max':
 
                             if (strlen($value) > $ruleValue) {
-                                $this->addError("{$items[$item]['name']} must be a maximum of {$ruleValue} characters.");
+                                $this->addError("{$items[$item]['desc']} must be a maximum of {$ruleValue} characters.");
                             }
 
                             break;
@@ -70,21 +70,21 @@ class Validate
 
                             $check = preg_match('/\\d/', $value);
                             if (!$check) {
-                                $this->addError("{$items[$item]['name']} must include a number.");
+                                $this->addError("{$items[$item]['desc']} must include a number.");
                             }
 
                             break;
                         case 'contains_uppercase':
 
                             if (strtolower($value) === $value) {
-                                $this->addError("{$items[$item]['name']} must include an uppercase letter.");
+                                $this->addError("{$items[$item]['desc']} must include an uppercase letter.");
                             }
 
                             break;
                         case 'contains_lowercase':
 
                             if (strtoupper($value) === $value) {
-                                $this->addError("{$items[$item]['name']} must include an lowercase letter.");
+                                $this->addError("{$items[$item]['desc']} must include an lowercase letter.");
                             }
 
                             break;

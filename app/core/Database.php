@@ -205,22 +205,34 @@ class Database
         return false;
     }
 
-
-    public function update($table, $id, $fields){
+    /**
+     * @method              update
+     * @param               $table {table name in database}
+     * @param               $where {column name in the WHERE clause}
+     * @param               $id {value of under $where column for given record}
+     * @param               $fields {fields to be updated in the database}
+     *                      Method creates an UPDATE statement template with ? as placeholders, for example,
+     *                      UPDATE `user` SET `name` = ?, `age` = ?, `email` = ? WHERE `u_id` = 4;
+     *                      Method invokes query method to prepare and execute the query.
+     * @return              bool
+     */
+    public function update($table, $where, $id, $fields){
         $set = '';
-        $x = 1;
+        $parameters = array_values($fields);
 
-        foreach($fields as $name => $value){
-            $set .= "{$name} = ?";
-            if($x < count($fields)){
+        // creates a string with columns and ? as placeholders for parameters
+        $i = 1;
+        foreach($fields as $key => $value){
+            $set .= "{$key} = ?";
+            if($i < count($fields)){
                 $set .= ', ';
             }
-            $x++;
+            $i++;
         }
 
-        $sql = "UPDATE {$table} SET {$set} WHERE id = {$id}";
+        $sql = "UPDATE {$table} SET {$set} WHERE {$where} = {$id}";
 
-        if(!$this->query($sql, $fields)->getQueryError()){
+        if(!$this->query($sql, $parameters)->getQueryError()){
             return true;
         }
         return false;
