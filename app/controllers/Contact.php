@@ -23,7 +23,40 @@ class Contact extends Controller
 
     public function send()
     {
-        $this->_view->renderView();
+        if (Input::exists()) {
+            if (Token::check(Input::getValue('token'))) {
 
+                // Validation using Validate object
+                $validate = new Validate();
+                $validate->check($_POST, ValidationRules::getValidMessageRules());
+
+                if ($validate->checkIfPassed()) {
+
+                    $name = escape(Input::getValue('name'));
+                    $subject = escape(Input::getValue('subject'));
+                    $mailFrom = escape(Input::getValue('email'));
+                    $message = escape(Input::getValue('message'));
+
+                    $emailMessage = new Email($name, $subject, $mailFrom, $message);
+
+                    if ($emailMessage->send()) {
+
+                        Session::flash('contact', 'Email sent. We will contact you shortly. Thanks!');
+                        Redirect::to('contact');
+
+                    } else {
+                        $errorMessage = 'Something went wrong sorry.';
+                        $this->_view->setViewError($errorMessage);
+                    }
+
+                } else {
+
+                    // Display an Error
+                    $errorMessage = $validate->getFirstErrorMessage();
+                    $this->_view->setViewError($errorMessage);
+                }
+            }
+        }
+        $this->_view->renderView();
     }
 }

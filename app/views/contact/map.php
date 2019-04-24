@@ -1,5 +1,5 @@
 <!-- Map Starts -->
-<section class="section-padding4">
+<section class="section-padding5">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">

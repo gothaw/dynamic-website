@@ -49,6 +49,34 @@ class ValidationRules
         return $rulesArray;
     }
 
+    public static function getValidMessageRules()
+    {
+        $rulesArray = array_merge([
+            'name' => [
+                'desc' => 'your name',
+                'required' => true,
+                'min' => 2
+            ],
+            'subject' => [
+                'desc' => 'email subject',
+                'required' => true,
+                'min' => 5,
+                'max' => 20
+            ]
+        ],
+            self::getValidEmailRules(),
+            [
+                'message' => [
+                    'desc' => 'email message',
+                    'required' => true,
+                    'max' => 4000
+                ]
+            ]
+        );
+
+        return $rulesArray;
+    }
+
     private static function getUserDetailsRules()
     {
         $rulesArray = [

@@ -4,6 +4,7 @@
 
 define("ROOT", "http://localhost/php/dynamic-website/public/");
 define("DIST", ROOT . "dist/");
+define("EMAIL_TO", "info@radsoltan.net");
 
 $GLOBALS['config'] = [
     'mysql' => [

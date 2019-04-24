@@ -10,6 +10,9 @@ class User
 
     /**
      * User constructor.
+     * @param                   $user {username or id}
+     * @desc                    Constructs the user. If user name or id is provided it finds specific user in the database.
+     *                          Alternatively, it logs user in if user id is already stored in session or user hash is stored in cookie.
      */
     public function __construct($user = null)
     {
@@ -18,6 +21,7 @@ class User
         $this->_cookieName = Config::get('remember/cookie_name');
 
         if (Cookie::exists(Config::get('remember/cookie_name')) && !Session::exists(Config::get('session/session_name'))) {
+
             // Logs user in using hash stored in cookie i.e. remember me functionality.
             $hash = Cookie::get(Config::get('remember/cookie_name'));
             $hashCheck = Database::getInstance()->select('user_session', ['us_hash', '=', $hash]);
@@ -28,6 +32,7 @@ class User
                 $this->loginUser();
             }
         } else if (!$user) {
+
             // Checks if user is signed by getting user id from the session.
             if (Session::exists($this->_sessionName)) {
 
@@ -65,6 +70,13 @@ class User
     }
 
 
+    /**
+     * @method              hasPermission
+     * @param               $key {permission name as a string e.g. 'admin', 'moderator'}
+     *                      Method checks if user permissions ($key) by selecting relevant record from user_group table, described by u_group_id.
+     *                      It decodes the JSON u_permissions field using json_decode.
+     * @return              bool
+     */
     public function hasPermission($key)
     {
         $group = $this->_database->select('user_group', ['u_group_id', '=', $this->_data['u_group_id']]);
