@@ -7,7 +7,7 @@ class View
     private $_viewPath;
     private $_viewData;
     private $_error;
-    private $_isLoggedIn;
+    private $_userIsLoggedIn;
 
     public function __construct($viewName, $viewPath, $viewData)
     {
@@ -26,14 +26,14 @@ class View
         return $this->_error;
     }
 
-    public function setIsLoggedIn($boolean)
+    public function setUserIsLoggedIn($boolean)
     {
-        $this->_isLoggedIn = $boolean;
+        $this->_userIsLoggedIn = $boolean;
     }
 
     public function getIsLoggedIn()
     {
-        return $this->_isLoggedIn;
+        return $this->_userIsLoggedIn;
     }
 
     public function setSubName($name){
@@ -46,7 +46,7 @@ class View
         $data = $this->_viewData;
         $name = $this->_viewName;
         $subName = $this->_viewSubName;
-        $isLoggedIn = $this->_isLoggedIn;
+        $userIsLoggedIn = $this->_userIsLoggedIn;
 
         // HEAD
         include("../app/views/_includes/top.php");

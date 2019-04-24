@@ -1,7 +1,6 @@
 <?php
 
-trace($data);
-
 //CONTENT
-echo "contact form goes here </br>";
-//echo $data['userName'];
+include("../app/views/contact/map.php");
+include("../app/views/_includes/view-error.php");
+include("../app/views/contact/contact-form.php");

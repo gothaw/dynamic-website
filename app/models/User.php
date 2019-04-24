@@ -64,6 +64,20 @@ class User
         return $this->_isLoggedIn;
     }
 
+
+    public function hasPermission($key)
+    {
+        $group = $this->_database->select('user_group', ['u_group_id', '=', $this->_data['u_group_id']]);
+
+        if ($group->getResultRowCount()) {
+
+            $permissionsJSON = $group->getResultFirstRecord()['u_permissions'];
+            $permissions = json_decode($permissionsJSON, true);
+
+            return isset($permissions[$key]);
+        }
+    }
+
     /**
      * @method              createUser
      * @param               $userDetails {user details as an associative array}
@@ -109,11 +123,11 @@ class User
      */
     public function updateUser($fields = [], $id = null)
     {
-        if(!$id && $this->isLoggedIn()){
+        if (!$id && $this->isLoggedIn()) {
             $id = $this->_data['u_id'];
         }
 
-        if(!$this->_database->update('user','u_id',$id,$fields)){
+        if (!$this->_database->update('user', 'u_id', $id, $fields)) {
             throw new Exception('There was a problem updating your account details.');
         }
     }
@@ -183,6 +197,7 @@ class User
     public function logoutUser()
     {
         $this->_database->delete('user_session', ['user_id', '=', $this->_data['u_id']]);
+        $this->_isLoggedIn = false;
 
         Session::delete($this->_sessionName);
         Cookie::delete($this->_cookieName);

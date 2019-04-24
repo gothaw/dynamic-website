@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="banner-text">
-                    <?php if($name === 'dashboard') {?>
+                    <?php if($name === 'dashboard' || $name === 'admin') {?>
                         <h3><?php echo  "Welcome {$data['user']['u_first_name']}!"?></h3>
                     <?php } else {?>
                         <h3><?php echo $data['pageDetails']['pg_name']?></h3>

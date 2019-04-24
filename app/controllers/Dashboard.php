@@ -13,11 +13,13 @@ class Dashboard extends Controller
         if ($this->_user->isLoggedIn()) {
 
             $userData = $this->_user->getData();
+            $admin = $this->_user->hasPermission('admin');
 
             $this->view($this->_page, $this->_path, [
                 'navPages' => $this->_navPages,
                 'pageDetails' => $this->_pageDetails,
-                'user' => $userData
+                'user' => $userData,
+                'admin' => $admin
             ]);
         } else {
             Redirect::to('home');

@@ -27,7 +27,7 @@
                                 </li>
                             <?php }
                         }
-                        if (isset($isLoggedIn)) { ?>
+                        if ($userIsLoggedIn) { ?>
                             <li class="menu-btn menu-btn-logged-in">
                                 <a class="template-btn" href="<?php echo ROOT . 'dashboard/' ?>">My Account</a>
                                 <a class="template-btn" href="<?php echo ROOT . 'dashboard/logout/' ?>">Log out</a>

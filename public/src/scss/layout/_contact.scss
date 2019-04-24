@@ -12,16 +12,31 @@
     }
 }
 
-#mapBox {
-    width: 100%;
-    height: 420px;
+.embed-container {
+    position: relative;
     overflow: hidden;
+    max-width: 100%;
+    height: 100%;
+    @include phone(){
+        padding-bottom: 300px;
+    }
+    @include tablet-and-desktop(){
+        padding-bottom: 500px;
+    }
+}
+.embed-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .info-text {
     h5 {
         text-transform: inherit;
     }
+    padding-bottom: 15px;
 }
 
 .into-icon {
@@ -31,17 +46,27 @@
         margin-right: 20px;
     }
 }
-.contact-form,
-.commentform-area {
+.form-contact-details{
+    @include tablet(){
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        .d-flex{
+            width: 50%;
+        }
+    }
+}
+.contact-form{
     form {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
         .left {
-            width: 48%;
-            float: left;
-            overflow: hidden;
-            margin-right: 4%;
-            @include portrait-phone() {
+            width: 50%;
+            padding-right: 20px;
+            @include phone() {
                 width: 100%;
-                float: none;
+                padding-right: 0;
             }
             input {
                 width: 100%;
@@ -51,24 +76,23 @@
             }
         }
         .right {
-            width: 48%;
-            overflow: hidden;
-            @include portrait-phone() {
+            width: 50%;
+            @include phone() {
                 width: 100%;
-                float: none;
             }
             textarea {
                 width: 100%;
+                height: 190px;
                 border: 1px solid $border;
                 padding: 12px 20px;
+                resize: none;
             }
         }
-        button {
-            margin-top: 20px;
-            float: right;
-            @include portrait-phone() {
-                float: left;
-            }
-        }
+    }
+}
+.contact-form-button-wrapper{
+    margin: 0 auto;
+    @include phone(){
+        padding-top: 20px;
     }
 }

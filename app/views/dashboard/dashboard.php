@@ -1,6 +1,17 @@
 <!-- Dashboard Area Starts Here -->
 <div class="container">
     <div class="row">
+        <?php if ($data['admin']) { ?>
+            <div class="col-lg-12">
+                <section class="section-padding5">
+                    <h3>Admin Panel</h3>
+                    <div>You have admin rights. Click on the button below to access the admin panel.</div>
+                    <div class="dashboard-button">
+                        <a class="template-btn" href="<?php echo ROOT . 'admin/' ?>">Admin Panel</a>
+                    </div>
+                </section>
+            </div>
+        <?php } ?>
         <div class="col-lg-6">
             <section class="section-padding5">
                 <h3>Your Details</h3>
@@ -26,10 +37,10 @@
                 </ul>
                 <div class="dashboard-buttons-wrapper">
                     <div class="dashboard-button">
-                        <a class="template-btn" href="<?php echo ROOT . 'dashboard/edit/'?>">Edit</a>
+                        <a class="template-btn" href="<?php echo ROOT . 'dashboard/edit/' ?>">Edit</a>
                     </div>
                     <div class="dashboard-button">
-                        <a class="template-btn" href="<?php echo ROOT . 'dashboard/changepass/'?>">Change Password</a>
+                        <a class="template-btn" href="<?php echo ROOT . 'dashboard/changepass/' ?>">Change Password</a>
                     </div>
                 </div>
             </section>
@@ -42,6 +53,7 @@
                     <a class="template-btn" href="#">Renew</a>
                 </div>
             </section>
+
         </div>
         <div class="col-lg-12">
             <section class="section-padding4">
