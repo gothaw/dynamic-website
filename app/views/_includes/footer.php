@@ -10,7 +10,7 @@
                             <h5 class="mb-4">contact us</h5>
                             <p>20 Fenchurch St, London EC3M 1DT</p>
                             <span class="span-style">+44 7654 321 123</span>
-                            <span class="span-style">fitzone@mail.com</span>
+                            <span class="span-style">info@radsoltan.net</span>
                         </div>
                     </div>
                     <div class="col-lg-6">
