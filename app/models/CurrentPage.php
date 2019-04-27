@@ -4,20 +4,19 @@ class CurrentPage
 {
     private $_data = null;
 
-    private function loadData($pageName)
+    public function __construct($pageName)
     {
         $database = Database::getInstance();
         $this->_data = $database->select('page', ['pg_name', '=', $pageName])->getResultFirstRecord();
     }
 
-    public function getPageDetails($pageName)
+    public function getPageDetails()
     {
-        $this->loadData($pageName);
         return $this->_data;
     }
 
-    public function getPageUrl($pageName)
+    public function getPageUrl()
     {
-        return $this->getPageDetails($pageName)['pg_url'];
+        return $this->_data['pg_url'];
     }
 }

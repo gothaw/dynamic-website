@@ -771,7 +771,8 @@ textarea:focus {
       .schedule-area .table tr .name {
         font-weight: 400;
         border: 1px solid transparent;
-        text-transform: capitalize; }
+        text-transform: capitalize;
+        padding: 12px; }
       .schedule-area .table tr:hover {
         background-color: #ffffff;
         color: #222222;
@@ -783,7 +784,7 @@ textarea:focus {
     background: #f61b55;
     border: 0;
     vertical-align: middle;
-    padding: 30px 0; }
+    padding: 30px 15px; }
   .schedule-area .thead-light .head {
     text-transform: uppercase;
     font-weight: 700;
@@ -796,6 +797,9 @@ textarea:focus {
     @media (max-width: 992px) {
       .schedule-area .featured-img {
         display: none; } }
+  .schedule-area .schedule-login-text {
+    text-align: center;
+    padding: 55px 15px 0; }
 
 /* 17. Trainers */
 .client-area.trainers {

@@ -4,7 +4,7 @@ class Coaches
 {
     private $_data = null;
 
-    private function loadData()
+    public function __construct()
     {
         $database = Database::getInstance();
         $sql = "
@@ -26,7 +26,6 @@ class Coaches
 
     public function getCoachesDetails()
     {
-        $this->loadData();
         return $this->_data;
     }
 }

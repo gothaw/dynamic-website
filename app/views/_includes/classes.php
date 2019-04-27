@@ -21,9 +21,11 @@
                             <div class="single-feature mb-5 mb-lg-0">
                                 <div class="feature-img">
                                     <img src="<?php echo DIST . $class['cl_img_url']?>" alt="<?php echo $class['cl_img_alt']?>">
+                                    <?php if($name !== 'schedule'){?>
                                     <div class="hover-state">
                                         <a href="<?php echo ROOT . 'schedule/'?>" class="template-btn">schedule</a>
                                     </div>
+                                    <?php } ?>
                                 </div>
                                 <div class="feature-footer text-center">
                                     <h5><?php echo $class['cl_name']?></h5>

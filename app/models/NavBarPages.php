@@ -4,7 +4,7 @@ class NavBarPages
 {
     private $_data = null;
 
-    private function loadData()
+    public function __construct()
     {
         $database = Database::getInstance();
         $sql = "
@@ -24,7 +24,6 @@ class NavBarPages
 
     public function getNavBarPages()
     {
-        $this->loadData();
         return $this->_data;
     }
 }

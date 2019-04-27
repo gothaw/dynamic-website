@@ -9,8 +9,8 @@ class Home extends Controller
     public function __construct()
     {
         $this->_page = 'home';
-        $this->_classes = $this->model('Classes')->getClassesDetails(4);
-        $this->_opinions = $this->model('ClientOpinions')->getClientOpinions(6);
+        $this->_classes = $this->model('Classes', 4)->getClassesDetails();
+        $this->_opinions = $this->model('ClientOpinions', 6)->getClientOpinions();
 
         parent::__construct($this->_page);
 

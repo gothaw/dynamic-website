@@ -4,7 +4,7 @@ class ClientOpinions
 {
     private $_data = null;
 
-    private function loadData($numberOfOpinions)
+    public function __construct($numberOfOpinions)
     {
         $database = Database::getInstance();
         $sql = "
@@ -25,9 +25,8 @@ class ClientOpinions
         $this->_data = $database->query($sql,[(int)$numberOfOpinions])->getResult();
     }
 
-    public function getClientOpinions($numberOfOpinions)
+    public function getClientOpinions()
     {
-        $this->loadData($numberOfOpinions);
         return $this->_data;
     }
 

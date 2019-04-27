@@ -4,7 +4,7 @@ class UpcomingClasses
 {
     private $_data = null;
 
-    private function loadData($numberOfClasses)
+    public function __construct($numberOfClasses)
     {
         $database = Database::getInstance();
         $sql = "
@@ -15,6 +15,7 @@ class UpcomingClasses
                      `cl_max_people`,
                      `sc_no_people`,
                      `sc_class_date`,
+                     `sc_class_time`,
                      `co_first_name`,
                      `co_last_name`
                 FROM 
@@ -35,9 +36,12 @@ class UpcomingClasses
         $this->_data = $database->query($sql,[(int)$numberOfClasses])->getResult();
     }
 
-    public function getClasses($numberOfClasses){
-        $this->loadData($numberOfClasses);
+    public function getClassesDetails(){
         return $this->_data;
+    }
+
+    public function getSelectedClass(){
+
     }
 
 }

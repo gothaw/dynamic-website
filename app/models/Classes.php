@@ -4,7 +4,7 @@ class Classes
 {
     private $_data = null;
 
-    private function loadData($numberOfClasses)
+    public function __construct($numberOfClasses)
     {
         $database = Database::getInstance();
         if (isset($numberOfClasses)) {
@@ -43,9 +43,8 @@ class Classes
         }
     }
 
-    public function getClassesDetails($numberOfClasses = NULL)
+    public function getClassesDetails()
     {
-        $this->loadData($numberOfClasses);
         return $this->_data;
     }
 }

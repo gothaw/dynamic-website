@@ -3,7 +3,6 @@
 class Controller
 {
     protected $_view        = null;
-    protected $_model       = null;
     protected $_navPages    = null;
     protected $_pageDetails = null;
     protected $_path        = null;
@@ -12,18 +11,17 @@ class Controller
     public function __construct($page)
     {
         $this->_navPages = $this->model('NavBarPages')->getNavBarPages();
-        $currentPage = $this->model('CurrentPage');
-        $this->_pageDetails = $currentPage->getPageDetails($page);
-        $this->_path = $currentPage->getPageUrl($page);
+        $currentPage = $this->model('CurrentPage', $page);
+        $this->_pageDetails = $currentPage->getPageDetails();
+        $this->_path = $currentPage->getPageUrl();
         $this->_user = $this->model('User');
     }
 
-    public function model($model)
+    public function model($model, $parameter = null)
     {
         if (file_exists('../app/models/' . $model . '.php')) {
             require_once '../app/models/' . $model . '.php';
-            $this->_model = new $model;
-            return $this->_model;
+            return new $model($parameter);
         }
         return null;
     }

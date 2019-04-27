@@ -24,6 +24,7 @@
                 font-weight: 400;
                 border: 1px solid transparent;
                 text-transform: capitalize;
+                padding: 12px;
             }
             &:hover {
                 background-color: $light;
@@ -41,7 +42,7 @@
             background: $primary-color;
             border: 0;
             vertical-align: middle;
-            padding: 30px 0;
+            padding: 30px 15px;
         }
         .head {
             text-transform: uppercase;
@@ -57,5 +58,9 @@
         @media (max-width: 992px) {
             display: none;
         }
+    }
+    .schedule-login-text{
+      text-align: center;
+      padding: 55px 15px 0;
     }
 }

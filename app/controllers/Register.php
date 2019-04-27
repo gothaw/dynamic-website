@@ -72,5 +72,4 @@ class Register extends Controller
         }
         $this->_view->renderView();
     }
-
 }
