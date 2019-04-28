@@ -57,10 +57,49 @@
         </div>
         <div class="col-lg-12">
             <section class="section-padding4">
-                <h3>Upcoming Classes</h3>
-                <div>
-                    Classes
-                </div>
+                <section class="schedule-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section-top text-center">
+                                    <h3>Classes you signed up for</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="table-wrap col-lg-12">
+                                <table class="schdule-table table">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th class="head" scope="col">Class name</th>
+                                        <th class="head" scope="col">Day</th>
+                                        <th class="head" scope="col">Date</th>
+                                        <th class="head" scope="col">Time</th>
+                                        <th class="head" scope="col">Duration</th>
+                                        <th class="head" scope="col">Trainer</th>
+                                        <th class="head" scope="col">Quit</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php if (isset($data['schedule'])) {
+                                        foreach ($data['schedule'] as $class) { ?>
+                                            <tr>
+                                                <td class="name"><?php echo escape($class['cl_name']); ?></td>
+                                                <td><?php echo date('l', strtotime(escape($class['sc_class_date']))); ?></td>
+                                                <td><?php echo escape($class['sc_class_date']); ?></td>
+                                                <td><?php echo substr(escape($class['sc_class_time']), 0, -3); ?></td>
+                                                <td><?php echo escape($class['cl_duration']); ?></td>
+                                                <td><?php echo ucwords(escape($class['co_first_name'] . " " . $class['co_last_name'])); ?></td>
+                                                <td><a class="template-btn" href="<?php echo ROOT . 'dashboard/drop/' . $class['sc_id']?>">Drop</a></td>
+                                            </tr>
+                                        <?php }
+                                    } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </section>
         </div>
     </div>

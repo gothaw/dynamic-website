@@ -3,10 +3,17 @@
 class UpcomingClasses
 {
     private $_data = null;
+    private $_database = null;
 
+    /**
+     *                      UpcomingClasses constructor.
+     * @param               $numberOfClasses
+     * @desc                Selects $numberOfClasses classes from `schedule` table.  Uses inner join on `class` and `coach` tables.
+     */
     public function __construct($numberOfClasses)
     {
-        $database = Database::getInstance();
+        $this->_database = Database::getInstance();
+
         $sql = "
                 SELECT 
                      `sc_id`,
@@ -33,15 +40,59 @@ class UpcomingClasses
                 ASC
                 LIMIT ?;
                 ";
-        $this->_data = $database->query($sql,[(int)$numberOfClasses])->getResult();
+
+        $this->_data = $this->_database->query($sql, [(int)$numberOfClasses])->getResult();
     }
 
-    public function getClassesDetails(){
+    /**
+     * @method              getClassesDetails
+     * @desc                Getter for _data field.
+     * @return              array|null
+     */
+    public function getClassesDetails()
+    {
         return $this->_data;
     }
 
-    public function getSelectedClass(){
-
+    /**
+     * @method              selectClass
+     * @param               $classId {`sc_id` column in `schedule` table}
+     * @desc                Loops through $_data and returns class that has `sc_id` equal to $classId
+     * @return              array|null
+     */
+    public function selectClass($classId)
+    {
+        foreach ($this->_data as $class) {
+            if ($class['sc_id'] === $classId) {
+                return $class;
+            }
+        }
+        return null;
     }
 
+    /**
+     * @method              addOnePersonToClass
+     * @param               $classId {`sc_id` column in `schedule` table}
+     * @desc                Method adds 1 in `sc_no_people` field for record where `sc_id` is equals to $classId.
+     *                      Uses update method from Database object.
+     */
+    public function addOnePersonToClass($classId)
+    {
+        $selectedClass = $this->selectClass($classId);
+
+        $this->_database->update('schedule', 'sc_id', $classId, ['sc_no_people' => $selectedClass['sc_no_people'] + 1]);
+    }
+
+    /**
+     * @method              removeOnePersonFromClass
+     * @param               $classId {`sc_id` column in `schedule` table}
+     * @desc                Method removes 1 in `sc_no_people` field for record where `sc_id` is equals to $classId.
+     *                      Uses update method from Database object.
+     */
+    public function removeOnePersonFromClass($classId)
+    {
+        $selectedClass = $this->selectClass($classId);
+
+        $this->_database->update('schedule', 'sc_id', $classId, ['sc_no_people' => $selectedClass['sc_no_people'] - 1]);
+    }
 }

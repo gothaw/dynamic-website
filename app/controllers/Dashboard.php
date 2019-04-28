@@ -3,6 +3,8 @@
 class Dashboard extends Controller
 {
     private $_page;
+    private $_userData;
+    private $_userClasses;
 
     public function __construct()
     {
@@ -12,14 +14,16 @@ class Dashboard extends Controller
         // View instantiated if user is logged in
         if ($this->_user->isLoggedIn()) {
 
-            $userData = $this->_user->getData();
+            $this->_userData = $this->_user->getData();
+            $this->_userClasses = $this->model('UserClasses', $this->_userData['u_id']);
             $admin = $this->_user->hasPermission('admin');
 
             $this->view($this->_page, $this->_path, [
                 'navPages' => $this->_navPages,
                 'pageDetails' => $this->_pageDetails,
-                'user' => $userData,
-                'admin' => $admin
+                'user' => $this->_userData,
+                'admin' => $admin,
+                'schedule' => $this->_userClasses->getUserClasses()
             ]);
         } else {
             Redirect::to('home');
@@ -89,14 +93,14 @@ class Dashboard extends Controller
                 if ($validate->checkIfPassed()) {
 
                     // Generates hashed password using salt stored in the database and current password provided in the form
-                    $currentPasswordProvided = Hash::generateHash(Input::getValue('password_current'), $this->_user->getData()['u_salt']);
+                    $currentPasswordProvided = Hash::generateHash(Input::getValue('password_current'), $this->_userData['u_salt']);
 
-                    $currentPassword = $this->_user->getData()['u_password'];
+                    $currentPassword = $this->_userData['u_password'];
 
                     if ($currentPasswordProvided === $currentPassword) {
 
                         // Updates password
-                        try{
+                        try {
                             $salt = Hash::generateSalt(32);
                             $this->_user->updateUser([
                                 'u_password' => Hash::generateHash(Input::getValue('password'), $salt),
@@ -126,6 +130,32 @@ class Dashboard extends Controller
             }
         }
         $this->_view->setSubName(__FUNCTION__);
+        $this->_view->renderView();
+    }
+
+    public function drop($classId = '')
+    {
+        // Selects class from user classes where sc_id == $classId
+        $selectedClass = $this->_userClasses->selectClass($classId);
+
+        if ($selectedClass && is_numeric($classId)) {
+
+            // User class id from user_class table
+            $userClassId = $selectedClass['uc_id'];
+
+            // Gets upcoming classes schedule
+            $schedule = $this->model('UpcomingClasses', 7);
+
+            // Removes user out from the class
+            $schedule->removeOnePersonFromClass($classId);
+            $this->_userClasses->dropUserFromClass($userClassId);
+
+            Session::flash('dashboard', "You have dropped out from {$selectedClass['cl_name']} class.");
+            Redirect::to('dashboard');
+
+        } else {
+            Redirect::to('dashboard');
+        }
         $this->_view->renderView();
     }
 }
