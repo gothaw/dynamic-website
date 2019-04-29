@@ -21,8 +21,8 @@
                                     <a class="menu-link
                                 <?php if ($page['pg_name'] === $name) {
                                         echo "menu-link-active";
-                                    } ?>" href="<?php echo ROOT . $page['pg_url'] ?>">
-                                        <?php echo $page['pg_name'] ?>
+                                    } ?>" href="<?php echo ROOT . escape($page['pg_url']) ?>">
+                                        <?php echo escape($page['pg_name']) ?>
                                     </a>
                                 </li>
                             <?php }

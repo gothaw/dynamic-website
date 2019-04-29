@@ -8,7 +8,7 @@
                 </div>
                 <div class="single-service d-flex mb-4">
                     <div class="serv-icon mr-4">
-                        <img src="<?php echo DIST;?>img/serv-icon1.png" alt="">
+                        <img src="<?php echo DIST ?>img/serv-icon1.png" alt="">
                     </div>
                     <div class="serv-text">
                         <h5>personal training</h5>
@@ -17,7 +17,7 @@
                 </div>
                 <div class="single-service d-flex mb-4">
                     <div class="serv-icon mr-4">
-                        <img src="<?php echo DIST;?>img/serv-icon2.png" alt="">
+                        <img src="<?php echo DIST ?>img/serv-icon2.png" alt="">
                     </div>
                     <div class="serv-text">
                         <h5>fitness training</h5>
@@ -26,7 +26,7 @@
                 </div>
                 <div class="single-service d-flex">
                     <div class="serv-icon mr-4">
-                        <img src="<?php echo DIST;?>img/serv-icon3.png" alt="">
+                        <img src="<?php echo DIST ?>img/serv-icon3.png" alt="">
                     </div>
                     <div class="serv-text">
                         <h5>boxing training</h5>

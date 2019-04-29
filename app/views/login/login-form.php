@@ -6,7 +6,7 @@
                 <div class="login-text">
                     Please enter your username and password to login.
                 </div>
-                <form action="<?php echo ROOT . "login/form"?>" method="post">
+                <form action="<?php echo ROOT . "login/form" ?>" method="post">
                     <div class="login-field">
                         <input type="text" placeholder="Enter username" name="username" id="username" required autocomplete="off">
                     </div>
@@ -19,12 +19,12 @@
                         </label>
                     </div>
                     <div class="login-button">
-                        <input type="hidden" name="token" value="<?php echo Token::generate();?>">
+                        <input type="hidden" name="token" value="<?php echo Token::generate() ?>">
                         <input type="submit" class="template-btn" value="log in">
                     </div>
                 </form>
                 <div class="login-text">
-                    If you don't have an account please register <a class="login-link" href="<?php echo ROOT;?>register/">here</a>.
+                    If you don't have an account please register <a class="login-link" href="<?php echo ROOT .'register/' ?>">here</a>.
                 </div>
             </div>
         </div>

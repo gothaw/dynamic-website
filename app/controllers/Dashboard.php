@@ -5,6 +5,7 @@ class Dashboard extends Controller
     private $_page;
     private $_userData;
     private $_userClasses;
+    private $_membership;
 
     public function __construct()
     {
@@ -16,14 +17,17 @@ class Dashboard extends Controller
 
             $this->_userData = $this->_user->getData();
             $this->_userClasses = $this->model('UserClasses', $this->_userData['u_id']);
+            $this->_membership = $this->model('Membership',$this->_userData['u_id']);
+
             $admin = $this->_user->hasPermission('admin');
 
             $this->view($this->_page, $this->_path, [
                 'navPages' => $this->_navPages,
                 'pageDetails' => $this->_pageDetails,
                 'user' => $this->_userData,
+                'schedule' => $this->_userClasses->getUserClasses(),
                 'admin' => $admin,
-                'schedule' => $this->_userClasses->getUserClasses()
+                'membership' => $this->_membership
             ]);
         } else {
             Redirect::to('home');
@@ -135,7 +139,7 @@ class Dashboard extends Controller
 
     public function drop($classId = '')
     {
-        // Selects class from user classes where sc_id == $classId
+        // Selects class from user classes where sc_id is equal $classId
         $selectedClass = $this->_userClasses->selectClass($classId);
 
         if ($selectedClass && is_numeric($classId)) {
@@ -146,7 +150,7 @@ class Dashboard extends Controller
             // Gets upcoming classes schedule
             $schedule = $this->model('UpcomingClasses', 7);
 
-            // Removes user out from the class
+            // Removes user from the class
             $schedule->removeOnePersonFromClass($classId);
             $this->_userClasses->dropUserFromClass($userClassId);
 
@@ -156,6 +160,12 @@ class Dashboard extends Controller
         } else {
             Redirect::to('dashboard');
         }
+        $this->_view->renderView();
+    }
+
+    public function membership()
+    {
+        $this->_view->setSubName(__FUNCTION__);
         $this->_view->renderView();
     }
 }

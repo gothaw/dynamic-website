@@ -35,17 +35,17 @@
                 <form method="post" action="<?php echo ROOT . 'contact/send' ?>">
                     <div class="left">
                         <input type="text" name="name" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" autocomplete="off" required
-                               value="<?php echo escape(Input::getValue('name')); ?>">
+                               value="<?php echo escape(Input::getValue('name')) ?>">
                         <input type="email" name="email" placeholder="Enter email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" autocomplete="off" required
-                               value="<?php echo escape(Input::getValue('email')); ?>">
+                               value="<?php echo escape(Input::getValue('email')) ?>">
                         <input type="text" name="subject" placeholder="Enter subject" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter subject'" autocomplete="off" required
-                               value="<?php echo escape(Input::getValue('subject')); ?>">
+                               value="<?php echo escape(Input::getValue('subject')) ?>">
                     </div>
                     <div class="right">
                         <textarea name="message" placeholder="Enter Message" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'" required></textarea>
                     </div>
                     <div class="contact-form-button-wrapper">
-                        <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+                        <input type="hidden" name="token" value="<?php echo Token::generate() ?>">
                         <input type="submit" class="template-btn" value="send message">
                     </div>
                 </form>

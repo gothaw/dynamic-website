@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <form class="change-password-form" action="<?php echo ROOT . "dashboard/changepass/"?>" method="post">
+                <form class="change-password-form" action="<?php echo ROOT . "dashboard/changepass/" ?>" method="post">
                     <div class="form-text">
                         Please provide your current and new password:
                     </div>
@@ -21,7 +21,7 @@
                         <input type="password" name="password_again" id="password_again" required autocomplete="off">
                     </div>
                     <div class="login-button">
-                        <input type="hidden" name="token" value="<?php echo Token::generate();?>">
+                        <input type="hidden" name="token" value="<?php echo Token::generate() ?>">
                         <input type="submit" class="template-btn" value="update">
                     </div>
                 </form>

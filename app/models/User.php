@@ -9,7 +9,7 @@ class User
     private $_isLoggedIn;
 
     /**
-     * User constructor.
+     *                          User constructor.
      * @param                   $user {username or id}
      * @desc                    Constructs the user. If user name or id is provided it finds specific user in the database.
      *                          Alternatively, it logs user in if user id is already stored in session or user hash is stored in cookie.

@@ -73,7 +73,7 @@ class UpcomingClasses
     /**
      * @method              addOnePersonToClass
      * @param               $classId {`sc_id` column in `schedule` table}
-     * @desc                Method adds 1 in `sc_no_people` field for record where `sc_id` is equals to $classId.
+     * @desc                Method adds 1 in `sc_no_people` field for record where `sc_id` is equal to $classId.
      *                      Uses update method from Database object.
      */
     public function addOnePersonToClass($classId)
@@ -86,7 +86,7 @@ class UpcomingClasses
     /**
      * @method              removeOnePersonFromClass
      * @param               $classId {`sc_id` column in `schedule` table}
-     * @desc                Method removes 1 in `sc_no_people` field for record where `sc_id` is equals to $classId.
+     * @desc                Method removes 1 in `sc_no_people` field for record where `sc_id` is equal to $classId.
      *                      Uses update method from Database object.
      */
     public function removeOnePersonFromClass($classId)

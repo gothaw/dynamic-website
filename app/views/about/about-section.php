@@ -9,7 +9,7 @@
                 <p>Accusantium at atque consequatur dignissimos dolores exercitationem illo in labore magni nisi, nostrum perspiciatis possimus quas, qui recusandae repudiandae tempora.</p>
             </div>
             <div class="col-lg-5 offset-lg-1">
-                <img class="img-fluid" src="<?php echo DIST?>/img/about.png" alt="">
+                <img class="img-fluid" src="<?php echo DIST ?>/img/about.png" alt="">
             </div>
         </div>
     </div>

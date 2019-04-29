@@ -15,13 +15,13 @@
                         foreach ($data['opinions'] as $opinion) {?>
                             <div class="single-slide d-flex">
                                 <div class="slide-img mr-4">
-                                    <img src="<?php echo DIST . $opinion['op_photo_url']?>" alt="photo-<?php echo $opinion['op_id']?>">
+                                    <img src="<?php echo DIST . escape($opinion['op_photo_url']) ?>" alt="photo-<?php echo escape($opinion['op_id']) ?>">
                                 </div>
                                 <div class="slide-text">
-                                    <p><?php echo $opinion['op_desc']?></p>
-                                    <h5><?php echo $opinion['op_client_name']?></h5>
+                                    <p><?php echo escape($opinion['op_desc']) ?></p>
+                                    <h5><?php echo escape($opinion['op_client_name']) ?></h5>
                                     <h6><?php if(isset($opinion['cl_name'])){
-                                            echo $opinion['cl_name'];
+                                            echo escape($opinion['cl_name']);
                                         }
                                         else{
                                             echo "Gym Member";

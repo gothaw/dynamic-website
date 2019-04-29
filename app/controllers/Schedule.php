@@ -29,7 +29,7 @@ class Schedule extends Controller
 
     public function signUp($classId = '')
     {
-        // Selects class from a schedule where sc_id == $classId
+        // Selects class from a schedule where sc_id is equal $classId
         $selectedClass = $this->_schedule->selectClass($classId);
 
         if ($this->_user->isLoggedIn() && $selectedClass && is_numeric($classId)) {

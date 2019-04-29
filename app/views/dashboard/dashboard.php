@@ -17,23 +17,23 @@
                 <h3>Your Details</h3>
                 <ul class="user-details">
                     <li>First Name:</li>
-                    <li><?php echo escape($data['user']['u_first_name']); ?></li>
+                    <li><?php echo escape($data['user']['u_first_name']) ?></li>
                     <li>Last Name:</li>
-                    <li><?php echo escape($data['user']['u_last_name']); ?></li>
+                    <li><?php echo escape($data['user']['u_last_name']) ?></li>
                     <li>Address:</li>
-                    <li><?php echo escape($data['user']['u_address_1']); ?></li>
+                    <li><?php echo escape($data['user']['u_address_1']) ?></li>
                     <?php if (isset($data['user']['u_address_2'])) { ?>
                         <li></li>
-                        <li><?php echo escape($data['user']['u_address_2']); ?></li>
+                        <li><?php echo escape($data['user']['u_address_2']) ?></li>
                     <?php } ?>
                     <li>Postcode:</li>
-                    <li><?php echo escape($data['user']['u_postcode']); ?></li>
+                    <li><?php echo escape($data['user']['u_postcode']) ?></li>
                     <li>City:</li>
-                    <li><?php echo escape($data['user']['u_city']); ?></li>
+                    <li><?php echo escape($data['user']['u_city']) ?></li>
                     <li>Username:</li>
-                    <li><?php echo escape($data['user']['u_username']); ?></li>
+                    <li><?php echo escape($data['user']['u_username']) ?></li>
                     <li>Email:</li>
-                    <li><?php echo escape($data['user']['u_email']); ?></li>
+                    <li><?php echo escape($data['user']['u_email']) ?></li>
                 </ul>
                 <div class="dashboard-buttons-wrapper">
                     <div class="dashboard-button">
@@ -50,7 +50,7 @@
                 <h3>Your Membership</h3>
                 <div>Your membership has expired. Please renew it under link below.</div>
                 <div class="dashboard-button">
-                    <a class="template-btn" href="#">Renew</a>
+                    <a class="template-btn" href="<?php echo ROOT . 'dashboard/membership/' ?>">Renew</a>
                 </div>
             </section>
 
@@ -84,13 +84,13 @@
                                     <?php if (isset($data['schedule'])) {
                                         foreach ($data['schedule'] as $class) { ?>
                                             <tr>
-                                                <td class="name"><?php echo escape($class['cl_name']); ?></td>
-                                                <td><?php echo date('l', strtotime(escape($class['sc_class_date']))); ?></td>
-                                                <td><?php echo escape($class['sc_class_date']); ?></td>
-                                                <td><?php echo substr(escape($class['sc_class_time']), 0, -3); ?></td>
-                                                <td><?php echo escape($class['cl_duration']); ?></td>
-                                                <td><?php echo ucwords(escape($class['co_first_name'] . " " . $class['co_last_name'])); ?></td>
-                                                <td><a class="template-btn" href="<?php echo ROOT . 'dashboard/drop/' . $class['sc_id']?>">Drop</a></td>
+                                                <td class="name"><?php echo escape($class['cl_name']) ?></td>
+                                                <td><?php echo date('l', strtotime(escape($class['sc_class_date']))) ?></td>
+                                                <td><?php echo escape($class['sc_class_date']) ?></td>
+                                                <td><?php echo substr(escape($class['sc_class_time']), 0, -3) ?></td>
+                                                <td><?php echo escape($class['cl_duration']) ?></td>
+                                                <td><?php echo ucwords(escape($class['co_first_name'] . " " . $class['co_last_name'])) ?></td>
+                                                <td><a class="template-btn" href="<?php echo ROOT . 'dashboard/drop/' . escape($class['sc_id']) ?>">Drop</a></td>
                                             </tr>
                                         <?php }
                                     } ?>
