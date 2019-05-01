@@ -52,7 +52,7 @@ class UserClasses
      * @desc                Getter for _data field.
      * @return              array|null
      */
-    public function getUserClasses()
+    public function getClassesDetails()
     {
         return $this->_data;
     }

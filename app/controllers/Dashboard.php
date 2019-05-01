@@ -17,17 +17,19 @@ class Dashboard extends Controller
 
             $this->_userData = $this->_user->getData();
             $this->_userClasses = $this->model('UserClasses', $this->_userData['u_id']);
-            $this->_membership = $this->model('Membership',$this->_userData['u_id']);
+            $this->_membership = $this->model('Membership', $this->_userData['u_id']);
 
             $admin = $this->_user->hasPermission('admin');
+            $validMembership = $this->_membership->checkIfValidMembership();
 
             $this->view($this->_page, $this->_path, [
                 'navPages' => $this->_navPages,
                 'pageDetails' => $this->_pageDetails,
                 'user' => $this->_userData,
-                'schedule' => $this->_userClasses->getUserClasses(),
+                'schedule' => $this->_userClasses->getClassesDetails(),
+                'membership' => $this->_membership->getExpiryDate(),
                 'admin' => $admin,
-                'membership' => $this->_membership
+                'validMembership' => $validMembership
             ]);
         } else {
             Redirect::to('home');

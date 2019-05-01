@@ -38,10 +38,18 @@ class Schedule extends Controller
 
                 $userId = $this->_user->getData()['u_id'];
 
+                $membershipExpiryDate = $this->model('membership', $userId)->getExpiryDate();
+
                 // Gets classes that user has already signed up to
                 $userClasses = $this->model('UserClasses', $userId);
 
-                if ($userClasses->selectClass($classId)) {
+                if ($membershipExpiryDate < $selectedClass['sc_class_date']){
+
+                    $errorMessage = "Please renew your membership before signing up to this class.";
+                    $this->_view->setViewError($errorMessage);
+
+                }
+                else if ($userClasses->selectClass($classId)) {
 
                     $errorMessage = "You are already signed up for this class.";
                     $this->_view->setViewError($errorMessage);

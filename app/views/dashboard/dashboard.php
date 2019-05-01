@@ -48,12 +48,17 @@
         <div class="col-lg-6">
             <section class="section-padding5">
                 <h3>Your Membership</h3>
-                <div>Your membership has expired. Please renew it under link below.</div>
+                <?php if($data['validMembership']) {?>
+                    <div>Membership active. You can visit our gym and sign up to classes.</div>
+                    <div>Your membership expires on <?php echo escape($data['membership']) ?>.</div>
+                    <div>You can extend you membership under link below.</div>
+                <?php } else {?>
+                    <div>Your membership has expired. Please renew it under link below.</div>
+                <?php }?>
                 <div class="dashboard-button">
                     <a class="template-btn" href="<?php echo ROOT . 'dashboard/membership/' ?>">Renew</a>
                 </div>
             </section>
-
         </div>
         <div class="col-lg-12">
             <section class="section-padding4">

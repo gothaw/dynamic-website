@@ -10,18 +10,18 @@ class Membership
         $this->_database = Database::getInstance();
 
         $this->_data = $this->_database->select('membership',['u_id','=',$userId])->getResultFirstRecord();
-
-        trace($this->_data);
     }
 
-    public function getUserMembershipDetails()
+    public function getExpiryDate()
     {
-        return $this->_data;
+        return $this->_data['me_expiry_date'];
     }
 
     public function checkIfValidMembership()
     {
         $expiryDate = $this->_data['me_expiry_date'];
-        return $expiryDate;
+        $today = date('Y-m-d');
+
+        return ($expiryDate > $today) ? true : false;
     }
 }

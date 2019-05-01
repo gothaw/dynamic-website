@@ -23,6 +23,10 @@ $GLOBALS['config'] = [
     ]
 ];
 
+//======================  TIME ZONE CONFIG ======================
+
+date_default_timezone_set('Europe/London');
+
 //=================  ERROR HANDLING (DEVELOPMENT) ===============
 
 ini_set('display_errors', 'on');
