@@ -1,5 +1,5 @@
 <?php
-trace($data);
+
 //CONTENT
 switch ($subName){
     case 'edit':
