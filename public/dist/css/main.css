@@ -2680,4 +2680,38 @@ h6 {
       color: #222222 !important;
       background: transparent;
       border: 1px solid #f61b55; }
+  .admin-panel-icon {
+    text-align: center;
+    padding: 25px; }
+
+@media (min-width: 768px) {
+  .search-form {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 25px; } }
+
+.search-field-wrapper {
+  width: 100%; }
+  @media (min-width: 768px) {
+    .search-field-wrapper {
+      margin-right: 25px; } }
+
+@media (max-width: 767.98px) {
+  .search-button-wrapper {
+    padding: 25px 0;
+    text-align: center; } }
+
+.search-field {
+  display: inline-block;
+  margin: auto;
+  width: 100%;
+  border: solid 1px #4b4b4b;
+  border-radius: 3px;
+  padding: 11px 20px; }
+
+.back-to-admin-panel {
+  padding-top: 35px;
+  text-align: center; }
 

@@ -28,5 +28,17 @@ class Admin extends Controller
     {
         $this->_view->renderView();
     }
+
+    public function membership()
+    {
+        if (Input::exists()) {
+            if (Token::check(Input::getValue('token'))) {
+
+
+            }
+        }
+        $this->_view->setSubName(__FUNCTION__);
+        $this->_view->renderView();
+    }
 }
 

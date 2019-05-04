@@ -4,6 +4,10 @@ class NavBarPages
 {
     private $_data = null;
 
+    /**
+     *                      NavBarPages constructor.
+     * @desc                Selects page names and urls to generate the navigation bar in views.
+     */
     public function __construct()
     {
         $database = Database::getInstance();
@@ -22,6 +26,11 @@ class NavBarPages
         $this->_data = $database->query($sql)->getResult();
     }
 
+    /**
+     * @method              getNavBarPages
+     * @desc                Getter for _data field.
+     * @return              array|null
+     */
     public function getNavBarPages()
     {
         return $this->_data;

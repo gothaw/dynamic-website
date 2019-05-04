@@ -127,19 +127,6 @@ class User
     }
 
     /**
-     * @method              getUserId
-     * @param               $userName {string}
-     * @desc                Methods gets user id from the database using username.
-     * @return              int
-     */
-    public function getUserId($userName)
-    {
-        $sql = "SELECT `u_id` FROM `user` WHERE `u_username` = ?";
-        $result = $this->_database->query($sql,[$userName])->getResultFirstRecord();
-        return $result['u_id'];
-    }
-
-    /**
      * @method              updateUser
      * @param               $fields {fields to be updated in the database as an associative array}
      * @param               $id {user id}

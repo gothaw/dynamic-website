@@ -4,6 +4,10 @@ class Coaches
 {
     private $_data = null;
 
+    /**
+     *                      Coaches constructor.
+     * @desc                Selects coaches details from the database.
+     */
     public function __construct()
     {
         $database = Database::getInstance();
@@ -24,6 +28,11 @@ class Coaches
         $this->_data = $database->query($sql)->getResult();
     }
 
+    /**
+     * @method              getCoachesDetails
+     * @desc                Getter for _data field.
+     * @return              array|null
+     */
     public function getCoachesDetails()
     {
         return $this->_data;

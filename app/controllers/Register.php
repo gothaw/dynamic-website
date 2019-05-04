@@ -57,8 +57,6 @@ class Register extends Controller
                             'u_group_id' => 1,
                             'u_joined' => date('Y-m-d H-i-s')
                         ]);
-                        $userId = $user->getUserId(Input::getValue('username'));
-                        $membership->createMembership($userId);
                         Session::flash('home', 'You have been register you can now log in.');
                         Redirect::to('home');
                     } catch (Exception $e) {

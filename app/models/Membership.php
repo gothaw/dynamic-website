@@ -9,8 +9,12 @@ class Membership
     {
         $this->_database = Database::getInstance();
 
-        if($userId){
-            $this->_data = $this->_database->select('membership', ['u_id', '=', $userId])->getResultFirstRecord();
+        $result = $this->_database->select('membership', ['u_id', '=', $userId]);
+
+        if ($result->getResultRowCount()) {
+            $this->_data = $result->getResultFirstRecord();
+        } else {
+            $this->_data['me_expiry_date'] = null;
         }
     }
 
@@ -27,11 +31,11 @@ class Membership
         return ($expiryDate > $today) ? true : false;
     }
 
-    public function createMembership($userId)
+    public function updateMembership($userId)
     {
-        $this->_database->insert('membership',[
+        $this->_database->insert('membership', [
             'u_id' => $userId,
-            'me_expiry_date' => date('Y-m-d',strtotime( '-1 days' ))
+            'me_expiry_date' => date('Y-m-d', strtotime('-1 days'))
         ]);
     }
 }

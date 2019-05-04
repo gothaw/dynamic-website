@@ -1,4 +1,10 @@
 <?php
 
 //CONTENT
-include("../app/views/admin/admin-panel.php");
+switch ($subName){
+    case 'membership':
+        include("../app/views/admin/membership.php");
+        break;
+    default:
+        include("../app/views/admin/admin-panel.php");
+}

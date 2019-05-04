@@ -4,6 +4,11 @@ class Classes
 {
     private $_data = null;
 
+    /**
+     *                      Classes constructor.
+     * @param               $numberOfClasses
+     * @desc                Selects classes details from `class` table. Uses inner join with `class_image` table.
+     */
     public function __construct($numberOfClasses)
     {
         $database = Database::getInstance();
@@ -32,6 +37,11 @@ class Classes
         }
     }
 
+    /**
+     * @method              getClassesDetails
+     * @desc                Getter for _data field.
+     * @return              array|null
+     */
     public function getClassesDetails()
     {
         return $this->_data;

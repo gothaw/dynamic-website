@@ -1,4 +1,4 @@
-<!-- Dashboard Area Starts Here -->
+<!-- Admin Area Starts Here -->
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
@@ -6,30 +6,57 @@
                 <h3>Admin Panel</h3>
                 <ul class="admin-panel">
                     <li class="admin-panel-item">
+                        <div class="admin-panel-icon">
+                            <img src="<?php echo DIST . 'img/admin-panel/blog.png' ?>" width="150" height="150" alt="admin panel icon">
+                        </div>
                         <a class="admin-panel-btn" href="">View Posts</a>
                     </li>
                     <li class="admin-panel-item">
+                        <div class="admin-panel-icon">
+                            <img src="<?php echo DIST . 'img/admin-panel/add-post.png' ?>" width="150" height="150" alt="admin panel icon">
+                        </div>
                         <a class="admin-panel-btn" href="">Add Post</a>
                     </li>
                     <li class="admin-panel-item">
-                        <a class="admin-panel-btn" href="">View Members</a>
+                        <div class="admin-panel-icon">
+                            <img src="<?php echo DIST . 'img/admin-panel/member.png' ?>" width="150" height="150" alt="admin panel icon">
+                        </div>
+                        <a class="admin-panel-btn" href="">Members</a>
                     </li>
                     <li class="admin-panel-item">
-                        <a class="admin-panel-btn" href="">View Membership</a>
+                        <div class="admin-panel-icon">
+                            <img src="<?php echo DIST . 'img/admin-panel/membership.png' ?>" width="150" height="150" alt="admin panel icon">
+                        </div>
+                        <a class="admin-panel-btn" href="<?php echo ROOT . 'admin/membership/'?>">Membership</a>
                     </li>
                     <li class="admin-panel-item">
+                        <div class="admin-panel-icon">
+                            <img src="<?php echo DIST . 'img/admin-panel/class.png' ?>" width="150" height="150" alt="admin panel icon">
+                        </div>
                         <a class="admin-panel-btn" href="">View Classes</a>
                     </li>
                     <li class="admin-panel-item">
+                        <div class="admin-panel-icon">
+                            <img src="<?php echo DIST . 'img/admin-panel/add-class.png' ?>" width="150" height="150" alt="admin panel icon">
+                        </div>
                         <a class="admin-panel-btn" href="">Add Class</a>
                     </li>
                     <li class="admin-panel-item">
-                        <a class="admin-panel-btn" href="">View Schedule</a>
+                        <div class="admin-panel-icon">
+                            <img src="<?php echo DIST . 'img/admin-panel/schedule.png' ?>" width="150" height="150" alt="admin panel icon">
+                        </div>
+                        <a class="admin-panel-btn" href="">Schedule</a>
                     </li>
                     <li class="admin-panel-item">
+                        <div class="admin-panel-icon">
+                            <img src="<?php echo DIST . 'img/admin-panel/trainer.png' ?>" width="150" height="150" alt="admin panel icon">
+                        </div>
                         <a class="admin-panel-btn" href="">View Coaches</a>
                     </li>
                     <li class="admin-panel-item">
+                        <div class="admin-panel-icon">
+                            <img src="<?php echo DIST . 'img/admin-panel/add-trainer.png' ?>" width="150" height="150" alt="admin panel icon">
+                        </div>
                         <a class="admin-panel-btn" href="">Add Coach</a>
                     </li>
                 </ul>
@@ -37,4 +64,4 @@
         </div>
     </div>
 </div>
-<!-- Dashboard Area Ends Here -->
+<!-- Admin Area Ends Here -->

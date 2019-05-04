@@ -1,5 +1,5 @@
 /* Admin */
-.admin-panel{
+.admin-panel {
   display: grid;
   align-content: center;
   grid-gap: 10px;
@@ -10,24 +10,65 @@
   @include phone {
     grid-template-columns: 1fr;
   }
-  &-btn{
+  &-btn {
     display: block;
     width: 100%;
     text-align: center;
     cursor: pointer;
-    color: $light!important;
+    color: $light !important;
     background: $primary-color;
     font-family: $heading-font;
     text-transform: uppercase;
     font-size: 16px;
     font-weight: 500;
     border: 1px solid transparent;
-    padding: 13px 24px!important;
+    padding: 13px 24px !important;
     @include transition(all .5s);
+
     &:hover {
-      color: $heading-text!important;
+      color: $heading-text !important;
       background: transparent;
       border: 1px solid $primary-color;
     }
   }
+  &-icon {
+    text-align: center;
+    padding: 25px;
+  }
+}
+.search-form {
+  @include tablet-and-desktop() {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 25px;
+  }
+}
+
+.search-field-wrapper {
+  width: 100%;
+  @include tablet-and-desktop() {
+    margin-right: 25px;
+  }
+}
+.search-button-wrapper {
+  @include phone() {
+    padding: 25px 0;
+    text-align: center;
+  }
+}
+
+.search-field {
+  display: inline-block;
+  margin: auto;
+  width: 100%;
+  border: solid 1px #4b4b4b;
+  @include border-radius(3px);
+  padding: 11px 20px;
+}
+
+.back-to-admin-panel {
+  padding-top: 35px;
+  text-align: center;
 }
