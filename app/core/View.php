@@ -36,8 +36,14 @@ class View
         return $this->_userIsLoggedIn;
     }
 
-    public function setSubName($name){
+    public function setSubName($name)
+    {
         $this->_viewSubName = $name;
+    }
+
+    public function addViewData($data)
+    {
+        $this->_viewData = array_merge($this->_viewData,$data);
     }
 
     public function renderView($includeStandardBanner = true)

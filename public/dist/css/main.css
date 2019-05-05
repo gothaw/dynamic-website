@@ -750,56 +750,9 @@ textarea:focus {
   background: #ffffff; }
 
 /* 16. UpcomingClasses */
-.schedule-area {
-  position: relative; }
-  .schedule-area .table-wrap {
-    position: relative;
-    z-index: 3; }
-    @media (max-width: 768px) {
-      .schedule-area .table-wrap {
-        overflow-x: scroll; } }
-  .schedule-area .table {
-    text-align: center; }
-    .schedule-area .table .name {
-      padding: 28px 0px; }
-    .schedule-area .table tr {
-      transition: 0.5s; }
-      .schedule-area .table tr td {
-        font-weight: 400;
-        vertical-align: middle;
-        border: 1px solid transparent; }
-      .schedule-area .table tr .name {
-        font-weight: 400;
-        border: 1px solid transparent;
-        text-transform: capitalize;
-        padding: 12px; }
-      .schedule-area .table tr:hover {
-        background-color: #ffffff;
-        color: #222222;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); }
-        .schedule-area .table tr:hover td,
-        .schedule-area .table tr:hover th.name {
-          border: 1px solid transparent; }
-  .schedule-area .thead-light th {
-    background: #080b1c;
-    border: 0;
-    vertical-align: middle;
-    padding: 30px 15px; }
-  .schedule-area .thead-light .head {
-    text-transform: uppercase;
-    font-weight: 700;
-    color: #ffffff !important; }
-  .schedule-area .featured-img {
-    position: absolute;
-    right: 0;
-    bottom: -30px;
-    z-index: 2; }
-    @media (max-width: 992px) {
-      .schedule-area .featured-img {
-        display: none; } }
-  .schedule-area .schedule-login-text {
-    text-align: center;
-    padding: 55px 15px 0; }
+.schedule-login-text {
+  text-align: center;
+  padding: 55px 15px 0; }
 
 /* 17. Trainers */
 .client-area.trainers {
@@ -2487,6 +2440,55 @@ h6 {
 .page_link a {
   color: #ffffff; }
 
+/* 16. Table */
+.table-area {
+  position: relative; }
+  .table-area .table-wrap {
+    position: relative;
+    z-index: 3; }
+    @media (max-width: 768px) {
+      .table-area .table-wrap {
+        overflow-x: scroll; } }
+  .table-area .table {
+    text-align: center; }
+    .table-area .table .name {
+      padding: 28px 0px; }
+    .table-area .table tr {
+      transition: 0.5s; }
+      .table-area .table tr td {
+        font-weight: 400;
+        vertical-align: middle;
+        border: 1px solid transparent; }
+      .table-area .table tr .name {
+        font-weight: 400;
+        border: 1px solid transparent;
+        text-transform: capitalize;
+        padding: 12px; }
+      .table-area .table tr:hover {
+        background-color: #ffffff;
+        color: #222222;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); }
+        .table-area .table tr:hover td,
+        .table-area .table tr:hover th.name {
+          border: 1px solid transparent; }
+  .table-area .thead-light th {
+    background: #080b1c;
+    border: 0;
+    vertical-align: middle;
+    padding: 30px 15px; }
+  .table-area .thead-light .head {
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #ffffff !important; }
+  .table-area .featured-img {
+    position: absolute;
+    right: 0;
+    bottom: -30px;
+    z-index: 2; }
+    @media (max-width: 992px) {
+      .table-area .featured-img {
+        display: none; } }
+
 /* 15. Button */
 .template-btn {
   cursor: pointer;
@@ -2714,4 +2716,13 @@ h6 {
 .back-to-admin-panel {
   padding-top: 35px;
   text-align: center; }
+
+.user-details-admin-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  grid-column-gap: 20px;
+  grid-row-gap: 5px; }
+  .user-details-admin-panel li:nth-child(2n+1) {
+    font-weight: bold; }
 

@@ -39,19 +39,18 @@ class Register extends Controller
 
                     // Register a User
                     $user = $this->model('User');
-                    $membership = $this->model('Membership');
 
                     try {
                         $salt = Hash::generateSalt(32);
                         $user->createUser([
-                            'u_first_name' => Input::getValue('first_name'),
-                            'u_last_name' => Input::getValue('last_name'),
-                            'u_address_1' => Input::getValue('address_first_line'),
-                            'u_address_2' => Input::getValue('address_second_line'),
-                            'u_postcode' => Input::getValue('postcode'),
-                            'u_city' => Input::getValue('city'),
-                            'u_username' => Input::getValue('username'),
-                            'u_email' => Input::getValue('email'),
+                            'u_first_name' => trim(Input::getValue('first_name')),
+                            'u_last_name' => trim(Input::getValue('last_name')),
+                            'u_address_1' => trim(Input::getValue('address_first_line')),
+                            'u_address_2' => trim(Input::getValue('address_second_line')),
+                            'u_postcode' => trim(Input::getValue('postcode')),
+                            'u_city' => trim(Input::getValue('city')),
+                            'u_username' => trim(Input::getValue('username')),
+                            'u_email' => trim(Input::getValue('email')),
                             'u_password' => Hash::generateHash(Input::getValue('password'), $salt),
                             'u_salt' => $salt,
                             'u_group_id' => 1,

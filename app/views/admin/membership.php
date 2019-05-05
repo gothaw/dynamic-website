@@ -1,8 +1,8 @@
-<!-- Admin Area Starts Here -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <section class="section-padding4">
+<!-- Membership Search Starts Here -->
+<section class="table-area section-padding4">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
                 <h3>View Membership</h3>
                 <form class="search-form" action="<?php echo ROOT . 'admin/membership/' ?>" method="post">
                     <div class="search-field-wrapper">
@@ -13,12 +13,53 @@
                         <button type="submit" name="submit" class="template-btn">search</button>
                     </div>
                 </form>
-                <?php // search results go here ?>
+            </div>
+        </div>
+        <?php if(isset($data['search'])) {?>
+        <div class="row justify-content-center">
+            <div class="table-wrap col-lg-12">
+                <table class="table">
+                    <thead class="thead-light">
+                    <tr>
+                        <th class="head" scope="col">ID</th>
+                        <th class="head" scope="col">First Name</th>
+                        <th class="head" scope="col">Last Name</th>
+                        <th class="head" scope="col">Username</th>
+                        <th class="head" scope="col">Expiry Date</th>
+                        <th class="head" scope="col">Change</th>
+                        <th class="head" scope="col">Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php if (isset($data['search'])) {
+                        foreach ($data['search'] as $user) { ?>
+                            <tr>
+                                <td class="name"><?php echo escape($user['u_id']) ?></td>
+                                <td><?php echo ucfirst(escape($user['u_first_name'])) ?></td>
+                                <td><?php echo ucfirst(escape($user['u_last_name'])) ?></td>
+                                <td><?php echo escape($user['u_username']) ?></td>
+                                <td><?php if(isset($user['me_expiry_date'])){
+                                        echo escape($user['me_expiry_date']);
+                                    } else {
+                                        echo "Not subscribed";
+                                    }?></td>
+                                <td><a class="template-btn" href="<?php echo ROOT . 'admin/editmembership/' . escape($user['u_id']) ?>">Edit</a></td>
+                                <td><a class="template-btn" href="<?php echo ROOT . 'admin/editmembership/' . escape($user['u_id']) ?>">Cancel</a></td>
+                            </tr>
+                        <?php }
+                    } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <?php }?>
+        <div class="row">
+            <div class="col-lg-12 back-to-admin-panel">
                 <div class="back-to-admin-panel">
                     <a class="template-btn" href="<?php echo ROOT . 'admin/' ?>">Back to Admin Panel</a>
                 </div>
-            </section>
+            </div>
         </div>
     </div>
-</div>
-<!-- Admin Area Ends Here -->
+</section>
+<!-- Membership Search Ends Here -->

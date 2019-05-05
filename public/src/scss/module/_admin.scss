@@ -58,7 +58,6 @@
     text-align: center;
   }
 }
-
 .search-field {
   display: inline-block;
   margin: auto;
@@ -71,4 +70,16 @@
 .back-to-admin-panel {
   padding-top: 35px;
   text-align: center;
+}
+.user-details-admin-panel{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  grid-column-gap: 20px;
+  grid-row-gap: 5px;
+  li{
+    &:nth-child(2n+1){
+      font-weight: bold;
+    }
+  }
 }

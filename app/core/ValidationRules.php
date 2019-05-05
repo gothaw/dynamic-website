@@ -11,7 +11,7 @@ class ValidationRules
 
     public static function getUpdateUserRules()
     {
-        $rulesArray = array_merge(self::getUserDetailsRules(), self::getValidEmailRules());
+        $rulesArray = self::getUserDetailsRules();
 
         return $rulesArray;
     }
@@ -77,6 +77,18 @@ class ValidationRules
         return $rulesArray;
     }
 
+    public static function getValidDateRules()
+    {
+        $rulesArray = [
+            'date' => [
+                'desc' => 'date',
+                'date' => true,
+            ]
+        ];
+
+        return $rulesArray;
+    }
+
     private static function getUserDetailsRules()
     {
         $rulesArray = [
@@ -117,8 +129,9 @@ class ValidationRules
                 'required' => true,
                 'min' => 6,
                 'max' => 20,
-                'unique' => 'user/u_username'
-            ],
+                'unique' => 'user/u_username',
+                'forbidden_characters' => true
+            ]
         ];
 
         return $rulesArray;
@@ -130,7 +143,8 @@ class ValidationRules
             'email' => [
                 'desc' => 'your email address',
                 'required' => true,
-                'email' => true
+                'email' => true,
+                'unique' => 'user/u_email'
             ]
         ];
 
@@ -146,6 +160,7 @@ class ValidationRules
                 'contains_numerical' => true,
                 'contains_uppercase' => true,
                 'contains_lowercase' => true,
+                'forbidden_characters' => true,
                 'min' => 8
             ],
             'password_again' => [

@@ -1,4 +1,4 @@
-<!-- Admin Area Starts Here -->
+<!-- Admin Area Starts -->
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
@@ -64,4 +64,4 @@
         </div>
     </div>
 </div>
-<!-- Admin Area Ends Here -->
+<!-- Admin Area Ends -->

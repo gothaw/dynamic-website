@@ -88,6 +88,20 @@ class Validate
                             }
 
                             break;
+                        case 'forbidden_characters':
+                            $forbiddenCharacters = [" ", ",", "'", "%", "`", "\""];
+                            foreach ($forbiddenCharacters as $character) {
+                                if (strpos($value, $character)) {
+                                    $this->addError("{$items[$item]['desc']} cannot include spaces, commas, ', %, ` and \".");
+                                }
+                            }
+                            break;
+                        case 'date':
+                            $dateArray = explode('-',$value);
+                            if(!checkdate($dateArray[1],$dateArray[2],$dateArray[0])){
+                                $this->addError("This {$items[$item]['desc']} is invalid.");
+                            }
+                            break;
                     }
                 }
             }

@@ -2,6 +2,7 @@
 <section class="section-padding4">
     <div class="container">
         <form class="update-form" action="<?php echo ROOT . "dashboard/edit/" ?>" method="post">
+            <h3 class="form-text">Personal Details</h3>
             <div class="form-text">
                 Please update your personal details:
             </div>
@@ -29,10 +30,6 @@
                     <div class="form-field">
                         <label for="city">City</label>
                         <input type="text" name="city" id="city" value="<?php echo escape($data['user']['u_city']) ?>" required autocomplete="off">
-                    </div>
-                    <div class="form-field">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" id="email" value="<?php echo escape($data['user']['u_email']) ?>" required autocomplete="off">
                     </div>
                 </div>
             </div>

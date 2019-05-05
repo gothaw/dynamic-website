@@ -31,11 +31,17 @@ class Membership
         return ($expiryDate > $today) ? true : false;
     }
 
-    public function updateMembership($userId)
+    public function updateMembership($userId, $date)
     {
-        $this->_database->insert('membership', [
-            'u_id' => $userId,
-            'me_expiry_date' => date('Y-m-d', strtotime('-1 days'))
-        ]);
+        if($this->_data['me_expiry_date'] === null){
+
+            $this->_database->insert('membership', [
+                'u_id' => $userId,
+                'me_expiry_date' => $date
+            ]);
+
+        } else {
+            $this->_database->update('membership','u_id',$userId,['me_expiry_date' => $date]);
+        }
     }
 }

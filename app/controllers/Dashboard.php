@@ -61,13 +61,12 @@ class Dashboard extends Controller
                     // Update User Details
                     try {
                         $this->_user->updateUser([
-                            'u_first_name' => Input::getValue('first_name'),
-                            'u_last_name' => Input::getValue('last_name'),
-                            'u_address_1' => Input::getValue('address_first_line'),
-                            'u_address_2' => Input::getValue('address_second_line'),
-                            'u_postcode' => Input::getValue('postcode'),
-                            'u_city' => Input::getValue('city'),
-                            'u_email' => Input::getValue('email'),
+                            'u_first_name' => trim(Input::getValue('first_name')),
+                            'u_last_name' => trim(Input::getValue('last_name')),
+                            'u_address_1' => trim(Input::getValue('address_first_line')),
+                            'u_address_2' => trim(Input::getValue('address_second_line')),
+                            'u_postcode' => trim(Input::getValue('postcode')),
+                            'u_city' => trim(Input::getValue('city'))
                         ]);
                     } catch (Exception $e) {
                         $errorMessage = $e->getMessage();

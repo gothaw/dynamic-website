@@ -42,7 +42,7 @@ class Login extends Controller
 
                     $rememberUser = (Input::getValue('remember') === 'on') ? true : false;
 
-                    $login = $user->loginUser(Input::getValue('username'), Input::getValue('password'), $rememberUser);
+                    $login = $user->loginUser(trim(Input::getValue('username')), Input::getValue('password'), $rememberUser);
 
                     if ($login) {
 
