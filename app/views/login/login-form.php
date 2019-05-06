@@ -6,7 +6,7 @@
                 <div class="login-text">
                     Please enter your username and password to login.
                 </div>
-                <form action="<?php echo ROOT . "login/form" ?>" method="post">
+                <form action="<?php echo ROOT . "login/" ?>" method="post">
                     <div class="login-field">
                         <input type="text" placeholder="Enter username" name="username" id="username" required autocomplete="off">
                     </div>

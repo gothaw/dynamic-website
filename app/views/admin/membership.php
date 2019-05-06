@@ -44,7 +44,9 @@
                                         echo "Not subscribed";
                                     }?></td>
                                 <td><a class="template-btn" href="<?php echo ROOT . 'admin/editmembership/' . escape($user['u_id']) ?>">Edit</a></td>
-                                <td><a class="template-btn" href="<?php echo ROOT . 'admin/editmembership/' . escape($user['u_id']) ?>">Cancel</a></td>
+                                <?php if(isset($user['me_expiry_date'])) { ?>
+                                    <td><a class="template-btn" href="<?php echo ROOT . 'admin/cancelmembership/' . escape($user['u_id']) ?>">Cancel</a></td>
+                                <?php } ?>
                             </tr>
                         <?php }
                     } ?>

@@ -6,6 +6,13 @@ class App
     private $_method = 'index';
     private $_parameters = [];
 
+    /**
+     *                          App constructor.
+     * @desc                    Main app constructor. It uses parseUrl method to get an $url array.
+     *                          It uses simple routing, where the first element of the array is a controller in controllers folder and
+     *                          the second is a method in that controller e.g index or login. The rest of array element are parameters passed to the controller.
+     *                          It calls the callback with given controller, method and parameters using call_user_func_array.
+     */
     public function __construct()
     {
         $url = $this->parseUrl();
@@ -30,7 +37,12 @@ class App
         call_user_func_array([$this->_controller, $this->_method], $this->_parameters);
     }
 
-    public function parseUrl()
+    /**
+     * @method                  parseUrl
+     * @desc                    Explodes url after public folder. It also sanitizes url using filter_var.
+     * @return                  array
+     */
+    private function parseUrl()
     {
         if (isset($_GET['url'])) {
             return $url = explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));

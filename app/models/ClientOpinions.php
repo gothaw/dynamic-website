@@ -2,7 +2,7 @@
 
 class ClientOpinions
 {
-    private $_data = null;
+    private $_data;
 
     /**
      *                      ClientOpinions constructor.

@@ -2,7 +2,7 @@
 
 class NavBarPages
 {
-    private $_data = null;
+    private $_data;
 
     /**
      *                      NavBarPages constructor.

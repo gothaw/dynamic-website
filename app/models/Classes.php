@@ -2,7 +2,7 @@
 
 class Classes
 {
-    private $_data = null;
+    private $_data;
 
     /**
      *                      Classes constructor.

@@ -9,7 +9,7 @@ class Email
     private $_header;
 
     /**
-     * Email constructor.
+     *                              Email constructor.
      * @param                       $name {email name}
      * @param                       $subject {email subject}
      * @param                       $mailFrom {email from}

@@ -23,11 +23,6 @@ class Login extends Controller
 
     public function index()
     {
-        $this->_view->renderView();
-    }
-
-    public function form()
-    {
         if (Input::exists()) {
             if (Token::check(Input::getValue('token'))) {
 

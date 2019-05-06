@@ -2,8 +2,8 @@
 
 class UserClasses
 {
-    private $_data = null;
-    private $_database = null;
+    private $_data;
+    private $_database;
 
     /**
      *                      UserClasses constructor.

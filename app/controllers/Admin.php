@@ -81,7 +81,26 @@ class Admin extends Controller
         } else {
             Redirect::to('admin/membership');
         }
+
         $this->_view->setSubName(__FUNCTION__);
+        $this->_view->renderView();
+    }
+
+    public function cancelMembership($userId = '')
+    {
+        $membership = $this->model('Membership', $userId);
+        $expiryDate = $membership->getExpiryDate();
+
+        if (isset($expiryDate) && is_numeric($userId)) {
+
+            $membership->cancelMembership($userId);
+            Session::flash('admin', 'User membership has been cancelled.');
+            Redirect::to('admin/membership');
+
+        } else {
+            Redirect::to('admin/membership');
+        }
+
         $this->_view->renderView();
     }
 }

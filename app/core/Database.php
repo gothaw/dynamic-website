@@ -12,12 +12,13 @@ class Database
     private $_pdo;
     //Other instance variables
     private $_error             = false;
-    private $_query             = null;
-    private $_result            = null;
+    private $_query;
+    private $_result;
     private $_resultRowCount    = 0;
 
     /**
-     * Database constructor.
+     *                      Database constructor.
+     * @desc                Uses PDO and database info from config.php file.
      */
     private function __construct()
     {

@@ -2686,13 +2686,15 @@ h6 {
     text-align: center;
     padding: 25px; }
 
-@media (min-width: 768px) {
-  .search-form {
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 25px; } }
+.search-form {
+  padding-top: 8px; }
+  @media (min-width: 768px) {
+    .search-form {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 25px; } }
 
 .search-field-wrapper {
   width: 100%; }

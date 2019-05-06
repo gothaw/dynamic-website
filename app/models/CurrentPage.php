@@ -2,7 +2,7 @@
 
 class CurrentPage
 {
-    private $_data = null;
+    private $_data;
 
     /**
      *                      CurrentPage constructor.

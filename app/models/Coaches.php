@@ -2,7 +2,7 @@
 
 class Coaches
 {
-    private $_data = null;
+    private $_data;
 
     /**
      *                      Coaches constructor.

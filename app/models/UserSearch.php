@@ -3,7 +3,6 @@
 class UserSearch
 {
     private $_data;
-    private $_membeshipData;
     private $_database;
 
     public function __construct($key)

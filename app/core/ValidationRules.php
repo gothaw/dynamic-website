@@ -2,6 +2,11 @@
 
 class ValidationRules
 {
+    /**
+     * @method                      getRegisterUserRules
+     * @desc                        Validation rules for registering new user.
+     * @return                      array
+     */
     public static function getRegisterUserRules()
     {
         $rulesArray = array_merge(self::getUpdateUserRules(), self::getValidUsernameRules(), self::getValidEmailRules(), self::getValidPasswordRules());
@@ -9,6 +14,11 @@ class ValidationRules
         return $rulesArray;
     }
 
+    /**
+     * @method                      getUpdateUserRules
+     * @desc                        Validation rules when user wants to update personal details.
+     * @return                      array
+     */
     public static function getUpdateUserRules()
     {
         $rulesArray = self::getUserDetailsRules();
@@ -16,6 +26,11 @@ class ValidationRules
         return $rulesArray;
     }
 
+    /**
+     * @method                      getChangePasswordRules
+     * @desc                        Validation rules when user wants to change password in dashboard panel.
+     * @return                      array
+     */
     public static function getChangePasswordRules()
     {
         $passwordRules = self::getValidPasswordRules();
@@ -33,6 +48,11 @@ class ValidationRules
         return $rulesArray;
     }
 
+    /**
+     * @method                      getValidLoginRules
+     * @desc                        Rules for valid login attempt.
+     * @return                      array
+     */
     public static function getValidLoginRules()
     {
         $rulesArray = [
@@ -49,6 +69,11 @@ class ValidationRules
         return $rulesArray;
     }
 
+    /**
+     * @method                      getValidMessageRules
+     * @desc                        Rules for valid message sent using contact form.
+     * @return                      array
+     */
     public static function getValidMessageRules()
     {
         $rulesArray = array_merge([
@@ -77,18 +102,29 @@ class ValidationRules
         return $rulesArray;
     }
 
+    /**
+     * @method                      getValidDateRules
+     * @desc                        Rules for valid date.
+     * @return                      array
+     */
     public static function getValidDateRules()
     {
         $rulesArray = [
             'date' => [
                 'desc' => 'date',
                 'date' => true,
+                'required' => true
             ]
         ];
 
         return $rulesArray;
     }
 
+    /**
+     * @method                      getUserDetailsRules
+     * @desc                        Rules for valid user details such as first name, last name and address.
+     * @return                      array
+     */
     private static function getUserDetailsRules()
     {
         $rulesArray = [
@@ -121,6 +157,11 @@ class ValidationRules
         return $rulesArray;
     }
 
+    /**
+     * @method                      getValidUsernameRules
+     * @desc                        Rules for valid username
+     * @return                      array
+     */
     private static function getValidUsernameRules()
     {
         $rulesArray = [
@@ -137,6 +178,11 @@ class ValidationRules
         return $rulesArray;
     }
 
+    /**
+     * @method                      getValidEmailRules
+     * @desc                        Rules for valid email address.
+     * @return                      array
+     */
     private static function getValidEmailRules()
     {
         $rulesArray = [
@@ -151,6 +197,11 @@ class ValidationRules
         return $rulesArray;
     }
 
+    /**
+     * @method                      getValidPasswordRules
+     * @desc                        Rules for valid password.
+     * @return                      array
+     */
     private static function getValidPasswordRules()
     {
         $rulesArray = [

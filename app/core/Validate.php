@@ -4,13 +4,24 @@ class Validate
 {
     private $_passed = false;
     private $_errors = [];
-    private $_database = null;
+    private $_database;
 
+    /**
+     *                          Validate constructor.
+     * @desc                    Sets database field.
+     */
     public function __construct()
     {
         $this->_database = Database::getInstance();
     }
 
+    /**
+     * @method                  check
+     * @param                   $source {http method as a source of the data to be checked}
+     * @param                   $items {array, rules array from ValidationRules}
+     * @desc                    Method validate the input form source by looping through the rules array. If a rule is not satisfied an error is added.
+     *                          If there are no errors after checking all rules, field _passed is changed to true.
+     */
     public function check($source, $items = [])
     {
         foreach ($items as $item => $rules) {
@@ -101,6 +112,9 @@ class Validate
                             if(!checkdate($dateArray[1],$dateArray[2],$dateArray[0])){
                                 $this->addError("This {$items[$item]['desc']} is invalid.");
                             }
+                            if($value < date('Y-m-d')){
+                                $this->addError("This {$items[$item]['desc']} cannot be in the past.");
+                            }
                             break;
                     }
                 }
@@ -111,21 +125,41 @@ class Validate
         }
     }
 
+    /**
+     * @method                  addError
+     * @param                   $error {string}
+     * @desc                    Adds validation error message to the _errors array.
+     */
     private function addError($error)
     {
         $this->_errors[] = $error;
     }
 
+    /**
+     * @method                  getErrorMessages
+     * @desc                    Gets validation errors array.
+     * @return                  array
+     */
     public function getErrorMessages()
     {
         return $this->_errors;
     }
 
+    /**
+     * @method                  getFirstErrorMessage
+     * @desc                    Gets first error message from validation error array.
+     * @return                  string
+     */
     public function getFirstErrorMessage()
     {
         return $this->getErrorMessages()[0];
     }
 
+    /**
+     * @method                  checkIfPassed
+     * @desc                    Getter for _passed field.
+     * @return                  bool
+     */
     public function checkIfPassed()
     {
         return $this->_passed;

@@ -37,6 +37,7 @@
   }
 }
 .search-form {
+  padding-top: 8px;
   @include tablet-and-desktop() {
     max-width: 800px;
     margin: 0 auto;
@@ -45,7 +46,6 @@
     padding-bottom: 25px;
   }
 }
-
 .search-field-wrapper {
   width: 100%;
   @include tablet-and-desktop() {
