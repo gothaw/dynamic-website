@@ -2556,6 +2556,9 @@ h6 {
   background-color: #f61b55;
   color: #f5f5f5; }
 
+.form-field-select {
+  width: 100%; }
+
 /* 17. Other */
 .section-padding {
   padding: 130px 0; }

@@ -58,22 +58,8 @@ class Dashboard extends Controller
 
                 if ($validate->checkIfPassed()) {
 
-                    // Update User Details
-                    try {
-                        $this->_user->updateUser([
-                            'u_first_name' => trim(Input::getValue('first_name')),
-                            'u_last_name' => trim(Input::getValue('last_name')),
-                            'u_address_1' => trim(Input::getValue('address_first_line')),
-                            'u_address_2' => trim(Input::getValue('address_second_line')),
-                            'u_postcode' => trim(Input::getValue('postcode')),
-                            'u_city' => trim(Input::getValue('city'))
-                        ]);
-                    } catch (Exception $e) {
-                        $errorMessage = $e->getMessage();
-                        $this->_view->setViewError($errorMessage);
-                    }
-                    Session::flash('dashboard', 'Your details have been updated.');
-                    Redirect::to('dashboard');
+                    $this->updateUser($this->_user, 'dashboard', 'dashboard', 'Your details have been updated.');
+
                 } else {
 
                     //Display an Error
@@ -91,18 +77,18 @@ class Dashboard extends Controller
         if (Input::exists()) {
             if (Token::check(Input::getValue('token'))) {
 
-                // Validation using Validate object
-                $validate = new Validate();
-                $validate->check($_POST, ValidationRules::getChangePasswordRules());
+                // Generates hashed password using salt stored in the database and current password provided in the form
+                $currentPasswordProvided = Hash::generateHash(Input::getValue('password_current'), $this->_userData['u_salt']);
 
-                if ($validate->checkIfPassed()) {
+                $currentPassword = $this->_userData['u_password'];
 
-                    // Generates hashed password using salt stored in the database and current password provided in the form
-                    $currentPasswordProvided = Hash::generateHash(Input::getValue('password_current'), $this->_userData['u_salt']);
+                if ($currentPasswordProvided === $currentPassword) {
 
-                    $currentPassword = $this->_userData['u_password'];
+                    // Validation using Validate object
+                    $validate = new Validate();
+                    $validate->check($_POST, ValidationRules::getChangePasswordRules());
 
-                    if ($currentPasswordProvided === $currentPassword) {
+                    if ($validate->checkIfPassed()) {
 
                         // Updates password
                         try {
@@ -111,25 +97,22 @@ class Dashboard extends Controller
                                 'u_password' => Hash::generateHash(Input::getValue('password'), $salt),
                                 'u_salt' => $salt
                             ]);
+                            Session::flash('dashboard', 'Your password has been changed.');
+                            Redirect::to('dashboard');
+
                         } catch (Exception $e) {
                             $errorMessage = $e->getMessage();
                             $this->_view->setViewError($errorMessage);
                         }
-                        Session::flash('dashboard', 'Your password has been changed.');
-                        Redirect::to('dashboard');
-
                     } else {
 
-                        $errorMessage = "Your current password is incorrect.";
+                        //Display an Error
+                        $errorMessage = $validate->getFirstErrorMessage();
                         $this->_view->setViewError($errorMessage);
                     }
-                    Session::flash('dashboard', 'Your details have been updated.');
-                    Redirect::to('dashboard');
-
                 } else {
 
-                    //Display an Error
-                    $errorMessage = $validate->getFirstErrorMessage();
+                    $errorMessage = "Your current password is incorrect.";
                     $this->_view->setViewError($errorMessage);
                 }
             }

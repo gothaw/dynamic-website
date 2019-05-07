@@ -31,19 +31,14 @@ class Admin extends Controller
 
     public function membership()
     {
-        if (Input::exists()) {
-            if (Token::check(Input::getValue('token'))) {
-                $userSearch = $this->model('UserSearch', trim(Input::getValue('search')))->getUserData();
-                $this->_view->addViewData(['search' => $userSearch]);
-            }
-        }
+        $this->userSearch();
         $this->_view->setSubName(__FUNCTION__);
         $this->_view->renderView();
     }
 
     public function editMembership($userId = '')
     {
-        $selectedUser = $this->model('User', $userId)->getData();
+        $selectedUser = $this->model('User', $userId);
 
         if (isset($selectedUser) && is_numeric($userId)) {
 
@@ -74,7 +69,7 @@ class Admin extends Controller
             }
 
             $this->_view->addViewData([
-                'selectedUser' => $selectedUser,
+                'selectedUser' => $selectedUser->getData(),
                 'expiryDate' => $expiryDate
             ]);
 
@@ -95,12 +90,76 @@ class Admin extends Controller
 
             $membership->cancelMembership($userId);
             Session::flash('admin', 'User membership has been cancelled.');
-            Redirect::to('admin/membership');
+            Redirect::to('admin/membership/');
 
         } else {
-            Redirect::to('admin/membership');
+            Redirect::to('admin/membership/');
         }
 
+        $this->_view->renderView();
+    }
+
+    public function members()
+    {
+        $this->userSearch();
+        $this->_view->setSubName(__FUNCTION__);
+        $this->_view->renderView();
+    }
+
+    public function editUser($userId = '')
+    {
+        $selectedUser = $this->model('User', $userId);
+        $selectedUserData = $selectedUser->getData();
+
+        if (isset($selectedUser) && is_numeric($userId)) {
+
+            $userGroups = $this->model('UserGroups')->getUserGroupsDetails();
+
+            if (Input::exists()) {
+                if (Token::check(Input::getValue('token'))) {
+
+                    // Validation using Validate object
+                    $validate = new Validate();
+                    $validate->check($_POST, ValidationRules::getUpdateUserRules());
+
+                    if ($validate->checkIfPassed()) {
+
+                        $this->updateUser($selectedUser, 'admin/members', 'admin', ucfirst($selectedUserData['u_username']) . ' details have been updated.', $userId);
+
+                    } else {
+
+                        //Display an Error
+                        $errorMessage = $validate->getFirstErrorMessage();
+                        $this->_view->setViewError($errorMessage);
+                    }
+                }
+            }
+
+            $this->_view->addViewData([
+                'selectedUser' => $selectedUserData,
+                'userGroups' => $userGroups
+            ]);
+
+        } else {
+            Redirect::to('admin/members');
+        }
+
+        $this->_view->setSubName(__FUNCTION__);
+        $this->_view->renderView();
+    }
+
+    public function deleteUser($userId = '')
+    {
+
+        var_dump($userId);
+
+        if (is_numeric($userId)) {
+
+            echo "It is numeric";
+
+        }
+
+        $this->_view->setSubName(__FUNCTION__);
         $this->_view->renderView();
     }
 }

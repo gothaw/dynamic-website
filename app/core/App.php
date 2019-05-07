@@ -26,10 +26,18 @@ class App
 
         $this->_controller = new $this->_controller;
 
-        if (isset($url[1])) {
-            if (method_exists($this->_controller, $url[1])) {
-                $this->_method = $url[1];
-                unset($url[1]);
+
+        if (isset($url[1]) && method_exists($this->_controller, $url[1])) {
+            try{
+                $reflection = new ReflectionMethod($this->_controller, $url[1]);
+                if ($reflection->isPublic()) {
+                    $this->_method = $url[1];
+                    unset($url[1]);
+                }
+            }
+            catch (ReflectionException $e){
+                // Redirect to error page.
+                Redirect::to(404);
             }
         }
 
