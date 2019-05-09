@@ -10,15 +10,17 @@ class Schedule extends Controller
     {
         $this->_page = 'schedule';
         $this->_schedule = $this->model('UpcomingClasses', 7);
-        $this->_classes = $this->model('Classes', 4)->getClassesDetails();
+
+        $this->_classes = $this->model('Classes');
+        $this->_classes->selectClasses(4);
 
         parent::__construct($this->_page);
 
         $this->view($this->_page, $this->_path, [
             'navPages' => $this->_navPages,
             'pageDetails' => $this->_pageDetails,
-            'schedule' => $this->_schedule->getClassesDetails(),
-            'classes' => $this->_classes
+            'schedule' => $this->_schedule->getData(),
+            'classes' => $this->_classes->getData()
         ]);
     }
 
@@ -29,48 +31,51 @@ class Schedule extends Controller
 
     public function signUp($classId = '')
     {
-        // Selects class from a schedule where sc_id is equal $classId
-        $selectedClass = $this->_schedule->selectClass($classId);
+        if($this->_user->isLoggedIn()&& is_numeric($classId)){
 
-        if ($this->_user->isLoggedIn() && $selectedClass && is_numeric($classId)) {
+            // Selects class from a schedule where sc_id is equal $classId
+            $selectedClass = $this->_schedule->findClass($classId);
 
-            if ($selectedClass['sc_no_people'] < $selectedClass['cl_max_people']) {
+            if (isset($selectedClass)) {
 
-                $userId = $this->_user->getData()['u_id'];
+                if ($selectedClass['sc_no_people'] < $selectedClass['cl_max_people']) {
 
-                $membershipExpiryDate = $this->model('membership', $userId)->getExpiryDate();
+                    $userId = $this->_user->getId();
 
-                // Gets classes that user has already signed up to
-                $userClasses = $this->model('UserClasses', $userId);
+                    $membershipExpiryDate = $this->model('membership', $userId)->getExpiryDate();
 
-                if ($membershipExpiryDate < $selectedClass['sc_class_date']){
+                    // Gets classes that user has already signed up to
+                    $userClasses = $this->model('UserClasses', $userId);
 
-                    $errorMessage = "Please renew your membership before signing up to this class.";
-                    $this->_view->setViewError($errorMessage);
+                    if ($membershipExpiryDate < $selectedClass['sc_class_date']){
 
-                }
-                else if ($userClasses->selectClass($classId)) {
+                        $errorMessage = "Please renew your membership before signing up to this class.";
+                        $this->_view->setViewError($errorMessage);
 
-                    $errorMessage = "You are already signed up for this class.";
-                    $this->_view->setViewError($errorMessage);
+                    }
+                    else if ($userClasses->findClass($classId)) {
 
+                        $errorMessage = "You are already signed up for this class.";
+                        $this->_view->setViewError($errorMessage);
+
+                    } else {
+
+                        // Signs up user to a class
+                        $this->_schedule->addOnePerson($classId);
+                        $userClasses->signUpUserToClass($userId, $classId);
+
+                        Session::flash('dashboard', "You have signed up to a {$selectedClass['cl_name']} class.");
+                        Redirect::to('dashboard');
+                    }
                 } else {
 
-                    // Signs up user to a class
-                    $this->_schedule->addOnePersonToClass($classId);
-                    $userClasses->signUpUserToClass($userId, $classId);
-
-                    Session::flash('dashboard', "You have signed up to a {$selectedClass['cl_name']} class.");
-                    Redirect::to('dashboard');
+                    // Display an error
+                    $errorMessage = "Sorry this class is already fully booked. Please select different one.";
+                    $this->_view->setViewError($errorMessage);
                 }
             } else {
-
-                // Display an error
-                $errorMessage = "Sorry this class is already fully booked. Please select different one.";
-                $this->_view->setViewError($errorMessage);
+                Redirect::to('schedule');
             }
-        } else {
-            Redirect::to('schedule');
         }
         $this->_view->renderView();
     }

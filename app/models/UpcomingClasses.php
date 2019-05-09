@@ -45,22 +45,22 @@ class UpcomingClasses
     }
 
     /**
-     * @method              getClassesDetails
+     * @method              getData
      * @desc                Getter for _data field.
      * @return              array|null
      */
-    public function getClassesDetails()
+    public function getData()
     {
         return $this->_data;
     }
 
     /**
-     * @method              selectClass
+     * @method              findClass
      * @param               $classId {`sc_id` column in `schedule` table}
      * @desc                Loops through $_data and returns class that has `sc_id` equal to $classId
      * @return              array|null
      */
-    public function selectClass($classId)
+    public function findClass($classId)
     {
         foreach ($this->_data as $class) {
             if ($class['sc_id'] === $classId) {
@@ -71,27 +71,27 @@ class UpcomingClasses
     }
 
     /**
-     * @method              addOnePersonToClass
+     * @method              addOnePerson
      * @param               $classId {`sc_id` column in `schedule` table}
      * @desc                Method adds 1 in `sc_no_people` field for record where `sc_id` is equal to $classId.
      *                      Uses update method from Database object.
      */
-    public function addOnePersonToClass($classId)
+    public function addOnePerson($classId)
     {
-        $selectedClass = $this->selectClass($classId);
+        $selectedClass = $this->findClass($classId);
 
         $this->_database->update('schedule', 'sc_id', $classId, ['sc_no_people' => $selectedClass['sc_no_people'] + 1]);
     }
 
     /**
-     * @method              removeOnePersonFromClass
+     * @method              removeOnePerson
      * @param               $classId {`sc_id` column in `schedule` table}
      * @desc                Method removes 1 in `sc_no_people` field for record where `sc_id` is equal to $classId.
      *                      Uses update method from Database object.
      */
-    public function removeOnePersonFromClass($classId)
+    public function removeOnePerson($classId)
     {
-        $selectedClass = $this->selectClass($classId);
+        $selectedClass = $this->findClass($classId);
 
         $this->_database->update('schedule', 'sc_id', $classId, ['sc_no_people' => $selectedClass['sc_no_people'] - 1]);
     }

@@ -3,15 +3,34 @@
 class ClientOpinions
 {
     private $_data;
+    private $_database;
 
     /**
      *                      ClientOpinions constructor.
-     * @param               $numberOfOpinions {int}
+     * @desc                Sets database field.
+     */
+    public function __construct()
+    {
+        $this->_database = Database::getInstance();
+    }
+
+    /**
+     * @method              getData
+     * @desc                Getter for _data field.
+     * @return              array|null
+     */
+    public function getData()
+    {
+        return $this->_data;
+    }
+
+    /**
+     * @method              selectOpinions
+     * @param               $numberOfOpinions
      * @desc                Selects client opinions from the database.
      */
-    public function __construct($numberOfOpinions)
+    public function selectOpinions($numberOfOpinions)
     {
-        $database = Database::getInstance();
         $sql = "
                 SELECT
                     `op_id`,
@@ -27,17 +46,8 @@ class ClientOpinions
                 DESC
                 LIMIT ?;
                 ";
-        $this->_data = $database->query($sql,[(int)$numberOfOpinions])->getResult();
-    }
 
-    /**
-     * @method              getClientOpinions
-     * @desc                Getter for _data field.
-     * @return              array|null
-     */
-    public function getClientOpinions()
-    {
-        return $this->_data;
+        $this->_data = $this->_database->query($sql,[(int)$numberOfOpinions])->getResult();
     }
 
 }

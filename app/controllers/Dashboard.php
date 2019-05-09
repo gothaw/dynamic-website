@@ -26,7 +26,7 @@ class Dashboard extends Controller
                 'navPages' => $this->_navPages,
                 'pageDetails' => $this->_pageDetails,
                 'user' => $this->_userData,
-                'schedule' => $this->_userClasses->getClassesDetails(),
+                'schedule' => $this->_userClasses->getData(),
                 'membership' => $this->_membership->getExpiryDate(),
                 'admin' => $admin,
                 'validMembership' => $validMembership
@@ -58,7 +58,16 @@ class Dashboard extends Controller
 
                 if ($validate->checkIfPassed()) {
 
-                    $this->updateUser($this->_user, 'dashboard', 'dashboard', 'Your details have been updated.');
+                    try {
+                        // Update User details
+                        $this->updateUserDetails($this->_user);
+
+                        Session::flash('dashboard', 'Your details have been updated.');
+                        Redirect::to('dashboard');
+                    } catch (Exception $e) {
+                        $errorMessage = $e->getMessage();
+                        $this->_view->setViewError($errorMessage);
+                    }
 
                 } else {
 
@@ -123,26 +132,28 @@ class Dashboard extends Controller
 
     public function drop($classId = '')
     {
-        // Selects class from user classes where sc_id is equal $classId
-        $selectedClass = $this->_userClasses->selectClass($classId);
+        if (is_numeric($classId)) {
+            // Selects class from user classes where sc_id is equal $classId
+            $selectedClass = $this->_userClasses->findClass($classId);
 
-        if ($selectedClass && is_numeric($classId)) {
+            if ($selectedClass) {
 
-            // User class id from user_class table
-            $userClassId = $selectedClass['uc_id'];
+                // User class id from user_class table
+                $userClassId = $selectedClass['uc_id'];
 
-            // Gets upcoming classes schedule
-            $schedule = $this->model('UpcomingClasses', 7);
+                // Gets upcoming classes schedule
+                $schedule = $this->model('UpcomingClasses', 7);
 
-            // Removes user from the class
-            $schedule->removeOnePersonFromClass($classId);
-            $this->_userClasses->dropUserFromClass($userClassId);
+                // Removes user from the class
+                $schedule->removeOnePerson($classId);
+                $this->_userClasses->dropUserFromClass($userClassId);
 
-            Session::flash('dashboard', "You have dropped out from {$selectedClass['cl_name']} class.");
-            Redirect::to('dashboard');
+                Session::flash('dashboard', "You have dropped out from {$selectedClass['cl_name']} class.");
+                Redirect::to('dashboard');
 
-        } else {
-            Redirect::to('dashboard');
+            } else {
+                Redirect::to('dashboard');
+            }
         }
         $this->_view->renderView();
     }

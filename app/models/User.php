@@ -60,6 +60,16 @@ class User
     }
 
     /**
+     * @method          getId
+     * @desc            Gets user id from _data field.
+     * @return          int
+     */
+    public function getId()
+    {
+        return $this->_data['u_id'];
+    }
+
+    /**
      * @method              isLoggedIn
      * @desc                Getter for _isLoggedIn field.
      * @return              bool
@@ -88,6 +98,7 @@ class User
 
             return isset($permissions[$key]);
         }
+        return false;
     }
 
     /**

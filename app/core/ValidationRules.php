@@ -26,6 +26,18 @@ class ValidationRules
         return $rulesArray;
     }
 
+    public static function getUpdateUserRulesAdminPanel()
+    {
+        $rulesArray = array_merge(self::getUserDetailsRules(), [
+            'permission' => [
+                'desc' => 'User permission group',
+                'required' => true
+            ]
+        ]);
+
+        return $rulesArray;
+    }
+
     /**
      * @method                      getChangePasswordRules
      * @desc                        Validation rules when user wants to change password in dashboard panel.
@@ -85,7 +97,7 @@ class ValidationRules
             'subject' => [
                 'desc' => 'email subject',
                 'required' => true,
-                'min' => 5,
+                'min' => 2,
                 'max' => 20
             ]
         ],

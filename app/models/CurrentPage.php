@@ -3,6 +3,7 @@
 class CurrentPage
 {
     private $_data;
+    private $_database;
 
     /**
      *                      CurrentPage constructor.
@@ -11,16 +12,16 @@ class CurrentPage
      */
     public function __construct($pageName)
     {
-        $database = Database::getInstance();
-        $this->_data = $database->select('page', ['pg_name', '=', $pageName])->getResultFirstRecord();
+        $this->_database = Database::getInstance();
+        $this->_data = $this->_database->select('page', ['pg_name', '=', $pageName])->getResultFirstRecord();
     }
 
     /**
-     * @method              getPageDetails
+     * @method              getData
      * @desc                Getter for _data field.
      * @return              array|null
      */
-    public function getPageDetails()
+    public function getData()
     {
         return $this->_data;
     }

@@ -3,6 +3,7 @@
 class Controller
 {
     protected $_view;
+    protected $_model;
     protected $_navPages;
     protected $_pageDetails;
     protected $_path;
@@ -15,9 +16,9 @@ class Controller
      */
     public function __construct($page)
     {
-        $this->_navPages = $this->model('NavBarPages')->getNavBarPages();
+        $this->_navPages = $this->model('NavBarPages')->getData();
         $currentPage = $this->model('CurrentPage', $page);
-        $this->_pageDetails = $currentPage->getPageDetails();
+        $this->_pageDetails = $currentPage->getData();
         $this->_path = $currentPage->getPageUrl();
         $this->_user = $this->model('User');
     }
@@ -33,7 +34,9 @@ class Controller
     {
         if (file_exists('../app/models/' . $model . '.php')) {
             require_once '../app/models/' . $model . '.php';
-            return new $model($parameter);
+
+            $this->_model = new $model($parameter);
+            return $this->_model;
         }
         return null;
     }
@@ -63,36 +66,28 @@ class Controller
     {
         if (Input::exists()) {
             if (Token::check(Input::getValue('token'))) {
-                $userSearch = $this->model('UserSearch', trim(Input::getValue('search')))->getUserData();
+                $userSearch = $this->model('UserSearch', trim(Input::getValue('search')))->getData();
                 $this->_view->addViewData(['search' => $userSearch]);
             }
         }
     }
 
     /**
-     * @param $user
-     * @param $redirect
-     * @param $flashTo
-     * @param $flashMessage
-     * @param null $id
+     * @method              updateUserDetails
+     * @param               $user {object}
+     * @param               $id {user id}
+     * @desc                Method updates user details. Used in dashboard and admin panel.
      */
-    protected function updateUser($user, $redirect, $flashTo, $flashMessage, $id = null)
+    protected function updateUserDetails($user, $id = null)
     {
         // Update User Details
-        try {
-            $user->updateUser([
-                'u_first_name' => trim(Input::getValue('first_name')),
-                'u_last_name' => trim(Input::getValue('last_name')),
-                'u_address_1' => trim(Input::getValue('address_first_line')),
-                'u_address_2' => trim(Input::getValue('address_second_line')),
-                'u_postcode' => trim(Input::getValue('postcode')),
-                'u_city' => trim(Input::getValue('city'))
-            ], $id);
-            Session::flash($flashTo, $flashMessage);
-            Redirect::to($redirect);
-        } catch (Exception $e) {
-            $errorMessage = $e->getMessage();
-            $this->_view->setViewError($errorMessage);
-        }
+        $user->updateUser([
+            'u_first_name' => trim(Input::getValue('first_name')),
+            'u_last_name' => trim(Input::getValue('last_name')),
+            'u_address_1' => trim(Input::getValue('address_first_line')),
+            'u_address_2' => trim(Input::getValue('address_second_line')),
+            'u_postcode' => trim(Input::getValue('postcode')),
+            'u_city' => trim(Input::getValue('city'))
+        ], $id);
     }
 }

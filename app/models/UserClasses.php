@@ -48,22 +48,22 @@ class UserClasses
     }
 
     /**
-     * @method              getClassesDetails
+     * @method              getData
      * @desc                Getter for _data field.
      * @return              array|null
      */
-    public function getClassesDetails()
+    public function getData()
     {
         return $this->_data;
     }
 
     /**
-     * @method              selectClass
+     * @method              findClass
      * @param               $classId {`sc_id` column in `schedule` table}
      * @desc                Loops through $_data and returns class that has `sc_id` equal to $classId
      * @return              array|null
      */
-    public function selectClass($classId)
+    public function findClass($classId)
     {
         foreach ($this->_data as $class) {
             if ($class['sc_id'] === $classId) {

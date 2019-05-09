@@ -3,6 +3,7 @@
 class NavBarPages
 {
     private $_data;
+    private $_database;
 
     /**
      *                      NavBarPages constructor.
@@ -10,7 +11,7 @@ class NavBarPages
      */
     public function __construct()
     {
-        $database = Database::getInstance();
+        $this->_database = Database::getInstance();
         $sql = "
                 SELECT
                     `page`.`pg_name`,
@@ -23,15 +24,15 @@ class NavBarPages
                     `page`.`pg_order`
                 ASC;
                 ";
-        $this->_data = $database->query($sql)->getResult();
+        $this->_data = $this->_database->query($sql)->getResult();
     }
 
     /**
-     * @method              getNavBarPages
+     * @method              getData
      * @desc                Getter for _data field.
      * @return              array|null
      */
-    public function getNavBarPages()
+    public function getData()
     {
         return $this->_data;
     }

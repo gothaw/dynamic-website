@@ -38,64 +38,68 @@ class Admin extends Controller
 
     public function editMembership($userId = '')
     {
-        $selectedUser = $this->model('User', $userId);
+        if (is_numeric($userId)) {
 
-        if (isset($selectedUser) && is_numeric($userId)) {
+            $selectedUser = $this->model('User', $userId);
 
-            $userMembership = $this->model('Membership', $userId);
-            $expiryDate = $userMembership->getExpiryDate();
+            if (isset($selectedUser)) {
 
-            if (Input::exists()) {
-                if (Token::check(Input::getValue('token'))) {
+                $userMembership = $this->model('Membership', $userId);
+                $expiryDate = $userMembership->getExpiryDate();
 
-                    // Validation using Validate object
-                    $validate = new Validate();
-                    $validate->check($_POST, ValidationRules::getValidDateRules());
+                if (Input::exists()) {
+                    if (Token::check(Input::getValue('token'))) {
 
-                    if ($validate->checkIfPassed()) {
+                        // Validation using Validate object
+                        $validate = new Validate();
+                        $validate->check($_POST, ValidationRules::getValidDateRules());
 
-                        // Update membership
-                        $userMembership->updateMembership($userId, Input::getValue('date'));
-                        Session::flash('admin', 'User membership has been updated.');
-                        Redirect::to('admin/membership');
+                        if ($validate->checkIfPassed()) {
 
-                    } else {
+                            // Update Membership
+                            $userMembership->updateMembership($userId, Input::getValue('date'));
+                            Session::flash('admin', 'User membership has been updated.');
+                            Redirect::to('admin/membership');
 
-                        //Display an Error
-                        $errorMessage = $validate->getFirstErrorMessage();
-                        $this->_view->setViewError($errorMessage);
+                        } else {
+
+                            //Display an Error
+                            $errorMessage = $validate->getFirstErrorMessage();
+                            $this->_view->setViewError($errorMessage);
+                        }
                     }
                 }
+
+                $this->_view->addViewData([
+                    'selectedUser' => $selectedUser->getData(),
+                    'expiryDate' => $expiryDate
+                ]);
+
+            } else {
+                Redirect::to('admin/membership');
             }
-
-            $this->_view->addViewData([
-                'selectedUser' => $selectedUser->getData(),
-                'expiryDate' => $expiryDate
-            ]);
-
-        } else {
-            Redirect::to('admin/membership');
         }
-
         $this->_view->setSubName(__FUNCTION__);
         $this->_view->renderView();
     }
 
     public function cancelMembership($userId = '')
     {
-        $membership = $this->model('Membership', $userId);
-        $expiryDate = $membership->getExpiryDate();
+        if(is_numeric($userId)){
 
-        if (isset($expiryDate) && is_numeric($userId)) {
+            $membership = $this->model('Membership', $userId);
+            $expiryDate = $membership->getExpiryDate();
 
-            $membership->cancelMembership($userId);
-            Session::flash('admin', 'User membership has been cancelled.');
-            Redirect::to('admin/membership/');
+            if (isset($expiryDate)) {
 
-        } else {
-            Redirect::to('admin/membership/');
+                $membership->cancelMembership($userId);
+                Session::flash('admin', 'User membership has been cancelled.');
+                Redirect::to('admin/membership/');
+
+            } else {
+                Redirect::to('admin/membership/');
+            }
         }
-
         $this->_view->renderView();
     }
 
@@ -109,22 +113,41 @@ class Admin extends Controller
     public function editUser($userId = '')
     {
         $selectedUser = $this->model('User', $userId);
-        $selectedUserData = $selectedUser->getData();
 
-        if (isset($selectedUser) && is_numeric($userId)) {
+        if (is_numeric($userId) && isset($selectedUser)) {
 
-            $userGroups = $this->model('UserGroups')->getUserGroupsDetails();
+            $selectedUserData = $selectedUser->getData();
+
+            $userGroups = $this->model('UserGroups');
+            $userGroupsData = $userGroups->getData();
 
             if (Input::exists()) {
                 if (Token::check(Input::getValue('token'))) {
 
                     // Validation using Validate object
                     $validate = new Validate();
-                    $validate->check($_POST, ValidationRules::getUpdateUserRules());
+                    $validate->check($_POST, ValidationRules::getUpdateUserRulesAdminPanel());
 
                     if ($validate->checkIfPassed()) {
 
-                        $this->updateUser($selectedUser, 'admin/members', 'admin', ucfirst($selectedUserData['u_username']) . ' details have been updated.', $userId);
+                        try {
+
+                            // Updated User details
+                            $this->updateUserDetails($selectedUser, $userId);
+
+                            // Update User permissions
+                            $groupId = $userGroups->getIdForGroupName(trim(Input::getValue('permission')));
+                            $selectedUser->updateUser([
+                                'u_group_id' => $groupId,
+                            ], $userId);
+
+                            Session::flash('admin', ucfirst($selectedUserData['u_username']) . ' details have been updated.');
+                            Redirect::to('admin/members');
+
+                        } catch (Exception $e) {
+                            $errorMessage = $e->getMessage();
+                            $this->_view->setViewError($errorMessage);
+                        }
 
                     } else {
 
@@ -137,28 +160,23 @@ class Admin extends Controller
 
             $this->_view->addViewData([
                 'selectedUser' => $selectedUserData,
-                'userGroups' => $userGroups
+                'userGroups' => $userGroupsData
             ]);
 
         } else {
             Redirect::to('admin/members');
         }
-
         $this->_view->setSubName(__FUNCTION__);
         $this->_view->renderView();
     }
 
     public function deleteUser($userId = '')
     {
-
-        var_dump($userId);
-
         if (is_numeric($userId)) {
 
             echo "It is numeric";
 
         }
-
         $this->_view->setSubName(__FUNCTION__);
         $this->_view->renderView();
     }
