@@ -7,7 +7,7 @@
                     <h3>Admin Panel</h3>
                     <div>You have admin rights. Click on the button below to access the admin panel.</div>
                     <div class="dashboard-button">
-                        <a class="template-btn" href="<?php echo ROOT . 'admin/' ?>">Admin Panel</a>
+                        <a class="template-btn" href="<?php echo ROOT . 'admin' ?>">Admin Panel</a>
                     </div>
                 </section>
             </div>
@@ -37,10 +37,10 @@
                 </ul>
                 <div class="dashboard-buttons-wrapper">
                     <div class="dashboard-button">
-                        <a class="template-btn" href="<?php echo ROOT . 'dashboard/edit/' ?>">Edit</a>
+                        <a class="template-btn" href="<?php echo ROOT . 'dashboard/edit' ?>">Edit</a>
                     </div>
                     <div class="dashboard-button">
-                        <a class="template-btn" href="<?php echo ROOT . 'dashboard/changepass/' ?>">Change Password</a>
+                        <a class="template-btn" href="<?php echo ROOT . 'dashboard/changepass' ?>">Change Password</a>
                     </div>
                 </div>
             </section>
@@ -56,7 +56,7 @@
                     <p>Your membership has expired. Please renew it under link below.</p>
                 <?php }?>
                 <div class="dashboard-button">
-                    <a class="template-btn" href="<?php echo ROOT . 'dashboard/membership/' ?>">Renew</a>
+                    <a class="template-btn" href="<?php echo ROOT . 'dashboard/membership' ?>">Renew</a>
                 </div>
             </section>
         </div>

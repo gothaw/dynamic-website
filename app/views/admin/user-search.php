@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <h3>View <?php echo escape($subName) ?></h3>
-                <form class="search-form" action="<?php echo ROOT . "admin/{$subName}/" ?>" method="post">
+                <form class="search-form" action="<?php echo ROOT . "admin/{$subName}" ?>" method="post">
                     <div class="search-field-wrapper">
                         <input class="search-field" type="text" name="search"
                                placeholder="Username, Last Name, ID number" onfocus="this.placeholder = ''"
@@ -88,7 +88,7 @@
         <div class="row">
             <div class="col-lg-12 back-to-admin-panel">
                 <div class="back-to-admin-panel">
-                    <a class="template-btn" href="<?php echo ROOT . 'admin/' ?>">Back to Admin Panel</a>
+                    <a class="template-btn" href="<?php echo ROOT . 'admin' ?>">Back to Admin Panel</a>
                 </div>
             </div>
         </div>

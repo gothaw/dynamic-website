@@ -51,19 +51,20 @@ class Membership
      * @param                   $date {Year-month-day}
      * @desc                    If expiry date is set it updates user membership using given date.
      *                          Alternatively, it creates a new record in the `membership` table for given parameters.
+     * @throws                  Exception
      */
     public function updateMembership($userId, $date)
     {
         if (isset($this->_data['me_expiry_date'])) {
-
-            $this->_database->update('membership', 'u_id', $userId, ['me_expiry_date' => $date]);
-
+            $isUpdated = $this->_database->update('membership', 'u_id', $userId, ['me_expiry_date' => $date]);
         } else {
-
-            $this->_database->insert('membership', [
+            $isUpdated = $this->_database->insert('membership', [
                 'u_id' => $userId,
                 'me_expiry_date' => $date
             ]);
+        }
+        if (!$isUpdated) {
+            throw new Exception("There was a problem updating membership.");
         }
     }
 
@@ -71,13 +72,16 @@ class Membership
      * @method                  cancelMembership
      * @param                   $userId
      * @desc                    If expiry date in _data field is set it removes the record from `membership` for `u_id` equal to $userId.
+     * @throws                  Exception
      */
     public function cancelMembership($userId)
     {
         if (isset($this->_data['me_expiry_date'])) {
 
-            $this->_database->delete('membership', ['u_id', '=', $userId]);
-
+            $isDeleted = $this->_database->delete('membership', ['u_id', '=', $userId]);
+            if (!$isDeleted) {
+                throw new Exception("There was a problem canceling membership.");
+            }
         }
     }
 }

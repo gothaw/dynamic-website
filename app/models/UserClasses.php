@@ -4,6 +4,7 @@ class UserClasses
 {
     private $_data;
     private $_database;
+    private $_errors = [];
 
     /**
      *                      UserClasses constructor.
@@ -58,12 +59,12 @@ class UserClasses
     }
 
     /**
-     * @method              findClass
+     * @method              getClass
      * @param               $classId {`sc_id` column in `schedule` table}
      * @desc                Loops through $_data and returns class that has `sc_id` equal to $classId
      * @return              array|null
      */
-    public function findClass($classId)
+    private function getClass($classId)
     {
         foreach ($this->_data as $class) {
             if ($class['sc_id'] === $classId) {
@@ -74,26 +75,87 @@ class UserClasses
     }
 
     /**
+     * @method              getUserClassId
+     * @param               $classId {'sc_id'}
+     * @desc                Gets 'uc_id' for class with $classId in user classes.
+     * @return              int|null
+     */
+    public function getUserClassId($classId)
+    {
+        $userClassId = $this->getClass($classId)['uc_id'];
+        if(isset($userClassId)){
+            return $userClassId;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @method              checkIfSignedUp
+     * @param               $classId
+     * @desc                Checks if user already signed up to class with $classId.
+     * @return              bool
+     */
+    public function checkIfSignedUp($classId)
+    {
+        if ($this->getClass($classId)) {
+            $this->addError("You are already signed up for this class.");
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * @method              signUpUserToClass
      * @param               $userId {`u_id` in `user_class` table}
      * @param               $classId {`sc_id` in `user_class` table}
      * @desc                Method signs up user to a class by inserting a new record to user class table with given $userId and $classId.
+     * @throws              Exception
      */
     public function signUpUserToClass($userId, $classId)
     {
-        $this->_database->insert('user_class', [
+        $isSignedUp = $this->_database->insert('user_class', [
             'u_id' => $userId,
             'sc_id' => $classId
         ]);
+
+        if (!$isSignedUp) {
+            throw new Exception("Could not sign up to the class. Sorry.");
+        }
     }
 
     /**
      * @method              dropUserFromClass
      * @param               $userClassId {`uc_id` in `user_class` table}
      * @desc                Method removes user from a class by deleting relevant record.
+     * @throws              Exception
      */
     public function dropUserFromClass($userClassId)
     {
-        $this->_database->delete('user_class', ['uc_id', '=', $userClassId]);
+        $isDeleted = $this->_database->delete('user_class', ['uc_id', '=', $userClassId]);
+
+        if (!$isDeleted) {
+            throw new Exception("Could not drop out from the class. Sorry.");
+        }
+    }
+
+    /**
+     * @method               addError
+     * @param                $error {string}
+     * @desc                 Adds error message to the _errors array.
+     */
+    private function addError($error)
+    {
+        $this->_errors[] = $error;
+    }
+
+    /**
+     * @method                  getFirstErrorMessage
+     * @desc                    Gets first error message from error array.
+     * @return                  string
+     */
+    public function getFirstErrorMessage()
+    {
+        return $this->_errors[0];
     }
 }

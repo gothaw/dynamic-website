@@ -9,9 +9,9 @@
                     <h2>Fitness</h2>
                     <div class="banner-btn">
                         <?php if ($userIsLoggedIn) { ?>
-                            <a href="<?php echo ROOT . 'schedule/' ?>" class="template-btn">sign up for a class</a>
+                            <a href="<?php echo ROOT . 'schedule' ?>" class="template-btn">sign up for a class</a>
                         <?php } else { ?>
-                            <a href="<?php echo ROOT . 'login/' ?>" class="template-btn">become a member</a>
+                            <a href="<?php echo ROOT . 'login' ?>" class="template-btn">become a member</a>
                         <?php } ?>
                     </div>
                 </div>

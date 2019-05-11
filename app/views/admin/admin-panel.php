@@ -21,13 +21,13 @@
                         <div class="admin-panel-icon">
                             <img src="<?php echo DIST . 'img/admin-panel/member.png' ?>" width="150" height="150" alt="admin panel icon">
                         </div>
-                        <a class="admin-panel-btn" href="<?php echo ROOT . 'admin/members/'?>">Members</a>
+                        <a class="admin-panel-btn" href="<?php echo ROOT . 'admin/members'?>">Members</a>
                     </li>
                     <li class="admin-panel-item">
                         <div class="admin-panel-icon">
                             <img src="<?php echo DIST . 'img/admin-panel/membership.png' ?>" width="150" height="150" alt="admin panel icon">
                         </div>
-                        <a class="admin-panel-btn" href="<?php echo ROOT . 'admin/membership/'?>">Membership</a>
+                        <a class="admin-panel-btn" href="<?php echo ROOT . 'admin/membership'?>">Membership</a>
                     </li>
                     <li class="admin-panel-item">
                         <div class="admin-panel-icon">

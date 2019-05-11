@@ -1,7 +1,7 @@
 <!-- Update Details Form Area Starts -->
 <section class="section-padding4">
     <div class="container">
-        <form class="update-form" action="<?php echo ROOT . "dashboard/edit/" ?>" method="post">
+        <form class="update-form" action="<?php echo ROOT . "dashboard/edit" ?>" method="post">
             <h3 class="form-text">Personal Details</h3>
             <div class="form-text">
                 Please update your personal details:

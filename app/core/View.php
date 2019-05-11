@@ -110,7 +110,7 @@ class View
         }
 
         // CONTENT
-        require_once '../app/views/' . $this->_viewPath . 'index.php';
+        require_once '../app/views/' . $this->_viewPath . '/index.php';
 
         // FOOTER
         include("../app/views/_includes/footer.php");

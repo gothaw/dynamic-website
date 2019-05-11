@@ -51,7 +51,7 @@ class Controller
      */
     protected function view($viewName, $view, $data = [])
     {
-        if (file_exists('../app/views/' . $view . 'index.php')) {
+        if (file_exists('../app/views/' . $view . '/index.php')) {
             $this->_view = new View($viewName, $view, $data);
             $this->_view->setUserIsLoggedIn($this->_user->isLoggedIn());
         }

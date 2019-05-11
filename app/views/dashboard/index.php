@@ -15,5 +15,6 @@ switch ($subName){
         include("../app/views/dashboard/membership.php");
         break;
     default:
+        include("../app/views/_includes/view-error.php");
         include("../app/views/dashboard/dashboard.php");
 }

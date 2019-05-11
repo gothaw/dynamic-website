@@ -1,7 +1,7 @@
 <!-- Register Form Area Starts -->
 <section class="section-padding5 section-padding3">
     <div class="container">
-        <form class="register-form" action="<?php echo ROOT . "register/" ?>" method="post">
+        <form class="register-form" action="<?php echo ROOT . "register" ?>" method="post">
             <div class="form-text">
                 Please provide following details to register:
             </div>

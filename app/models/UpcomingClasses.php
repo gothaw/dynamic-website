@@ -4,6 +4,7 @@ class UpcomingClasses
 {
     private $_data;
     private $_database;
+    private $_errors = [];
 
     /**
      *                      UpcomingClasses constructor.
@@ -55,12 +56,12 @@ class UpcomingClasses
     }
 
     /**
-     * @method              findClass
+     * @method              getClass
      * @param               $classId {`sc_id` column in `schedule` table}
      * @desc                Loops through $_data and returns class that has `sc_id` equal to $classId
      * @return              array|null
      */
-    public function findClass($classId)
+    private function getClass($classId)
     {
         foreach ($this->_data as $class) {
             if ($class['sc_id'] === $classId) {
@@ -71,28 +72,107 @@ class UpcomingClasses
     }
 
     /**
-     * @method              addOnePerson
-     * @param               $classId {`sc_id` column in `schedule` table}
-     * @desc                Method adds 1 in `sc_no_people` field for record where `sc_id` is equal to $classId.
-     *                      Uses update method from Database object.
+     * @method              getClassName
+     * @param               $classId
+     * @desc                Gets $classId class name from _data field.
+     * @return              string
      */
-    public function addOnePerson($classId)
+    public function getClassName($classId)
     {
-        $selectedClass = $this->findClass($classId);
-
-        $this->_database->update('schedule', 'sc_id', $classId, ['sc_no_people' => $selectedClass['sc_no_people'] + 1]);
+        $className = $this->getClass($classId)['cl_name'];
+        if(isset($className)){
+            return $className;
+        } else {
+            return '';
+        }
     }
 
     /**
-     * @method              removeOnePerson
+     * @method              checkIfPossibleToSignUp
+     * @param               $membershipExpiryDate
+     * @param               $classId
+     * @desc                Validates signing up to class shown in the schedule.
+     * @return              bool
+     */
+    public function checkIfPossibleToSignUp($membershipExpiryDate, $classId)
+    {
+        $selectedClass = $this->getClass($classId);
+
+        if (isset($selectedClass)) {
+
+            if ($selectedClass['cl_max_people'] < $selectedClass['sc_no_people']) {
+
+                $this->addError("Sorry this class is already fully booked. Please select different one.");
+
+            } else if ($membershipExpiryDate < $selectedClass['sc_class_date']) {
+
+                $this->addError("Please renew your membership before signing up to this class.");
+
+            }
+            if (empty($this->_errors)) {
+                return true;
+            }
+        } else {
+
+            $this->addError("Sorry, something went wrong. Pick a different class.");
+
+        }
+        return false;
+    }
+
+    /**
+     * @method              addOnePersonToClass
+     * @param               $classId {`sc_id` column in `schedule` table}
+     * @desc                Method adds 1 in `sc_no_people` field for record where `sc_id` is equal to $classId.
+     *                      Uses update method from Database object.
+     * @throws              Exception
+     */
+    public function addOnePersonToClass($classId)
+    {
+        $selectedClass = $this->getClass($classId);
+
+        $isUpdated = $this->_database->update('schedule', 'sc_id', $classId, ['sc_no_people' => $selectedClass['sc_no_people'] + 1]);
+
+        if (!$isUpdated) {
+            throw new Exception("There was a problem signing up to the class.");
+        }
+    }
+
+    /**
+     * @method              removeOnePersonFromClass
      * @param               $classId {`sc_id` column in `schedule` table}
      * @desc                Method removes 1 in `sc_no_people` field for record where `sc_id` is equal to $classId.
      *                      Uses update method from Database object.
+     * @throws              Exception
      */
-    public function removeOnePerson($classId)
+    public function removeOnePersonFromClass($classId)
     {
-        $selectedClass = $this->findClass($classId);
+        $selectedClass = $this->getClass($classId);
 
-        $this->_database->update('schedule', 'sc_id', $classId, ['sc_no_people' => $selectedClass['sc_no_people'] - 1]);
+        $isUpdated = $this->_database->update('schedule', 'sc_id', $classId, ['sc_no_people' => $selectedClass['sc_no_people'] - 1]);
+
+        if (!$isUpdated) {
+            throw new Exception("There was a problem dropping out from the class.");
+        }
+    }
+
+    /**
+     * @method                  addError
+     * @param                   $error {string}
+     * @desc                    Adds error message to the _errors array.
+     */
+    private function addError($error)
+    {
+        $this->_errors[] = $error;
+    }
+
+    /**
+     * @method                  getFirstErrorMessage
+     * @desc                    Gets first error message from error array.
+     * @return                  string
+     */
+    public function getFirstErrorMessage()
+    {
+        return $this->_errors[0];
     }
 }

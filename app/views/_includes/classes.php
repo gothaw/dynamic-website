@@ -23,7 +23,7 @@
                                     <img src="<?php echo DIST . escape($class['cl_img_url']) ?>" alt="<?php echo escape($class['cl_img_alt']) ?>">
                                     <?php if($name !== 'schedule'){?>
                                     <div class="hover-state">
-                                        <a href="<?php echo ROOT . 'schedule/'?>" class="template-btn">schedule</a>
+                                        <a href="<?php echo ROOT . 'schedule'?>" class="template-btn">schedule</a>
                                     </div>
                                     <?php } ?>
                                 </div>

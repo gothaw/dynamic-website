@@ -29,12 +29,12 @@
                         }
                         if ($userIsLoggedIn) { ?>
                             <li class="menu-btn menu-btn-logged-in">
-                                <a class="template-btn" href="<?php echo ROOT . 'dashboard/' ?>">My Account</a>
-                                <a class="template-btn" href="<?php echo ROOT . 'dashboard/logout/' ?>">Log out</a>
+                                <a class="template-btn" href="<?php echo ROOT . 'dashboard' ?>">My Account</a>
+                                <a class="template-btn" href="<?php echo ROOT . 'dashboard/logout' ?>">Log out</a>
                             </li>
                         <?php } else { ?>
                             <li class="menu-btn">
-                                <a href="<?php echo ROOT . 'login/' ?>" class="template-btn">Login</a>
+                                <a href="<?php echo ROOT . 'login' ?>" class="template-btn">Login</a>
                             </li>
                         <?php } ?>
                     </ul>

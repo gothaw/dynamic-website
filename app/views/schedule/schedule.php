@@ -46,7 +46,7 @@
             <?php if(!$userIsLoggedIn){?>
                 <div class="schedule-login-text">
                     <p>Would you like to sign up for a class? Please log in.</p>
-                    <a href="<?php echo ROOT . 'login/' ?>" class="template-btn">Login</a>
+                    <a href="<?php echo ROOT . 'login' ?>" class="template-btn">Login</a>
                 </div>
             <?php }?>
         </div>

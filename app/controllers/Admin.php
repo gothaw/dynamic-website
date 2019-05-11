@@ -55,15 +55,18 @@ class Admin extends Controller
                         $validate->check($_POST, ValidationRules::getValidDateRules());
 
                         if ($validate->checkIfPassed()) {
+                            try {
+                                // Update Membership
+                                $userMembership->updateMembership($userId, Input::getValue('date'));
+                                Session::flash('admin', 'User membership has been updated.');
+                                Redirect::to('admin/membership');
 
-                            // Update Membership
-                            $userMembership->updateMembership($userId, Input::getValue('date'));
-                            Session::flash('admin', 'User membership has been updated.');
-                            Redirect::to('admin/membership');
-
+                            } catch (Exception $e) {
+                                $errorMessage = $e->getMessage();
+                                $this->_view->setViewError($errorMessage);
+                            }
                         } else {
-
-                            //Display an Error
+                            // Display an Error
                             $errorMessage = $validate->getFirstErrorMessage();
                             $this->_view->setViewError($errorMessage);
                         }
@@ -85,7 +88,7 @@ class Admin extends Controller
 
     public function cancelMembership($userId = '')
     {
-        if(is_numeric($userId)){
+        if (is_numeric($userId)) {
 
             $membership = $this->model('Membership', $userId);
             $expiryDate = $membership->getExpiryDate();
@@ -94,10 +97,10 @@ class Admin extends Controller
 
                 $membership->cancelMembership($userId);
                 Session::flash('admin', 'User membership has been cancelled.');
-                Redirect::to('admin/membership/');
+                Redirect::to('admin/membership');
 
             } else {
-                Redirect::to('admin/membership/');
+                Redirect::to('admin/membership');
             }
         }
         $this->_view->renderView();

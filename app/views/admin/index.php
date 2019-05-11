@@ -1,6 +1,6 @@
 <?php
+
 //CONTENT
-//trace($data);
 switch ($subName){
     case 'membership':
         include("../app/views/admin/user-search.php");
