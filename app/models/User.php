@@ -116,6 +116,19 @@ class User
     }
 
     /**
+     * @method              deleteUser
+     * @param               $userId
+     * @desc                Deletes user from the database.
+     * @throws              Exception
+     */
+    public function deleteUser($userId)
+    {
+        if (!$this->_database->delete('user', ['u_id', '=', $userId])) {
+            throw new Exception('There was a problem deleting the user.');
+        }
+    }
+
+    /**
      * @method              findUser
      * @param               $user {username as string or id as integer}
      * @desc                Method gets the user record for a given username or id. It returns true if user has been found and false if not.

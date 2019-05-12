@@ -68,7 +68,7 @@
         <div class="row">
             <div class="col-lg-12 back-to-admin-panel">
                 <div class="back-to-admin-panel">
-                    <a class="template-btn" href="<?php echo ROOT . 'admin/members' ?>">Back to Members Search</a>
+                    <a class="template-btn" href="<?php echo ROOT . 'admin-members' ?>">Back to Members Search</a>
                 </div>
             </div>
         </div>

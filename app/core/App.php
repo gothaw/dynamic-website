@@ -17,8 +17,8 @@ class App
     {
         $url = $this->parseUrl();
 
-        if (file_exists('../app/controllers/' . $url[0] . '.php')) {
-            $this->_controller = $url[0];
+        if (file_exists('../app/controllers/' . $this->toPascalCase($url[0]) . '.php')) {
+            $this->_controller = $this->toPascalCase($url[0]);
             unset($url[0]);
         }
 
@@ -55,5 +55,16 @@ class App
         if (isset($_GET['url'])) {
             return $url = explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
         }
+        return null;
+    }
+
+    /**
+     * @method                  toPascalCase
+     * @param                   $string {string-in-lisp-case}
+     * @desc                    Converts lisp-case string to PascalCase.
+     * @return                  string
+     */
+    private function toPascalCase($string){
+        return str_replace('-', '', ucwords($string, '-'));
     }
 }

@@ -133,22 +133,24 @@ class Dashboard extends Controller
     public function drop($classId = '')
     {
         if (is_numeric($classId)) {
-            // Selects class from user classes where sc_id is equal $classId
 
             if ($this->_userClasses->checkIfSignedUp($classId)) {
 
                 // User class id from user_class table
                 $userClassId = $this->_userClasses->getUserClassId($classId);
-
-                // Gets upcoming classes schedule
                 $schedule = $this->model('UpcomingClasses', 7);
 
-                // Removes user from the class
-                $schedule->removeOnePersonFromClass($classId);
-                $this->_userClasses->dropUserFromClass($userClassId);
+                try{
+                    // Removes user from the class
+                    $this->_userClasses->dropUserFromClass($userClassId);
+                    $schedule->removeOnePersonFromClass($classId);
+                    Session::flash('dashboard', "You have dropped out from {$schedule->getClassName($classId)} class.");
+                    Redirect::to('dashboard');
 
-                Session::flash('dashboard', "You have dropped out from {$schedule->getClassName($classId)} class.");
-                Redirect::to('dashboard');
+                } catch (Exception $e){
+                    $errorMessage = $e->getMessage();
+                    $this->_view->setViewError($errorMessage);
+                }
 
             } else {
                 Redirect::to('dashboard');

@@ -33,3 +33,14 @@ function startSessionOnce()
         session_start();
     }
 }
+
+/**
+ * @function        toSnakeCase
+ * @param           $string
+ * @desc            Converts PascalCase or camelCase string to lisp-case.
+ * @return          string
+ */
+function toLispCase($string)
+{
+    return strtolower(preg_replace('/(?<!^)[A-Z]/', '-$0', $string));
+}

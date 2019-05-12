@@ -58,7 +58,6 @@ class Register extends Controller
                         $this->_view->setViewError($errorMessage);
                     }
                 } else {
-
                     //Display an Error
                     $errorMessage = $validate->getFirstErrorMessage();
                     $this->_view->setViewError($errorMessage);

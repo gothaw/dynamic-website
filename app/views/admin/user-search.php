@@ -3,8 +3,8 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h3>View <?php echo escape($subName) ?></h3>
-                <form class="search-form" action="<?php echo ROOT . "admin/{$subName}" ?>" method="post">
+                <h3>View <?php echo explode('-',$subName)[1] ?></h3>
+                <form class="search-form" action="<?php echo ROOT . $subName ?>" method="post">
                     <div class="search-field-wrapper">
                         <input class="search-field" type="text" name="search"
                                placeholder="Username, Last Name, ID number" onfocus="this.placeholder = ''"
@@ -29,10 +29,10 @@
                             <th class="head" scope="col">Username</th>
                             <th class="head" scope="col">
                                 <?php switch ($subName) {
-                                    case 'membership':
+                                    case 'admin-membership':
                                         echo 'Expiry Date';
                                         break;
-                                    case 'members':
+                                    case 'admin-members':
                                         echo 'Email';
                                         break;
                                 } ?></th>
@@ -49,7 +49,7 @@
                                     <td><?php echo ucfirst(escape($user['u_last_name'])) ?></td>
                                     <td><?php echo escape($user['u_username']) ?></td>
                                     <?php switch ($subName) {
-                                        case 'membership': ?>
+                                        case 'admin-membership': ?>
                                             <td>
                                                 <?php if (isset($user['me_expiry_date'])) {
                                                     echo escape($user['me_expiry_date']);
@@ -58,21 +58,21 @@
                                                 } ?>
                                             </td>
                                             <td><a class="template-btn"
-                                                   href="<?php echo ROOT . 'admin/editmembership/' . escape($user['u_id']) ?>">Edit</a>
+                                                   href="<?php echo ROOT . $subName .'/edit/' . escape($user['u_id']) ?>">Edit</a>
                                             </td>
                                             <?php if (isset($user['me_expiry_date'])) { ?>
                                                 <td><a class="template-btn"
-                                                       href="<?php echo ROOT . 'admin/cancelmembership/' . escape($user['u_id']) ?>">Cancel</a>
+                                                       href="<?php echo ROOT . $subName .'/cancel/' . escape($user['u_id']) ?>">Cancel</a>
                                                 </td>
                                             <?php }
                                             break;
-                                        case 'members': ?>
+                                        case 'admin-members': ?>
                                             <td> <?php echo escape($user['u_email']) ?> </td>
                                             <td><a class="template-btn"
-                                                   href="<?php echo ROOT . 'admin/edituser/' . escape($user['u_id']) ?>">Edit</a>
+                                                   href="<?php echo ROOT . $subName . '/edit/' . escape($user['u_id']) ?>">Edit</a>
                                             </td>
                                             <td><a class="template-btn"
-                                                   href="<?php echo ROOT . 'admin/deleteuser/' . escape($user['u_id']) ?>">Delete</a>
+                                                   href="<?php echo ROOT . $subName . '/delete/' . escape($user['u_id']) ?>">Delete</a>
                                             </td>
                                             <?php
                                             break;

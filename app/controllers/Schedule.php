@@ -43,9 +43,9 @@ class Schedule extends Controller
                 if (!$userClasses->checkIfSignedUp($classId)) {
 
                     try {
-
-                        $this->_schedule->addOnePersonToClass($classId);
+                        // Signs user up to the class
                         $userClasses->signUpUserToClass($userId, $classId);
+                        $this->_schedule->addOnePersonToClass($classId);
                         Session::flash('dashboard', "You have signed up to a {$this->_schedule->getClassName($classId)} class.");
                         Redirect::to('dashboard');
 
