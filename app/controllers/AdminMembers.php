@@ -71,7 +71,6 @@ class AdminMembers extends Controller
                         }
 
                     } else {
-
                         //Display an Error
                         $errorMessage = $validate->getFirstErrorMessage();
                         $this->_view->setViewError($errorMessage);
@@ -98,12 +97,27 @@ class AdminMembers extends Controller
         if (is_numeric($userId) && isset($selectedUser)) {
 
             $selectedUserData = $selectedUser->getData();
+            $membership = $this->model('Membership', $userId);
+            $userClasses = $this->model('UserClasses', $userId);
+            $userClassesData = $userClasses->getData();
+            $schedule = $this->model('UpcomingClasses');
 
             try {
-                // Deletes User
+
+                // Delete membership
+                $membership->cancelMembership($userId);
+                // Delete user classes
+                foreach ($userClassesData as $class) {
+                    $userClasses->dropUserFromClass($class['uc_id']);
+                    $schedule->removeOnePersonFromClass($class['sc_id']);
+                }
+                // Deletes past user classes
+                $userClasses->deleteOldClasses();
+                // Delete user
                 $selectedUser->deleteUser($userId);
-                Session::flash('admin', ucfirst($selectedUserData['u_username']) . ' has been deleted.');
+                Session::flash('admin', 'User ' . $selectedUserData['u_username'] . ' has been deleted.');
                 Redirect::to('admin-members');
+
             } catch (Exception $e) {
                 // Display an Error
                 $errorMessage = $e->getMessage();

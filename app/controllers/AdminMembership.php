@@ -52,7 +52,7 @@ class AdminMembership extends Controller
                         if ($validate->checkIfPassed()) {
                             try {
                                 // Update Membership
-                                $userMembership->updateMembership($userId, Input::getValue('date'));
+                                $userMembership->updateMembership(Input::getValue('date'));
                                 Session::flash('admin', 'User membership has been updated.');
                                 Redirect::to('admin-membership');
 
@@ -91,7 +91,7 @@ class AdminMembership extends Controller
             if (isset($expiryDate)) {
                 try {
                     // Cancel membership
-                    $membership->cancelMembership($userId);
+                    $membership->cancelMembership();
                     Session::flash('admin', 'User membership has been cancelled.');
                     Redirect::to('admin-membership');
                 } catch (Exception $e) {

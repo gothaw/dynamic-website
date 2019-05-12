@@ -4,15 +4,17 @@ class Membership
 {
     private $_data;
     private $_database;
+    private $_userId;
 
     /**
      *                          Membership constructor.
      * @param                   $userId
      * @desc                    Gets user membership data if it exists in the `membership` table. If it does not exists it sets expiry date as null.
      */
-    public function __construct($userId = null)
+    public function __construct($userId)
     {
         $this->_database = Database::getInstance();
+        $this->_userId = $userId;
 
         $result = $this->_database->select('membership', ['u_id', '=', $userId]);
 
@@ -47,19 +49,18 @@ class Membership
 
     /**
      * @method                  updateMembership
-     * @param                   $userId
      * @param                   $date {Year-month-day}
      * @desc                    If expiry date is set it updates user membership using given date.
      *                          Alternatively, it creates a new record in the `membership` table for given parameters.
      * @throws                  Exception
      */
-    public function updateMembership($userId, $date)
+    public function updateMembership($date)
     {
         if (isset($this->_data['me_expiry_date'])) {
-            $isUpdated = $this->_database->update('membership', 'u_id', $userId, ['me_expiry_date' => $date]);
+            $isUpdated = $this->_database->update('membership', 'u_id', $this->_userId, ['me_expiry_date' => $date]);
         } else {
             $isUpdated = $this->_database->insert('membership', [
-                'u_id' => $userId,
+                'u_id' => $this->_userId,
                 'me_expiry_date' => $date
             ]);
         }
@@ -70,18 +71,14 @@ class Membership
 
     /**
      * @method                  cancelMembership
-     * @param                   $userId
-     * @desc                    If expiry date in _data field is set it removes the record from `membership` for `u_id` equal to $userId.
+     * @desc                    Deletes user membership from the database.
      * @throws                  Exception
      */
-    public function cancelMembership($userId)
+    public function cancelMembership()
     {
-        if (isset($this->_data['me_expiry_date'])) {
-
-            $isDeleted = $this->_database->delete('membership', ['u_id', '=', $userId]);
-            if (!$isDeleted) {
-                throw new Exception("There was a problem canceling membership.");
-            }
+        $isDeleted = $this->_database->delete('membership', ['u_id', '=', $this->_userId]);
+        if (!$isDeleted) {
+            throw new Exception("There was a problem canceling membership.");
         }
     }
 }

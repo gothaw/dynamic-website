@@ -43,7 +43,7 @@ class Classes
                     `class`.`cl_img_id` = `class_image`.`cl_img_id`
                 ORDER BY 
                     `cl_id`
-                ASC
+                DESC
                 ";
 
         if (isset($numberOfClasses)) {

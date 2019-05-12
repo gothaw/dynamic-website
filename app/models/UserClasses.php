@@ -5,6 +5,7 @@ class UserClasses
     private $_data;
     private $_database;
     private $_errors = [];
+    private $_userId;
 
     /**
      *                      UserClasses constructor.
@@ -14,6 +15,7 @@ class UserClasses
     public function __construct($userId)
     {
         $this->_database = Database::getInstance();
+        $this->_userId = $userId;
 
         $sql = "
                 SELECT
@@ -39,7 +41,7 @@ class UserClasses
                 ON
                     `schedule`.`co_id` = `coach`.`co_id`
                 WHERE
-                    `u_id` = ? AND `sc_class_date` > CURRENT_TIMESTAMP
+                    `u_id` = ? AND `sc_class_date` >= CURDATE()
                 ORDER BY
                     `schedule`.`sc_class_date`
                 ASC
@@ -83,7 +85,7 @@ class UserClasses
     public function getUserClassId($classId)
     {
         $userClassId = $this->getClass($classId)['uc_id'];
-        if(isset($userClassId)){
+        if (isset($userClassId)) {
             return $userClassId;
         } else {
             return null;
@@ -107,15 +109,14 @@ class UserClasses
 
     /**
      * @method              signUpUserToClass
-     * @param               $userId {`u_id` in `user_class` table}
      * @param               $classId {`sc_id` in `user_class` table}
      * @desc                Method signs up user to a class by inserting a new record to user class table with given $userId and $classId.
      * @throws              Exception
      */
-    public function signUpUserToClass($userId, $classId)
+    public function signUpUserToClass($classId)
     {
         $isSignedUp = $this->_database->insert('user_class', [
-            'u_id' => $userId,
+            'u_id' => $this->_userId,
             'sc_id' => $classId
         ]);
 
@@ -137,6 +138,27 @@ class UserClasses
         if (!$isDeleted) {
             throw new Exception("Could not drop out from the class. Sorry.");
         }
+    }
+
+    /**
+     * @method          deleteOldClasses
+     * @desc            Method deletes all past user classes.
+     */
+    public function deleteOldClasses()
+    {
+        $sql = "
+                DELETE 
+                	`user_class`
+                FROM 
+                    `user_class`
+                INNER JOIN `schedule`
+                ON
+                    `user_class`.`sc_id` = `schedule`.`sc_id`
+                WHERE
+                    `u_id` = ? AND `sc_class_date` < CURDATE()
+                ";
+
+        $this->_database->query($sql, [(int)$this->_userId])->getResult();
     }
 
     /**

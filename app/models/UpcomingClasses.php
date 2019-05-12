@@ -10,8 +10,9 @@ class UpcomingClasses
      *                      UpcomingClasses constructor.
      * @param               $numberOfClasses
      * @desc                Selects $numberOfClasses classes from `schedule` table.  Uses inner join on `class` and `coach` tables.
+     *                      By default selects 7 classes.
      */
-    public function __construct($numberOfClasses)
+    public function __construct($numberOfClasses = null)
     {
         $this->_database = Database::getInstance();
 
@@ -34,15 +35,19 @@ class UpcomingClasses
                     INNER JOIN `coach`
                 ON
                     `schedule`.`co_id` = `coach`.`co_id`
-                    WHERE
-                    `sc_class_date` > CURRENT_TIMESTAMP
+                WHERE
+                    `sc_class_date` >= CURDATE()
                 ORDER BY
                     `schedule`.`sc_class_date`
-                ASC
-                LIMIT ?;
-                ";
+                ASC";
 
-        $this->_data = $this->_database->query($sql, [(int)$numberOfClasses])->getResult();
+        if (isset($numberOfClasses)) {
+            $sql .= " LIMIT ?;";
+            $this->_data = $this->_database->query($sql, [(int)$numberOfClasses])->getResult();
+        } else {
+            $sql .= " LIMIT 7";
+            $this->_data = $this->_database->query($sql)->getResult();
+        }
     }
 
     /**
@@ -80,7 +85,7 @@ class UpcomingClasses
     public function getClassName($classId)
     {
         $className = $this->getClass($classId)['cl_name'];
-        if(isset($className)){
+        if (isset($className)) {
             return $className;
         } else {
             return '';

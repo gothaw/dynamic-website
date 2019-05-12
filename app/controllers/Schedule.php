@@ -9,7 +9,7 @@ class Schedule extends Controller
     public function __construct()
     {
         $this->_page = 'schedule';
-        $this->_schedule = $this->model('UpcomingClasses', 7);
+        $this->_schedule = $this->model('UpcomingClasses');
 
         $this->_classes = $this->model('Classes');
         $this->_classes->selectClasses(4);
@@ -44,7 +44,7 @@ class Schedule extends Controller
 
                     try {
                         // Signs user up to the class
-                        $userClasses->signUpUserToClass($userId, $classId);
+                        $userClasses->signUpUserToClass($classId);
                         $this->_schedule->addOnePersonToClass($classId);
                         Session::flash('dashboard', "You have signed up to a {$this->_schedule->getClassName($classId)} class.");
                         Redirect::to('dashboard');

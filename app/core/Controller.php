@@ -3,7 +3,6 @@
 class Controller
 {
     protected $_view;
-    protected $_model;
     protected $_navPages;
     protected $_pageDetails;
     protected $_path;
@@ -34,9 +33,7 @@ class Controller
     {
         if (file_exists('../app/models/' . $model . '.php')) {
             require_once '../app/models/' . $model . '.php';
-
-            $this->_model = new $model($parameter);
-            return $this->_model;
+            return new $model($parameter);
         }
         return null;
     }
