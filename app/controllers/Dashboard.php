@@ -61,7 +61,6 @@ class Dashboard extends Controller
                     try {
                         // Update User details
                         $this->updateUserDetails($this->_user);
-
                         Session::flash('dashboard', 'Your details have been updated.');
                         Redirect::to('dashboard');
                     } catch (Exception $e) {

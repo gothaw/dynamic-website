@@ -129,4 +129,45 @@ class AdminMembers extends Controller
         }
         $this->_view->renderView();
     }
+
+    public function add()
+    {
+        // Gets User Groups Data
+        $userGroups = $this->model('UserGroups');
+        $userGroupsData = $userGroups->getData();
+
+        if (Input::exists()) {
+            if (Token::check(Input::getValue('token'))) {
+
+                // Validation using Validate object
+                $validate = new Validate();
+                $validate->check($_POST, ValidationRules::getRegisterUserRulesAdminPanel());
+
+                if ($validate->checkIfPassed()) {
+
+                    // Register a User
+                    $user = $this->model('User');
+                    $groupId = $userGroups->getIdForGroupName(trim(Input::getValue('permission')));
+
+                    try {
+                        $this->insertUserDetails($user, $groupId);
+                        Session::flash('admin', 'You have registered a new gym member.');
+                        Redirect::to('admin-members');
+                    } catch (Exception $e) {
+                        $errorMessage = $e->getMessage();
+                        $this->_view->setViewError($errorMessage);
+                    }
+                } else {
+                    //Display an Error
+                    $errorMessage = $validate->getFirstErrorMessage();
+                    $this->_view->setViewError($errorMessage);
+                }
+            }
+        }
+        $this->_view->addViewData([
+            'userGroups' => $userGroupsData
+        ]);
+        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
+        $this->_view->renderView();
+    }
 }

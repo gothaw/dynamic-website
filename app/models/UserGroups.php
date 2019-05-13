@@ -31,8 +31,8 @@ class UserGroups
     /**
      * @method              getIdForGroupName
      * @param               $groupName
-     * @desc                Gets group id based on name. If not found, returns group id for which permissions are null i.e. standard user.
-     * @return              int|null
+     * @desc                Gets group id based on name. If not found, returns 1 which is group id for standard user.
+     * @return              int
      */
     public function getIdForGroupName($groupName)
     {
@@ -41,13 +41,6 @@ class UserGroups
                 return $group['u_group_id'];
             }
         }
-
-        foreach ($this->_data as $group){
-            if(!(isset($group['u_permissions']))){
-                return $group['u_group_id'];
-            }
-        }
-
-        return null;
+        return 1;
     }
 }

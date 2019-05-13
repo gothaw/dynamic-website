@@ -66,10 +66,23 @@
   @include border-radius(3px);
   padding: 11px 20px;
 }
-
-.back-to-admin-panel {
+.admin-navigate-buttons{
   padding-top: 35px;
   text-align: center;
+  &-flex{
+    @include tablet-and-desktop(){
+      display: flex;
+      justify-content: center;
+      div{
+        padding: 0 10px;
+      }
+    }
+    @include phone(){
+      div:not(:first-child){
+        padding-top: 10px;
+      }
+    }
+  }
 }
 .user-details-admin-panel{
   display: grid;

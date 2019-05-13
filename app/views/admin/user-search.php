@@ -86,10 +86,15 @@
             </div>
         <?php } ?>
         <div class="row">
-            <div class="col-lg-12 back-to-admin-panel">
-                <div class="back-to-admin-panel">
+            <div class="col-lg-12 admin-navigate-buttons <?php if($subName === 'admin-members'){ echo 'admin-navigate-buttons-flex'; } ?>">
+                <div>
                     <a class="template-btn" href="<?php echo ROOT . 'admin' ?>">Back to Admin Panel</a>
                 </div>
+                <?php if($subName === 'admin-members') {?>
+                <div>
+                    <a class="template-btn" href="<?php echo ROOT . $subName . '/add' ?>" >Add User</a>
+                </div>
+                <?php }?>
             </div>
         </div>
     </div>

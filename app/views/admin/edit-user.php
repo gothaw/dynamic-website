@@ -66,8 +66,8 @@
             </div>
         </form>
         <div class="row">
-            <div class="col-lg-12 back-to-admin-panel">
-                <div class="back-to-admin-panel">
+            <div class="col-lg-12">
+                <div class="admin-navigate-buttons">
                     <a class="template-btn" href="<?php echo ROOT . 'admin-members' ?>">Back to Members Search</a>
                 </div>
             </div>

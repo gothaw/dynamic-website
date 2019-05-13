@@ -74,10 +74,10 @@ class Controller
      * @param               $user {object}
      * @param               $id {user id}
      * @desc                Method updates user details. Used in dashboard and admin panel.
+     * @throws              Exception
      */
     protected function updateUserDetails($user, $id = null)
     {
-        // Update User Details
         $user->updateUser([
             'u_first_name' => trim(Input::getValue('first_name')),
             'u_last_name' => trim(Input::getValue('last_name')),
@@ -86,5 +86,31 @@ class Controller
             'u_postcode' => trim(Input::getValue('postcode')),
             'u_city' => trim(Input::getValue('city'))
         ], $id);
+    }
+
+    /**
+     * @method              insertUserDetails
+     * @param               $user
+     * @param               $groupId {groupId as int, 1 for standard user}
+     * @desc                Method inserts user details to the database. Used in register user and admin panel.
+     * @throws              Exception
+     */
+    protected function insertUserDetails($user, $groupId = 1)
+    {
+        $salt = Hash::generateSalt(32);
+        $user->createUser([
+            'u_first_name' => trim(Input::getValue('first_name')),
+            'u_last_name' => trim(Input::getValue('last_name')),
+            'u_address_1' => trim(Input::getValue('address_first_line')),
+            'u_address_2' => trim(Input::getValue('address_second_line')),
+            'u_postcode' => trim(Input::getValue('postcode')),
+            'u_city' => trim(Input::getValue('city')),
+            'u_username' => trim(Input::getValue('username')),
+            'u_email' => trim(Input::getValue('email')),
+            'u_password' => Hash::generateHash(Input::getValue('password'), $salt),
+            'u_salt' => $salt,
+            'u_group_id' => $groupId,
+            'u_joined' => date('Y-m-d H-i-s')
+        ]);
     }
 }
