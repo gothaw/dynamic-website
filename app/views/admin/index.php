@@ -18,6 +18,12 @@ switch ($subName){
     case 'admin-members/add':
         include("../app/views/admin/add-user.php");
         break;
+    case 'admin-classes':
+        include("../app/views/admin/admin-classes.php");
+        break;
+    case 'admin-classes/edit':
+        include("../app/views/admin/edit-classes.php");
+        break;
     default:
         include("../app/views/admin/admin-panel.php");
 }

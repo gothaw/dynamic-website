@@ -33,10 +33,7 @@ class Classes
     {
         $sql = "
                 SELECT 
-                    `cl_name`,
-                    `cl_desc`,
-                    `cl_img_url`,
-                    `cl_img_alt`
+                    *
                 FROM 
                     `class` INNER JOIN `class_image`
                 ON
