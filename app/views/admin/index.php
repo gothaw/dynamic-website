@@ -22,7 +22,7 @@ switch ($subName){
         include("../app/views/admin/admin-classes.php");
         break;
     case 'admin-classes/edit':
-        include("../app/views/admin/edit-classes.php");
+        include("../app/views/admin/edit-class.php");
         break;
     default:
         include("../app/views/admin/admin-panel.php");

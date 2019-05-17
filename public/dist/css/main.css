@@ -2559,6 +2559,10 @@ h6 {
 .form-field-select {
   width: 100%; }
 
+.form-text-area {
+  width: 100%;
+  height: 200px; }
+
 /* 17. Other */
 .section-padding {
   padding: 130px 0; }
