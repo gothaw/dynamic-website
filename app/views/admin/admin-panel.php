@@ -1,8 +1,8 @@
 <!-- Admin Area Starts -->
-<div class="container">
+<div class="container section-padding4">
     <div class="row">
         <div class="col-lg-12">
-            <section class="section-padding4">
+            <section>
                 <h3>Admin Panel</h3>
                 <ul class="admin-panel">
                     <li class="admin-panel-item">
@@ -61,6 +61,13 @@
                     </li>
                 </ul>
             </section>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="admin-navigate-buttons">
+                <a class="template-btn" href="<?php echo ROOT . 'dashboard' ?>">Back to Dashboard</a>
+            </div>
         </div>
     </div>
 </div>

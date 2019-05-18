@@ -57,6 +57,6 @@
     <script src="<?php echo DIST?>/js/vendor/wow.min.js"></script>
     <script src="<?php echo DIST?>/js/vendor/owl-carousel.min.js"></script>
     <script src="<?php echo DIST?>/js/vendor/jquery.nice-select.min.js"></script>
-    <script src="<?php echo DIST?>/js/main.js"></script>
+    <script src="<?php echo DIST?>/js/bundle.js"></script>
     </body>
 </html>

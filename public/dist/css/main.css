@@ -2517,6 +2517,10 @@ h6 {
   max-width: 400px;
   margin: 0 auto; }
 
+.classes-form {
+  max-width: 800px;
+  margin: 0 auto; }
+
 .change-password-form {
   max-width: 400px;
   margin: 0 auto; }
@@ -2526,9 +2530,8 @@ h6 {
   padding-bottom: 10px; }
 
 .form-field {
-  text-align: center;
   margin: 5px auto; }
-  .form-field input {
+  .form-field input[type=text], .form-field input[type=email], .form-field input[type=password], .form-field input[type=date] {
     width: 100%;
     padding: 5px; }
   .form-field label {
@@ -2562,6 +2565,30 @@ h6 {
 .form-text-area {
   width: 100%;
   height: 200px; }
+
+.form-field-file {
+  display: none; }
+
+.file-info {
+  margin-left: 5px; }
+
+.browse-btn {
+  cursor: pointer;
+  color: #ffffff !important;
+  background: #f61b55;
+  font-family: "Rubik", sans-serif;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid transparent;
+  display: inline-block;
+  padding: 10px 15px !important;
+  border-radius: 3px;
+  transition: all 0.5s; }
+  .browse-btn:hover {
+    color: #222222 !important;
+    background: transparent;
+    border: 1px solid #f61b55; }
 
 /* 17. Other */
 .section-padding {

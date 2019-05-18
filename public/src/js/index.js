@@ -1,1 +1,2 @@
-console.log("Hi There!");
+import "./modules/main.js";
+import "./modules/upload-button.js";

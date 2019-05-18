@@ -49,6 +49,20 @@
             <?php }
             }?>
         </div>
+        <?php if($name==='admin') {?>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="admin-navigate-buttons admin-navigate-buttons-flex">
+                    <div>
+                        <a class="template-btn" href="<?php echo ROOT . 'admin' ?>">Back to Admin Panel</a>
+                    </div>
+                    <div>
+                        <a class="template-btn" href="<?php echo ROOT . $subName . '/add' ?>">Add Class</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php }?>
     </div>
 </section>
 <!-- Feature Area End -->
