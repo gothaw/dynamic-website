@@ -50,4 +50,22 @@ class Classes
             $this->_data = $this->_database->query($sql)->getResult();
         }
     }
+
+    /**
+     * @method              getClass
+     * @param               $classId
+     * @desc                Loops through _data and gets class with id of $classId
+     * @return              array|null
+     */
+    public function getClass($classId)
+    {
+        if (isset($this->_data)) {
+            foreach ($this->_data as $class){
+                if($class['cl_id'] === $classId){
+                    return $class;
+                }
+            }
+        }
+        return null;
+    }
 }

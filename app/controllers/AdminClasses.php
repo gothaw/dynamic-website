@@ -36,6 +36,17 @@ class AdminClasses extends Controller
 
     public function edit($classId = '')
     {
+        $selectedClass = $this->_classes->getClass($classId);
+        if (isset($selectedClass) && is_numeric($classId)) {
+
+            if(Input::exists()){
+                echo 'ok';
+            }
+
+            $this->_view->addViewData(['selectedClass' => $selectedClass]);
+        } else{
+            Redirect::to('admin-classes');
+        }
         $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
         $this->_view->renderView();
     }
