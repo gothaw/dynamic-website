@@ -40,7 +40,23 @@ class AdminClasses extends Controller
         if (isset($selectedClass) && is_numeric($classId)) {
 
             if(Input::exists()){
-                echo 'ok';
+                if(Token::check(Input::getValue('token'))){
+
+                    // Validation using Validate object
+                    $validate = new Validate();
+                    $validate->check($_POST, ValidationRules::getValidClassRules());
+
+                    if($validate->checkIfPassed()){
+
+                        echo "ok";
+
+
+                    } else{
+                        //Display an Error
+                        $errorMessage = $validate->getFirstErrorMessage();
+                        $this->_view->setViewError($errorMessage);
+                    }
+                }
             }
 
             $this->_view->addViewData(['selectedClass' => $selectedClass]);

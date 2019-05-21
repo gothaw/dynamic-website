@@ -155,6 +155,51 @@ class ValidationRules
     }
 
     /**
+     * @method                      getValidClassRules
+     * @desc                        Rules for valid class details.
+     * @return                      array
+     */
+    public static function getValidClassRules()
+    {
+        $rulesArray = [
+            'class_name' => [
+                'desc' => 'class name',
+                'required' => true,
+                'min' => 2,
+                'max' => 25
+            ],
+            'duration' => [
+                'desc' => 'class duration in minutes',
+                'required' => true,
+                'numeric' => true,
+                'max_value' => 120,
+                'min_value' => 15
+            ],
+            'max_no_people' => [
+                'desc' => 'max number of people',
+                'required' => true,
+                'numeric' => true,
+                'max_value' => 30,
+                'min_value' => 5
+            ],
+            'class_image_text' => [
+                'desc' => 'alternative image text',
+                'required' => true,
+                'min' => 2,
+                'max' => 25
+            ],
+            'description' => [
+                'desc' => 'class description',
+                'required' => true,
+                'min' => 5,
+                'max' => 250
+            ]
+        ];
+
+        return $rulesArray;
+    }
+
+    /**
      * @method                      getUserDetailsRules
      * @desc                        Rules for valid user details such as first name, last name and address.
      * @return                      array

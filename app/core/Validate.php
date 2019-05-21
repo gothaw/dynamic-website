@@ -41,10 +41,24 @@ class Validate
                             }
 
                             break;
+                        case 'min_value':
+
+                            if($value < $ruleValue) {
+                                $this->addError("{$items[$item]['desc']} must be greater than {$ruleValue}.");
+                            }
+
+                            break;
                         case 'max':
 
                             if (strlen($value) > $ruleValue) {
                                 $this->addError("{$items[$item]['desc']} must be a maximum of {$ruleValue} characters.");
+                            }
+
+                            break;
+                        case 'max_value':
+
+                            if($value > $ruleValue) {
+                                $this->addError("{$items[$item]['desc']} must be less than {$ruleValue}.");
                             }
 
                             break;
@@ -114,6 +128,11 @@ class Validate
                             }
                             if($value < date('Y-m-d')){
                                 $this->addError("This {$items[$item]['desc']} cannot be in the past.");
+                            }
+                            break;
+                        case 'numerical':
+                            if(!is_numeric($value)){
+                                $this->addError("{$items[$item]['desc']} must be a number.");
                             }
                             break;
                     }
