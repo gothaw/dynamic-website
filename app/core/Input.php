@@ -4,8 +4,8 @@ class Input
 {
     /**
      * @method              exists
-     * @param               $type {type of the HTTP method: 'post', 'get', 'files'}
-     * @desc                Checks if $_POST, $_GET, $_FILES super globals exist i.e. are not empty.
+     * @param               $type {type of the HTTP method: 'post', 'get'}
+     * @desc                Checks if $_POST, $_GET super globals exist i.e. are not empty.
      * @return              bool
      */
     public static function exists($type = 'post')
@@ -16,9 +16,6 @@ class Input
                 break;
             case 'get':
                 return (!empty($_GET)) ? true : false;
-                break;
-            case 'files':
-                return (!empty($_FILES)) ? true : false;
                 break;
             default:
                 return false;
@@ -39,9 +36,7 @@ class Input
             return $_POST[$item];
         } else if ($type = 'get' && isset($_GET[$item])) {
             return $_GET[$item];
-        } else if ($type = 'files' && isset($_FILES[$item])) {
-            return $_FILES[$item];
-        } else {
+        }  else {
             return '';
         }
     }

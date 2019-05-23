@@ -186,7 +186,7 @@ class ValidationRules
                 'desc' => 'alternative image text',
                 'required' => true,
                 'min' => 2,
-                'max' => 25
+                'max' => 50
             ],
             'description' => [
                 'desc' => 'class description',

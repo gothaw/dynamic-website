@@ -39,19 +39,39 @@ class AdminClasses extends Controller
         $selectedClass = $this->_classes->getClass($classId);
         if (isset($selectedClass) && is_numeric($classId)) {
 
-            if(Input::exists()){
-                if(Token::check(Input::getValue('token'))){
+            if (Input::exists()) {
+                if (Token::check(Input::getValue('token'))) {
 
                     // Validation using Validate object
                     $validate = new Validate();
                     $validate->check($_POST, ValidationRules::getValidClassRules());
 
-                    if($validate->checkIfPassed()){
+                    $image = new File('class_image');
 
-                        echo "ok";
+                    if ($validate->checkIfPassed()) {
 
+                        try {
 
-                    } else{
+                            $this->_classes->updateClass($classId, [
+                                'cl_name' => trim(Input::getValue('class_name')),
+                                'cl_desc' => trim(Input::getValue('description')),
+                                'cl_duration' => trim(Input::getValue('duration')),
+                                'cl_max_people' => trim(Input::getValue('max_no_people'))
+                            ]);
+
+                            $this->_classes->updateClassImageDetails($classId,[
+                                'cl_img_alt' => trim(Input::getValue('class_image_text'))
+                            ]);
+
+                            Session::flash('admin','Class details have been updated.');
+                            Redirect::to('admin-classes');
+
+                        } catch (Exception $e) {
+                            $errorMessage = $e->getMessage();
+                            $this->_view->setViewError($errorMessage);
+                        }
+
+                    } else {
                         //Display an Error
                         $errorMessage = $validate->getFirstErrorMessage();
                         $this->_view->setViewError($errorMessage);
@@ -60,7 +80,7 @@ class AdminClasses extends Controller
             }
 
             $this->_view->addViewData(['selectedClass' => $selectedClass]);
-        } else{
+        } else {
             Redirect::to('admin-classes');
         }
         $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);

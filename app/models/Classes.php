@@ -60,12 +60,41 @@ class Classes
     public function getClass($classId)
     {
         if (isset($this->_data)) {
-            foreach ($this->_data as $class){
-                if($class['cl_id'] === $classId){
+            foreach ($this->_data as $class) {
+                if ($class['cl_id'] === $classId) {
                     return $class;
                 }
             }
         }
         return null;
+    }
+
+    /**
+     * @method              updateClass
+     * @param               $classId
+     * @param               $fields {fields to be inserted to the database as an associative array}
+     * @desc                Updates class details in 'class' table in the database.
+     * @throws              Exception
+     */
+    public function updateClass($classId, $fields = [])
+    {
+        if (!$this->_database->update('class', 'cl_id', $classId, $fields)) {
+            throw new Exception('There was a problem updating the class.');
+        }
+    }
+
+    /**
+     * @method              updateClassImageDetails
+     * @param               $classId
+     * @param               $fields {fields to be inserted to the database as an associative array}
+     * @desc                Updates class details in 'class_image' table in the database
+     * @throws              Exception
+     */
+    public function updateClassImageDetails($classId, $fields = [])
+    {
+        $classImageId = $this->getClass($classId)['cl_img_id'];
+        if (!$this->_database->update('class_image', 'cl_img_id', $classImageId, $fields)) {
+            throw new Exception('There was a problem updating the class image.');
+        }
     }
 }
