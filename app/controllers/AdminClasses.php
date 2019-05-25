@@ -45,6 +45,7 @@ class AdminClasses extends Controller
                     // Validation using Validate object
                     $validate = new Validate();
                     $validate->check($_POST, ValidationRules::getValidClassRules());
+
                     // Create new File
                     $image = new File('class_image');
 
@@ -62,9 +63,9 @@ class AdminClasses extends Controller
 
                                 if ($image->exists()) {
 
-                                    // Replaces image with new alt text
+                                    // Replaces image and updates image info in the database
                                     $newImageUrl = $this->_classes->getImageLocation($classId) . '/' . $image->getName();
-                                    $image->replaceFile('dist/' . $selectedClass['cl_img_url'], 'dist/' . $newImageUrl);
+                                    $image->replace('dist/' . $selectedClass['cl_img_url'], 'dist/' . $newImageUrl);
                                     $this->_classes->updateClassImageDetails($classId, [
                                         'cl_img_alt' => trim(Input::getValue('class_image_text')),
                                         'cl_img_url' => $newImageUrl
@@ -110,10 +111,77 @@ class AdminClasses extends Controller
     {
         if(Input::exists()){
             if(Token::check(Input::getValue('token'))){
-                echo 'Delete Class';
+
+                $selectedClass = $this->_classes->getClass($classId);
+                if (isset($selectedClass) && is_numeric($classId)) {
+
+                    echo "Delete Class";
+
+                }
             }
         }
         $this->_view->addViewData(['itemToBeDeleted' => 'class']);
+        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
+        $this->_view->renderView();
+    }
+
+    public function add()
+    {
+        if(Input::exists()){
+            if(Token::check(Input::getValue('token'))){
+
+                // Validation using Validate object
+                $validate = new Validate();
+                $validate->check($_POST, ValidationRules::getValidClassRules());
+
+                // Create new File
+                $image = new File('class_image');
+
+                if($validate->checkIfPassed()){
+                    if($image->checkIfValid(500, ['jpg', 'jpeg', 'png', 'giff'])){
+
+                        try{
+
+                            // Uploads image and inserts image info into the database
+                            $imageUrl = $this->_classes->getImageLocation() . '/' . $image->getName();
+                            $image->upload('dist/' . $imageUrl);
+
+                            $this->_classes->addClassImageDetails([
+                                'cl_img_alt' => trim(Input::getValue('class_image_text')),
+                                'cl_img_url' => $imageUrl
+                            ]);
+
+                            // Finds class image id based on url
+                            $classImgId = $this->_classes->findClassImageId($imageUrl);
+
+                            // Inserts class details
+                            $this->_classes->addClass([
+                                'cl_name' => trim(Input::getValue('class_name')),
+                                'cl_desc' => trim(Input::getValue('description')),
+                                'cl_duration' => trim(Input::getValue('duration')),
+                                'cl_max_people' => trim(Input::getValue('max_no_people')),
+                                'cl_img_id' => $classImgId
+                            ]);
+
+                            Session::flash('admin', 'The class has been added.');
+                            Redirect::to('admin-classes');
+                        } catch (Exception $e){
+                            $errorMessage = $e->getMessage();
+                            $this->_view->setViewError($errorMessage);
+                        }
+
+                    } else {
+                        // Display file validation error
+                        $errorMessage = $image->getError();
+                        $this->_view->setViewError($errorMessage);
+                    }
+                } else {
+                    // Display validation error
+                    $errorMessage = $validate->getFirstErrorMessage();
+                    $this->_view->setViewError($errorMessage);
+                }
+            }
+        }
         $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
         $this->_view->renderView();
     }

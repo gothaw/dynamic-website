@@ -30,6 +30,12 @@ class File
         return $this->_file['name'];
     }
 
+    private function getFileExtension()
+    {
+        $fileExtension = explode('.', $this->_file['name']);
+        return strtolower(end($fileExtension));
+    }
+
     public function exists()
     {
         return ($this->_file['error'] !== 4) ? true : false;
@@ -42,7 +48,7 @@ class File
         } else if ($this->_file['size'] > $maxSize * 1000) {
             $this->setError("File size exceeds {$maxSize}kB. Please select smaller file.");
         } else if (!in_array($this->getFileExtension(), $fileTypes)) {
-            $this->setError("Invalid file format. Please select file that is: " . implode(', ', $fileTypes));
+            $this->setError("Invalid file format. Accepted file formats: " . implode(', ', $fileTypes));
         }
         if (!isset($this->_error)) {
             return true;
@@ -50,18 +56,16 @@ class File
         return false;
     }
 
-    public function uploadFile($destination){
+    public function upload($destination){
         move_uploaded_file($this->_file['tmp_name'], $destination);
     }
 
-    public function replaceFile($oldFileDestination, $newFileDestination){
-        unlink($oldFileDestination);
-        $this->uploadFile($newFileDestination);
+    public function replace($oldFileDestination, $newFileDestination){
+        $this->delete($oldFileDestination);
+        $this->upload($newFileDestination);
     }
 
-    private function getFileExtension()
-    {
-        $fileExtension = explode('.', $this->_file['name']);
-        return strtolower(end($fileExtension));
+    public function delete($destination){
+        unlink($destination);
     }
 }

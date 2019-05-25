@@ -30,6 +30,9 @@ switch ($subName){
     case 'admin-classes/edit':
         include("../app/views/admin/edit-class.php");
         break;
+    case 'admin-classes/add':
+        include("../app/views/admin/add-class.php");
+        break;
     case 'admin-classes/delete':
         include("../app/views/admin/delete-item.php");
         break;
