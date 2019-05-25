@@ -83,25 +83,29 @@ class AdminMembership extends Controller
 
     public function cancel($userId = '')
     {
-        if (is_numeric($userId)) {
+        if(Input::exists()){
+            if (Token::check(Input::getValue('token')) && is_numeric($userId)) {
 
-            $membership = $this->model('Membership', $userId);
-            $expiryDate = $membership->getExpiryDate();
+                $membership = $this->model('Membership', $userId);
+                $expiryDate = $membership->getExpiryDate();
 
-            if (isset($expiryDate)) {
-                try {
-                    // Cancel membership
-                    $membership->cancelMembership();
-                    Session::flash('admin', 'User membership has been cancelled.');
+                if (isset($expiryDate)) {
+                    try {
+                        // Cancel membership
+                        $membership->cancelMembership();
+                        Session::flash('admin', 'User membership has been cancelled.');
+                        Redirect::to('admin-membership');
+                    } catch (Exception $e) {
+                        $errorMessage = $e->getMessage();
+                        $this->_view->setViewError($errorMessage);
+                    }
+                } else {
                     Redirect::to('admin-membership');
-                } catch (Exception $e) {
-                    $errorMessage = $e->getMessage();
-                    $this->_view->setViewError($errorMessage);
                 }
-            } else {
-                Redirect::to('admin-membership');
             }
         }
+        $this->_view->addViewData(['itemToBeDeleted' => 'membership']);
+        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
         $this->_view->renderView();
     }
 

@@ -92,41 +92,48 @@ class AdminMembers extends Controller
 
     public function delete($userId = '')
     {
-        $selectedUser = $this->model('User', $userId);
+        if (Input::exists()) {
+            if (Token::check(Input::getValue('token'))) {
 
-        if (is_numeric($userId) && isset($selectedUser)) {
+                $selectedUser = $this->model('User', $userId);
 
-            $selectedUserData = $selectedUser->getData();
-            $membership = $this->model('Membership', $userId);
-            $userClasses = $this->model('UserClasses', $userId);
-            $userClassesData = $userClasses->getData();
-            $schedule = $this->model('UpcomingClasses');
+                if (is_numeric($userId) && isset($selectedUser)) {
 
-            try {
+                    $selectedUserData = $selectedUser->getData();
+                    $membership = $this->model('Membership', $userId);
+                    $userClasses = $this->model('UserClasses', $userId);
+                    $userClassesData = $userClasses->getData();
+                    $schedule = $this->model('UpcomingClasses');
 
-                // Delete membership
-                $membership->cancelMembership($userId);
-                // Delete user classes
-                foreach ($userClassesData as $class) {
-                    $userClasses->dropUserFromClass($class['uc_id']);
-                    $schedule->removeOnePersonFromClass($class['sc_id']);
+                    try {
+
+                        // Delete membership
+                        $membership->cancelMembership($userId);
+                        // Delete user classes
+                        foreach ($userClassesData as $class) {
+                            $userClasses->dropUserFromClass($class['uc_id']);
+                            $schedule->removeOnePersonFromClass($class['sc_id']);
+                        }
+                        // Deletes past user classes
+                        $userClasses->deleteOldClasses();
+                        // Delete user
+                        $selectedUser->deleteUser($userId);
+                        Session::flash('admin', 'User ' . $selectedUserData['u_username'] . ' has been deleted.');
+                        Redirect::to('admin-members');
+
+                    } catch (Exception $e) {
+                        // Display an Error
+                        $errorMessage = $e->getMessage();
+                        $this->_view->setViewError($errorMessage);
+                    }
+
+                } else {
+                    Redirect::to('admin-members');
                 }
-                // Deletes past user classes
-                $userClasses->deleteOldClasses();
-                // Delete user
-                $selectedUser->deleteUser($userId);
-                Session::flash('admin', 'User ' . $selectedUserData['u_username'] . ' has been deleted.');
-                Redirect::to('admin-members');
-
-            } catch (Exception $e) {
-                // Display an Error
-                $errorMessage = $e->getMessage();
-                $this->_view->setViewError($errorMessage);
             }
-
-        } else {
-            Redirect::to('admin-members');
         }
+        $this->_view->addViewData(['itemToBeDeleted' => 'user']);
+        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
         $this->_view->renderView();
     }
 

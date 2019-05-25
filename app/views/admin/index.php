@@ -9,6 +9,9 @@ switch ($subName){
     case 'admin-membership/edit':
         include("../app/views/admin/edit-membership.php");
         break;
+    case 'admin-membership/cancel':
+        include("../app/views/admin/delete-item.php");
+        break;
     case 'admin-members':
         include("../app/views/admin/user-search.php");
         break;
@@ -18,11 +21,17 @@ switch ($subName){
     case 'admin-members/add':
         include("../app/views/admin/add-user.php");
         break;
+    case 'admin-members/delete':
+        include("../app/views/admin/delete-item.php");
+        break;
     case 'admin-classes':
         include("../app/views/admin/admin-classes.php");
         break;
     case 'admin-classes/edit':
         include("../app/views/admin/edit-class.php");
+        break;
+    case 'admin-classes/delete':
+        include("../app/views/admin/delete-item.php");
         break;
     default:
         include("../app/views/admin/admin-panel.php");

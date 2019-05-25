@@ -105,4 +105,16 @@ class AdminClasses extends Controller
         $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
         $this->_view->renderView();
     }
+
+    public function delete($classId = '')
+    {
+        if(Input::exists()){
+            if(Token::check(Input::getValue('token'))){
+                echo 'Delete Class';
+            }
+        }
+        $this->_view->addViewData(['itemToBeDeleted' => 'class']);
+        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
+        $this->_view->renderView();
+    }
 }

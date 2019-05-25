@@ -29,7 +29,7 @@
                                 <?php switch ($name){
                                     case 'admin': ?>
                                 <div class="hover-state">
-                                    <a href="<?php echo ROOT . $subName .'/edit/' . $class['cl_id']?>" class="template-btn">edit</a>
+                                    <a href="<?php echo ROOT . $subName .'/edit/' . $class['cl_id']?>" class="template-btn">edit/delete</a>
                                 </div>
                                     <?php break;
                                     case 'schedule':
