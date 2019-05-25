@@ -24,6 +24,12 @@ class Classes
         return $this->_data;
     }
 
+    public function getImageLocation($classId)
+    {
+        $imageUrlArray = explode('/', $this->getClass($classId)['cl_img_url']);
+        return implode('/', array_splice($imageUrlArray, 0, -1));
+    }
+
     /**
      * @method              selectClasses
      * @param               $numberOfClasses

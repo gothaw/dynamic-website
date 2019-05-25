@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h3>View <?php echo explode('-',$subName)[1] ?></h3>
+                <h3>View <?php echo escape(explode('-',$subName)[1]) ?></h3>
                 <form class="search-form" action="<?php echo ROOT . $subName ?>" method="post">
                     <div class="search-field-wrapper">
                         <input class="search-field" type="text" name="search"

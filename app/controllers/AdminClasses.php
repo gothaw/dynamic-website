@@ -45,40 +45,59 @@ class AdminClasses extends Controller
                     // Validation using Validate object
                     $validate = new Validate();
                     $validate->check($_POST, ValidationRules::getValidClassRules());
-
+                    // Create new File
                     $image = new File('class_image');
 
                     if ($validate->checkIfPassed()) {
+                        if (!$image->exists() || $image->checkIfValid(500, ['jpg', 'jpeg', 'png', 'giff'])) {
 
-                        try {
+                            try {
+                                // Update class details
+                                $this->_classes->updateClass($classId, [
+                                    'cl_name' => trim(Input::getValue('class_name')),
+                                    'cl_desc' => trim(Input::getValue('description')),
+                                    'cl_duration' => trim(Input::getValue('duration')),
+                                    'cl_max_people' => trim(Input::getValue('max_no_people'))
+                                ]);
 
-                            $this->_classes->updateClass($classId, [
-                                'cl_name' => trim(Input::getValue('class_name')),
-                                'cl_desc' => trim(Input::getValue('description')),
-                                'cl_duration' => trim(Input::getValue('duration')),
-                                'cl_max_people' => trim(Input::getValue('max_no_people'))
-                            ]);
+                                if ($image->exists()) {
 
-                            $this->_classes->updateClassImageDetails($classId,[
-                                'cl_img_alt' => trim(Input::getValue('class_image_text'))
-                            ]);
+                                    // Replaces image with new alt text
+                                    $newImageUrl = $this->_classes->getImageLocation($classId) . '/' . $image->getName();
+                                    $image->replaceFile('dist/' . $selectedClass['cl_img_url'], 'dist/' . $newImageUrl);
+                                    $this->_classes->updateClassImageDetails($classId, [
+                                        'cl_img_alt' => trim(Input::getValue('class_image_text')),
+                                        'cl_img_url' => $newImageUrl
+                                    ]);
 
-                            Session::flash('admin','Class details have been updated.');
-                            Redirect::to('admin-classes');
+                                } else {
 
-                        } catch (Exception $e) {
-                            $errorMessage = $e->getMessage();
+                                    // Updates alt text for existing image
+                                    $this->_classes->updateClassImageDetails($classId, [
+                                        'cl_img_alt' => trim(Input::getValue('class_image_text'))
+                                    ]);
+
+                                }
+                                Session::flash('admin', 'Class details have been updated.');
+                                Redirect::to('admin-classes');
+
+                            } catch (Exception $e) {
+                                $errorMessage = $e->getMessage();
+                                $this->_view->setViewError($errorMessage);
+                            }
+
+                        } else {
+                            // Display file validation error
+                            $errorMessage = $image->getError();
                             $this->_view->setViewError($errorMessage);
                         }
-
                     } else {
-                        //Display an Error
+                        // Display validation error
                         $errorMessage = $validate->getFirstErrorMessage();
                         $this->_view->setViewError($errorMessage);
                     }
                 }
             }
-
             $this->_view->addViewData(['selectedClass' => $selectedClass]);
         } else {
             Redirect::to('admin-classes');
