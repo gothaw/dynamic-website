@@ -102,6 +102,19 @@ class Classes
     }
 
     /**
+     * @method              addClass
+     * @param               $fields {fields to be inserted to the database as an associative array}
+     * @desc                Inserts details for a new class to the database.
+     * @throws              Exception
+     */
+    public function addClass($fields = [])
+    {
+        if (!$this->_database->insert('class', $fields)) {
+            throw new Exception('There was a problem adding the class.');
+        }
+    }
+
+    /**
      * @method              updateClass
      * @param               $classId
      * @param               $fields {fields to be inserted to the database as an associative array}
@@ -116,15 +129,28 @@ class Classes
     }
 
     /**
-     * @method              addClass
-     * @param               $fields {fields to be inserted to the database as an associative array}
-     * @desc                Inserts details for a new class to the database.
+     * @method              deleteClass
+     * @param               $classId
+     * @desc                Deletes class details from the database.
      * @throws              Exception
      */
-    public function addClass($fields = [])
+    public function deleteClass($classId)
     {
-        if (!$this->_database->insert('class', $fields)) {
-            throw new Exception('There was a problem adding the class.');
+        if (!$this->_database->delete('class', ['cl_id', '=', $classId])) {
+            throw new Exception('There was problem deleting the class');
+        }
+    }
+
+    /**
+     * @method              addClassImageDetails
+     * @param               $fields {fields to be inserted to the database as an associative array}
+     * @desc                Inserts class image details in the database.
+     * @throws              Exception
+     */
+    public function addClassImageDetails($fields = [])
+    {
+        if (!$this->_database->insert('class_image', $fields)) {
+            throw new Exception('There was a problem adding the class image.');
         }
     }
 
@@ -144,15 +170,16 @@ class Classes
     }
 
     /**
-     * @method              addClassImageDetails
-     * @param               $fields {fields to be inserted to the database as an associative array}
-     * @desc                Inserts class image details in the database.
+     * @method              deleteClassImageDetails
+     * @param               $classId
+     * @desc                Deletes class image details from the database.
      * @throws              Exception
      */
-    public function addClassImageDetails($fields = [])
+    public function deleteClassImageDetails($classId)
     {
-        if (!$this->_database->insert('class_image', $fields)) {
-            throw new Exception('There was a problem adding the class image.');
+        $classImageId = $this->getClass($classId)['cl_img_id'];
+        if (!$this->_database->delete('class_image', ['cl_img_id', '=', $classId])) {
+            throw new Exception('There was a problem deleting class image');
         }
     }
 }

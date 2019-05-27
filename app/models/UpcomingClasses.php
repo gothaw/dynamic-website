@@ -180,4 +180,18 @@ class UpcomingClasses
     {
         return $this->_errors[0];
     }
+
+
+    public function deleteClassesByClassId($classId)
+    {
+        $scheduledClasses = $this->_database->select('schedule', ['cl_id', '=', $classId])->getResult();
+        foreach ($scheduledClasses as $class) {
+            $scheduledClassId = $class['sc_id'];
+            
+        }
+
+        if (!$this->_database->delete('schedule', ['cl_id', ''])){
+
+        }
+    }
 }

@@ -115,7 +115,13 @@ class AdminClasses extends Controller
                 $selectedClass = $this->_classes->getClass($classId);
                 if (isset($selectedClass) && is_numeric($classId)) {
 
-                    echo "Delete Class";
+                    // Delete Class
+
+                    // Delete Scheduled Classes
+
+                    // Delete User Classes
+
+                    // Delete Class Image
 
                 }
             }
