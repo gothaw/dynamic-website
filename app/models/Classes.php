@@ -88,7 +88,7 @@ class Classes
     /**
      * @method              findClassImageId
      * @param               $url
-     * @desc                Finds class image id for given image url.
+     * @desc                Finds class image id in the database for given image url.
      * @return              int|null
      */
     public function findClassImageId($url)
@@ -178,7 +178,7 @@ class Classes
     public function deleteClassImageDetails($classId)
     {
         $classImageId = $this->getClass($classId)['cl_img_id'];
-        if (!$this->_database->delete('class_image', ['cl_img_id', '=', $classId])) {
+        if (!$this->_database->delete('class_image', ['cl_img_id', '=', $classImageId])) {
             throw new Exception('There was a problem deleting class image');
         }
     }

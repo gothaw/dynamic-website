@@ -11,7 +11,7 @@
     1. Author CSS
     2. Preloader
     3. Main Menu
-    4. UpcomingClasses
+    4. ScheduledClasses
     5. Banner
     6. Feature
     7. Service
@@ -23,7 +23,7 @@
     13. Footer
     14. About
     15. Service Page
-    16. UpcomingClasses
+    16. ScheduledClasses
     17. Trainers
     18. Contact
     19. Blog Home
@@ -364,7 +364,7 @@ textarea:focus {
     margin: 6px 0;
     height: 2px; }
 
-/* 4. UpcomingClasses */
+/* 4. ScheduledClasses */
 .header-area.main-header {
   padding: 24px 0;
   background: #ffffff;
@@ -749,7 +749,7 @@ textarea:focus {
 .feature-area.services {
   background: #ffffff; }
 
-/* 16. UpcomingClasses */
+/* 16. ScheduledClasses */
 .schedule-login-text {
   text-align: center;
   padding: 55px 15px 0; }

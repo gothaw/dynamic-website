@@ -1,13 +1,13 @@
 <?php
 
-class UpcomingClasses
+class ScheduledClasses
 {
     private $_data;
     private $_database;
     private $_errors = [];
 
     /**
-     *                      UpcomingClasses constructor.
+     *                      ScheduledClasses constructor.
      * @param               $numberOfClasses
      * @desc                Selects $numberOfClasses classes from `schedule` table.  Uses inner join on `class` and `coach` tables.
      *                      By default selects 7 classes.
@@ -61,15 +61,35 @@ class UpcomingClasses
     }
 
     /**
+     * @method                  addError
+     * @param                   $error {string}
+     * @desc                    Adds error message to the _errors array.
+     */
+    private function addError($error)
+    {
+        $this->_errors[] = $error;
+    }
+
+    /**
+     * @method                  getFirstErrorMessage
+     * @desc                    Gets first error message from error array.
+     * @return                  string
+     */
+    public function getFirstErrorMessage()
+    {
+        return $this->_errors[0];
+    }
+
+    /**
      * @method              getClass
-     * @param               $classId {`sc_id` column in `schedule` table}
-     * @desc                Loops through $_data and returns class that has `sc_id` equal to $classId
+     * @param               $scheduledId {`sc_id` column in `schedule` table}
+     * @desc                Loops through $_data and returns class that has `sc_id` equal to $scheduledId
      * @return              array|null
      */
-    private function getClass($classId)
+    private function getClass($scheduledId)
     {
         foreach ($this->_data as $class) {
-            if ($class['sc_id'] === $classId) {
+            if ($class['sc_id'] === $scheduledId) {
                 return $class;
             }
         }
@@ -78,13 +98,13 @@ class UpcomingClasses
 
     /**
      * @method              getClassName
-     * @param               $classId
-     * @desc                Gets $classId class name from _data field.
+     * @param               $scheduledId
+     * @desc                Gets $scheduledId class name from _data field.
      * @return              string
      */
-    public function getClassName($classId)
+    public function getClassName($scheduledId)
     {
-        $className = $this->getClass($classId)['cl_name'];
+        $className = $this->getClass($scheduledId)['cl_name'];
         if (isset($className)) {
             return $className;
         } else {
@@ -95,13 +115,13 @@ class UpcomingClasses
     /**
      * @method              checkIfPossibleToSignUp
      * @param               $membershipExpiryDate
-     * @param               $classId
+     * @param               $scheduledId
      * @desc                Validates signing up to class shown in the schedule.
      * @return              bool
      */
-    public function checkIfPossibleToSignUp($membershipExpiryDate, $classId)
+    public function checkIfPossibleToSignUp($membershipExpiryDate, $scheduledId)
     {
-        $selectedClass = $this->getClass($classId);
+        $selectedClass = $this->getClass($scheduledId);
 
         if (isset($selectedClass)) {
 
@@ -127,16 +147,16 @@ class UpcomingClasses
 
     /**
      * @method              addOnePersonToClass
-     * @param               $classId {`sc_id` column in `schedule` table}
-     * @desc                Method adds 1 in `sc_no_people` field for record where `sc_id` is equal to $classId.
+     * @param               $scheduledId {`sc_id` column in `schedule` table}
+     * @desc                Method adds 1 in `sc_no_people` field for record where `sc_id` is equal to $scheduledId.
      *                      Uses update method from Database object.
      * @throws              Exception
      */
-    public function addOnePersonToClass($classId)
+    public function addOnePersonToClass($scheduledId)
     {
-        $selectedClass = $this->getClass($classId);
+        $selectedClass = $this->getClass($scheduledId);
 
-        $isUpdated = $this->_database->update('schedule', 'sc_id', $classId, ['sc_no_people' => $selectedClass['sc_no_people'] + 1]);
+        $isUpdated = $this->_database->update('schedule', 'sc_id', $scheduledId, ['sc_no_people' => $selectedClass['sc_no_people'] + 1]);
 
         if (!$isUpdated) {
             throw new Exception("There was a problem signing up to the class.");
@@ -145,16 +165,16 @@ class UpcomingClasses
 
     /**
      * @method              removeOnePersonFromClass
-     * @param               $classId {`sc_id` column in `schedule` table}
-     * @desc                Method removes 1 in `sc_no_people` field for record where `sc_id` is equal to $classId.
+     * @param               $scheduledId {`sc_id` column in `schedule` table}
+     * @desc                Method removes 1 in `sc_no_people` field for record where `sc_id` is equal to $scheduledId.
      *                      Uses update method from Database object.
      * @throws              Exception
      */
-    public function removeOnePersonFromClass($classId)
+    public function removeOnePersonFromClass($scheduledId)
     {
-        $selectedClass = $this->getClass($classId);
+        $selectedClass = $this->getClass($scheduledId);
 
-        $isUpdated = $this->_database->update('schedule', 'sc_id', $classId, ['sc_no_people' => $selectedClass['sc_no_people'] - 1]);
+        $isUpdated = $this->_database->update('schedule', 'sc_id', $scheduledId, ['sc_no_people' => $selectedClass['sc_no_people'] - 1]);
 
         if (!$isUpdated) {
             throw new Exception("There was a problem dropping out from the class.");
@@ -162,36 +182,22 @@ class UpcomingClasses
     }
 
     /**
-     * @method                  addError
-     * @param                   $error {string}
-     * @desc                    Adds error message to the _errors array.
+     * @method                  deleteClassesByClassId
+     * @param                   $classId
+     * @desc                    Deletes scheduled classes by cl_id using two sql queries.
+     * @throws                  Exception
      */
-    private function addError($error)
-    {
-        $this->_errors[] = $error;
-    }
-
-    /**
-     * @method                  getFirstErrorMessage
-     * @desc                    Gets first error message from error array.
-     * @return                  string
-     */
-    public function getFirstErrorMessage()
-    {
-        return $this->_errors[0];
-    }
-
-
     public function deleteClassesByClassId($classId)
     {
-        $scheduledClasses = $this->_database->select('schedule', ['cl_id', '=', $classId])->getResult();
-        foreach ($scheduledClasses as $class) {
-            $scheduledClassId = $class['sc_id'];
-            
-        }
+        // Removing users from scheduled classes (nested query)
+        $sql = "DELETE FROM `user_class` WHERE `sc_id` IN (SELECT `sc_id` FROM `schedule` WHERE `cl_id` = ?);";
+        $isEachUserClassRemoved = $this->_database->query($sql, [(int)$classId]);
+        // Removing scheduled classes
+        $sql = "DELETE FROM `schedule` WHERE `cl_id` = ?";
+        $isEachScheduledClassRemoved = $this->_database->query($sql, [(int)$classId]);
 
-        if (!$this->_database->delete('schedule', ['cl_id', ''])){
-
+        if (!($isEachUserClassRemoved && $isEachScheduledClassRemoved)) {
+            throw new Exception('There was problem deleting scheduled classes.');
         }
     }
 }

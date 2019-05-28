@@ -103,7 +103,7 @@ class AdminMembers extends Controller
                     $membership = $this->model('Membership', $userId);
                     $userClasses = $this->model('UserClasses', $userId);
                     $userClassesData = $userClasses->getData();
-                    $schedule = $this->model('UpcomingClasses');
+                    $schedule = $this->model('ScheduledClasses');
 
                     try {
 

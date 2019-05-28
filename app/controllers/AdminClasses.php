@@ -109,20 +109,32 @@ class AdminClasses extends Controller
 
     public function delete($classId = '')
     {
-        if(Input::exists()){
-            if(Token::check(Input::getValue('token'))){
+        if (Input::exists()) {
+            if (Token::check(Input::getValue('token'))) {
 
                 $selectedClass = $this->_classes->getClass($classId);
                 if (isset($selectedClass) && is_numeric($classId)) {
 
-                    // Delete Class
+                    // Instantiating new file object
+                    $file = new File();
 
-                    // Delete Scheduled Classes
+                    try {
+                        // Delete scheduled classes
+                        $this->model('ScheduledClasses')->deleteClassesByClassId($classId);
+                        // Delete class
+                        $this->_classes->deleteClass($classId);
+                        // Delete class image details
+                        $this->_classes->deleteClassImageDetails($classId);
+                        // Delete class image
+                        $file->delete('dist/' . $selectedClass['cl_img_url']);
 
-                    // Delete User Classes
+                        Session::flash('admin', 'Selected class has been deleted.');
+                        Redirect::to('admin-classes');
 
-                    // Delete Class Image
-
+                    } catch (Exception $e) {
+                        $errorMessage = $e->getMessage();
+                        $this->_view->setViewError($errorMessage);
+                    }
                 }
             }
         }
@@ -133,8 +145,8 @@ class AdminClasses extends Controller
 
     public function add()
     {
-        if(Input::exists()){
-            if(Token::check(Input::getValue('token'))){
+        if (Input::exists()) {
+            if (Token::check(Input::getValue('token'))) {
 
                 // Validation using Validate object
                 $validate = new Validate();
@@ -143,10 +155,10 @@ class AdminClasses extends Controller
                 // Create new File
                 $image = new File('class_image');
 
-                if($validate->checkIfPassed()){
-                    if($image->checkIfValid(500, ['jpg', 'jpeg', 'png', 'giff'])){
+                if ($validate->checkIfPassed()) {
+                    if ($image->checkIfValid(500, ['jpg', 'jpeg', 'png', 'giff'])) {
 
-                        try{
+                        try {
 
                             // Uploads image and inserts image info into the database
                             $imageUrl = $this->_classes->getImageLocation() . '/' . $image->getName();
@@ -171,7 +183,7 @@ class AdminClasses extends Controller
 
                             Session::flash('admin', 'The class has been added.');
                             Redirect::to('admin-classes');
-                        } catch (Exception $e){
+                        } catch (Exception $e) {
                             $errorMessage = $e->getMessage();
                             $this->_view->setViewError($errorMessage);
                         }

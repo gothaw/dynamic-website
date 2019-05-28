@@ -9,7 +9,7 @@ class Schedule extends Controller
     public function __construct()
     {
         $this->_page = 'schedule';
-        $this->_schedule = $this->model('UpcomingClasses');
+        $this->_schedule = $this->model('ScheduledClasses');
 
         $this->_classes = $this->model('Classes');
         $this->_classes->selectClasses(4);

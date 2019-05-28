@@ -5,9 +5,11 @@ class File
     private $_file;
     private $_error;
 
-    public function __construct($name)
+    public function __construct($name = null)
     {
-        $this->_file = $_FILES[$name];
+        if(isset($name)){
+            $this->_file = $_FILES[$name];
+        }
     }
 
     /**
