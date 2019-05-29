@@ -155,6 +155,19 @@ class ValidationRules
     }
 
     /**
+     * @method                      getValidCoachRules
+     * @desc                        Rules for valid coach details.
+     * @return                      array
+     */
+    public static function getValidCoachRules()
+    {
+        $rulesArray = [];
+
+        return $rulesArray;
+    }
+
+
+    /**
      * @method                      getValidClassRules
      * @desc                        Rules for valid class details.
      * @return                      array

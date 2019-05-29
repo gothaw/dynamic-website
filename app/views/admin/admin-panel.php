@@ -45,13 +45,7 @@
                         <div class="admin-panel-icon">
                             <img src="<?php echo DIST . 'img/admin-panel/trainer.png' ?>" width="150" height="150" alt="admin panel icon">
                         </div>
-                        <a class="admin-panel-btn" href="">View Coaches</a>
-                    </li>
-                    <li class="admin-panel-item">
-                        <div class="admin-panel-icon">
-                            <img src="<?php echo DIST . 'img/admin-panel/add-trainer.png' ?>" width="150" height="150" alt="admin panel icon">
-                        </div>
-                        <a class="admin-panel-btn" href="">Add Coach</a>
+                        <a class="admin-panel-btn" href="<?php echo ROOT . 'admin-coaches' ?>">Coaches</a>
                     </li>
                 </ul>
             </section>

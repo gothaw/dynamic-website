@@ -79,6 +79,7 @@ class AdminClasses extends Controller
                                     ]);
 
                                 }
+
                                 Session::flash('admin', 'Class details have been updated.');
                                 Redirect::to('admin-classes');
 
@@ -183,6 +184,7 @@ class AdminClasses extends Controller
 
                             Session::flash('admin', 'The class has been added.');
                             Redirect::to('admin-classes');
+
                         } catch (Exception $e) {
                             $errorMessage = $e->getMessage();
                             $this->_view->setViewError($errorMessage);

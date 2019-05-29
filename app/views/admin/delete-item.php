@@ -12,11 +12,7 @@
                             <input type="hidden" name="token" value="<?php echo Token::generate() ?>">
                         </div>
                         <div>
-                            <a class="template-btn" href="<?php
-
-                                    echo ROOT . explode('/',$subName)[0];
-
-                            ?>">No</a>
+                            <a class="template-btn" href="<?php echo ROOT . explode('/',$subName)[0] ?>">No</a>
                         </div>
                     </div>
                 </div>

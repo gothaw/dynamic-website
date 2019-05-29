@@ -7,10 +7,10 @@
                     <h3><?php
                         switch ($name){
                             case 'about':
-                                echo 'Our classes';
+                                echo 'our classes';
                                 break;
                             case 'admin':
-                                echo 'Edit Classes';
+                                echo 'edit classes';
                                 break;
                             default:
                                 echo "featured classes";
@@ -29,7 +29,7 @@
                                 <?php switch ($name){
                                     case 'admin': ?>
                                 <div class="hover-state">
-                                    <a href="<?php echo ROOT . $subName .'/edit/' . $class['cl_id']?>" class="template-btn">edit/delete</a>
+                                    <a href="<?php echo ROOT . $subName .'/edit/' . escape($class['cl_id']) ?>" class="template-btn">edit/delete</a>
                                 </div>
                                     <?php break;
                                     case 'schedule':

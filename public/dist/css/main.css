@@ -543,6 +543,19 @@ textarea:focus {
           .coaches-img .hover-state ul li a i:hover {
             color: #ffffff;
             background: #f61b55; }
+    .coaches-img .hover-state .template-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      color: #222222 !important;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid transparent; }
+      .coaches-img .hover-state .template-btn:hover {
+        color: #ffffff !important;
+        background: transparent;
+        border: 1px solid #ffffff; }
 
 .coaches-footer {
   padding: 40px 30px 30px;
