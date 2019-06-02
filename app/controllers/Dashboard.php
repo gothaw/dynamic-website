@@ -138,6 +138,7 @@ class Dashboard extends Controller
                 // User class id from user_class table
                 $userClassId = $this->_userClasses->getUserClassId($classId);
                 $schedule = $this->model('ScheduledClasses');
+                $schedule->selectClasses();
 
                 try{
                     // Removes user from the class

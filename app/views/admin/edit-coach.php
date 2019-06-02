@@ -18,9 +18,9 @@
                         <input type="email" name="email" id="email" value="<?php echo escape($data['selectedCoach']['co_email']) ?>" required autocomplete="off">
                     </div>
                     <div class="form-field">
-                        <label for="class_image">Upload Class Image</label>
-                        <div>Image to be 260x320. Max file size 500kB. Accepted file formats: .jpg, .jpeg, .png, .giff.</div>
-                        <input class="form-field-file" type="file" name="class_image" id="real-input">
+                        <label for="coach_image">Upload Coach Image</label>
+                        <div>Image to be 260x320. Max file size 500kB. Accepted file formats: .jpg, .jpeg, .png, .gif.</div>
+                        <input class="form-field-file" type="file" name="coach_image" id="real-input">
                         <button type="button" class="browse-btn">Browse Files</button>
                         <span class="file-info"><?php
                             $urlArray = explode('/', escape($data['selectedCoach']['co_img']));
@@ -34,16 +34,16 @@
                         <input type="text" name="focus" id="focus" value="<?php echo escape($data['selectedCoach']['co_focus']) ?>" required autocomplete="off">
                     </div>
                     <div class="form-field">
-                        <label for="facebook_link">Facebook</label>
-                        <input type="text" name="facebook_link" id="facebook_link" value="<?php echo escape($data['selectedCoach']['co_facebook']) ?>" required autocomplete="off">
+                        <label for="facebook_profile">Facebook</label>
+                        <input type="text" name="facebook_profile" id="facebook_profile" value="<?php echo escape($data['selectedCoach']['co_facebook']) ?>" required autocomplete="off">
                     </div>
                     <div class="form-field">
-                        <label for="twitter_link">Twitter</label>
-                        <input type="text" name="twitter_link" id="twitter_link" value="<?php echo escape($data['selectedCoach']['co_twitter']) ?>" required autocomplete="off">
+                        <label for="twitter_profile">Twitter</label>
+                        <input type="text" name="twitter_profile" id="twitter_profile" value="<?php echo escape($data['selectedCoach']['co_twitter']) ?>" required autocomplete="off">
                     </div>
                     <div class="form-field">
-                        <label for="linkedin_link">Linkedin</label>
-                        <input type="text" name="linkedin_link" id="linkedin_link" value="<?php echo escape($data['selectedCoach']['co_linkedin']) ?>" required autocomplete="off">
+                        <label for="linkedin_profile">Linkedin</label>
+                        <input type="text" name="linkedin_profile" id="linkedin_profile" value="<?php echo escape($data['selectedCoach']['co_linkedin']) ?>" required autocomplete="off">
                     </div>
                 </div>
             </div>

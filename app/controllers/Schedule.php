@@ -10,6 +10,7 @@ class Schedule extends Controller
     {
         $this->_page = 'schedule';
         $this->_schedule = $this->model('ScheduledClasses');
+        $this->_schedule->selectClasses();
 
         $this->_classes = $this->model('Classes');
         $this->_classes->selectClasses(4);

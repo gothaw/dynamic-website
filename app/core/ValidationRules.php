@@ -9,7 +9,7 @@ class ValidationRules
      */
     public static function getRegisterUserRules()
     {
-        $rulesArray = array_merge(self::getUpdateUserRules(), self::getValidUsernameRules(), self::getValidEmailRules(), self::getValidPasswordRules());
+        $rulesArray = array_merge(self::getUpdateUserRules(), self::getValidUsernameRules(), self::getValidUserEmailRules(), self::getValidPasswordRules());
 
         return $rulesArray;
     }
@@ -21,7 +21,7 @@ class ValidationRules
      */
     public static function getRegisterUserRulesAdminPanel()
     {
-        $rulesArray = array_merge(self::getUpdateUserRules(), self::getValidUsernameRules(), self::getValidEmailRules(), self::getValidPasswordRules(), [
+        $rulesArray = array_merge(self::getUpdateUserRules(), self::getValidUsernameRules(), self::getValidUserEmailRules(), self::getValidPasswordRules(), [
             'permission' => [
                 'desc' => 'User permission group',
                 'required' => true
@@ -110,7 +110,7 @@ class ValidationRules
      */
     public static function getValidMessageRules()
     {
-        $rulesArray = array_merge([
+        $rulesArray = [
             'name' => [
                 'desc' => 'your name',
                 'required' => true,
@@ -121,17 +121,18 @@ class ValidationRules
                 'required' => true,
                 'min' => 2,
                 'max' => 20
+            ],
+            'email' => [
+                'desc' => 'your email address',
+                'required' => true,
+                'email' => true
+            ],
+            'message' => [
+                'desc' => 'email message',
+                'required' => true,
+                'max' => 4000
             ]
-        ],
-            self::getValidEmailRules(),
-            [
-                'message' => [
-                    'desc' => 'email message',
-                    'required' => true,
-                    'max' => 4000
-                ]
-            ]
-        );
+        ];
 
         return $rulesArray;
     }
@@ -161,7 +162,40 @@ class ValidationRules
      */
     public static function getValidCoachRules()
     {
-        $rulesArray = [];
+        $rulesArray = [
+                'first_name' => [
+                    'desc' => 'coach first name',
+                    'required' => true,
+                    'min' => 2,
+                ],
+                'last_name' => [
+                    'desc' => 'coach last name',
+                    'required' => true,
+                    'min' => 2
+                ],
+                'email' => [
+                    'desc' => 'coach email address',
+                    'required' => true,
+                    'email' => true
+                ],
+                'focus' => [
+                    'desc' => 'area of focus',
+                    'required' => true,
+                    'min' => 2
+                ],
+                'facebook_profile' => [
+                    'desc' => 'facebook profile',
+                    'required' => true
+                ],
+                'twitter_profile' => [
+                    'desc' => 'twitter profile',
+                    'required' => true
+                ],
+                'linkedin_profile' => [
+                    'desc' => 'linkedin profile',
+                    'required' => true
+                ]
+            ];
 
         return $rulesArray;
     }
@@ -271,11 +305,11 @@ class ValidationRules
     }
 
     /**
-     * @method                      getValidEmailRules
+     * @method                      getValidUserEmailRules
      * @desc                        Rules for valid email address.
      * @return                      array
      */
-    private static function getValidEmailRules()
+    private static function getValidUserEmailRules()
     {
         $rulesArray = [
             'email' => [

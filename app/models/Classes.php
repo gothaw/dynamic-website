@@ -110,7 +110,7 @@ class Classes
     public function addClass($fields = [])
     {
         if (!$this->_database->insert('class', $fields)) {
-            throw new Exception('There was a problem adding the class.');
+            throw new Exception('There was a problem in adding the class.');
         }
     }
 
@@ -124,7 +124,7 @@ class Classes
     public function updateClass($classId, $fields = [])
     {
         if (!$this->_database->update('class', 'cl_id', $classId, $fields)) {
-            throw new Exception('There was a problem updating the class.');
+            throw new Exception('There was a problem in updating the class.');
         }
     }
 
@@ -137,7 +137,7 @@ class Classes
     public function deleteClass($classId)
     {
         if (!$this->_database->delete('class', ['cl_id', '=', $classId])) {
-            throw new Exception('There was problem deleting the class');
+            throw new Exception('There was problem in deleting the class');
         }
     }
 
@@ -150,7 +150,7 @@ class Classes
     public function addClassImageDetails($fields = [])
     {
         if (!$this->_database->insert('class_image', $fields)) {
-            throw new Exception('There was a problem adding the class image.');
+            throw new Exception('There was a problem in adding the class image.');
         }
     }
 
@@ -165,7 +165,7 @@ class Classes
     {
         $classImageId = $this->getClass($classId)['cl_img_id'];
         if (!$this->_database->update('class_image', 'cl_img_id', $classImageId, $fields)) {
-            throw new Exception('There was a problem updating the class image.');
+            throw new Exception('There was a problem in updating the class image.');
         }
     }
 
@@ -179,7 +179,7 @@ class Classes
     {
         $classImageId = $this->getClass($classId)['cl_img_id'];
         if (!$this->_database->delete('class_image', ['cl_img_id', '=', $classImageId])) {
-            throw new Exception('There was a problem deleting class image');
+            throw new Exception('There was a problem in deleting class image');
         }
     }
 }

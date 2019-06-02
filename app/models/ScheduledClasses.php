@@ -8,46 +8,11 @@ class ScheduledClasses
 
     /**
      *                      ScheduledClasses constructor.
-     * @param               $numberOfClasses
-     * @desc                Selects $numberOfClasses classes from `schedule` table.  Uses inner join on `class` and `coach` tables.
-     *                      By default selects 7 classes.
+     * @desc                Sets database field.
      */
-    public function __construct($numberOfClasses = null)
+    public function __construct()
     {
         $this->_database = Database::getInstance();
-
-        $sql = "
-                SELECT 
-                     `sc_id`,
-                     `cl_name`,
-                     `cl_duration`,
-                     `cl_max_people`,
-                     `sc_no_people`,
-                     `sc_class_date`,
-                     `sc_class_time`,
-                     `co_first_name`,
-                     `co_last_name`
-                FROM 
-                    `schedule` 
-                    INNER JOIN `class`
-                ON
-                    `schedule`.`cl_id` = `class`.`cl_id`
-                    INNER JOIN `coach`
-                ON
-                    `schedule`.`co_id` = `coach`.`co_id`
-                WHERE
-                    `sc_class_date` >= CURDATE()
-                ORDER BY
-                    `schedule`.`sc_class_date`
-                ASC";
-
-        if (isset($numberOfClasses)) {
-            $sql .= " LIMIT ?;";
-            $this->_data = $this->_database->query($sql, [(int)$numberOfClasses])->getResult();
-        } else {
-            $sql .= " LIMIT 7";
-            $this->_data = $this->_database->query($sql)->getResult();
-        }
     }
 
     /**
@@ -104,11 +69,48 @@ class ScheduledClasses
      */
     public function getClassName($scheduledId)
     {
-        $className = $this->getClass($scheduledId)['cl_name'];
-        if (isset($className)) {
-            return $className;
+        return $className = $this->getClass($scheduledId)['cl_name'];
+    }
+
+    /**
+     * @method              selectClasses
+     * @param               $numberOfClasses {int}
+     * @desc                Selects $numberOfClasses classes from `schedule` table. Selects classes with dates of today or after.
+     *                      Uses inner join on `class` and `coach` tables. By default selects 7 classes.
+     */
+    public function selectClasses($numberOfClasses = null)
+    {
+        $sql = "
+                SELECT 
+                     `sc_id`,
+                     `cl_name`,
+                     `cl_duration`,
+                     `cl_max_people`,
+                     `sc_no_people`,
+                     `sc_class_date`,
+                     `sc_class_time`,
+                     `co_first_name`,
+                     `co_last_name`
+                FROM 
+                    `schedule` 
+                    INNER JOIN `class`
+                ON
+                    `schedule`.`cl_id` = `class`.`cl_id`
+                    LEFT JOIN `coach`
+                ON
+                    `schedule`.`co_id` = `coach`.`co_id`
+                WHERE
+                    `sc_class_date` >= CURDATE()
+                ORDER BY
+                    `schedule`.`sc_class_date`
+                ASC";
+
+        if (isset($numberOfClasses)) {
+            $sql .= " LIMIT ?;";
+            $this->_data = $this->_database->query($sql, [(int)$numberOfClasses])->getResult();
         } else {
-            return '';
+            $sql .= " LIMIT 7";
+            $this->_data = $this->_database->query($sql)->getResult();
         }
     }
 
@@ -184,7 +186,7 @@ class ScheduledClasses
     /**
      * @method                  deleteClassesByClassId
      * @param                   $classId
-     * @desc                    Deletes scheduled classes by cl_id using two sql queries.
+     * @desc                    Deletes scheduled classes by cl_id using two sql queries. Deletes rows from both 'schedule' and 'user_class' tables.
      * @throws                  Exception
      */
     public function deleteClassesByClassId($classId)
@@ -197,7 +199,21 @@ class ScheduledClasses
         $isEachScheduledClassRemoved = $this->_database->query($sql, [(int)$classId]);
 
         if (!($isEachUserClassRemoved && $isEachScheduledClassRemoved)) {
-            throw new Exception('There was problem deleting scheduled classes.');
+            throw new Exception("There was problem in deleting scheduled classes.");
+        }
+    }
+
+    /**
+     * @method                  deleteCoach
+     * @param                   $coachId
+     * @desc                    Deletes coach from scheduled classes by replacing co_id with null.
+     * @throws                  Exception
+     */
+    public function deleteCoach($coachId)
+    {
+        $sql = "UPDATE `schedule` SET `co_id` = NULL WHERE co_id = ?;";
+        if(!$this->_database->query($sql,[(int)$coachId])){
+            throw new Exception("There was a problem in deleting coach from scheduled classes.");
         }
     }
 }

@@ -25,7 +25,7 @@
                     </div>
                     <div class="form-field">
                         <label for="class_image">Upload Class Image</label>
-                        <div>Image to be 360x270. Max file size 500kB. Accepted file formats: .jpg, .jpeg, .png, .giff.</div>
+                        <div>Image to be 360x270. Max file size 500kB. Accepted file formats: .jpg, .jpeg, .png, .gif.</div>
                         <input class="form-field-file" type="file" name="class_image" id="real-input" required>
                         <button type="button" class="browse-btn">Browse Files</button>
                         <span class="file-info">No file selected</span>

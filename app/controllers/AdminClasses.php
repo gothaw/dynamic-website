@@ -64,8 +64,9 @@ class AdminClasses extends Controller
                                 if ($image->exists()) {
 
                                     // Replaces image and updates image info in the database
-                                    $newImageUrl = $this->_classes->getImageLocation($classId) . '/' . $image->getName();
+                                    $newImageUrl = $this->_classes->getImageLocation($classId) . "/class-{$classId}." . $image->getFileExtension();
                                     $image->replace('dist/' . $selectedClass['cl_img_url'], 'dist/' . $newImageUrl);
+
                                     $this->_classes->updateClassImageDetails($classId, [
                                         'cl_img_alt' => trim(Input::getValue('class_image_text')),
                                         'cl_img_url' => $newImageUrl
@@ -157,12 +158,12 @@ class AdminClasses extends Controller
                 $image = new File('class_image');
 
                 if ($validate->checkIfPassed()) {
-                    if ($image->checkIfValid(500, ['jpg', 'jpeg', 'png', 'giff'])) {
+                    if ($image->checkIfValid(500, ['jpg', 'jpeg', 'png', 'gif'])) {
 
                         try {
 
                             // Uploads image and inserts image info into the database
-                            $imageUrl = $this->_classes->getImageLocation() . '/' . $image->getName();
+                            $imageUrl = $this->_classes->getImageLocation() . '/class-' . uniqid() . '.' . $image->getFileExtension();
                             $image->upload('dist/' . $imageUrl);
 
                             $this->_classes->addClassImageDetails([

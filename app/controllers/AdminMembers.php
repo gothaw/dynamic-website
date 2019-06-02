@@ -101,9 +101,12 @@ class AdminMembers extends Controller
 
                     $selectedUserData = $selectedUser->getData();
                     $membership = $this->model('Membership', $userId);
+
                     $userClasses = $this->model('UserClasses', $userId);
                     $userClassesData = $userClasses->getData();
+
                     $schedule = $this->model('ScheduledClasses');
+                    $schedule->selectClasses();
 
                     try {
 
