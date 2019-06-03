@@ -5,13 +5,17 @@ class ScheduledClasses
     private $_data;
     private $_database;
     private $_errors = [];
+    private $_classesPerPage;
+    private $_totalPages;
 
     /**
      *                      ScheduledClasses constructor.
+     * @param               $classesPerPage
      * @desc                Sets database field.
      */
-    public function __construct()
+    public function __construct($classesPerPage = null)
     {
+        $this->_classesPerPage = $classesPerPage;
         $this->_database = Database::getInstance();
     }
 
@@ -23,6 +27,29 @@ class ScheduledClasses
     public function getData()
     {
         return $this->_data;
+    }
+
+    /**
+     * @method              getPages
+     * @desc                Getter for _totalPages field.
+     * @return              int
+     */
+    public function getPages()
+    {
+        return $this->_totalPages;
+    }
+
+    /**
+     * @method              setPages
+     * @desc                Sets _pages field
+     */
+    public function setPages()
+    {
+        if(isset($this->_classesPerPage)){
+            $sql = "SELECT COUNT(*) FROM `schedule`";
+            $rowCount = $this->_database->query($sql)->getResultFirstRecord()['COUNT(*)'];
+            $this->_totalPages = ceil($rowCount/$this->_classesPerPage);
+        }
     }
 
     /**
@@ -74,11 +101,11 @@ class ScheduledClasses
 
     /**
      * @method              selectClasses
-     * @param               $numberOfClasses {int}
-     * @desc                Selects $numberOfClasses classes from `schedule` table. Selects classes with dates of today or after.
+     * @param               $pageNumber {int}
+     * @desc                Selects classes from `schedule` table. Selects classes with dates of today or after.
      *                      Uses inner join on `class` and `coach` tables. By default selects 7 classes.
      */
-    public function selectClasses($numberOfClasses = null)
+    public function selectClasses($pageNumber = null)
     {
         $sql = "
                 SELECT 
@@ -105,12 +132,24 @@ class ScheduledClasses
                     `schedule`.`sc_class_date`
                 ASC";
 
-        if (isset($numberOfClasses)) {
+        if (isset($this->_classesPerPage) && $pageNumber > 0) {
+
+            // Gets number of classes equal to _classesPerPage but skips firsts $skipped classes
+            $skipped = $this->_classesPerPage * $pageNumber - $this->_classesPerPage;
+            $sql .= " LIMIT ?,?;";
+            $this->_data = $this->_database->query($sql, [(int)$skipped, (int)$this->_classesPerPage])->getResult();
+
+        } elseif (isset($this->_classesPerPage)) {
+
+            // Gets number of classes equal to _classesPerPage
             $sql .= " LIMIT ?;";
-            $this->_data = $this->_database->query($sql, [(int)$numberOfClasses])->getResult();
+            $this->_data = $this->_database->query($sql, [(int)$this->_classesPerPage])->getResult();
+
         } else {
-            $sql .= " LIMIT 7";
+            // Gets 7 classes
+            $sql .= " LIMIT 7;";
             $this->_data = $this->_database->query($sql)->getResult();
+
         }
     }
 
@@ -118,7 +157,7 @@ class ScheduledClasses
      * @method              checkIfPossibleToSignUp
      * @param               $membershipExpiryDate
      * @param               $scheduledId
-     * @desc                Validates signing up to class shown in the schedule.
+     * @desc                Validates signing up to class shown in the schedule. Requires setting _data field.
      * @return              bool
      */
     public function checkIfPossibleToSignUp($membershipExpiryDate, $scheduledId)
@@ -151,7 +190,7 @@ class ScheduledClasses
      * @method              addOnePersonToClass
      * @param               $scheduledId {`sc_id` column in `schedule` table}
      * @desc                Method adds 1 in `sc_no_people` field for record where `sc_id` is equal to $scheduledId.
-     *                      Uses update method from Database object.
+     *                      Uses update method from Database object. Requires setting _data field.
      * @throws              Exception
      */
     public function addOnePersonToClass($scheduledId)
@@ -169,7 +208,7 @@ class ScheduledClasses
      * @method              removeOnePersonFromClass
      * @param               $scheduledId {`sc_id` column in `schedule` table}
      * @desc                Method removes 1 in `sc_no_people` field for record where `sc_id` is equal to $scheduledId.
-     *                      Uses update method from Database object.
+     *                      Uses update method from Database object. Requires setting _data field.
      * @throws              Exception
      */
     public function removeOnePersonFromClass($scheduledId)
@@ -212,7 +251,7 @@ class ScheduledClasses
     public function deleteCoach($coachId)
     {
         $sql = "UPDATE `schedule` SET `co_id` = NULL WHERE co_id = ?;";
-        if(!$this->_database->query($sql,[(int)$coachId])){
+        if (!$this->_database->query($sql, [(int)$coachId])) {
             throw new Exception("There was a problem in deleting coach from scheduled classes.");
         }
     }

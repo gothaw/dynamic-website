@@ -39,7 +39,7 @@
                         <div class="admin-panel-icon">
                             <img src="<?php echo DIST . 'img/admin-panel/schedule.png' ?>" width="150" height="150" alt="admin panel icon">
                         </div>
-                        <a class="admin-panel-btn" href="">Schedule</a>
+                        <a class="admin-panel-btn" href="<?php echo ROOT . 'admin-schedule' ?>">Schedule</a>
                     </li>
                     <li class="admin-panel-item">
                         <div class="admin-panel-icon">
