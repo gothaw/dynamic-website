@@ -6,7 +6,7 @@ class ScheduledClasses
     private $_database;
     private $_errors = [];
     private $_classesPerPage;
-    private $_totalPages;
+    private $_numberOfPages;
 
     /**
      *                      ScheduledClasses constructor.
@@ -30,25 +30,25 @@ class ScheduledClasses
     }
 
     /**
-     * @method              getPages
-     * @desc                Getter for _totalPages field.
+     * @method              getNumberOfPages
+     * @desc                Getter for _numberOfPages field.
      * @return              int
      */
-    public function getPages()
+    public function getNumberOfPages()
     {
-        return $this->_totalPages;
+        return $this->_numberOfPages;
     }
 
     /**
-     * @method              setPages
-     * @desc                Sets _pages field
+     * @method              setNumberOfPages
+     * @desc                Sets _numberOfPages field
      */
-    public function setPages()
+    public function setNumberOfPages()
     {
         if(isset($this->_classesPerPage)){
             $sql = "SELECT COUNT(*) FROM `schedule`";
             $rowCount = $this->_database->query($sql)->getResultFirstRecord()['COUNT(*)'];
-            $this->_totalPages = ceil($rowCount/$this->_classesPerPage);
+            $this->_numberOfPages = ceil($rowCount/$this->_classesPerPage);
         }
     }
 
@@ -102,10 +102,11 @@ class ScheduledClasses
     /**
      * @method              selectClasses
      * @param               $pageNumber {int}
-     * @desc                Selects classes from `schedule` table. Selects classes with dates of today or after.
-     *                      Uses inner join on `class` and `coach` tables. By default selects 7 classes.
+     * @param               $includePastClasses {bool}
+     * @desc                Selects classes from `schedule` table. By default selects 7 classes with dates of today or after.
+     *                      Uses inner join on `class` and `coach` tables.
      */
-    public function selectClasses($pageNumber = null)
+    public function selectClasses($pageNumber = null, $includePastClasses = false)
     {
         $sql = "
                 SELECT 
@@ -126,11 +127,14 @@ class ScheduledClasses
                     LEFT JOIN `coach`
                 ON
                     `schedule`.`co_id` = `coach`.`co_id`
-                WHERE
-                    `sc_class_date` >= CURDATE()
-                ORDER BY
-                    `schedule`.`sc_class_date`
-                ASC";
+                ";
+
+        // Statement to check if old classes are to be included
+        if(!$includePastClasses){
+            $sql .= "WHERE `sc_class_date` >= CURDATE() ORDER BY `schedule`.`sc_class_date` ASC";
+        } else{
+            $sql .= "ORDER BY `schedule`.`sc_class_date` ASC";
+        }
 
         if (isset($this->_classesPerPage) && $pageNumber > 0) {
 
