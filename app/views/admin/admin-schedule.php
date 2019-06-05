@@ -1,5 +1,4 @@
 <!-- Admin Schedule Starts -->
-<?php trace(intval($data['lastPage']) === 8);?>
 <section class="table-area section-padding4">
     <div class="container">
         <div class="row">
@@ -35,7 +34,8 @@
                                 <td><?php echo escape($class['cl_duration']) ?></td>
                                 <td><?php echo ucwords(escape($class['co_first_name'] . " " . $class['co_last_name'])) ?></td>
                                 <td><a class="template-btn" href="<?php echo ROOT . $subName . '/edit' ?>">Edit</a></td>
-                                <td><a class="template-btn" href="<?php echo ROOT . $subName . '/delete' ?>">Delete</a></td>
+                                <td><a class="template-btn" href="<?php echo ROOT . $subName . '/delete' ?>">Delete</a>
+                                </td>
                             </tr>
                         <?php }
                     } ?>
@@ -46,36 +46,50 @@
         <nav class="blog-pagination justify-content-center d-flex">
             <ul class="pagination">
                 <li class="page-item">
-                    <a href="<?php echo ($data['page'] !== '1') ? $data['page'] - 1 : '1'; ?>" class="page-link" aria-label="Previous">
+                    <a href="<?php  $previous = (intval($data['page']) !== 1) ? $data['page'] - 1 : '1';
+                                    echo ROOT . $subName . '/' . $previous; ?>" class="page-link" aria-label="Previous">
                         <span aria-hidden="true">
                             <span class="fa fa-angle-left"></span>
                         </span>
                     </a>
                 </li>
-                <?php for($i = 1; $i <= $data['lastPage']; $i++) {
+                <?php for ($i = 1; $i <= $data['lastPage']; $i++) {
+                    if ($i === $data['page'] - 2 && $i > 1 ) { ?>
+                        <li class="page-item"><span class="page-placeholder">...</span></li>
+                    <?php }
 
-                    trace($i === $data['lastPage']);
+                        if ($i === 1 || $i === intval($data['page']) || $i === intval($data['lastPage']) || $i === $data['page'] + 1 || $i === $data['page'] - 1) { ?>
+                        <li class="page-item <?php if ($i === intval($data['page'])) {
+                            echo 'active';
+                        } ?>"><a href="<?php echo ROOT . $subName . '/' . $i ?>" class="page-link"><?php echo $i ?></a>
+                        </li>
 
-                    if ($i === 1 || $i === intval($data['page']) || $i === intval($data['lastPage']) || $i === $data['page'] + 1 || $i === $data['page'] - 1){ ?>
-                    <li class="page-item <?php if ($i === intval($data['page'])) { echo 'active'; } ?>"><a href="<?php echo $i ?>" class="page-link"><?php echo $i?></a></li>
-                <?php } }?>
+                    <?php }
+
+                    if ($i === $data['page'] + 2 && $i < $data['lastPage'] ) { ?>
+                        <li class="page-item"><span class="page-placeholder">...</span></li>
+                    <?php }
+                } ?>
 
 
-                <!--<li class="page-item"><a href="#" class="page-link"><?php /*echo '1' */?></a></li>
-                <?php /*if($data['page'] > 3) {*/?>
+                <!--<li class="page-item"><a href="#" class="page-link"><?php /*echo '1' */ ?></a></li>
+                <?php /*if($data['page'] > 3) {*/ ?>
                     <li class="page-item">...</li>
-                <?php /*}*/?>
+                <?php /*}*/ ?>
                 <li class="page-item active"><a href="#" class="page-link"><?php
-/*                    if($data['page'] > 1 )
-                        escape($data['page']+1)
+                /*                    if($data['page'] > 1 )
+                                        escape($data['page']+1)
 
-                */?></a></li>
+                                */ ?></a></li>
                 <li class="page-item"><a href="#" class="page-link">3</a></li>
                 <li class="page-item"><a href="#" class="page-link">4</a></li>
                 <li class="page-item">...</li>
                 <li class="page-item"><a href="#" class="page-link">9</a></li>-->
                 <li class="page-item">
-                    <a href="<?php echo ($data['page'] < $data['lastPage']) ? $data['page'] + 1 : $data['lastPage']; ?>" class="page-link" aria-label="Next">
+                    <a href="<?php  $next = ($data['page'] < $data['lastPage']) ? $data['page'] + 1 : $data['lastPage'];
+                                    echo ROOT . $subName . '/' . $next;
+                                ?>"
+                       class="page-link" aria-label="Next">
                         <span aria-hidden="true">
                             <span class="fa fa-angle-right"></span>
                         </span>

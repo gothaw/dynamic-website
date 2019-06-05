@@ -1106,6 +1106,9 @@ textarea:focus {
   background: transparent;
   font-weight: 400; }
 
+.page-placeholder {
+  padding: 0.5rem 0.25rem; }
+
 .blog-pagination .page-item.active .page-link {
   background-color: #f61b55;
   border-color: transparent;

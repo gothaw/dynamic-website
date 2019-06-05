@@ -16,7 +16,7 @@ class AdminSchedule extends Controller
 
             $userData = $this->_user->getData();
 
-            $this->_schedule = $this->model('ScheduledClasses', 2);
+            $this->_schedule = $this->model('ScheduledClasses', 10);
             $this->_schedule->setNumberOfPages();
             $this->_lastPage = $this->_schedule->getNumberOfPages();
 
