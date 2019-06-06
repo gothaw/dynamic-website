@@ -51,6 +51,9 @@ switch ($subName){
     case 'admin-schedule':
         include("../app/views/admin/admin-schedule.php");
         break;
+    case 'admin-schedule/edit':
+        include("../app/views/admin/edit-schedule.php");
+        break;
     default:
         include("../app/views/admin/admin-panel.php");
 }

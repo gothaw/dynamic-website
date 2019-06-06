@@ -1,17 +1,9 @@
 /* 16. Form */
-.register-form{
+.classes-form, .coaches-form, .register-form{
   max-width: 800px;
   margin: 0 auto;
 }
-.update-form{
-  max-width: 400px;
-  margin: 0 auto;
-}
-.classes-form{
-  max-width: 800px;
-  margin: 0 auto;
-}
-.change-password-form{
+.change-password-form, .update-form, .schedule-form{
   max-width: 400px;
   margin: 0 auto;
 }
@@ -21,7 +13,7 @@
 }
 .form-field{
   margin: 5px auto;
-  input[type=text], input[type=email], input[type=password], input[type=date]{
+  input[type=text], input[type=email], input[type=password], input[type=date], input[type=time]{
     width: 100%;
     padding: 5px;
   }
@@ -31,6 +23,15 @@
     display: block;
     font-weight: bold;
     margin: 0 auto;
+  }
+}
+.form-field-flex{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 10px;
+  .form-field{
+    width: 100%;
   }
 }
 .form-button{

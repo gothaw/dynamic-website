@@ -45,10 +45,10 @@ class ScheduledClasses
      */
     public function setNumberOfPages()
     {
-        if(isset($this->_classesPerPage)){
+        if (isset($this->_classesPerPage)) {
             $sql = "SELECT COUNT(*) FROM `schedule`";
             $rowCount = $this->_database->query($sql)->getResultFirstRecord()['COUNT(*)'];
-            $this->_numberOfPages = ceil($rowCount/$this->_classesPerPage);
+            $this->_numberOfPages = ceil($rowCount / $this->_classesPerPage);
         }
     }
 
@@ -130,9 +130,9 @@ class ScheduledClasses
                 ";
 
         // Statement to check if old classes are to be included
-        if(!$includePastClasses){
+        if (!$includePastClasses) {
             $sql .= "WHERE `sc_class_date` >= CURDATE() ORDER BY `schedule`.`sc_class_date` ASC";
-        } else{
+        } else {
             $sql .= "ORDER BY `schedule`.`sc_class_date` ASC";
         }
 
@@ -155,6 +155,26 @@ class ScheduledClasses
             $this->_data = $this->_database->query($sql)->getResult();
 
         }
+    }
+
+    public function selectClass($scheduledId)
+    {
+        if (is_numeric($scheduledId)) {
+            $sql = "
+                    SELECT *
+                    FROM 
+                        `schedule` 
+                    INNER JOIN `class`
+                    ON
+                        `schedule`.`cl_id` = `class`.`cl_id`
+                    LEFT JOIN `coach`
+                    ON
+                        `schedule`.`co_id` = `coach`.`co_id`
+                    WHERE `schedule`.`sc_id` = ?";
+            $this->_data = $this->_database->query($sql, [(int) $scheduledId])->getResultFirstRecord();
+            return $this->_data;
+        }
+        return null;
     }
 
     /**

@@ -1,7 +1,7 @@
 <!-- Add Coach Form Area Starts -->
 <section class="section-padding4">
     <div class="container">
-        <form class="classes-form" action="" method="post" enctype="multipart/form-data">
+        <form class="coaches-form" action="" method="post" enctype="multipart/form-data">
             <h3 class="form-text">Edit/Delete Coach</h3>
             <div class="row">
                 <div class="col-lg-6">
