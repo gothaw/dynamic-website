@@ -17,6 +17,9 @@
     width: 100%;
     padding: 5px;
   }
+  input[type=date], input[type=time]{
+    font-family: "Rubik", sans-serif
+  }
   label{
     width: 100%;
     text-align: left;
@@ -33,6 +36,9 @@
   .form-field{
     width: 100%;
   }
+}
+.form-field-span-bold{
+  font-weight: bold;
 }
 .form-button{
   text-align: center;

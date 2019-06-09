@@ -2541,6 +2541,8 @@ h6 {
   .form-field input[type=text], .form-field input[type=email], .form-field input[type=password], .form-field input[type=date], .form-field input[type=time] {
     width: 100%;
     padding: 5px; }
+  .form-field input[type=date], .form-field input[type=time] {
+    font-family: "Rubik", sans-serif; }
   .form-field label {
     width: 100%;
     text-align: left;
@@ -2555,6 +2557,9 @@ h6 {
   grid-column-gap: 10px; }
   .form-field-flex .form-field {
     width: 100%; }
+
+.form-field-span-bold {
+  font-weight: bold; }
 
 .form-button {
   text-align: center;

@@ -60,7 +60,11 @@ class AdminSchedule extends Controller
         $selectedClass = $this->_schedule->selectClass($scheduledId);
         if (isset($selectedClass) && is_numeric($scheduledId)) {
 
-
+            if(Input::exists()){
+                if (Token::check(Input::getValue('token'))){
+                    trace($_POST);
+                }
+            }
             $this->_view->addViewData([
                 'selectedClass' => $selectedClass
             ]);
@@ -70,5 +74,18 @@ class AdminSchedule extends Controller
         }
         $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
         $this->_view->renderView();
+    }
+
+    public function changeSelectedClassDetails()
+    {
+        if (Input::exists() && is_numeric(Input::getValue('cl_id'))) {
+            $selectedClass = $this->_classes->getClass(Input::getValue('cl_id'));
+            if (isset($selectedClass)) {
+                $returnArray = array('duration' => $selectedClass['cl_duration'], 'no_people' => $selectedClass['cl_max_people']);
+                echo json_encode($returnArray);
+            }
+        } else {
+            Redirect::to('admin-schedule');
+        }
     }
 }
