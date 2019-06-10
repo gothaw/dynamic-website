@@ -22,11 +22,9 @@ class AdminSchedule extends Controller
             $this->_schedule->setNumberOfPages();
             $this->_lastPage = $this->_schedule->getNumberOfPages();
 
-            $this->_classes = $this->model('Classes');
-            $this->_classes->selectClasses();
+            $this->_classes = $this->model('Classes')->selectClasses();
 
-            $this->_coaches = $this->model('Coaches');
-            $this->_coaches->selectCoaches();
+            $this->_coaches = $this->model('Coaches')->selectCoaches();
 
             $this->view($this->_page, $this->_path, [
                 'navPages' => $this->_navPages,
@@ -57,16 +55,45 @@ class AdminSchedule extends Controller
 
     public function edit($scheduledId = '')
     {
-        $selectedClass = $this->_schedule->selectClass($scheduledId);
-        if (isset($selectedClass) && is_numeric($scheduledId)) {
+        $scheduledClass = $this->_schedule->selectClass($scheduledId)->getData();
 
-            if(Input::exists()){
-                if (Token::check(Input::getValue('token'))){
-                    trace($_POST);
+        if (isset($scheduledClass) && is_numeric($scheduledId)) {
+
+            if (Input::exists()) {
+                if (Token::check(Input::getValue('token'))) {
+
+                    $validate = new Validate();
+                    $validate->check($_POST, ValidationRules::getScheduledClassRules());
+
+                    if ($validate->checkIfPassed()) {
+
+                        $class = $this->_classes->getClass(Input::getValue('class'));
+                        $duration = $class['cl_duration'];
+                        $maxPeople = $class['cl_max_people'];
+                        $startTime = Input::getValue('time');
+                        $date = Input::getValue('date');
+
+                        if($this->_schedule->checkIfClassClashes($date, $startTime, $duration, $scheduledId)){
+
+
+
+                        } else {
+                            // Display an Error
+
+                        }
+
+
+
+                    } else {
+                        // Display an Error
+                        $errorMessage = $validate->getFirstErrorMessage();
+                        $this->_view->setViewError($errorMessage);
+                    }
+
                 }
             }
             $this->_view->addViewData([
-                'selectedClass' => $selectedClass
+                'scheduledClass' => $scheduledClass
             ]);
 
         } else {

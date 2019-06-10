@@ -10,11 +10,9 @@ class Home extends Controller
     {
         $this->_page = 'home';
 
-        $this->_classes = $this->model('Classes');
-        $this->_classes->selectClasses(4);
+        $this->_classes = $this->model('Classes')->selectClasses(4);
 
-        $this->_opinions = $this->model('ClientOpinions');
-        $this->_opinions->selectOpinions(6);
+        $this->_opinions = $this->model('ClientOpinions')->selectOpinions(6);
 
         parent::__construct($this->_page);
 

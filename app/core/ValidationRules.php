@@ -32,6 +32,28 @@ class ValidationRules
     }
 
     /**
+     * @method                      getScheduledClassRules
+     * @desc                        Validation rules for adding and editing a scheduled class.
+     * @return                      array
+     */
+    public static function getScheduledClassRules(){
+        $rulesArray = array_merge([
+            'class' => [
+                'desc' => 'class',
+                'required' => true,
+                'exists' => 'class/cl_id'
+            ],
+            'coach' => [
+                'desc' => 'coach',
+                'required' => true,
+                'exists' => 'coach/co_id'
+            ]
+        ], self::getValidDateRules(), self::getValidTimeRules());
+
+        return $rulesArray;
+    }
+
+    /**
      * @method                      getUpdateUserRules
      * @desc                        Validation rules when user wants to update personal details.
      * @return                      array
@@ -148,6 +170,24 @@ class ValidationRules
             'date' => [
                 'desc' => 'date',
                 'date' => true,
+                'required' => true
+            ]
+        ];
+
+        return $rulesArray;
+    }
+
+    /**
+     * @method                      getValidTimeRules
+     * @desc                        Rules for valid time.
+     * @return                      array
+     */
+    public static function getValidTimeRules()
+    {
+        $rulesArray = [
+            'time' => [
+                'desc' => 'time',
+                'time' => true,
                 'required' => true
             ]
         ];

@@ -10,11 +10,9 @@ class About extends Controller
     {
         $this->_page = 'about';
 
-        $this->_classes = $this->model('Classes');
-        $this->_classes->selectClasses();
+        $this->_classes = $this->model('Classes')->selectClasses();
 
-        $this->_coaches = $this->model('Coaches');
-        $this->_coaches->selectCoaches();
+        $this->_coaches = $this->model('Coaches')->selectCoaches();
 
         parent::__construct($this->_page);
 

@@ -105,8 +105,7 @@ class AdminMembers extends Controller
                     $userClasses = $this->model('UserClasses', $userId);
                     $userClassesData = $userClasses->getData();
 
-                    $schedule = $this->model('ScheduledClasses');
-                    $schedule->selectClasses();
+                    $schedule = $this->model('ScheduledClasses')->selectClasses();
 
                     try {
 

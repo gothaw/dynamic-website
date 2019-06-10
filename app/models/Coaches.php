@@ -61,12 +61,15 @@ class Coaches
     /**
      * @method              selectCoaches
      * @desc                Selects coaches details from the database.
+     * @return              Coaches
      */
     public function selectCoaches()
     {
         $sql = "SELECT * FROM `coach` ORDER BY `co_id` ASC;";
 
         $this->_data = $this->_database->query($sql)->getResult();
+
+        return $this;
     }
 
     /**

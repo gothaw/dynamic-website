@@ -62,6 +62,7 @@ class Classes
      * @method              selectClasses
      * @param               $numberOfClasses
      * @desc                Selects classes details from `class` table. Uses inner join with `class_image` table.
+     * @return              Classes
      */
     public function selectClasses($numberOfClasses = null)
     {
@@ -83,6 +84,7 @@ class Classes
         } else {
             $this->_data = $this->_database->query($sql)->getResult();
         }
+        return $this;
     }
 
     /**

@@ -14,8 +14,7 @@ class AdminClasses extends Controller
         if ($this->_user->isLoggedIn() && $this->_user->hasPermission('admin')) {
 
             $userData = $this->_user->getData();
-            $this->_classes = $this->model('Classes');
-            $this->_classes->selectClasses();
+            $this->_classes = $this->model('Classes')->selectClasses();
 
             $this->view($this->_page, $this->_path, [
                 'navPages' => $this->_navPages,

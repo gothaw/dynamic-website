@@ -28,6 +28,7 @@ class ClientOpinions
      * @method              selectOpinions
      * @param               $numberOfOpinions
      * @desc                Selects client opinions from the database.
+     * @return              ClientOpinions
      */
     public function selectOpinions($numberOfOpinions)
     {
@@ -48,6 +49,8 @@ class ClientOpinions
                 ";
 
         $this->_data = $this->_database->query($sql,[(int)$numberOfOpinions])->getResult();
+
+        return $this;
     }
 
 }

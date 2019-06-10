@@ -14,8 +14,7 @@ class AdminCoaches extends Controller
         if ($this->_user->isLoggedIn() && $this->_user->hasPermission('admin')) {
 
             $userData = $this->_user->getData();
-            $this->_coaches = $this->model('Coaches');
-            $this->_coaches->selectCoaches();
+            $this->_coaches = $this->model('Coaches')->selectCoaches();
 
             $this->view($this->_page, $this->_path, [
                 'navPages' => $this->_navPages,

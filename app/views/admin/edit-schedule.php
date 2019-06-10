@@ -13,7 +13,7 @@
                         <select class="form-field-select" name="class" id="class">
                             <?php foreach ($data['classes'] as $class) { ?>
                                 <option value="<?php echo escape($class['cl_id']) ?>" <?php
-                                if ($class['cl_id'] === $data['selectedClass']['cl_id']) {
+                                if ($class['cl_id'] === $data['scheduledClass']['cl_id']) {
                                     echo "selected";
                                 } ?>><?php echo ucfirst(escape($class['cl_name'])) ?></option>
                             <?php } ?>
@@ -21,10 +21,10 @@
                     </div>
                     <div class="form-field-flex">
                         <div class="form-field">
-                            <span class="form-field-span-bold">Duration: </span><span id="class_duration"><?php echo escape($data['selectedClass']['cl_duration']) ?></span> minutes
+                            <span class="form-field-span-bold">Duration: </span><span id="class_duration"><?php echo escape($data['scheduledClass']['cl_duration']) ?></span> minutes
                         </div>
                         <div class="form-field">
-                            <span class="form-field-span-bold">Number of People: </span><?php echo escape($data['selectedClass']['sc_no_people'])?>/<span id="class_no_people"><?php echo escape($data['selectedClass']['cl_max_people'])?></span>
+                            <span class="form-field-span-bold">Number of People: </span><?php echo escape($data['scheduledClass']['sc_no_people'])?>/<span id="class_no_people"><?php echo escape($data['scheduledClass']['cl_max_people'])?></span>
                         </div>
                     </div>
                     <div class="form-field">
@@ -32,7 +32,7 @@
                         <select class="form-field-select" name="coach" id="coach">
                             <?php foreach ($data['coaches'] as $coach) { ?>
                                 <option value="<?php echo escape($coach['co_id']) ?>" <?php
-                                if ($coach['co_id'] === $data['selectedClass']['co_id']) {
+                                if ($coach['co_id'] === $data['scheduledClass']['co_id']) {
                                     echo "selected";
                                 } ?>><?php echo ucwords(escape($coach['co_first_name'] . ' ' . $coach['co_last_name'])) ?></option>
                             <?php } ?>
@@ -42,8 +42,8 @@
                         <div class="form-field">
                             <label for="date">Date</label>
                             <input type="date" name="date" id="date" value="<?php
-                            if(isset($data['selectedClass']['sc_class_date'])) {
-                                echo escape($data['selectedClass']['sc_class_date']);
+                            if(isset($data['scheduledClass']['sc_class_date'])) {
+                                echo escape($data['scheduledClass']['sc_class_date']);
                             } else{
                                 echo date('Y-m-d');
                             }?>" required autocomplete="off">
@@ -51,8 +51,8 @@
                         <div class="form-field">
                             <label for="time">Time</label>
                             <input type="time" name="time" id="time" value="<?php
-                            if(isset($data['selectedClass']['sc_class_time'])) {
-                                echo substr(escape($data['selectedClass']['sc_class_time']),0,5);
+                            if(isset($data['scheduledClass']['sc_class_time'])) {
+                                echo substr(escape($data['scheduledClass']['sc_class_time']),0,5);
                             } else{
                                 echo date('H:i');
                             }?>" required autocomplete="off">

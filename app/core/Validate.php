@@ -83,6 +83,20 @@ class Validate
                             }
 
                             break;
+                        case 'exists':
+
+                            $path = explode('/', $ruleValue);
+
+                            $table = $path[0];
+                            $column = $path[1];
+
+                            $query = $this->_database->select($table, [$column, '=', $value]);
+
+                            if (!$query->getResultRowCount()) {
+                                $this->addError("{$item} already does not exist. Please select different {$item}.");
+                            }
+
+                            break;
                         case 'email':
 
                             $check = filter_var($value, FILTER_VALIDATE_EMAIL);
@@ -128,6 +142,12 @@ class Validate
                             }
                             if($value < date('Y-m-d')){
                                 $this->addError("This {$items[$item]['desc']} cannot be in the past.");
+                            }
+                            break;
+                        case 'time':
+                            $timeObject = DateTime::createFromFormat("H:i", $value);
+                            if(!($timeObject && $timeObject->format("H:i") === $value)){
+                                $this->addError("{$items[$item]['desc']} is invalid.");
                             }
                             break;
                         case 'numerical':

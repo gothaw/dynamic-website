@@ -105,6 +105,7 @@ class ScheduledClasses
      * @param               $includePastClasses {bool}
      * @desc                Selects classes from `schedule` table. By default selects 7 classes with dates of today or after.
      *                      Uses inner join on `class` and `coach` tables.
+     * @return              ScheduledClasses
      */
     public function selectClasses($pageNumber = null, $includePastClasses = false)
     {
@@ -133,7 +134,7 @@ class ScheduledClasses
         if (!$includePastClasses) {
             $sql .= "WHERE `sc_class_date` >= CURDATE() ORDER BY `schedule`.`sc_class_date` ASC";
         } else {
-            $sql .= "ORDER BY `schedule`.`sc_class_date` ASC";
+            $sql .= "ORDER BY `schedule`.`sc_class_date` DESC";
         }
 
         if (isset($this->_classesPerPage) && $pageNumber > 0) {
@@ -155,8 +156,13 @@ class ScheduledClasses
             $this->_data = $this->_database->query($sql)->getResult();
 
         }
+        return $this;
     }
 
+    /**
+     * @param $scheduledId
+     * @return $this
+     */
     public function selectClass($scheduledId)
     {
         if (is_numeric($scheduledId)) {
@@ -170,11 +176,60 @@ class ScheduledClasses
                     LEFT JOIN `coach`
                     ON
                         `schedule`.`co_id` = `coach`.`co_id`
-                    WHERE `schedule`.`sc_id` = ?";
-            $this->_data = $this->_database->query($sql, [(int) $scheduledId])->getResultFirstRecord();
-            return $this->_data;
+                    WHERE `schedule`.`sc_id` = ?;
+                    ";
+
+            $this->_data = $this->_database->query($sql, [(int)$scheduledId])->getResultFirstRecord();
         }
-        return null;
+        return $this;
+    }
+
+    public function checkIfClassClashes($newDate, $newStartTime, $newDuration, $scheduledId = null)
+    {
+        $newStartTime = substr($newStartTime, 0, 5);
+        $newEndTime = date('H:i', strtotime($newStartTime) + $newDuration * 60);
+
+        $sql = "
+                SELECT * FROM 
+                    `schedule` 
+                INNER JOIN `class`
+                ON
+                    `schedule`.`cl_id` = `class`.`cl_id`
+                WHERE `schedule`.`sc_class_date` = ?
+               ";
+
+        if (isset($scheduledId)) {
+            $sql .= " AND `schedule`.`sc_id` != ?;";
+            $classesOnSameDay = $this->_database->query($sql, [$newDate, (int)$scheduledId])->getResult();
+        } else {
+            $classesOnSameDay = $this->_database->query($sql, [$newDate])->getResult();
+        }
+
+        trace($classesOnSameDay);
+
+        $startTimeArray = [];
+        $endTimeArray = [];
+
+        foreach ($classesOnSameDay as $class) {
+            $startTimeArray [] = substr($class['sc_class_time'], 0, 5);
+            $endTimeArray [] = date('H:i', strtotime($class['sc_class_time']) + $class['cl_duration'] * 60);
+        }
+
+        foreach ($endTimeArray as $endTime) {
+            if ($newStartTime < $endTime) {
+                $this->addError("Sorry this class clashes with existing one on that day. Please select later time");
+                return false;
+            }
+        }
+
+        foreach ($startTimeArray as $startTime) {
+            if ($newEndTime > $startTime){
+                $this->addError("Sorry this class clashes with existing one on that day. Please select earlier time");
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
