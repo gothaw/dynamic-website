@@ -53,7 +53,7 @@ class AdminCoaches extends Controller
 
                             try {
 
-                                // Update class details
+                                // Update coach details
                                 $this->_coaches->updateCoach($coachId, [
                                     'co_first_name' => trim(Input::getValue('first_name')),
                                     'co_last_name' => trim(Input::getValue('last_name')),

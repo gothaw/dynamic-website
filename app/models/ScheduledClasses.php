@@ -9,9 +9,9 @@ class ScheduledClasses
     private $_numberOfPages;
 
     /**
-     *                      ScheduledClasses constructor.
-     * @param               $classesPerPage
-     * @desc                Sets database field.
+     *                          ScheduledClasses constructor.
+     * @param                   $classesPerPage
+     * @desc                    Sets database field.
      */
     public function __construct($classesPerPage = null)
     {
@@ -20,9 +20,9 @@ class ScheduledClasses
     }
 
     /**
-     * @method              getData
-     * @desc                Getter for _data field.
-     * @return              array|null
+     * @method                  getData
+     * @desc                    Getter for _data field.
+     * @return                  array|null
      */
     public function getData()
     {
@@ -30,9 +30,9 @@ class ScheduledClasses
     }
 
     /**
-     * @method              getNumberOfPages
-     * @desc                Getter for _numberOfPages field.
-     * @return              int
+     * @method                  getNumberOfPages
+     * @desc                    Getter for _numberOfPages field.
+     * @return                  int
      */
     public function getNumberOfPages()
     {
@@ -40,8 +40,8 @@ class ScheduledClasses
     }
 
     /**
-     * @method              setNumberOfPages
-     * @desc                Sets _numberOfPages field
+     * @method                  setNumberOfPages
+     * @desc                    Sets _numberOfPages field. Used in admin panel.
      */
     public function setNumberOfPages()
     {
@@ -73,10 +73,10 @@ class ScheduledClasses
     }
 
     /**
-     * @method              getClass
-     * @param               $scheduledId {`sc_id` column in `schedule` table}
-     * @desc                Loops through $_data and returns class that has `sc_id` equal to $scheduledId
-     * @return              array|null
+     * @method                  getClass
+     * @param                   $scheduledId {`sc_id` column in `schedule` table}
+     * @desc                    Loops through $_data and returns class that has `sc_id` equal to $scheduledId
+     * @return                  array|null
      */
     private function getClass($scheduledId)
     {
@@ -89,10 +89,10 @@ class ScheduledClasses
     }
 
     /**
-     * @method              getClassName
-     * @param               $scheduledId
-     * @desc                Gets $scheduledId class name from _data field.
-     * @return              string
+     * @method                  getClassName
+     * @param                   $scheduledId
+     * @desc                    Gets $scheduledId class name from _data field.
+     * @return                  string
      */
     public function getClassName($scheduledId)
     {
@@ -100,12 +100,12 @@ class ScheduledClasses
     }
 
     /**
-     * @method              selectClasses
-     * @param               $pageNumber {int}
-     * @param               $includePastClasses {bool}
-     * @desc                Selects classes from `schedule` table. By default selects 7 classes with dates of today or after.
-     *                      Uses inner join on `class` and `coach` tables.
-     * @return              ScheduledClasses
+     * @method                  selectClasses
+     * @param                   $pageNumber {int}
+     * @param                   $includePastClasses {bool}
+     * @desc                    Selects classes from `schedule` table. By default selects 7 classes with dates of today or after.
+     *                          Uses inner join on `class` and `coach` tables.
+     * @return                  ScheduledClasses
      */
     public function selectClasses($pageNumber = null, $includePastClasses = false)
     {
@@ -160,8 +160,10 @@ class ScheduledClasses
     }
 
     /**
-     * @param $scheduledId
-     * @return $this
+     * @method                  selectClass
+     * @param                   $scheduledId
+     * @desc                    Selects class from the database for given scheduledId.
+     * @return                  $this
      */
     public function selectClass($scheduledId)
     {
@@ -184,7 +186,17 @@ class ScheduledClasses
         return $this;
     }
 
-    public function checkIfClassClashes($newDate, $newStartTime, $newDuration, $scheduledId = null)
+    /**
+     * @method                  checkIfValidClassTime
+     * @param                   $newDate {Y-m-d}
+     * @param                   $newStartTime {H:i}
+     * @param                   $newDuration {class duration in minutes}
+     * @param                   $scheduledId {scheduledId}
+     * @desc                    Checks if class time and duration provided for a new scheduled class or class update are valid.
+     *                          This is there is no time clash with other classes in the database.
+     * @return                  bool
+     */
+    public function checkIfValidClassTime($newDate, $newStartTime, $newDuration, $scheduledId = null)
     {
         $newStartTime = substr($newStartTime, 0, 5);
         $newEndTime = date('H:i', strtotime($newStartTime) + $newDuration * 60);
@@ -205,39 +217,99 @@ class ScheduledClasses
             $classesOnSameDay = $this->_database->query($sql, [$newDate])->getResult();
         }
 
-        trace($classesOnSameDay);
-
-        $startTimeArray = [];
-        $endTimeArray = [];
+        $classesTimes = [];
 
         foreach ($classesOnSameDay as $class) {
-            $startTimeArray [] = substr($class['sc_class_time'], 0, 5);
-            $endTimeArray [] = date('H:i', strtotime($class['sc_class_time']) + $class['cl_duration'] * 60);
+            $classesTimes [] = [
+                'start' => substr($class['sc_class_time'], 0, 5),
+                'end' => date('H:i', strtotime($class['sc_class_time']) + $class['cl_duration'] * 60)
+            ];
         }
 
-        foreach ($endTimeArray as $endTime) {
-            if ($newStartTime < $endTime) {
-                $this->addError("Sorry this class clashes with existing one on that day. Please select later time");
+        foreach ($classesTimes as $time) {
+            if ($newStartTime >= $time['start'] && $newStartTime < $time['end']) {
+                $this->addError("Sorry this class clashes with other class on that day. Please select later time.");
+                return false;
+            } elseif ($newEndTime > $time['start'] && $newEndTime <= $time['end']) {
+                $this->addError("Sorry this class clashes with other class on that day. Please select earlier time.");
+                return false;
+            } elseif ($newStartTime <= $time['start'] && $newEndTime >= $time['end']) {
+                $this->addError("Sorry this class clashes with other class on that day. Please select different time.");
                 return false;
             }
         }
-
-        foreach ($startTimeArray as $startTime) {
-            if ($newEndTime > $startTime){
-                $this->addError("Sorry this class clashes with existing one on that day. Please select earlier time");
-                return false;
-            }
-        }
-
         return true;
     }
 
     /**
-     * @method              checkIfPossibleToSignUp
-     * @param               $membershipExpiryDate
-     * @param               $scheduledId
-     * @desc                Validates signing up to class shown in the schedule. Requires setting _data field.
-     * @return              bool
+     * @method                  validateClassTypeChange
+     * @param                   $maxNumberOfPeople
+     * @param                   $scheduledId
+     * @desc                    Checks if a new class limit for number of people is not exceeded, when changing the class type.
+     * @return                  bool
+     */
+    public function validateClassTypeChange($maxNumberOfPeople, $scheduledId)
+    {
+        if ($this->_data['sc_id'] === $scheduledId) {
+            $selectedClass = $this->_data;
+        } else {
+            $selectedClass = $this->selectClass($scheduledId);
+        }
+
+        if ($selectedClass['sc_no_people'] > $maxNumberOfPeople) {
+            $this->addError("Number of people that signed up to the class exceeds the class limit. Please select different class type.");
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @method                  addScheduledClass
+     * @param                   $fields {fields to be inserted to the database as an associative array}
+     * @desc                    Adds new scheduled class to the database.
+     * @throws                  Exception
+     */
+    public function addScheduledClass($fields = [])
+    {
+        if (!$this->_database->insert('schedule', $fields)) {
+            throw new Exception('There was a problem in adding the scheduled class.');
+        }
+    }
+
+    /**
+     * @method                  updateScheduledClass
+     * @param                   $scheduledId
+     * @param                   $fields {fields to be inserted to the database as an associative array}
+     * @desc                    Updates scheduled class in the database.
+     * @throws                  Exception
+     */
+    public function updateScheduledClass($scheduledId, $fields = [])
+    {
+        if (!$this->_database->update('schedule', 'sc_id', $scheduledId, $fields)) {
+            throw new Exception('There was a problem in updating the scheduled class.');
+        }
+    }
+
+    /**
+     * @method                  deleteScheduledClass
+     * @param                   $scheduledId
+     * @desc                    Deletes scheduled class from the database.
+     * @throws                  Exception
+     */
+    public function deleteScheduledClass($scheduledId)
+    {
+        if (!$this->_database->delete('coach', ['co_id', '=', $scheduledId])) {
+            throw new Exception('There was a problem deleting the scheduled class');
+        }
+    }
+
+
+    /**
+     * @method                  checkIfPossibleToSignUp
+     * @param                   $membershipExpiryDate
+     * @param                   $scheduledId
+     * @desc                    Validates signing up to class shown in the schedule. Requires setting _data field.
+     * @return                  bool
      */
     public function checkIfPossibleToSignUp($membershipExpiryDate, $scheduledId)
     {
@@ -266,15 +338,20 @@ class ScheduledClasses
     }
 
     /**
-     * @method              addOnePersonToClass
-     * @param               $scheduledId {`sc_id` column in `schedule` table}
-     * @desc                Method adds 1 in `sc_no_people` field for record where `sc_id` is equal to $scheduledId.
-     *                      Uses update method from Database object. Requires setting _data field.
-     * @throws              Exception
+     * @method                  addOnePersonToClass
+     * @param                   $scheduledId {`sc_id` column in `schedule` table}
+     * @desc                    Method adds 1 in `sc_no_people` field for record where `sc_id` is equal to $scheduledId.
+     *                          Uses update method from Database object. Requires setting _data field.
+     * @throws                  Exception
      */
     public function addOnePersonToClass($scheduledId)
     {
         $selectedClass = $this->getClass($scheduledId);
+
+        // Select class from the database if not in _data
+        if (!isset($selectedClass)) {
+            $selectedClass = $this->selectClass($scheduledId);
+        }
 
         $isUpdated = $this->_database->update('schedule', 'sc_id', $scheduledId, ['sc_no_people' => $selectedClass['sc_no_people'] + 1]);
 
@@ -284,15 +361,20 @@ class ScheduledClasses
     }
 
     /**
-     * @method              removeOnePersonFromClass
-     * @param               $scheduledId {`sc_id` column in `schedule` table}
-     * @desc                Method removes 1 in `sc_no_people` field for record where `sc_id` is equal to $scheduledId.
-     *                      Uses update method from Database object. Requires setting _data field.
-     * @throws              Exception
+     * @method                  removeOnePersonFromClass
+     * @param                   $scheduledId {`sc_id` column in `schedule` table}
+     * @desc                    Method removes 1 in `sc_no_people` field for record where `sc_id` is equal to $scheduledId.
+     *                          Uses update method from Database object. Requires setting _data field.
+     * @throws                  Exception
      */
     public function removeOnePersonFromClass($scheduledId)
     {
         $selectedClass = $this->getClass($scheduledId);
+
+        // Select class from the database if not in _data
+        if (!isset($selectedClass)) {
+            $selectedClass = $this->selectClass($scheduledId);
+        }
 
         $isUpdated = $this->_database->update('schedule', 'sc_id', $scheduledId, ['sc_no_people' => $selectedClass['sc_no_people'] - 1]);
 

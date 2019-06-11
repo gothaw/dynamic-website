@@ -70,26 +70,40 @@ class AdminSchedule extends Controller
                         $class = $this->_classes->getClass(Input::getValue('class'));
                         $duration = $class['cl_duration'];
                         $maxPeople = $class['cl_max_people'];
-                        $startTime = Input::getValue('time');
-                        $date = Input::getValue('date');
-
-                        if($this->_schedule->checkIfClassClashes($date, $startTime, $duration, $scheduledId)){
+                        $startTime = trim(Input::getValue('time'));
+                        $date = trim(Input::getValue('date'));
 
 
+                        if ($this->_schedule->checkIfValidClassTime($date, $startTime, $duration, $scheduledId) && $this->_schedule->validateClassTypeChange($maxPeople, $scheduledId)) {
+
+                            try {
+
+                                // Update scheduled class
+                                $this->_schedule->updateScheduledClass($scheduledId, [
+                                    'cl_id' => trim(Input::getValue('class')),
+                                    'co_id' => trim(Input::getValue('coach')),
+                                    'sc_class_date' => $date,
+                                    'sc_class_time' => $startTime
+                                ]);
+
+                                Session::flash('admin', 'Scheduled class details have been updated.');
+                                Redirect::to('admin-schedule');
+
+                            } catch (Exception $e) {
+                                $errorMessage = $e->getMessage();
+                                $this->_view->setViewError($errorMessage);
+                            }
 
                         } else {
-                            // Display an Error
-
+                            // Display schedule error
+                            $errorMessage = $this->_schedule->getFirstErrorMessage();
+                            $this->_view->setViewError($errorMessage);
                         }
-
-
-
                     } else {
-                        // Display an Error
+                        // Display a validation error
                         $errorMessage = $validate->getFirstErrorMessage();
                         $this->_view->setViewError($errorMessage);
                     }
-
                 }
             }
             $this->_view->addViewData([
