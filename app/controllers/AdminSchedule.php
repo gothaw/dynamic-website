@@ -194,6 +194,35 @@ class AdminSchedule extends Controller
         $this->_view->renderView();
     }
 
+    public function users($scheduledId = '')
+    {
+        $scheduledClass = $this->_schedule->selectClass($scheduledId)->getData();
+
+
+        if (isset($scheduledClass) && is_numeric($scheduledId)) {
+
+            $users = $this->_schedule->selectUsers($scheduledId)->getData();
+
+            $this->_view->addViewData([
+                'users' => $users
+            ]);
+        }
+        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
+        $this->_view->renderView();
+    }
+
+    public function usersAdd()
+    {
+        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
+        $this->_view->renderView();
+    }
+
+    public function usersDelete($userId = '')
+    {
+        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
+        $this->_view->renderView();
+    }
+
     public function changeSelectedClassDetails()
     {
         if (Input::exists() && is_numeric(Input::getValue('cl_id'))) {

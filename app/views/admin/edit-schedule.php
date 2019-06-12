@@ -67,8 +67,13 @@
         </form>
         <div class="row">
             <div class="col-lg-12">
-                <div class="admin-navigate-buttons">
-                    <a class="template-btn" href="<?php echo ROOT . 'admin-schedule' ?>">Back to Schedule</a>
+                <div class="admin-navigate-buttons admin-navigate-buttons-flex">
+                    <div>
+                        <a class="template-btn" href="<?php echo ROOT . 'admin-schedule' ?>">Back to Schedule</a>
+                    </div>
+                    <div>
+                        <a class="template-btn" href="<?php echo ROOT . 'admin-schedule/users/' . escape($data['scheduledClass']['sc_id']) ?>">View Users</a>
+                    </div>
                 </div>
             </div>
         </div>

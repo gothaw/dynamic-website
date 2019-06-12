@@ -8,6 +8,7 @@
                 </div>
             </div>
         </div>
+        <?php if (!empty($data['schedule'])) { ?>
         <div class="row justify-content-center">
             <div class="table-wrap col-lg-12">
                 <table class="table">
@@ -35,7 +36,9 @@
                                 <td><?php echo escape($class['cl_duration']) ?></td>
                                 <td><?php echo ucwords(escape($class['co_first_name'] . " " . $class['co_last_name'])) ?></td>
                                 <?php if ($userIsLoggedIn) { ?>
-                                    <td><a class="template-btn" href="<?php echo ROOT . 'schedule/signup/' . escape($class['sc_id']) ?>">Sign up</a></td>
+                                    <td><a class="template-btn"
+                                           href="<?php echo ROOT . 'schedule/signup/' . escape($class['sc_id']) ?>">Sign
+                                            up</a></td>
                                 <?php } ?>
                             </tr>
                         <?php }
@@ -43,12 +46,16 @@
                     </tbody>
                 </table>
             </div>
-            <?php if(!$userIsLoggedIn){?>
+            <?php } else {
+                echo "<p class='text-center'>There are no upcoming classes in the near future but feel free to visit our gym.</p>";
+            }
+            if (!$userIsLoggedIn) {
+                ?>
                 <div class="schedule-login-text">
                     <p>Would you like to sign up for a class? Please log in.</p>
                     <a href="<?php echo ROOT . 'login' ?>" class="template-btn">Login</a>
                 </div>
-            <?php }?>
+            <?php } ?>
         </div>
     </div>
 </section>

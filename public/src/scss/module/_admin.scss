@@ -58,6 +58,15 @@
     text-align: center;
   }
 }
+.submit-button-wrapper{
+  @include tablet-and-desktop(){
+    width: 20%;
+  }
+  @include phone() {
+    padding: 25px 0;
+    text-align: center;
+  }
+}
 .search-field {
   display: inline-block;
   margin: auto;

@@ -71,6 +71,7 @@
                                 </div>
                             </div>
                         </div>
+                        <?php if(!empty($data['schedule'])) {?>
                         <div class="row justify-content-center">
                             <div class="table-wrap col-lg-12">
                                 <table class="table">
@@ -103,6 +104,9 @@
                                 </table>
                             </div>
                         </div>
+                        <?php } else {
+                            echo "<p class='text-center'>No classes to show. Go to schedule to sign up for a class.</p>";
+                        }?>
                     </div>
                 </section>
             </section>

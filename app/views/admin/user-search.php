@@ -17,7 +17,7 @@
                 </form>
             </div>
         </div>
-        <?php if (isset($data['search'])) { ?>
+        <?php if (!empty($data['search'])) { ?>
             <div class="row justify-content-center">
                 <div class="table-wrap col-lg-12">
                     <table class="table">
@@ -41,8 +41,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <?php if (isset($data['search'])) {
-                            foreach ($data['search'] as $user) { ?>
+                        <?php foreach ($data['search'] as $user) { ?>
                                 <tr>
                                     <td class="name"><?php echo escape($user['u_id']) ?></td>
                                     <td><?php echo ucfirst(escape($user['u_first_name'])) ?></td>
@@ -78,13 +77,14 @@
                                             break;
                                     } ?>
                                 </tr>
-                            <?php }
-                        } ?>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>
             </div>
-        <?php } ?>
+        <?php } elseif (isset($data['search']) && empty($data['search'])) {
+            echo "<p>No results found.</p>";
+        } ?>
         <div class="row">
             <div class="col-lg-12 admin-navigate-buttons <?php if($subName === 'admin-members'){ echo 'admin-navigate-buttons-flex'; } ?>">
                 <div>

@@ -187,6 +187,39 @@ class ScheduledClasses
         return $this;
     }
 
+
+    /**
+     * @method                  selectUsers
+     * @param                   $scheduledId
+     * @desc                    Selects users that signed up to the scheduled class.
+     * @return                  $this
+     */
+    public function selectUsers($scheduledId)
+    {
+        $sql = "
+                SELECT
+                    `user`.`u_id`,
+                    `user`.`u_first_name`,
+                    `user`.`u_last_name`,
+                    `user`.`u_username`,
+                    `user`.`u_email`
+                FROM 
+                    `user_class`
+                INNER JOIN `schedule`
+                ON
+                    `user_class`.`sc_id` = `schedule`.`sc_id`
+                INNER JOIN `user`
+                ON 
+                    `user_class`.`u_id` = `user`.`u_id`
+                WHERE
+                    `schedule`.`sc_id` = ?;
+               ";
+
+        $this->_data = $this->_database->query($sql, [(int) $scheduledId])->getResult();
+
+        return $this;
+    }
+
     /**
      * @method                  checkIfValidClassTime
      * @param                   $newDate {Y-m-d}
