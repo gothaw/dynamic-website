@@ -18,7 +18,7 @@
                                autocomplete="off">
                     </div>
                     <div class="form-field">
-                        <label for="max_no_people">Max Number of People (less than 30)</label>
+                        <label for="max_no_people">Max Number of People (no more than 35)</label>
                         <input type="text" name="max_no_people" id="max_no_people"
                                value="<?php echo escape(Input::getValue('max_no_people')) ?>" required
                                autocomplete="off">

@@ -128,9 +128,6 @@ class AdminMembers extends Controller
                         $errorMessage = $e->getMessage();
                         $this->_view->setViewError($errorMessage);
                     }
-
-                } else {
-                    Redirect::to('admin-members');
                 }
             }
         }

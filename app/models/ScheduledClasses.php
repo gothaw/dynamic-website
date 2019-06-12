@@ -132,7 +132,8 @@ class ScheduledClasses
 
         // Statement to check if old classes are to be included
         if (!$includePastClasses) {
-            $sql .= "WHERE `sc_class_date` >= CURDATE() ORDER BY `schedule`.`sc_class_date` ASC";
+            $sql .= "WHERE `sc_class_date` > CURDATE() OR (`sc_class_date` = CURDATE() AND `schedule`.`sc_class_time` > CURTIME()) 
+                    ORDER BY `schedule`.`sc_class_date` ASC";
         } else {
             $sql .= "ORDER BY `schedule`.`sc_class_date` DESC";
         }
@@ -293,12 +294,16 @@ class ScheduledClasses
     /**
      * @method                  deleteScheduledClass
      * @param                   $scheduledId
-     * @desc                    Deletes scheduled class from the database.
+     * @desc                    Deletes scheduled class from the database. Also removes all members from that class.
      * @throws                  Exception
      */
     public function deleteScheduledClass($scheduledId)
     {
-        if (!$this->_database->delete('coach', ['co_id', '=', $scheduledId])) {
+        $isEveryUserRemovedFromClass = !$this->_database->delete('user_class', ['sc_id', '=', $scheduledId]);
+
+        $isDeletedFromSchedule = !$this->_database->delete('schedule', ['sc_id', '=', $scheduledId]);
+
+        if ($isEveryUserRemovedFromClass && $isDeletedFromSchedule) {
             throw new Exception('There was a problem deleting the scheduled class');
         }
     }
@@ -353,9 +358,9 @@ class ScheduledClasses
             $selectedClass = $this->selectClass($scheduledId);
         }
 
-        $isUpdated = $this->_database->update('schedule', 'sc_id', $scheduledId, ['sc_no_people' => $selectedClass['sc_no_people'] + 1]);
+        $isUpdated = !$this->_database->update('schedule', 'sc_id', $scheduledId, ['sc_no_people' => $selectedClass['sc_no_people'] + 1]);
 
-        if (!$isUpdated) {
+        if ($isUpdated) {
             throw new Exception("There was a problem signing up to the class.");
         }
     }
@@ -376,9 +381,9 @@ class ScheduledClasses
             $selectedClass = $this->selectClass($scheduledId);
         }
 
-        $isUpdated = $this->_database->update('schedule', 'sc_id', $scheduledId, ['sc_no_people' => $selectedClass['sc_no_people'] - 1]);
+        $isUpdated = !$this->_database->update('schedule', 'sc_id', $scheduledId, ['sc_no_people' => $selectedClass['sc_no_people'] - 1]);
 
-        if (!$isUpdated) {
+        if ($isUpdated) {
             throw new Exception("There was a problem dropping out from the class.");
         }
     }
@@ -393,12 +398,12 @@ class ScheduledClasses
     {
         // Removing users from scheduled classes (nested query)
         $sql = "DELETE FROM `user_class` WHERE `sc_id` IN (SELECT `sc_id` FROM `schedule` WHERE `cl_id` = ?);";
-        $isEachUserClassRemoved = $this->_database->query($sql, [(int)$classId]);
+        $isEachUserClassRemoved = !$this->_database->query($sql, [(int)$classId]);
         // Removing scheduled classes
         $sql = "DELETE FROM `schedule` WHERE `cl_id` = ?";
-        $isEachScheduledClassRemoved = $this->_database->query($sql, [(int)$classId]);
+        $isEachScheduledClassRemoved = !$this->_database->query($sql, [(int)$classId]);
 
-        if (!($isEachUserClassRemoved && $isEachScheduledClassRemoved)) {
+        if ($isEachUserClassRemoved && $isEachScheduledClassRemoved) {
             throw new Exception("There was problem in deleting scheduled classes.");
         }
     }

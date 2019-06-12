@@ -73,7 +73,6 @@ class AdminSchedule extends Controller
                         $startTime = trim(Input::getValue('time'));
                         $date = trim(Input::getValue('date'));
 
-
                         if ($this->_schedule->checkIfValidClassTime($date, $startTime, $duration, $scheduledId) && $this->_schedule->validateClassTypeChange($maxPeople, $scheduledId)) {
 
                             try {
@@ -112,6 +111,84 @@ class AdminSchedule extends Controller
 
         } else {
             Redirect::to('admin-schedule');
+        }
+        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
+        $this->_view->renderView();
+    }
+
+    public function delete($scheduledId = '')
+    {
+        if (Input::exists()) {
+            if (Token::check(Input::getValue('token'))) {
+
+                $scheduledClass = $this->_schedule->selectClass($scheduledId)->getData();
+
+                if (isset($scheduledClass) && is_numeric($scheduledId)) {
+                    try {
+                        // Delete Class
+                        $this->_schedule->deleteScheduledClass($scheduledId);
+                        Session::flash('admin', 'Scheduled class has been deleted.');
+                        Redirect::to('admin-schedule');
+                    } catch (Exception $e) {
+                        $errorMessage = $e->getMessage();
+                        $this->_view->setViewError($errorMessage);
+                    }
+                }
+            }
+        }
+        $this->_view->addViewData(['itemToBeDeleted' => 'scheduled class']);
+        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
+        $this->_view->renderView();
+    }
+
+    public function add()
+    {
+        if (Input::exists()) {
+            if (Token::check(Input::getValue('token'))) {
+
+                $validate = new Validate();
+                $validate->check($_POST, ValidationRules::getScheduledClassRules());
+
+                if ($validate->checkIfPassed()) {
+
+                    $class = $this->_classes->getClass(Input::getValue('class'));
+                    $duration = $class['cl_duration'];
+                    $startTime = trim(Input::getValue('time'));
+                    $date = trim(Input::getValue('date'));
+
+                    if ($this->_schedule->checkIfValidClassTime($date, $startTime, $duration)) {
+
+                        try {
+
+                            // Add scheduled class
+                            $this->_schedule->addScheduledClass([
+                                'cl_id' => trim(Input::getValue('class')),
+                                'co_id' => trim(Input::getValue('coach')),
+                                'sc_no_people' => 0,
+                                'sc_class_date' => $date,
+                                'sc_class_time' => $startTime
+                            ]);
+
+                            Session::flash('admin', 'Class has been scheduled successfully.');
+                            Redirect::to('admin-schedule');
+
+                        } catch (Exception $e) {
+                            $errorMessage = $e->getMessage();
+                            $this->_view->setViewError($errorMessage);
+                        }
+
+                    } else {
+                        // Display schedule error
+                        $errorMessage = $this->_schedule->getFirstErrorMessage();
+                        $this->_view->setViewError($errorMessage);
+                    }
+                } else {
+                    // Display a validation error
+                    $errorMessage = $validate->getFirstErrorMessage();
+                    $this->_view->setViewError($errorMessage);
+                }
+
+            }
         }
         $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
         $this->_view->renderView();

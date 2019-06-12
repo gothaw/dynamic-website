@@ -196,19 +196,26 @@
      * Used in adding and editing scheduled class.
      */
     function ajaxRequest($classId) {
-        if($('#edit-schedule').length){
+        if($('#edit-schedule').length || $('#add-schedule').length){
 
             const $classDuration         = $("#class_duration");
             const $classNumberOfPeople   = $("#class_no_people");
+            let methodUrl;
+
+            if($('#add-schedule').length){
+                methodUrl = "./changeSelectedClassDetails";
+            } else if($('#edit-schedule').length){
+                methodUrl = "../changeSelectedClassDetails";
+            }
 
             $.ajax({
                 type: "POST",
                 data: {cl_id: $classId},
                 dataType: "JSON",
-                url: "../changeSelectedClassDetails",
+                url: methodUrl,
                 success: function (data) {
-                    $classDuration.html(data.duration);
-                    $classNumberOfPeople.html(data.no_people)
+                    $classDuration.html(encodeURI(data.duration));
+                    $classNumberOfPeople.html(encodeURI(data.no_people));
                 }
             });
         }

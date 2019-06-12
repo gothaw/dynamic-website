@@ -266,7 +266,7 @@ class ValidationRules
                 'desc' => 'max number of people',
                 'required' => true,
                 'numeric' => true,
-                'max_value' => 30,
+                'max_value' => 35,
                 'min_value' => 5
             ],
             'class_image_text' => [
