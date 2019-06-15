@@ -63,7 +63,7 @@ switch ($subName){
     case 'admin-schedule/users':
         include("../app/views/admin/users-schedule.php");
         break;
-    case 'admin-schedule/usersdelete':
+    case 'admin-schedule/users-delete':
         include("../app/views/admin/delete-item.php");
         break;
     default:

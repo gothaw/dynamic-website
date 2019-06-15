@@ -28,24 +28,24 @@ class Schedule extends Controller
         $this->_view->renderView();
     }
 
-    public function signUp($classId = '')
+    public function signUp($scheduledId = '')
     {
-        if ($this->_user->isLoggedIn() && is_numeric($classId)) {
+        if ($this->_user->isLoggedIn() && is_numeric($scheduledId)) {
 
             $userId = $this->_user->getId();
             $membershipExpiryDate = $this->model('membership', $userId)->getExpiryDate();
 
-            if ($this->_schedule->checkIfPossibleToSignUp($membershipExpiryDate, $classId)) {
+            if ($this->_schedule->checkIfPossibleToSignUp($membershipExpiryDate, $scheduledId)) {
 
-                $userClasses = $this->model('UserClasses', $userId);
+                $userClasses = $this->model('UserClasses', $userId)->selectClasses();
 
-                if (!$userClasses->checkIfSignedUp($classId)) {
+                if (!$userClasses->checkIfSignedUp($scheduledId)) {
 
                     try {
                         // Signs user up to the class
-                        $userClasses->signUpUserToClass($classId);
-                        $this->_schedule->addOnePersonToClass($classId);
-                        Session::flash('dashboard', "You have signed up to a {$this->_schedule->getClassName($classId)} class.");
+                        $userClasses->signUpUserToClass($scheduledId);
+                        $this->_schedule->addOnePersonToClass($scheduledId);
+                        Session::flash('dashboard', "You have signed up to {$this->_schedule->getClassName($scheduledId)} class.");
                         Redirect::to('dashboard');
 
                     } catch (Exception $e) {

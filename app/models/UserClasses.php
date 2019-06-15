@@ -16,6 +16,58 @@ class UserClasses
     {
         $this->_database = Database::getInstance();
         $this->_userId = $userId;
+    }
+
+    /**
+     * @method              getData
+     * @desc                Getter for _data field.
+     * @return              array|null
+     */
+    public function getData()
+    {
+        return $this->_data;
+    }
+
+    /**
+     * @method              getClass
+     * @param               $scheduledId {`sc_id` column in `schedule` table}
+     * @desc                Loops through $_data and returns class that has `sc_id` equal to $scheduledId
+     * @return              array|null
+     */
+    private function getClass($scheduledId)
+    {
+        foreach ($this->_data as $class) {
+            if ($class['sc_id'] === $scheduledId) {
+                return $class;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @method              getUserClassId
+     * @param               $scheduledId {'sc_id'}
+     * @desc                Gets 'uc_id' for class with $scheduledId in user classes.
+     * @return              int|null
+     */
+    public function getUserClassId($scheduledId)
+    {
+        $userClassId = $this->getClass($scheduledId)['uc_id'];
+        if (isset($userClassId)) {
+            return $userClassId;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @method              selectClasses
+     * @param               $onlyFutureClasses {bool}
+     * @desc                Selects user classes from the database.
+     * @return              $this
+     */
+    public function selectClasses($onlyFutureClasses = true)
+    {
 
         $sql = "
                 SELECT
@@ -41,66 +93,28 @@ class UserClasses
                 ON
                     `schedule`.`co_id` = `coach`.`co_id`
                 WHERE
-                    `u_id` = ? AND `sc_class_date` >= CURDATE()
-                ORDER BY
-                    `schedule`.`sc_class_date`
-                ASC
+                    `u_id` = ?
                 ";
 
-        $this->_data = $this->_database->query($sql, [(int)$userId])->getResult();
-    }
-
-    /**
-     * @method              getData
-     * @desc                Getter for _data field.
-     * @return              array|null
-     */
-    public function getData()
-    {
-        return $this->_data;
-    }
-
-    /**
-     * @method              getClass
-     * @param               $classId {`sc_id` column in `schedule` table}
-     * @desc                Loops through $_data and returns class that has `sc_id` equal to $classId
-     * @return              array|null
-     */
-    private function getClass($classId)
-    {
-        foreach ($this->_data as $class) {
-            if ($class['sc_id'] === $classId) {
-                return $class;
-            }
+        if ($onlyFutureClasses) {
+            $sql .= "  AND `sc_class_date` >= CURDATE()";
         }
-        return null;
-    }
+        $sql .= " ORDER BY `schedule`.`sc_class_date` ASC";
 
-    /**
-     * @method              getUserClassId
-     * @param               $classId {'sc_id'}
-     * @desc                Gets 'uc_id' for class with $classId in user classes.
-     * @return              int|null
-     */
-    public function getUserClassId($classId)
-    {
-        $userClassId = $this->getClass($classId)['uc_id'];
-        if (isset($userClassId)) {
-            return $userClassId;
-        } else {
-            return null;
-        }
+        $this->_data = $this->_database->query($sql, [(int)$this->_userId])->getResult();
+
+        return $this;
     }
 
     /**
      * @method              checkIfSignedUp
-     * @param               $classId
-     * @desc                Checks if user already signed up to class with $classId.
+     * @param               $scheduledId
+     * @desc                Checks if user already signed up to class with $scheduledId.
      * @return              bool
      */
-    public function checkIfSignedUp($classId)
+    public function checkIfSignedUp($scheduledId)
     {
-        if ($this->getClass($classId)) {
+        if ($this->getClass($scheduledId)) {
             $this->addError("You are already signed up for this class.");
             return true;
         }
@@ -109,15 +123,15 @@ class UserClasses
 
     /**
      * @method              signUpUserToClass
-     * @param               $classId {`sc_id` in `user_class` table}
-     * @desc                Method signs up user to a class by inserting a new record to user class table with given $userId and $classId.
+     * @param               $scheduledId {`sc_id` in `user_class` table}
+     * @desc                Method signs up user to a class by inserting a new record to user class table with given $userId and $scheduledId.
      * @throws              Exception
      */
-    public function signUpUserToClass($classId)
+    public function signUpUserToClass($scheduledId)
     {
         $isSignedUp = $this->_database->insert('user_class', [
             'u_id' => $this->_userId,
-            'sc_id' => $classId
+            'sc_id' => $scheduledId
         ]);
 
         if (!$isSignedUp) {

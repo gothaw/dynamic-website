@@ -29,7 +29,7 @@
                                 <td><?php echo escape($user['u_username']) ?></td>
                                 <td><?php echo escape($user['u_email']) ?></td>
                                 <td><a class="template-btn"
-                                       href="<?php echo ROOT . $subName . '-delete/' . escape($user['u_id']) ?>">Remove</a>
+                                       href="<?php echo ROOT . $subName . '-delete/' . escape($data['scheduledClass']['sc_id']) . '-' . escape($user['u_id']) ?>">Remove</a>
                                 </td>
                             </tr>
                         <?php } ?>

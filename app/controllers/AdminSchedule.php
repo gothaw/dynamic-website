@@ -44,7 +44,7 @@ class AdminSchedule extends Controller
         if ($page < '1' || $page > $this->_lastPage || !is_numeric($page)) {
             $page = '1';
         }
-        $this->_schedule->selectClasses($page, true);
+        $this->_schedule->selectClasses($page, false);
         $this->_view->addViewData([
             'schedule' => $this->_schedule->getData(),
             'page' => $page
@@ -55,7 +55,7 @@ class AdminSchedule extends Controller
 
     public function edit($scheduledId = '')
     {
-        $scheduledClass = $this->_schedule->selectClass($scheduledId)->getData();
+        $scheduledClass = $this->_schedule->selectClass($scheduledId, false)->getData();
 
         if (isset($scheduledClass) && is_numeric($scheduledId)) {
 
@@ -121,7 +121,7 @@ class AdminSchedule extends Controller
         if (Input::exists()) {
             if (Token::check(Input::getValue('token'))) {
 
-                $scheduledClass = $this->_schedule->selectClass($scheduledId)->getData();
+                $scheduledClass = $this->_schedule->selectClass($scheduledId, false)->getData();
 
                 if (isset($scheduledClass) && is_numeric($scheduledId)) {
                     try {
@@ -196,14 +196,14 @@ class AdminSchedule extends Controller
 
     public function users($scheduledId = '')
     {
-        $scheduledClass = $this->_schedule->selectClass($scheduledId)->getData();
-
+        $scheduledClass = $this->_schedule->selectClass($scheduledId, false)->getData();
 
         if (isset($scheduledClass) && is_numeric($scheduledId)) {
 
             $users = $this->_schedule->selectUsers($scheduledId)->getData();
 
             $this->_view->addViewData([
+                'scheduledClass' => $scheduledClass,
                 'users' => $users
             ]);
         }
@@ -213,13 +213,48 @@ class AdminSchedule extends Controller
 
     public function usersAdd()
     {
-        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
+        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . toLispCase(__FUNCTION__));
         $this->_view->renderView();
     }
 
-    public function usersDelete($userId = '')
+    public function usersDelete($parameter = '')
     {
-        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
+        if (Input::exists()) {
+            if (Token::check(Input::getValue('token'))) {
+
+                $parameterArray = explode('-', $parameter);
+
+                $scheduledId = $parameterArray[0];
+                $userId = $parameterArray[1];
+
+                if (is_numeric($userId) && is_numeric($scheduledId)) {
+
+                    $scheduledClass = $this->_schedule->selectClass($scheduledId, false)->getData();
+                    $userClasses = $this->model('UserClasses', $userId)->selectClasses(false);
+
+                    if (isset($scheduledClass) && $userClasses->checkIfSignedUp($scheduledId)) {
+
+                        // User class id from user_class table
+                        $userClassId = $userClasses->getUserClassId($scheduledId);
+
+                        try{
+                            // Removes user from the class
+                            $userClasses->dropUserFromClass($userClassId);
+                            $this->_schedule->removeOnePersonFromClass($scheduledId);
+                            Session::flash('admin', "You have removed user from {$this->_schedule->getClassName($scheduledId)} class.");
+                            Redirect::to('admin-schedule/users/' . $scheduledId);
+
+                        } catch (Exception $e){
+                            $errorMessage = $e->getMessage();
+                            $this->_view->setViewError($errorMessage);
+                        }
+
+                    }
+                }
+            }
+        }
+        $this->_view->addViewData(['itemToBeDeleted' => 'user from the class']);
+        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . toLispCase(__FUNCTION__));
         $this->_view->renderView();
     }
 

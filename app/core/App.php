@@ -27,15 +27,14 @@ class App
         $this->_controller = new $this->_controller;
 
 
-        if (isset($url[1]) && method_exists($this->_controller, $url[1])) {
-            try{
-                $reflection = new ReflectionMethod($this->_controller, $url[1]);
+        if (isset($url[1]) && method_exists($this->_controller, $this->toCamelCase($url[1]))) {
+            try {
+                $reflection = new ReflectionMethod($this->_controller, $this->toCamelCase($url[1]));
                 if ($reflection->isPublic()) {
-                    $this->_method = $url[1];
+                    $this->_method = $this->toCamelCase($url[1]);
                     unset($url[1]);
                 }
-            }
-            catch (ReflectionException $e){
+            } catch (ReflectionException $e) {
                 // Redirect to error page.
                 Redirect::to(404);
             }
@@ -64,7 +63,21 @@ class App
      * @desc                    Converts lisp-case string to PascalCase.
      * @return                  string
      */
-    private function toPascalCase($string){
+    private function toPascalCase($string)
+    {
         return str_replace('-', '', ucwords($string, '-'));
+    }
+
+    /**
+     * @method                  toCamelCase
+     * @param                   $string {string-in-lisp-case}
+     * @desc                    Converts lisp-case string to camelCase.
+     * @return                  string
+     */
+    private function toCamelCase($string)
+    {
+        $str = $this->toPascalCase($string);
+        $str[0] = strtolower($str[0]);
+        return $str;
     }
 }

@@ -16,7 +16,7 @@ class Dashboard extends Controller
         if ($this->_user->isLoggedIn()) {
 
             $this->_userData = $this->_user->getData();
-            $this->_userClasses = $this->model('UserClasses', $this->_userData['u_id']);
+            $this->_userClasses = $this->model('UserClasses', $this->_userData['u_id'])->selectClasses();
             $this->_membership = $this->model('Membership', $this->_userData['u_id']);
 
             $admin = $this->_user->hasPermission('admin');
@@ -129,32 +129,32 @@ class Dashboard extends Controller
         $this->_view->renderView();
     }
 
-    public function drop($classId = '')
+    public function drop($scheduledId = '')
     {
-        if (is_numeric($classId)) {
+        if (is_numeric($scheduledId)) {
 
-            if ($this->_userClasses->checkIfSignedUp($classId)) {
+            $schedule = $this->model('ScheduledClasses');
+            $scheduledClass = $schedule->selectClass($scheduledId)->getData();
 
+            if (isset($scheduledClass) && $this->_userClasses->checkIfSignedUp($scheduledId)) {
                 // User class id from user_class table
-                $userClassId = $this->_userClasses->getUserClassId($classId);
-                $schedule = $this->model('ScheduledClasses');
-                $schedule->selectClasses();
+                $userClassId = $this->_userClasses->getUserClassId($scheduledId);
 
-                try{
+                try {
                     // Removes user from the class
                     $this->_userClasses->dropUserFromClass($userClassId);
-                    $schedule->removeOnePersonFromClass($classId);
-                    Session::flash('dashboard', "You have dropped out from {$schedule->getClassName($classId)} class.");
+                    $schedule->removeOnePersonFromClass($scheduledId);
+                    Session::flash('dashboard', "You have dropped out from {$schedule->getClassName($scheduledId)} class.");
                     Redirect::to('dashboard');
 
-                } catch (Exception $e){
+                } catch (Exception $e) {
                     $errorMessage = $e->getMessage();
                     $this->_view->setViewError($errorMessage);
                 }
-
-            } else {
-                Redirect::to('dashboard');
             }
+
+        } else {
+            Redirect::to('dashboard');
         }
         $this->_view->renderView();
     }
