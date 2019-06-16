@@ -36,7 +36,8 @@ class ValidationRules
      * @desc                        Validation rules for adding and editing a scheduled class.
      * @return                      array
      */
-    public static function getScheduledClassRules(){
+    public static function getScheduledClassRules()
+    {
         $rulesArray = array_merge([
             'class' => [
                 'desc' => 'class',
@@ -49,6 +50,24 @@ class ValidationRules
                 'exists' => 'coach/co_id'
             ]
         ], self::getValidDateRules(), self::getValidTimeRules());
+
+        return $rulesArray;
+    }
+
+    /**
+     * @method                      getValidUserIdRules
+     * @desc                        Valid user id rules. Used for signing up user to a scheduled class in admin panel.
+     * @return                      array
+     */
+    public static function getValidUserIdRules()
+    {
+        $rulesArray = [
+            'user_id' =>[
+                'desc' => 'user',
+                'required' => true,
+                'exists' => 'user/u_id'
+            ]
+        ];
 
         return $rulesArray;
     }
@@ -203,39 +222,39 @@ class ValidationRules
     public static function getValidCoachRules()
     {
         $rulesArray = [
-                'first_name' => [
-                    'desc' => 'coach first name',
-                    'required' => true,
-                    'min' => 2,
-                ],
-                'last_name' => [
-                    'desc' => 'coach last name',
-                    'required' => true,
-                    'min' => 2
-                ],
-                'email' => [
-                    'desc' => 'coach email address',
-                    'required' => true,
-                    'email' => true
-                ],
-                'focus' => [
-                    'desc' => 'area of focus',
-                    'required' => true,
-                    'min' => 2
-                ],
-                'facebook_profile' => [
-                    'desc' => 'facebook profile',
-                    'required' => true
-                ],
-                'twitter_profile' => [
-                    'desc' => 'twitter profile',
-                    'required' => true
-                ],
-                'linkedin_profile' => [
-                    'desc' => 'linkedin profile',
-                    'required' => true
-                ]
-            ];
+            'first_name' => [
+                'desc' => 'coach first name',
+                'required' => true,
+                'min' => 2,
+            ],
+            'last_name' => [
+                'desc' => 'coach last name',
+                'required' => true,
+                'min' => 2
+            ],
+            'email' => [
+                'desc' => 'coach email address',
+                'required' => true,
+                'email' => true
+            ],
+            'focus' => [
+                'desc' => 'area of focus',
+                'required' => true,
+                'min' => 2
+            ],
+            'facebook_profile' => [
+                'desc' => 'facebook profile',
+                'required' => true
+            ],
+            'twitter_profile' => [
+                'desc' => 'twitter profile',
+                'required' => true
+            ],
+            'linkedin_profile' => [
+                'desc' => 'linkedin profile',
+                'required' => true
+            ]
+        ];
 
         return $rulesArray;
     }

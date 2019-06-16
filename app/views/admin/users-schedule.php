@@ -43,7 +43,7 @@
         <div class="row">
             <div class="col-lg-12 section-padding5">
                 <p class="form-text font-weight-bold">You can add user to the class by entering user ID and clicking sign up button.</p>
-                <form class="search-form" action="<?php echo ROOT . $subName . '-add' ?>" method="post">
+                <form class="search-form" action="" method="post">
                     <div class="search-field-wrapper">
                         <input class="search-field" type="text" name="user_id"
                                placeholder="ID number" onfocus="this.placeholder = ''"

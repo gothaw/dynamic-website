@@ -102,22 +102,21 @@ class AdminMembers extends Controller
                     $selectedUserData = $selectedUser->getData();
                     $membership = $this->model('Membership', $userId);
 
-                    $userClasses = $this->model('UserClasses', $userId);
-                    $userClassesData = $userClasses->getData();
+                    $userClasses = $this->model('UserClasses', $userId)->selectClasses();
+                    $userClassesData = $userClasses->getClassesData();
 
-                    $schedule = $this->model('ScheduledClasses')->selectClasses();
+                    $schedule = $this->model('ScheduledClasses')->selectClasses(false);
 
                     try {
 
                         // Delete membership
                         $membership->cancelMembership($userId);
-                        // Delete user classes
+                        // Delete users classes
+                        $userClasses->deleteClassesForUserId();
+                        // Reduces number of people on future classes by 1.
                         foreach ($userClassesData as $class) {
-                            $userClasses->dropUserFromClass($class['uc_id']);
                             $schedule->removeOnePersonFromClass($class['sc_id']);
                         }
-                        // Deletes past user classes
-                        $userClasses->deleteOldClasses();
                         // Delete user
                         $selectedUser->deleteUser($userId);
                         Session::flash('admin', 'User ' . $selectedUserData['u_username'] . ' has been deleted.');

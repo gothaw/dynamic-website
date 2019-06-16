@@ -114,7 +114,7 @@ class ScheduledClasses
      *                          Uses inner join on `class` and `coach` tables.
      * @return                  ScheduledClasses
      */
-    public function selectClasses($pageNumber = null, $onlyFutureClasses = true)
+    public function selectClasses($onlyFutureClasses = true, $pageNumber = null)
     {
         $sql = "
                 SELECT 
@@ -159,13 +159,17 @@ class ScheduledClasses
             $this->_data = $this->_database->query($sql, [(int)$this->_classesPerPage])->getResult();
 
         } else {
-            // Gets 7 classes
-            $sql .= " LIMIT 7;";
             $this->_data = $this->_database->query($sql)->getResult();
 
         }
         return $this;
     }
+
+    public function selectClassByUserId()
+    {
+
+    }
+
 
     /**
      * @method                  selectClass
@@ -196,39 +200,6 @@ class ScheduledClasses
 
             $this->_data = $this->_database->query($sql, [(int)$scheduledId])->getResultFirstRecord();
         }
-        return $this;
-    }
-
-
-    /**
-     * @method                  selectUsers
-     * @param                   $scheduledId
-     * @desc                    Selects users that signed up to the scheduled class.
-     * @return                  $this
-     */
-    public function selectUsers($scheduledId)
-    {
-        $sql = "
-                SELECT
-                    `user`.`u_id`,
-                    `user`.`u_first_name`,
-                    `user`.`u_last_name`,
-                    `user`.`u_username`,
-                    `user`.`u_email`
-                FROM 
-                    `user_class`
-                INNER JOIN `schedule`
-                ON
-                    `user_class`.`sc_id` = `schedule`.`sc_id`
-                INNER JOIN `user`
-                ON 
-                    `user_class`.`u_id` = `user`.`u_id`
-                WHERE
-                    `schedule`.`sc_id` = ?;
-               ";
-
-        $this->_data = $this->_database->query($sql, [(int)$scheduledId])->getResult();
-
         return $this;
     }
 

@@ -79,7 +79,7 @@ class Validate
                             $query = $this->_database->select($table, [$column, '=', $value]);
 
                             if ($query->getResultRowCount()) {
-                                $this->addError("{$item} already exists");
+                                $this->addError("{$items[$item]['desc']} already exists");
                             }
 
                             break;
@@ -93,7 +93,7 @@ class Validate
                             $query = $this->_database->select($table, [$column, '=', $value]);
 
                             if (!$query->getResultRowCount()) {
-                                $this->addError("{$item} already does not exist. Please select different {$item}.");
+                                $this->addError("{$items[$item]['desc']} does not exist. Please select different {$items[$item]['desc']}.");
                             }
 
                             break;

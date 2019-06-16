@@ -44,7 +44,7 @@ class AdminSchedule extends Controller
         if ($page < '1' || $page > $this->_lastPage || !is_numeric($page)) {
             $page = '1';
         }
-        $this->_schedule->selectClasses($page, false);
+        $this->_schedule->selectClasses(false, $page);
         $this->_view->addViewData([
             'schedule' => $this->_schedule->getData(),
             'page' => $page
@@ -200,7 +200,9 @@ class AdminSchedule extends Controller
 
         if (isset($scheduledClass) && is_numeric($scheduledId)) {
 
-            $users = $this->_schedule->selectUsers($scheduledId)->getData();
+            $users = $this->model('UserClasses')->selectUsers($scheduledId)->getUsersData();
+
+            $this->usersAdd($scheduledId);
 
             $this->_view->addViewData([
                 'scheduledClass' => $scheduledClass,
@@ -211,10 +213,56 @@ class AdminSchedule extends Controller
         $this->_view->renderView();
     }
 
-    public function usersAdd()
+    private function usersAdd($scheduledId)
     {
-        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . toLispCase(__FUNCTION__));
-        $this->_view->renderView();
+        if (Input::exists()) {
+            if (Token::check(Input::getValue('token'))) {
+
+                $validate = new Validate();
+                $validate->check($_POST, ValidationRules::getValidUserIdRules());
+
+                if ($validate->checkIfPassed()) {
+
+                    $userId = trim(Input::getValue('user_id'));
+                    $membershipExpiryDate = $this->model('membership', $userId)->getExpiryDate();
+
+                    if ($this->_schedule->checkIfPossibleToSignUp($membershipExpiryDate, $scheduledId)) {
+
+                        $userClasses = $this->model('UserClasses', $userId)->selectClasses(false);
+
+                        if (!$userClasses->checkIfSignedUp($scheduledId)) {
+
+                            try {
+                                // Signs user up to the class
+                                $userClasses->signUpUserToClass($scheduledId);
+                                $this->_schedule->addOnePersonToClass($scheduledId);
+                                Session::flash('admin', "You have signed up user to {$this->_schedule->getClassName($scheduledId)} class.");
+                                Redirect::to('admin-schedule/users/' . $scheduledId);
+
+                            } catch (Exception $e) {
+                                $errorMessage = $e->getMessage();
+                                $this->_view->setViewError($errorMessage);
+                            }
+
+                        } else {
+                            // Display user classes error
+                            $errorMessage = $userClasses->getFirstErrorMessage();
+                            $this->_view->setViewError($errorMessage);
+                        }
+
+                    } else {
+                        // Display schedule error
+                        $errorMessage = $this->_schedule->getFirstErrorMessage();
+                        $this->_view->setViewError($errorMessage);
+                    }
+
+                } else {
+                    // Display a validation error
+                    $errorMessage = $validate->getFirstErrorMessage();
+                    $this->_view->setViewError($errorMessage);
+                }
+            }
+        }
     }
 
     public function usersDelete($parameter = '')
@@ -237,18 +285,17 @@ class AdminSchedule extends Controller
                         // User class id from user_class table
                         $userClassId = $userClasses->getUserClassId($scheduledId);
 
-                        try{
+                        try {
                             // Removes user from the class
                             $userClasses->dropUserFromClass($userClassId);
                             $this->_schedule->removeOnePersonFromClass($scheduledId);
                             Session::flash('admin', "You have removed user from {$this->_schedule->getClassName($scheduledId)} class.");
                             Redirect::to('admin-schedule/users/' . $scheduledId);
 
-                        } catch (Exception $e){
+                        } catch (Exception $e) {
                             $errorMessage = $e->getMessage();
                             $this->_view->setViewError($errorMessage);
                         }
-
                     }
                 }
             }

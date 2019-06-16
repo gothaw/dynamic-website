@@ -2,41 +2,54 @@
 
 class UserClasses
 {
-    private $_data;
     private $_database;
+    private $_classesData;
+    private $_usersData;
     private $_errors = [];
     private $_userId;
 
     /**
      *                      UserClasses constructor.
      * @param               $userId
-     * @desc                Selects classes from `user_classes` table. Uses inner join on `schedule`, `class` and `coach` tables.
+     * @desc                Selects classes from `user_classes` table.
      */
-    public function __construct($userId)
+    public function __construct($userId = null)
     {
         $this->_database = Database::getInstance();
-        $this->_userId = $userId;
+        if (isset($userId)) {
+            $this->_userId = $userId;
+        }
     }
 
     /**
-     * @method              getData
-     * @desc                Getter for _data field.
+     * @method              getClasses
+     * @desc                Getter for _classesData field.
      * @return              array|null
      */
-    public function getData()
+    public function getClassesData()
     {
-        return $this->_data;
+        return $this->_classesData;
     }
 
     /**
-     * @method              getClass
+     * @method              getClasses
+     * @desc                Getter for _usersData field.
+     * @return              array|null
+     */
+    public function getUsersData()
+    {
+        return $this->_usersData;
+    }
+
+    /**
+     * @method              getClassFromData
      * @param               $scheduledId {`sc_id` column in `schedule` table}
-     * @desc                Loops through $_data and returns class that has `sc_id` equal to $scheduledId
+     * @desc                Loops through $_classesData and returns class that has `sc_id` equal to $scheduledId
      * @return              array|null
      */
-    private function getClass($scheduledId)
+    private function getClassFromData($scheduledId)
     {
-        foreach ($this->_data as $class) {
+        foreach ($this->_classesData as $class) {
             if ($class['sc_id'] === $scheduledId) {
                 return $class;
             }
@@ -52,7 +65,7 @@ class UserClasses
      */
     public function getUserClassId($scheduledId)
     {
-        $userClassId = $this->getClass($scheduledId)['uc_id'];
+        $userClassId = $this->getClassFromData($scheduledId)['uc_id'];
         if (isset($userClassId)) {
             return $userClassId;
         } else {
@@ -63,12 +76,11 @@ class UserClasses
     /**
      * @method              selectClasses
      * @param               $onlyFutureClasses {bool}
-     * @desc                Selects user classes from the database.
+     * @desc                Selects user classes from the database. Uses inner join on `schedule`, `class` and `coach` tables.
      * @return              $this
      */
     public function selectClasses($onlyFutureClasses = true)
     {
-
         $sql = "
                 SELECT
                     `uc_id`,
@@ -101,10 +113,43 @@ class UserClasses
         }
         $sql .= " ORDER BY `schedule`.`sc_class_date` ASC";
 
-        $this->_data = $this->_database->query($sql, [(int)$this->_userId])->getResult();
+        $this->_classesData = $this->_database->query($sql, [(int)$this->_userId])->getResult();
 
         return $this;
     }
+
+    /**
+     * @method                  selectUsers
+     * @param                   $scheduledId
+     * @desc                    Selects users that signed up to the scheduled class.
+     * @return                  $this
+     */
+    public function selectUsers($scheduledId)
+    {
+        $sql = "
+                SELECT
+                    `user`.`u_id`,
+                    `user`.`u_first_name`,
+                    `user`.`u_last_name`,
+                    `user`.`u_username`,
+                    `user`.`u_email`
+                FROM 
+                    `user_class`
+                INNER JOIN `schedule`
+                ON
+                    `user_class`.`sc_id` = `schedule`.`sc_id`
+                INNER JOIN `user`
+                ON 
+                    `user_class`.`u_id` = `user`.`u_id`
+                WHERE
+                    `schedule`.`sc_id` = ?;
+               ";
+
+        $this->_usersData = $this->_database->query($sql, [(int)$scheduledId])->getResult();
+
+        return $this;
+    }
+
 
     /**
      * @method              checkIfSignedUp
@@ -114,7 +159,7 @@ class UserClasses
      */
     public function checkIfSignedUp($scheduledId)
     {
-        if ($this->getClass($scheduledId)) {
+        if ($this->getClassFromData($scheduledId)) {
             $this->addError("You are already signed up for this class.");
             return true;
         }
@@ -155,10 +200,11 @@ class UserClasses
     }
 
     /**
-     * @method          deleteOldClasses
-     * @desc            Method deletes all past user classes.
+     * @method          deleteClassesForUserId
+     * @desc            Method deletes all user classes for user with _userId.
+     * @throws          Exception
      */
-    public function deleteOldClasses()
+    public function deleteClassesForUserId()
     {
         $sql = "
                 DELETE 
@@ -169,10 +215,13 @@ class UserClasses
                 ON
                     `user_class`.`sc_id` = `schedule`.`sc_id`
                 WHERE
-                    `u_id` = ? AND `sc_class_date` < CURDATE()
-                ";
+                    `u_id` = ?";
 
-        $this->_database->query($sql, [(int)$this->_userId])->getResult();
+        $isDeleted = $this->_database->query($sql, [(int)$this->_userId]);
+
+        if (!$isDeleted) {
+            throw new Exception("Could not delete user classes. Sorry.");
+        }
     }
 
     /**

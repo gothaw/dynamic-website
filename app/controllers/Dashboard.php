@@ -26,7 +26,7 @@ class Dashboard extends Controller
                 'navPages' => $this->_navPages,
                 'pageDetails' => $this->_pageDetails,
                 'user' => $this->_userData,
-                'schedule' => $this->_userClasses->getData(),
+                'schedule' => $this->_userClasses->getClassesData(),
                 'membership' => $this->_membership->getExpiryDate(),
                 'admin' => $admin,
                 'validMembership' => $validMembership
