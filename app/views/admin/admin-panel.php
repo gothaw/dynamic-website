@@ -9,13 +9,7 @@
                         <div class="admin-panel-icon">
                             <img src="<?php echo DIST . 'img/admin-panel/blog.png' ?>" width="150" height="150" alt="admin panel icon">
                         </div>
-                        <a class="admin-panel-btn" href="">View Posts</a>
-                    </li>
-                    <li class="admin-panel-item">
-                        <div class="admin-panel-icon">
-                            <img src="<?php echo DIST . 'img/admin-panel/add-post.png' ?>" width="150" height="150" alt="admin panel icon">
-                        </div>
-                        <a class="admin-panel-btn" href="">Add Post</a>
+                        <a class="admin-panel-btn" href="">Blog Posts</a>
                     </li>
                     <li class="admin-panel-item">
                         <div class="admin-panel-icon">

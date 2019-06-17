@@ -17,7 +17,9 @@
                             <th class="head" scope="col">Last Name</th>
                             <th class="head" scope="col">Username</th>
                             <th class="head" scope="col">Email</th>
+                            <?php if($data['scheduledClass']['sc_class_date'] > date('Y-m-d')) {?>
                             <th class="head" scope="col">Delete</th>
+                            <?php }?>
                         </tr>
                         </thead>
                         <tbody>
@@ -28,9 +30,11 @@
                                 <td><?php echo ucfirst(escape($user['u_last_name'])) ?></td>
                                 <td><?php echo escape($user['u_username']) ?></td>
                                 <td><?php echo escape($user['u_email']) ?></td>
+                                <?php if($data['scheduledClass']['sc_class_date'] > date('Y-m-d')) {?>
                                 <td><a class="template-btn"
                                        href="<?php echo ROOT . $subName . '-delete/' . escape($data['scheduledClass']['sc_id']) . '-' . escape($user['u_id']) ?>">Remove</a>
                                 </td>
+                                <?php }?>
                             </tr>
                         <?php } ?>
                         </tbody>
@@ -42,6 +46,7 @@
         } ?>
         <div class="row">
             <div class="col-lg-12 section-padding5">
+                <?php if($data['scheduledClass']['sc_class_date'] > date('Y-m-d')) { ?>
                 <p class="form-text font-weight-bold">You can add user to the class by entering user ID and clicking sign up button.</p>
                 <form class="search-form" action="" method="post">
                     <div class="search-field-wrapper">
@@ -54,6 +59,9 @@
                         <button type="submit" name="submit" class="template-btn">sign up</button>
                     </div>
                 </form>
+                <?php } else {?>
+                    <p class="form-text font-weight-bold">You cannot sign up any more users to class that was in the past.</p>
+                <?php }?>
             </div>
         </div>
         <div class="row">

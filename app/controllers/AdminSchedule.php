@@ -277,8 +277,8 @@ class AdminSchedule extends Controller
 
                 if (is_numeric($userId) && is_numeric($scheduledId)) {
 
-                    $scheduledClass = $this->_schedule->selectClass($scheduledId, false)->getData();
-                    $userClasses = $this->model('UserClasses', $userId)->selectClasses(false);
+                    $scheduledClass = $this->_schedule->selectClass($scheduledId, true)->getData();
+                    $userClasses = $this->model('UserClasses', $userId)->selectClasses(true);
 
                     if (isset($scheduledClass) && $userClasses->checkIfSignedUp($scheduledId)) {
 
