@@ -2800,3 +2800,41 @@ h6 {
   .user-details-admin-panel li:nth-child(2n+1) {
     font-weight: bold; }
 
+.admin-pagination {
+  padding: 25px 0; }
+  .admin-pagination .page-link {
+    border-radius: 0; }
+  .admin-pagination .page-item {
+    border: none; }
+
+.page-link {
+  background: transparent;
+  font-weight: 400; }
+
+.page-placeholder {
+  padding: 0.5rem 0.25rem; }
+
+.admin-pagination .page-item.active .page-link {
+  background-color: #f61b55;
+  border-color: transparent;
+  color: #fff; }
+
+.admin-pagination .page-link {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #8a8a8a;
+  border: none; }
+
+.admin-pagination .page-item:last-child .page-link,
+.admin-pagination .page-item:first-child .page-link {
+  border-radius: 0; }
+
+.admin-pagination .page-link:hover {
+  color: #fff;
+  text-decoration: none;
+  background-color: #f61b55;
+  border-color: #eee; }
+

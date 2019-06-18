@@ -45,7 +45,7 @@
                 </table>
             </div>
         </div>
-        <nav class="blog-pagination justify-content-center d-flex">
+        <nav class="admin-pagination justify-content-center d-flex">
             <ul class="pagination">
                 <li class="page-item">
                     <a href="<?php  $previous = (intval($data['page']) !== 1) ? $data['page'] - 1 : '1';
