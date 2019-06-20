@@ -165,12 +165,6 @@ class ScheduledClasses
         return $this;
     }
 
-    public function selectClassByUserId()
-    {
-
-    }
-
-
     /**
      * @method                  selectClass
      * @param                   $scheduledId {int}

@@ -20,7 +20,7 @@
             </div>
             <div class="col-md-9">
                 <div class="blog_post">
-                    <img src="<?php echo DIST ?>img/blog/main-blog/m-blog-1.jpg" alt="">
+                    <img src="<?php echo DIST ?>img/blog-details/feature-img1.jpg" alt="">
                     <div class="blog_details">
                         <a href="#"><h4>Astronomy Binoculars A Great Alternative</h4></a>
                         <p>MCSE boot camps have its supporters and its detractors. Some people do not understand why you

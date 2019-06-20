@@ -3,9 +3,10 @@
     <div class="blog_right_sidebar">
         <aside class="single_sidebar_widget author_widget">
             <div class="br"></div>
+            <h4 class="widget_title">Blog Writer</h4>
             <img class="author_img rounded-circle" src="<?php echo DIST ?>img/blog/author.jpg" alt="blog author">
             <h5>Jamie Hart</h5>
-            <p>Blog Writer | Trainer</p>
+            <p>Trainer</p>
             <div class="social_icon">
                 <a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
                 <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
