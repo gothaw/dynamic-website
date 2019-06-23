@@ -1,13 +1,4 @@
 <!--Blog Posts Area-->
-<?php
-    /*$text = $data['posts'][0]['p_text'];
-    trace(substr_count($text,'<p>'));
-    $text1 = str_replace('<p>','',$text);
-    $text1exploded = explode('</p>',$text1);
-    array_pop($text1exploded);
-    trace($text1exploded);
-    echo strlen($text1exploded[0]);*/
-?>
 <div class="col-lg-8">
     <div class="blog_left_sidebar">
         <?php if (isset($data['posts'])) {
@@ -23,10 +14,10 @@
                                 <a href="#">Lifestyle</a>
                             </div>
                             <ul class="blog_meta list">
-                                <li><a href="#"><?php echo escape(ucwords($post['p_author'])) ?><i class="fa fa-user-o"></i></a></li>
-                                <li><a href="#"><?php echo escape(ucfirst($post['p_category'])) ?><i class="fa fa-tag"></i></a></li>
-                                <li><a href="#"><?php echo escape($post['p_date']) ?><i class="fa fa-calendar-o"></i></a></li>
-                                <li><a href="#"><?php echo escape(substr($post['p_time'],0,5)) ?><i class="fa fa-clock-o"></i></a></li>
+                                <li><span><?php echo escape(ucwords($post['p_author'])) ?><i class="fa fa-user-o"></i></span></li>
+                                <li><span><?php echo escape(ucfirst($post['p_category'])) ?><i class="fa fa-tag"></i></span></li>
+                                <li><span><?php echo escape($post['p_date']) ?><i class="fa fa-calendar-o"></i></span></li>
+                                <li><span><?php echo escape(substr($post['p_time'],0,5)) ?><i class="fa fa-clock-o"></i></span></li>
                             </ul>
                         </div>
                     </div>

@@ -15,8 +15,8 @@ class Posts
     public function __construct()
     {
         $this->_database = Database::getInstance();
-        $this->setCategories();
-        $this->setTags();
+        $this->setCategoriesSideBar();
+        $this->setTagsSideBar();
     }
 
     /**
@@ -66,7 +66,7 @@ class Posts
      * @method                  setCategories
      * @desc                    Sets post categories using SELECT DISTINCT on `post` table.
      */
-    private function setCategories()
+    private function setCategoriesSideBar()
     {
         $sql = "SELECT DISTINCT `p_category`, COUNT(`p_category`) FROM `post` GROUP BY `p_category`;";
 
@@ -87,7 +87,7 @@ class Posts
      * @method                  setTags
      * @desc                    Sets posts tags using SELECT DISTINCT on `post_tag` table.
      */
-    public function setTags()
+    private function setTagsSideBar()
     {
         $sql = "SELECT DISTINCT `pt_text` FROM `post_tag`;";
 
@@ -123,6 +123,7 @@ class Posts
 
         $this->_postData = $this->_database->query($sql, [(int)$skipped, (int)$postsPerPage])->getResult();
         $this->setPostSummary();
+        $this->setPostTags();
 
         return $this;
     }
@@ -139,8 +140,28 @@ class Posts
             $size = count($this->_postData);
             for ($i = 0; $i < $size; $i++) {
                 $text = str_replace($tagsArray, '', $this->_postData[$i]['p_text']);
-                $this->_postData[$i] = array_merge($this->_postData[$i],['p_summary' => substr($text, 0, 350) . '...']);
+                $this->_postData[$i] = array_merge($this->_postData[$i], ['p_summary' => substr($text, 0, 350) . '...']);
             }
+        }
+    }
+
+    private function setPostTags()
+    {
+        if (isset($this->_postData)) {
+            $idArray = [];
+            $placeholderArray = '';
+            // creates a string with ? depending on the size of _postData array
+            $i = 1;
+            foreach($this->_postData as $post){
+                $idArray [] = $post['p_id'];
+                $placeholderArray .= '?';
+                if($i < count($this->_postData)) {
+                    $placeholderArray .= ', ';
+                }
+                $i++;
+            }
+
+//            $sql = "SELECT `p_id` FROM `post` INNER JOIN "
         }
     }
 

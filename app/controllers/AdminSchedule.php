@@ -4,7 +4,6 @@ class AdminSchedule extends Controller
 {
     private $_page;
     private $_schedule;
-    private $_lastPage;
     private $_classes;
     private $_coaches;
 
@@ -18,9 +17,7 @@ class AdminSchedule extends Controller
 
             $userData = $this->_user->getData();
 
-            $this->_schedule = $this->model('ScheduledClasses', 10);
-            $this->_schedule->setNumberOfPages();
-            $this->_lastPage = $this->_schedule->getNumberOfPages();
+            $this->_schedule = $this->model('ScheduledClasses');
 
             $this->_classes = $this->model('Classes')->selectClasses();
 
@@ -32,22 +29,19 @@ class AdminSchedule extends Controller
                 'user' => $userData,
                 'classes' => $this->_classes->getData(),
                 'coaches' => $this->_coaches->getData(),
-                'lastPage' => $this->_lastPage
             ]);
         } else {
             Redirect::to('home');
         }
     }
 
-    public function index($page = '1')
+    public function index($pageNumber = '1')
     {
-        if ($page < '1' || $page > $this->_lastPage || !is_numeric($page)) {
-            $page = '1';
-        }
-        $this->_schedule->selectClasses(false, $page);
+        $this->_schedule->selectClasses(false, 10, $pageNumber);
         $this->_view->addViewData([
             'schedule' => $this->_schedule->getData(),
-            'page' => $page
+            'page' => $this->_schedule->getCurrentPageNumber(),
+            'lastPage' => $this->_schedule->getNumberOfPages()
         ]);
         $this->_view->setSubName(toLispCase(__CLASS__));
         $this->_view->renderView();

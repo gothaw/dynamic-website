@@ -909,21 +909,21 @@ textarea:focus {
         color: #f61b55; }
       .blog_info .post_tag a.active {
         color: #f61b55; }
-  .blog_info .blog_meta li a {
+  .blog_info .blog_meta li a, .blog_info .blog_meta li span {
     font: 300 14px/20px;
     color: #777777;
     vertical-align: middle;
     padding-bottom: 12px;
     display: inline-block; }
-    .blog_info .blog_meta li a i {
-      color: #222222;
-      font-size: 16px;
-      font-weight: 600;
-      padding-left: 15px;
-      line-height: 20px;
-      vertical-align: middle; }
-    .blog_info .blog_meta li a:hover {
-      color: #f61b55; }
+  .blog_info .blog_meta li a:hover {
+    color: #f61b55; }
+  .blog_info .blog_meta li i {
+    color: #222222;
+    font-size: 16px;
+    font-weight: 600;
+    padding-left: 15px;
+    line-height: 20px;
+    vertical-align: middle; }
 
 .blog_post img {
   max-width: 100%; }

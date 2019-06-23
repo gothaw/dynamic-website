@@ -5,17 +5,15 @@ class ScheduledClasses
     private $_data;
     private $_database;
     private $_errors = [];
-    private $_classesPerPage;
     private $_numberOfPages;
+    private $_currentPageNumber;
 
     /**
      *                          ScheduledClasses constructor.
-     * @param                   $classesPerPage
      * @desc                    Sets database field.
      */
-    public function __construct($classesPerPage = null)
+    public function __construct()
     {
-        $this->_classesPerPage = $classesPerPage;
         $this->_database = Database::getInstance();
     }
 
@@ -40,16 +38,25 @@ class ScheduledClasses
     }
 
     /**
-     * @method                  setNumberOfPages
-     * @desc                    Sets _numberOfPages field. Used in admin panel.
+     * @method                  getCurrentPageNumber
+     * @desc                    Getter for _currentPageNumber field.
+     * @return                  int
      */
-    public function setNumberOfPages()
+    public function getCurrentPageNumber()
     {
-        if (isset($this->_classesPerPage)) {
-            $sql = "SELECT COUNT(*) FROM `schedule`";
-            $rowCount = $this->_database->query($sql)->getResultFirstRecord()['COUNT(*)'];
-            $this->_numberOfPages = ceil($rowCount / $this->_classesPerPage);
-        }
+        return $this->_currentPageNumber;
+    }
+
+    /**
+     * @method                  setNumberOfPages
+     * @param                   $classesPerPage
+     * @desc                    Sets _numberOfPages field.
+     */
+    private function setNumberOfPages($classesPerPage)
+    {
+        $sql = "SELECT COUNT(*) FROM `schedule`";
+        $rowCount = $this->_database->query($sql)->getResultFirstRecord()['COUNT(*)'];
+        $this->_numberOfPages = ceil($rowCount / $classesPerPage);
     }
 
     /**
@@ -108,13 +115,15 @@ class ScheduledClasses
 
     /**
      * @method                  selectClasses
-     * @param                   $pageNumber {int}
      * @param                   $onlyFutureClasses {bool}
+     * @param                   $classesPerPage {int}
+     * @param                   $pageNumber {int}
      * @desc                    Selects classes from `schedule` table. By default selects 7 classes with dates of today or after.
      *                          Uses inner join on `class` and `coach` tables.
+     *                          Additionally, sets current page number of the schedule list and total number of pages.
      * @return                  ScheduledClasses
      */
-    public function selectClasses($onlyFutureClasses = true, $pageNumber = null)
+    public function selectClasses($onlyFutureClasses = true, $classesPerPage = null, $pageNumber = null)
     {
         $sql = "
                 SELECT 
@@ -145,18 +154,28 @@ class ScheduledClasses
             $sql .= "ORDER BY `schedule`.`sc_class_date` DESC";
         }
 
-        if (isset($this->_classesPerPage) && $pageNumber > 0) {
+        // Sets current page number and number of pages
+        if (isset($pageNumber)) {
+            $this->setNumberOfPages($classesPerPage);
+            if ($pageNumber < '1' || $pageNumber > $this->_numberOfPages || !is_numeric($pageNumber)) {
+                $this->_currentPageNumber = '1';
+            } else {
+                $this->_currentPageNumber = $pageNumber;
+            }
+        }
+
+        if (isset($classesPerPage) && $this->_currentPageNumber > 0) {
 
             // Gets number of classes equal to _classesPerPage but skips firsts $skipped classes
-            $skipped = $this->_classesPerPage * $pageNumber - $this->_classesPerPage;
+            $skipped = $classesPerPage * $this->_currentPageNumber - $classesPerPage;
             $sql .= " LIMIT ?,?;";
-            $this->_data = $this->_database->query($sql, [(int)$skipped, (int)$this->_classesPerPage])->getResult();
+            $this->_data = $this->_database->query($sql, [(int)$skipped, (int)$classesPerPage])->getResult();
 
-        } elseif (isset($this->_classesPerPage)) {
+        } elseif (isset($classesPerPage)) {
 
             // Gets number of classes equal to _classesPerPage
             $sql .= " LIMIT ?;";
-            $this->_data = $this->_database->query($sql, [(int)$this->_classesPerPage])->getResult();
+            $this->_data = $this->_database->query($sql, [(int)$classesPerPage])->getResult();
 
         } else {
             $this->_data = $this->_database->query($sql)->getResult();
