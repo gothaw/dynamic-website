@@ -366,10 +366,12 @@ class ScheduledClasses
     {
         $selectedClass = $this->getClassFromData($scheduledId);
 
-        $isUpdated = !$this->_database->update('schedule', 'sc_id', $scheduledId, ['sc_no_people' => $selectedClass['sc_no_people'] + 1]);
+        if (isset($selectedClass)) {
+            $isUpdated = !$this->_database->update('schedule', 'sc_id', $scheduledId, ['sc_no_people' => $selectedClass['sc_no_people'] + 1]);
 
-        if ($isUpdated) {
-            throw new Exception("There was a problem signing up to the class.");
+            if ($isUpdated) {
+                throw new Exception("There was a problem signing up to the class.");
+            }
         }
     }
 
@@ -384,10 +386,12 @@ class ScheduledClasses
     {
         $selectedClass = $this->getClassFromData($scheduledId);
 
-        $isUpdated = !$this->_database->update('schedule', 'sc_id', $scheduledId, ['sc_no_people' => $selectedClass['sc_no_people'] - 1]);
+        if (isset($selectedClass)) {
+            $isUpdated = !$this->_database->update('schedule', 'sc_id', $scheduledId, ['sc_no_people' => $selectedClass['sc_no_people'] - 1]);
 
-        if ($isUpdated) {
-            throw new Exception("There was a problem dropping out from the class.");
+            if ($isUpdated) {
+                throw new Exception("There was a problem dropping out from the class.");
+            }
         }
     }
 

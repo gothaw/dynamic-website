@@ -12,11 +12,13 @@
                 <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
                 <a href="#" target="_blank"><i class="fa fa-linkedin"></i></a>
             </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at consectetur consequatur cum debitis eius esse labore libero minima, minus, molestiae nam nemo odio odit quidem quos totam voluptate voluptatibus.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at consectetur consequatur cum debitis eius
+                esse labore libero minima, minus, molestiae nam nemo odio odit quidem quos totam voluptate
+                voluptatibus.</p>
             <div class="br"></div>
         </aside>
         <aside class="single_sidebar_widget popular_post_widget">
-            <h4 class="widget_title">Popular Posts</h4>
+            <h4 class="widget_title">Other Posts</h4>
             <div class="media post_item">
                 <img src="<?php echo DIST ?>img/blog/popular-post/post1.jpg" alt="post">
                 <div class="media-body">
@@ -50,48 +52,16 @@
         <aside class="single_sidebar_widget post_category_widget">
             <h4 class="widget_title">Post Catgories</h4>
             <ul class="list cat-list">
-                <li>
-                    <a href="#" class="d-flex justify-content-between">
-                        <p>Technology</p>
-                        <p>37</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="d-flex justify-content-between">
-                        <p>Lifestyle</p>
-                        <p>24</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="d-flex justify-content-between">
-                        <p>Fashion</p>
-                        <p>59</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="d-flex justify-content-between">
-                        <p>Art</p>
-                        <p>29</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="d-flex justify-content-between">
-                        <p>Food</p>
-                        <p>15</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="d-flex justify-content-between">
-                        <p>Architecture</p>
-                        <p>09</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="d-flex justify-content-between">
-                        <p>Adventure</p>
-                        <p>44</p>
-                    </a>
-                </li>
+                <?php if (isset($data['categories'])) {
+                    foreach ($data['categories'] as $category) { ?>
+                        <li>
+                            <a href="#" class="d-flex justify-content-between">
+                                <p><?php echo ucfirst(escape($category['p_category'])) ?></p>
+                                <p><?php echo escape($category['COUNT(`p_category`)']) ?></p>
+                            </a>
+                        </li>
+                    <?php }
+                } ?>
             </ul>
             <div class="br"></div>
         </aside>
@@ -106,7 +76,8 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i></div>
                     </div>
-                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Enter email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email'">
+                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Enter email"
+                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email'">
                 </div>
                 <a href="#" class="bbtns">Subscribe</a>
             </div>
@@ -115,18 +86,11 @@
         <aside class="single-sidebar-widget tag_cloud_widget">
             <h4 class="widget_title">Tag Clouds</h4>
             <ul class="list">
-                <li><a href="#">Technology</a></li>
-                <li><a href="#">Fashion</a></li>
-                <li><a href="#">Architecture</a></li>
-                <li><a href="#">Fashion</a></li>
-                <li><a href="#">Food</a></li>
-                <li><a href="#">Technology</a></li>
-                <li><a href="#">Lifestyle</a></li>
-                <li><a href="#">Art</a></li>
-                <li><a href="#">Adventure</a></li>
-                <li><a href="#">Food</a></li>
-                <li><a href="#">Lifestyle</a></li>
-                <li><a href="#">Adventure</a></li>
+                <?php if (isset($data['tags'])) {
+                    foreach ($data['tags'] as $tag) { ?>
+                        <li><a href="#"><?php echo ucfirst(escape($tag['pt_text'])) ?></a></li>
+                    <?php }
+                } ?>
             </ul>
         </aside>
     </div>

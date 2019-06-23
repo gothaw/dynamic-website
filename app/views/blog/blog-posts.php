@@ -1,156 +1,48 @@
 <!--Blog Posts Area-->
+<?php
+    /*$text = $data['posts'][0]['p_text'];
+    trace(substr_count($text,'<p>'));
+    $text1 = str_replace('<p>','',$text);
+    $text1exploded = explode('</p>',$text1);
+    array_pop($text1exploded);
+    trace($text1exploded);
+    echo strlen($text1exploded[0]);*/
+?>
 <div class="col-lg-8">
     <div class="blog_left_sidebar">
-        <article class="row blog_item">
-            <div class="col-md-3">
-                <div class="blog_info text-right">
-                    <div class="post_tag">
-                        <a href="#">Food,</a>
-                        <a class="active" href="#">Technology,</a>
-                        <a href="#">Politics,</a>
-                        <a href="#">Lifestyle</a>
+        <?php if (isset($data['posts'])) {
+            foreach ($data['posts'] as $post) {
+                ?>
+                <article class="row blog_item">
+                    <div class="col-md-3">
+                        <div class="blog_info text-right">
+                            <div class="post_tag">
+                                <a href="#">Food,</a>
+                                <a class="active" href="#">Technology,</a>
+                                <a href="#">Politics,</a>
+                                <a href="#">Lifestyle</a>
+                            </div>
+                            <ul class="blog_meta list">
+                                <li><a href="#"><?php echo escape(ucwords($post['p_author'])) ?><i class="fa fa-user-o"></i></a></li>
+                                <li><a href="#"><?php echo escape(ucfirst($post['p_category'])) ?><i class="fa fa-tag"></i></a></li>
+                                <li><a href="#"><?php echo escape($post['p_date']) ?><i class="fa fa-calendar-o"></i></a></li>
+                                <li><a href="#"><?php echo escape(substr($post['p_time'],0,5)) ?><i class="fa fa-clock-o"></i></a></li>
+                            </ul>
+                        </div>
                     </div>
-                    <ul class="blog_meta list">
-                        <li><a href="#">Mark wiens<i class="fa fa-user-o"></i></a></li>
-                        <li><a href="#">12 Dec, 2017<i class="fa fa-calendar-o"></i></a></li>
-                        <li><a href="#">1.2M Views<i class="fa fa-eye"></i></a></li>
-                        <li><a href="#">06 Comments<i class="fa fa-comment-o"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-9">
-                <div class="blog_post">
-                    <img src="<?php echo DIST ?>img/blog-details/feature-img1.jpg" alt="">
-                    <div class="blog_details">
-                        <a href="#"><h4>Astronomy Binoculars A Great Alternative</h4></a>
-                        <p>MCSE boot camps have its supporters and its detractors. Some people do not understand why you
-                            should have to spend money on boot camp when you can get the MCSE study materials yourself
-                            at a fraction.</p>
-                        <a href="#" class="template-btn">View More</a>
+                    <div class="col-md-9">
+                        <div class="blog_post">
+                            <img src="<?php echo DIST . escape($post['p_img_url']) ?>" alt="<?php echo escape($post['p_img_alt']) ?>">
+                            <div class="blog_details">
+                                <a href="#"><h4><?php echo escape(ucwords($post['p_title'])) ?></h4></a>
+                                <p><?php echo escape($post['p_summary']) ?></p>
+                                <a href="#" class="template-btn">View More</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </article>
-        <article class="row blog_item">
-            <div class="col-md-3">
-                <div class="blog_info text-right">
-                    <div class="post_tag">
-                        <a href="#">Food,</a>
-                        <a class="active" href="#">Technology,</a>
-                        <a href="#">Politics,</a>
-                        <a href="#">Lifestyle</a>
-                    </div>
-                    <ul class="blog_meta list">
-                        <li><a href="#">Mark wiens<i class="fa fa-user-o"></i></a></li>
-                        <li><a href="#">12 Dec, 2017<i class="fa fa-calendar-o"></i></a></li>
-                        <li><a href="#">1.2M Views<i class="fa fa-eye"></i></a></li>
-                        <li><a href="#">06 Comments<i class="fa fa-comment-o"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-9">
-                <div class="blog_post">
-                    <img src="<?php echo DIST ?>img/blog/main-blog/m-blog-2.jpg" alt="">
-                    <div class="blog_details">
-                        <a href="#"><h4>The Basics Of Buying A Telescope</h4></a>
-                        <p>MCSE boot camps have its supporters and its detractors. Some people do not understand why you
-                            should have to spend money on boot camp when you can get the MCSE study materials yourself
-                            at a fraction.</p>
-                        <a href="#" class="template-btn">View More</a>
-                    </div>
-                </div>
-            </div>
-        </article>
-        <article class="row blog_item">
-            <div class="col-md-3">
-                <div class="blog_info text-right">
-                    <div class="post_tag">
-                        <a href="#">Food,</a>
-                        <a class="active" href="#">Technology,</a>
-                        <a href="#">Politics,</a>
-                        <a href="#">Lifestyle</a>
-                    </div>
-                    <ul class="blog_meta list">
-                        <li><a href="#">Mark wiens<i class="fa fa-user-o"></i></a></li>
-                        <li><a href="#">12 Dec, 2017<i class="fa fa-calendar-o"></i></a></li>
-                        <li><a href="#">1.2M Views<i class="fa fa-eye"></i></a></li>
-                        <li><a href="#">06 Comments<i class="fa fa-comment-o"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-9">
-                <div class="blog_post">
-                    <img src="<?php echo DIST ?>img/blog/main-blog/m-blog-3.jpg" alt="">
-                    <div class="blog_details">
-                        <a href="#"><h4>The Glossary Of Telescopes</h4></a>
-                        <p>MCSE boot camps have its supporters and its detractors. Some people do not understand why you
-                            should have to spend money on boot camp when you can get the MCSE study materials yourself
-                            at a fraction.</p>
-                        <a href="#" class="template-btn">View More</a>
-                    </div>
-                </div>
-            </div>
-        </article>
-        <article class="row blog_item">
-            <div class="col-md-3">
-                <div class="blog_info text-right">
-                    <div class="post_tag">
-                        <a href="#">Food,</a>
-                        <a class="active" href="#">Technology,</a>
-                        <a href="#">Politics,</a>
-                        <a href="#">Lifestyle</a>
-                    </div>
-                    <ul class="blog_meta list">
-                        <li><a href="#">Mark wiens<i class="fa fa-user-o"></i></a></li>
-                        <li><a href="#">12 Dec, 2017<i class="fa fa-calendar-o"></i></a></li>
-                        <li><a href="#">1.2M Views<i class="fa fa-eye"></i></a></li>
-                        <li><a href="#">06 Comments<i class="fa fa-comment-o"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-9">
-                <div class="blog_post">
-                    <img src="<?php echo DIST ?>img/blog/main-blog/m-blog-4.jpg" alt="">
-                    <div class="blog_details">
-                        <a href="#"><h4>The Night Sky</h4></a>
-                        <p>MCSE boot camps have its supporters and its detractors. Some people do not understand why you
-                            should have to spend money on boot camp when you can get the MCSE study materials yourself
-                            at a fraction.</p>
-                        <a href="#" class="template-btn">View More</a>
-                    </div>
-                </div>
-            </div>
-        </article>
-        <article class="row blog_item">
-            <div class="col-md-3">
-                <div class="blog_info text-right">
-                    <div class="post_tag">
-                        <a href="#">Food,</a>
-                        <a class="active" href="#">Technology,</a>
-                        <a href="#">Politics,</a>
-                        <a href="#">Lifestyle</a>
-                    </div>
-                    <ul class="blog_meta list">
-                        <li><a href="#">Mark wiens<i class="fa fa-user-o"></i></a></li>
-                        <li><a href="#">12 Dec, 2017<i class="fa fa-calendar-o"></i></a></li>
-                        <li><a href="#">1.2M Views<i class="fa fa-eye"></i></a></li>
-                        <li><a href="#">06 Comments<i class="fa fa-comment-o"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-9">
-                <div class="blog_post">
-                    <img src="<?php echo DIST ?>img/blog/main-blog/m-blog-5.jpg" alt="">
-                    <div class="blog_details">
-                        <a href="#"><h4>Telescopes 101</h4></a>
-                        <p>MCSE boot camps have its supporters and its detractors. Some people do not understand why you
-                            should have to spend money on boot camp when you can get the MCSE study materials yourself
-                            at a fraction.</p>
-                        <a href="#" class="template-btn">View More</a>
-                    </div>
-                </div>
-            </div>
-        </article>
+                </article>
+            <?php }
+        } ?>
         <nav class="blog-pagination justify-content-center d-flex">
             <ul class="pagination">
                 <li class="page-item">
