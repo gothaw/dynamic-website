@@ -4,7 +4,6 @@ class Blog extends Controller
 {
     private $_page;
     private $_posts;
-    private $_lastPage;
 
     public function __construct()
     {
@@ -13,8 +12,6 @@ class Blog extends Controller
         parent::__construct($this->_page);
 
         $this->_posts = $this->model('Posts');
-        $this->_posts->setNumberOfPages();
-        $this->_lastPage = $this->_posts->getNumberOfPages();
 
         $this->view($this->_page, $this->_path, [
             'navPages' => $this->_navPages,
@@ -26,13 +23,11 @@ class Blog extends Controller
 
     public function index($page = '1')
     {
-        if ($page < '1' || $page > $this->_lastPage || !is_numeric($page)) {
-            $page = '1';
-        }
         $this->_posts->selectPosts(4, $page);
         $this->_view->addViewData([
             'posts' => $this->_posts->getData(),
-            'page' => $page
+            'page' => $this->_posts->getCurrentPageNumber(),
+            'lastPage' => $this->_posts->getNumberOfPages()
         ]);
         $this->_view->renderView();
     }

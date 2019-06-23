@@ -80,7 +80,7 @@ class Classes
 
         if (isset($numberOfClasses)) {
             $sql .= " LIMIT ?;";
-            $this->_data = $this->_database->query($sql, [(int)$numberOfClasses])->getResult();
+            $this->_data = $this->_database->query($sql, [$numberOfClasses])->getResult();
         } else {
             $this->_data = $this->_database->query($sql)->getResult();
         }

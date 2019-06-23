@@ -4,9 +4,11 @@ class Posts
 {
     private $_database;
     private $_postData;
-    private $_numberOfPages;
     private $_categories;
     private $_tags;
+    private $_numberOfPages;
+    private $_currentPageNumber;
+
 
     /**
      *                          Posts constructor.
@@ -40,15 +42,40 @@ class Posts
     }
 
     /**
+     * @method                  getCurrentPageNumber
+     * @desc                    Getter for _currentPageNumber field.
+     * @return                  int
+     */
+    public function getCurrentPageNumber()
+    {
+        return $this->_currentPageNumber;
+    }
+
+    /**
      * @method                  setNumberOfPages
+     * @param                   $postsPerPage {int}
      * @desc                    Sets _numberOfPages field.
      */
-    public function setNumberOfPages()
+    private function setNumberOfPages($postsPerPage)
     {
-        if (isset($this->_classesPerPage)) {
-            $sql = "SELECT COUNT(*) FROM `post`";
-            $rowCount = $this->_database->query($sql)->getResultFirstRecord()['COUNT(*)'];
-            $this->_numberOfPages = ceil($rowCount / $this->_classesPerPage);
+        $sql = "SELECT COUNT(*) FROM `post`";
+        $rowCount = $this->_database->query($sql)->getResultFirstRecord()['COUNT(*)'];
+        $this->_numberOfPages = ceil($rowCount / $postsPerPage);
+    }
+
+    /**
+     * @method                  setBlogPages
+     * @param                   $postsPerPage {int}
+     * @param                   $pageNumber {int}
+     * @desc                    Sets total number of pages and current page fields.
+     */
+    private function setBlogPages($postsPerPage, $pageNumber)
+    {
+        $this->setNumberOfPages($postsPerPage);
+        if ($pageNumber < '1' || $pageNumber > $this->_numberOfPages || !is_numeric($pageNumber)) {
+            $this->_currentPageNumber = '1';
+        } else {
+            $this->_currentPageNumber = $pageNumber;
         }
     }
 
@@ -104,8 +131,11 @@ class Posts
      */
     public function selectPosts($postsPerPage, $pageNumber)
     {
+        // Sets blog pages
+        $this->setBlogPages($postsPerPage, $pageNumber);
+
         // Gets number of posts equal to _postsPerPage but skips firsts $skipped posts
-        $skipped = $postsPerPage * $pageNumber - $postsPerPage;
+        $skipped = $postsPerPage * $this->_currentPageNumber - $postsPerPage;
 
         $sql = "SELECT
                     *
@@ -145,23 +175,53 @@ class Posts
         }
     }
 
+    /**
+     * @method                  setPostTags
+     * @desc                    Sets tags for posts in _postsData as arrays of values. Adds these arrays to _postData field using array_merge.
+     *                          Uses select query with inner join between `post` and `post_tag` tables.
+     */
     private function setPostTags()
     {
         if (isset($this->_postData)) {
             $idArray = [];
-            $placeholderArray = '';
+            $parameters = '';
             // creates a string with ? depending on the size of _postData array
             $i = 1;
-            foreach($this->_postData as $post){
+            foreach ($this->_postData as $post) {
                 $idArray [] = $post['p_id'];
-                $placeholderArray .= '?';
-                if($i < count($this->_postData)) {
-                    $placeholderArray .= ', ';
+                $parameters .= '?';
+                if ($i < count($this->_postData)) {
+                    $parameters .= ', ';
                 }
                 $i++;
             }
+            $sql = "SELECT 
+                        `post`.`p_id`,`pt_text` 
+                    FROM 
+                        `post` 
+                    INNER JOIN 
+                        `post_tag` 
+                    ON 
+                        `post`.`p_id` = `post_tag`.`p_id`
+                    WHERE
+                        `post`.`p_id` IN (" . $parameters . ")
+                    ORDER BY
+                        `post`.`p_id`
+                    ASC";
+            // Selects tags from the database
+            $tags = $this->_database->query($sql, $idArray)->getResult();
 
-//            $sql = "SELECT `p_id` FROM `post` INNER JOIN "
+            // Adds post tags to the _postData
+            $size = count($this->_postData);
+            for ($i = 0; $i < $size; $i++) {
+                $postTags = [];
+                foreach ($tags as $tag) {
+                    if ($tag['p_id'] === $this->_postData[$i]['p_id']) {
+                        $postTags [] = $tag['pt_text'];
+                    }
+                }
+                $this->_postData[$i] = array_merge($this->_postData[$i], ['p_tags' => $postTags]);
+            }
         }
     }
 

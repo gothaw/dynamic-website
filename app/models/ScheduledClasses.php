@@ -60,6 +60,24 @@ class ScheduledClasses
     }
 
     /**
+     * @method                  setSchedulePages
+     * @param                   $classesPerPage {int}
+     * @param                   $pageNumber {int}
+     * @desc                    Sets total number of pages and current page fields.
+     */
+    private function setSchedulePages($classesPerPage, $pageNumber)
+    {
+        if (isset($classesPerPage) && isset($pageNumber)) {
+            $this->setNumberOfPages($classesPerPage);
+            if ($pageNumber < '1' || $pageNumber > $this->_numberOfPages || !is_numeric($pageNumber)) {
+                $this->_currentPageNumber = '1';
+            } else {
+                $this->_currentPageNumber = $pageNumber;
+            }
+        }
+    }
+
+    /**
      * @method                  addError
      * @param                   $error {string}
      * @desc                    Adds error message to the _errors array.
@@ -155,27 +173,20 @@ class ScheduledClasses
         }
 
         // Sets current page number and number of pages
-        if (isset($pageNumber)) {
-            $this->setNumberOfPages($classesPerPage);
-            if ($pageNumber < '1' || $pageNumber > $this->_numberOfPages || !is_numeric($pageNumber)) {
-                $this->_currentPageNumber = '1';
-            } else {
-                $this->_currentPageNumber = $pageNumber;
-            }
-        }
+        $this->setSchedulePages($classesPerPage, $pageNumber);
 
         if (isset($classesPerPage) && $this->_currentPageNumber > 0) {
 
             // Gets number of classes equal to _classesPerPage but skips firsts $skipped classes
             $skipped = $classesPerPage * $this->_currentPageNumber - $classesPerPage;
             $sql .= " LIMIT ?,?;";
-            $this->_data = $this->_database->query($sql, [(int)$skipped, (int)$classesPerPage])->getResult();
+            $this->_data = $this->_database->query($sql, [$skipped, $classesPerPage])->getResult();
 
         } elseif (isset($classesPerPage)) {
 
             // Gets number of classes equal to _classesPerPage
             $sql .= " LIMIT ?;";
-            $this->_data = $this->_database->query($sql, [(int)$classesPerPage])->getResult();
+            $this->_data = $this->_database->query($sql, [$classesPerPage])->getResult();
 
         } else {
             $this->_data = $this->_database->query($sql)->getResult();
@@ -211,7 +222,7 @@ class ScheduledClasses
                 $sql .= " AND (`sc_class_date` > CURDATE() OR (`sc_class_date` = CURDATE() AND `schedule`.`sc_class_time` > CURTIME()))";
             }
 
-            $this->_data = $this->_database->query($sql, [(int)$scheduledId])->getResultFirstRecord();
+            $this->_data = $this->_database->query($sql, [$scheduledId])->getResultFirstRecord();
         }
         return $this;
     }
@@ -242,7 +253,7 @@ class ScheduledClasses
 
         if (isset($scheduledId)) {
             $sql .= " AND `schedule`.`sc_id` != ?;";
-            $classesOnSameDay = $this->_database->query($sql, [$newDate, (int)$scheduledId])->getResult();
+            $classesOnSameDay = $this->_database->query($sql, [$newDate, $scheduledId])->getResult();
         } else {
             $classesOnSameDay = $this->_database->query($sql, [$newDate])->getResult();
         }
