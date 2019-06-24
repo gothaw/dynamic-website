@@ -2,15 +2,15 @@
 <div class="col-lg-4">
     <div class="blog_right_sidebar">
         <aside class="single_sidebar_widget author_widget">
-            <div class="br"></div>
             <h4 class="widget_title">Blog Writer</h4>
+            <div class="br"></div>
             <img class="author_img rounded-circle" src="<?php echo DIST ?>img/blog/author.jpg" alt="blog author">
             <h5>Jamie Hart</h5>
             <p>Trainer</p>
             <div class="social_icon">
-                <a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
-                <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
-                <a href="#" target="_blank"><i class="fa fa-linkedin"></i></a>
+                <a href="https://www.facebook.com" target="_blank"><i class="fa fa-facebook"></i></a>
+                <a href="https://twitter.com/twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+                <a href="https://www.linkedin.com" target="_blank"><i class="fa fa-linkedin"></i></a>
             </div>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at consectetur consequatur cum debitis eius
                 esse labore libero minima, minus, molestiae nam nemo odio odit quidem quos totam voluptate
@@ -55,7 +55,7 @@
                 <?php if (isset($data['categories'])) {
                     foreach ($data['categories'] as $category) { ?>
                         <li>
-                            <a href="#" class="d-flex justify-content-between">
+                            <a href="<?php echo ROOT . 'blog/category/' . escape(str_replace(' ','_',$category['p_category'])) ?>" class="d-flex justify-content-between">
                                 <p><?php echo ucfirst(escape($category['p_category'])) ?></p>
                                 <p><?php echo escape($category['COUNT(`p_category`)']) ?></p>
                             </a>
@@ -88,7 +88,7 @@
             <ul class="list">
                 <?php if (isset($data['tags'])) {
                     foreach ($data['tags'] as $tag) { ?>
-                        <li><a href="#"><?php echo ucfirst(escape($tag['pt_text'])) ?></a></li>
+                        <li><a href="<?php echo ROOT . 'blog/tag/' . escape($tag['pt_text']) ?>"><?php echo ucfirst(escape($tag['pt_text'])) ?></a></li>
                     <?php }
                 } ?>
             </ul>

@@ -9,7 +9,6 @@ class Posts
     private $_numberOfPages;
     private $_currentPageNumber;
 
-
     /**
      *                          Posts constructor.
      * @desc                    Sets database field and details to be displayed on blog sidebar i.e. categories, tags.
@@ -54,12 +53,18 @@ class Posts
     /**
      * @method                  setNumberOfPages
      * @param                   $postsPerPage {int}
+     * @param                   $category {string}
      * @desc                    Sets _numberOfPages field.
      */
-    private function setNumberOfPages($postsPerPage)
+    private function setNumberOfPages($postsPerPage, $category)
     {
-        $sql = "SELECT COUNT(*) FROM `post`";
-        $rowCount = $this->_database->query($sql)->getResultFirstRecord()['COUNT(*)'];
+        if (isset($category)) {
+            $sql = "SELECT COUNT(*) FROM `post` WHERE `p_category` = ?";
+            $rowCount = $this->_database->query($sql, [$category])->getResultFirstRecord()['COUNT(*)'];
+        } else {
+            $sql = "SELECT COUNT(*) FROM `post`";
+            $rowCount = $this->_database->query($sql)->getResultFirstRecord()['COUNT(*)'];
+        }
         $this->_numberOfPages = ceil($rowCount / $postsPerPage);
     }
 
@@ -67,11 +72,12 @@ class Posts
      * @method                  setBlogPages
      * @param                   $postsPerPage {int}
      * @param                   $pageNumber {int}
+     * @param                   $category {string}
      * @desc                    Sets total number of pages and current page fields.
      */
-    private function setBlogPages($postsPerPage, $pageNumber)
+    private function setBlogPages($postsPerPage, $pageNumber, $category)
     {
-        $this->setNumberOfPages($postsPerPage);
+        $this->setNumberOfPages($postsPerPage, $category);
         if ($pageNumber < '1' || $pageNumber > $this->_numberOfPages || !is_numeric($pageNumber)) {
             $this->_currentPageNumber = '1';
         } else {
@@ -126,13 +132,15 @@ class Posts
      * @method                  selectPosts
      * @param                   $postsPerPage {int}
      * @param                   $pageNumber {int}
+     * @param                   $category {string}
+     * @desc                    Selects posts from the database based on the page number and category.
+     *                          Post category is an optional parameter.
      * @return                  $this
-     * @desc                    Selects posts from the database based on the page number.
      */
-    public function selectPosts($postsPerPage, $pageNumber)
+    public function selectPosts($postsPerPage, $pageNumber, $category = null)
     {
         // Sets blog pages
-        $this->setBlogPages($postsPerPage, $pageNumber);
+        $this->setBlogPages($postsPerPage, $pageNumber, $category);
 
         // Gets number of posts equal to _postsPerPage but skips firsts $skipped posts
         $skipped = $postsPerPage * $this->_currentPageNumber - $postsPerPage;
@@ -145,13 +153,24 @@ class Posts
                     `post_img`
                 ON
                     `post`.`p_img_id` = `post_img`.`p_img_id`
-                ORDER BY
-                    `post`.`p_date` DESC,
-                    `post`.`p_time` DESC
-                LIMIT ?,?;
+                
                 ";
 
-        $this->_postData = $this->_database->query($sql, [(int)$skipped, (int)$postsPerPage])->getResult();
+        if (isset($category)) {
+            $sql .= "WHERE `post`.`p_category` = ?
+                    ORDER BY
+                        `post`.`p_date` DESC,
+                        `post`.`p_time` DESC
+                    LIMIT ?,?;";
+            $this->_postData = $this->_database->query($sql, [$category, $skipped, $postsPerPage])->getResult();
+        } else {
+            $sql .= "ORDER BY
+                        `post`.`p_date` DESC,
+                        `post`.`p_time` DESC
+                    LIMIT ?,?;";
+            $this->_postData = $this->_database->query($sql, [$skipped, $postsPerPage])->getResult();
+        }
+
         $this->setPostSummary();
         $this->setPostTags();
 

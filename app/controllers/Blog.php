@@ -29,6 +29,42 @@ class Blog extends Controller
             'page' => $this->_posts->getCurrentPageNumber(),
             'lastPage' => $this->_posts->getNumberOfPages()
         ]);
+        $this->_view->setSubName(toLispCase(__CLASS__));
         $this->_view->renderView();
+    }
+
+    public function tag($tag = '', $page = '1')
+    {
+
+    }
+
+    public function category($category = '', $page = '1')
+    {
+        $category = str_replace('_',' ',$category);
+
+        // Validation using Validate object
+        $validate = new Validate();
+        $validate->check(['category' => $category], ValidationRules::getValidPostCategoryRules());
+
+        if($validate->checkIfPassed()){
+
+            $this->_posts->selectPosts(4, $page, $category);
+
+            $this->_view->addViewData([
+                'posts' => $this->_posts->getData(),
+                'page' => $this->_posts->getCurrentPageNumber(),
+                'lastPage' => $this->_posts->getNumberOfPages()
+            ]);
+            $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__ . '/' . escape($category));
+            $this->_view->renderView();
+
+        } else {
+            Redirect::to('blog');
+        }
+    }
+
+    public function post($postId = '')
+    {
+
     }
 }

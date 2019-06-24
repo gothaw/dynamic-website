@@ -305,6 +305,23 @@ class ValidationRules
         return $rulesArray;
     }
 
+
+    /**
+     * @method                      getValidPostCategoryRules
+     * @desc                        Valid post categories rules. Used in selecting posts by category and validating get parameter.
+     * @return                      array
+     */
+    public static function getValidPostCategoryRules()
+    {
+        $rulesArray = [
+            'category' => [
+                'required' => true,
+                'exists' => 'post/p_category'
+            ]
+        ];
+        return $rulesArray;
+    }
+
     /**
      * @method                      getUserDetailsRules
      * @desc                        Rules for valid user details such as first name, last name and address.

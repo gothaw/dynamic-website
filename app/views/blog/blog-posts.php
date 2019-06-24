@@ -39,7 +39,7 @@
             <ul class="pagination">
                 <li class="page-item">
                     <a href="<?php  $previous = (intval($data['page']) !== 1) ? $data['page'] - 1 : '1';
-                    echo ROOT . $name . '/' . $previous; ?>" class="page-link" aria-label="Previous">
+                    echo ROOT . $subName . '/' . $previous; ?>" class="page-link" aria-label="Previous">
                         <span aria-hidden="true">
                             <span class="fa fa-angle-left"></span>
                         </span>
@@ -53,7 +53,7 @@
                     if ($i === 1 || $i === intval($data['page']) || $i === intval($data['lastPage']) || $i === $data['page'] + 1 || $i === $data['page'] - 1) { ?>
                         <li class="page-item <?php if ($i === intval($data['page'])) {
                             echo 'active';
-                        } ?>"><a href="<?php echo ROOT . $name . '/' . $i ?>" class="page-link"><?php echo $i ?></a>
+                        } ?>"><a href="<?php echo ROOT . $subName . '/' . $i ?>" class="page-link"><?php echo $i ?></a>
                         </li>
 
                     <?php }
@@ -64,7 +64,7 @@
                 } ?>
                 <li class="page-item">
                     <a href="<?php  $next = ($data['page'] < $data['lastPage']) ? $data['page'] + 1 : $data['lastPage'];
-                    echo ROOT . $name . '/' . $next;
+                    echo ROOT . $subName . '/' . $next;
                     ?>"
                        class="page-link" aria-label="Next">
                         <span aria-hidden="true">

@@ -259,16 +259,10 @@ class AdminSchedule extends Controller
         }
     }
 
-    public function usersDelete($parameter = '')
+    public function usersDelete($scheduledId = '', $userId = '')
     {
         if (Input::exists()) {
             if (Token::check(Input::getValue('token'))) {
-
-                $parameterArray = explode('-', $parameter);
-
-                $scheduledId = $parameterArray[0];
-                $userId = $parameterArray[1];
-
                 if (is_numeric($userId) && is_numeric($scheduledId)) {
 
                     $scheduledClass = $this->_schedule->selectClass($scheduledId, true)->getData();
