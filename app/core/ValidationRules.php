@@ -323,6 +323,22 @@ class ValidationRules
     }
 
     /**
+     * @method                      getValidPostTagRules
+     * @desc                        Valid post tag rules. Used in selecting posts by tag and validating get parameter.
+     * @return                      array
+     */
+    public static function getValidPostTagRules()
+    {
+        $rulesArray = [
+            'tag' => [
+                'required' => true,
+                'exists' => 'post_tag/pt_text'
+            ]
+        ];
+        return $rulesArray;
+    }
+
+    /**
      * @method                      getUserDetailsRules
      * @desc                        Rules for valid user details such as first name, last name and address.
      * @return                      array

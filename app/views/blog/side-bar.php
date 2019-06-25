@@ -55,7 +55,7 @@
                 <?php if (isset($data['categories'])) {
                     foreach ($data['categories'] as $category) { ?>
                         <li>
-                            <a href="<?php echo ROOT . 'blog/category/' . escape(str_replace(' ','_',$category['p_category'])) ?>" class="d-flex justify-content-between">
+                            <a href="<?php echo ROOT . 'blog/category/' . escape(str_replace(' ', '_', $category['p_category'])) ?>" class="d-flex justify-content-between">
                                 <p><?php echo ucfirst(escape($category['p_category'])) ?></p>
                                 <p><?php echo escape($category['COUNT(`p_category`)']) ?></p>
                             </a>
@@ -88,7 +88,7 @@
             <ul class="list">
                 <?php if (isset($data['tags'])) {
                     foreach ($data['tags'] as $tag) { ?>
-                        <li><a href="<?php echo ROOT . 'blog/tag/' . escape($tag['pt_text']) ?>"><?php echo ucfirst(escape($tag['pt_text'])) ?></a></li>
+                        <li><a href="<?php echo ROOT . 'blog/tag/' . escape(str_replace(' ', '_', $tag['pt_text'])) ?>"><?php echo ucfirst(escape($tag['pt_text'])) ?></a></li>
                     <?php }
                 } ?>
             </ul>

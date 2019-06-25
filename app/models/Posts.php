@@ -53,14 +53,17 @@ class Posts
     /**
      * @method                  setNumberOfPages
      * @param                   $postsPerPage {int}
-     * @param                   $category {string}
+     * @param                   $parameter {array}
      * @desc                    Sets _numberOfPages field.
      */
-    private function setNumberOfPages($postsPerPage, $category)
+    private function setNumberOfPages($postsPerPage, $parameter)
     {
-        if (isset($category)) {
+        if (isset($parameter['category'])) {
             $sql = "SELECT COUNT(*) FROM `post` WHERE `p_category` = ?";
-            $rowCount = $this->_database->query($sql, [$category])->getResultFirstRecord()['COUNT(*)'];
+            $rowCount = $this->_database->query($sql, [$parameter['category']])->getResultFirstRecord()['COUNT(*)'];
+        } elseif (isset($parameter['tag'])) {
+            $sql = "SELECT COUNT(*) FROM `post` INNER JOIN `post_tag` ON `post`.`p_id` = `post_tag`.`p_id` WHERE `pt_text` = ?";
+            $rowCount = $this->_database->query($sql, [$parameter['tag']])->getResultFirstRecord()['COUNT(*)'];
         } else {
             $sql = "SELECT COUNT(*) FROM `post`";
             $rowCount = $this->_database->query($sql)->getResultFirstRecord()['COUNT(*)'];
@@ -72,12 +75,12 @@ class Posts
      * @method                  setBlogPages
      * @param                   $postsPerPage {int}
      * @param                   $pageNumber {int}
-     * @param                   $category {string}
+     * @param                   $parameter {array}
      * @desc                    Sets total number of pages and current page fields.
      */
-    private function setBlogPages($postsPerPage, $pageNumber, $category)
+    private function setBlogPages($postsPerPage, $pageNumber, $parameter)
     {
-        $this->setNumberOfPages($postsPerPage, $category);
+        $this->setNumberOfPages($postsPerPage, $parameter);
         if ($pageNumber < '1' || $pageNumber > $this->_numberOfPages || !is_numeric($pageNumber)) {
             $this->_currentPageNumber = '1';
         } else {
@@ -133,14 +136,60 @@ class Posts
      * @param                   $postsPerPage {int}
      * @param                   $pageNumber {int}
      * @param                   $category {string}
-     * @desc                    Selects posts from the database based on the page number and category.
+     * @desc                    Selects posts from the database based on the page number and/or category. Sets _postData field.
      *                          Post category is an optional parameter.
      * @return                  $this
      */
     public function selectPosts($postsPerPage, $pageNumber, $category = null)
     {
         // Sets blog pages
-        $this->setBlogPages($postsPerPage, $pageNumber, $category);
+        $this->setBlogPages($postsPerPage, $pageNumber, ['category' => $category]);
+
+        // Gets number of posts equal to _postsPerPage but skips firsts $skipped posts
+        $skipped = $postsPerPage * $this->_currentPageNumber - $postsPerPage;
+
+        $sql = "SELECT
+                    *
+                FROM 
+                    `post`
+                INNER JOIN
+                    `post_img`
+                ON
+                    `post`.`p_img_id` = `post_img`.`p_img_id`";
+
+        if (isset($category)) {
+            $sql .= " WHERE `post`.`p_category` = ?
+                    ORDER BY
+                        `post`.`p_date` DESC,
+                        `post`.`p_time` DESC
+                    LIMIT ?,?;";
+            $this->_postData = $this->_database->query($sql, [$category, $skipped, $postsPerPage])->getResult();
+        } else {
+            $sql .= " ORDER BY
+                        `post`.`p_date` DESC,
+                        `post`.`p_time` DESC
+                    LIMIT ?,?;";
+            $this->_postData = $this->_database->query($sql, [$skipped, $postsPerPage])->getResult();
+        }
+
+        $this->setPostSummary();
+        $this->setPostTags();
+
+        return $this;
+    }
+
+    /**
+     * @method                  selectPostsByTag
+     * @param                   $postsPerPage {int}
+     * @param                   $pageNumber {int}
+     * @param                   $tag {string}
+     * @desc                    Selects posts from the database based on the page number and tag. Sets _postData field.
+     * @return                  $this
+     */
+    public function selectPostsByTag($postsPerPage, $pageNumber, $tag)
+    {
+        // Sets blog pages
+        $this->setBlogPages($postsPerPage, $pageNumber, ['tag' => $tag]);
 
         // Gets number of posts equal to _postsPerPage but skips firsts $skipped posts
         $skipped = $postsPerPage * $this->_currentPageNumber - $postsPerPage;
@@ -153,29 +202,26 @@ class Posts
                     `post_img`
                 ON
                     `post`.`p_img_id` = `post_img`.`p_img_id`
-                
+                INNER JOIN
+                    `post_tag`
+                ON  
+                    `post`.`p_id` = `post_tag`.`p_id`
+                WHERE 
+                    `pt_text` = ?
+                ORDER BY
+                    `post`.`p_date` DESC,
+                    `post`.`p_time` DESC
+                LIMIT ?,?;
                 ";
 
-        if (isset($category)) {
-            $sql .= "WHERE `post`.`p_category` = ?
-                    ORDER BY
-                        `post`.`p_date` DESC,
-                        `post`.`p_time` DESC
-                    LIMIT ?,?;";
-            $this->_postData = $this->_database->query($sql, [$category, $skipped, $postsPerPage])->getResult();
-        } else {
-            $sql .= "ORDER BY
-                        `post`.`p_date` DESC,
-                        `post`.`p_time` DESC
-                    LIMIT ?,?;";
-            $this->_postData = $this->_database->query($sql, [$skipped, $postsPerPage])->getResult();
-        }
+        $this->_postData = $this->_database->query($sql, [$tag, $skipped, $postsPerPage])->getResult();
 
         $this->setPostSummary();
         $this->setPostTags();
 
         return $this;
     }
+
 
     /**
      * @method                  setPostSummary

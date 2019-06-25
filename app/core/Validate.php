@@ -76,7 +76,8 @@ class Validate
                             $table = $path[0];
                             $column = $path[1];
 
-                            $query = $this->_database->select($table, [$column, '=', $value]);
+                            $sql = "SELECT * FROM " . $table . " WHERE " . $column . " = ? LIMIT 1";
+                            $query = $this->_database->query($sql, [$value]);
 
                             if ($query->getResultRowCount()) {
                                 $this->addError("{$items[$item]['desc']} already exists");
@@ -90,7 +91,8 @@ class Validate
                             $table = $path[0];
                             $column = $path[1];
 
-                            $query = $this->_database->select($table, [$column, '=', $value]);
+                            $sql = "SELECT * FROM " . $table . " WHERE " . $column . " = ? LIMIT 1";
+                            $query = $this->_database->query($sql, [$value]);
 
                             if (!$query->getResultRowCount()) {
                                 $this->addError("{$items[$item]['desc']} does not exist. Please select different {$items[$item]['desc']}.");
