@@ -16,7 +16,7 @@
                             <div class="post_tag">
                                 <?php if (isset($post['p_tags'])) {
                                     foreach ($post['p_tags'] as $tag) { ?>
-                                        <a href=""><?php echo escape(ucfirst($tag)) ?></a>
+                                        <a href="<?php echo ROOT . 'blog/tag/' . escape(str_replace(' ', '_', $tag)) ?>"><?php echo escape(ucfirst($tag)) ?></a>
                                     <?php }
                                 } ?>
                             </div>
@@ -26,9 +26,9 @@
                         <div class="blog_post">
                             <img src="<?php echo DIST . escape($post['p_img_url']) ?>" alt="<?php echo escape($post['p_img_alt']) ?>">
                             <div class="blog_details">
-                                <a href="#"><h4><?php echo escape(ucwords($post['p_title'])) ?></h4></a>
+                                <a href="<?php echo ROOT . 'blog/post/' . escape($post['p_id']) ?>"><h4><?php echo escape(ucwords($post['p_title'])) ?></h4></a>
                                 <p><?php echo escape($post['p_summary']) ?></p>
-                                <a href="#" class="template-btn">View More</a>
+                                <a href="<?php echo ROOT . 'blog/post/' . escape($post['p_id']) ?>" class="template-btn">View More</a>
                             </div>
                         </div>
                     </div>

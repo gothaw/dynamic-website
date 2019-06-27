@@ -85,6 +85,12 @@ class Blog extends Controller
 
     public function post($postId = '')
     {
+        $selectedPost = $this->_posts->selectPost($postId)->getData();
 
+        $this->_view->addViewData([
+            'post' => $selectedPost,
+        ]);
+        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
+        $this->_view->renderView();
     }
 }

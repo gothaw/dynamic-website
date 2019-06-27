@@ -3,7 +3,14 @@
     <div class="container">
         <div class="row">
             <?php
-            include("../app/views/blog/blog-posts.php");
+            switch ($subName)
+            {
+                case 'blog/post':
+                    include("../app/views/blog/post.php");
+                    break;
+                default:
+                    include("../app/views/blog/blog-posts.php");
+            }
             include("../app/views/blog/side-bar.php");
             ?>
         </div>

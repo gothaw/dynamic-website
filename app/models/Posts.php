@@ -130,7 +130,6 @@ class Posts
         $this->_tags = $this->_database->query($sql)->getResult();
     }
 
-
     /**
      * @method                  selectPosts
      * @param                   $postsPerPage {int}
@@ -222,6 +221,31 @@ class Posts
         return $this;
     }
 
+    /**
+     * @method                  selectPost
+     * @param                   $postId {string}
+     * @desc
+     * @return                  $this
+     */
+    public function selectPost($postId)
+    {
+        $sql = "SELECT
+                    *
+                FROM 
+                    `post`
+                INNER JOIN
+                    `post_img`
+                ON
+                    `post`.`p_img_id` = `post_img`.`p_img_id`
+                WHERE 
+                    `post`.`p_id` = ?;";
+
+        $this->_postData = $this->_database->query($sql, [$postId])->getResultFirstRecord();
+
+        $this->setPostTags();
+
+        return $this;
+    }
 
     /**
      * @method                  setPostSummary
@@ -250,16 +274,25 @@ class Posts
         if (isset($this->_postData)) {
             $idArray = [];
             $parameters = '';
+
             // creates a string with ? depending on the size of _postData array
-            $i = 1;
-            foreach ($this->_postData as $post) {
-                $idArray [] = $post['p_id'];
-                $parameters .= '?';
-                if ($i < count($this->_postData)) {
-                    $parameters .= ', ';
+            if (isset($this->_postData[0]) && is_array($this->_postData[0])) {
+                // Logic for multiple posts
+                $i = 1;
+                foreach ($this->_postData as $post) {
+                    $idArray [] = $post['p_id'];
+                    $parameters .= '?';
+                    if ($i < count($this->_postData)) {
+                        $parameters .= ', ';
+                    }
+                    $i++;
                 }
-                $i++;
+            } else {
+                // Logic for single post
+                $idArray [] = $this->_postData['p_id'];
+                $parameters = '?';
             }
+
             $sql = "SELECT 
                         `post`.`p_id`,`pt_text` 
                     FROM 
@@ -277,18 +310,26 @@ class Posts
             $tags = $this->_database->query($sql, $idArray)->getResult();
 
             // Adds post tags to the _postData
-            $size = count($this->_postData);
-            for ($i = 0; $i < $size; $i++) {
+            if (isset($this->_postData[0]) && is_array($this->_postData[0])) {
+                // Logic for multiple posts
+                $size = count($this->_postData);
+                for ($i = 0; $i < $size; $i++) {
+                    $postTags = [];
+                    foreach ($tags as $tag) {
+                        if ($tag['p_id'] === $this->_postData[$i]['p_id']) {
+                            $postTags [] = $tag['pt_text'];
+                        }
+                    }
+                    $this->_postData[$i] = array_merge($this->_postData[$i], ['p_tags' => $postTags]);
+                }
+            } else {
+                // Logic for single post
                 $postTags = [];
                 foreach ($tags as $tag) {
-                    if ($tag['p_id'] === $this->_postData[$i]['p_id']) {
-                        $postTags [] = $tag['pt_text'];
-                    }
+                    $postTags [] = $tag['pt_text'];
                 }
-                $this->_postData[$i] = array_merge($this->_postData[$i], ['p_tags' => $postTags]);
+                $this->_postData = array_merge($this->_postData, ['p_tags' => $postTags]);
             }
         }
     }
-
-
 }
