@@ -4,6 +4,7 @@ class Blog extends Controller
 {
     private $_page;
     private $_posts;
+    private $_sideBar;
 
     public function __construct()
     {
@@ -11,13 +12,15 @@ class Blog extends Controller
 
         parent::__construct($this->_page);
 
-        $this->_posts = $this->model('Posts');
+        $this->_posts = $this->model('BlogPosts');
+        $this->_sideBar = $this->model('BlogSideBar');
 
         $this->view($this->_page, $this->_path, [
             'navPages' => $this->_navPages,
             'pageDetails' => $this->_pageDetails,
-            'categories' => $this->_posts->getCategories(),
-            'tags' => $this->_posts->getTags()
+            'categories' => $this->_sideBar->getCategories(),
+            'tags' => $this->_sideBar->getTags(),
+            'popularPosts' => $this->_sideBar->getPopularPosts()
         ]);
     }
 

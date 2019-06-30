@@ -20,6 +20,7 @@
                     <li><span><?php echo escape(ucfirst($data['post']['p_category'])) ?><i class="fa fa-tag"></i></span></li>
                     <li><span><?php echo escape($data['post']['p_date']) ?><i class="fa fa-calendar-o"></i></span></li>
                     <li><span><?php echo escape(substr($data['post']['p_time'],0,5)) ?><i class="fa fa-clock-o"></i></span></li>
+                    <li><span><?php echo escape($data['post']['p_comments']) ?> Comments<i class="fa fa-comment-o"></i></span></li>
                 </ul>
                 <ul class="social-links">
                     <li><a href="https://www.facebook.com" target="_blank"><i class="fa fa-facebook"></i></a></li>
@@ -31,7 +32,12 @@
         </div>
         <div class="col-lg-9 col-md-9 blog_details">
             <h5><?php echo escape(ucwords($data['post']['p_title'])) ?></h5>
-            <?php echo escape($data['post']['p_text']) ?>
+                <?php
+                if(isset($data['post']['p_text'])){
+                    foreach ($data['post']['p_text'] as $paragraph){ ?>
+                    <p><?php echo escape($paragraph) ?></p>
+                    <?php }
+                } ?>
             <div class="blog_details">
                 <a href="<?php echo ROOT . 'blog/' ?>" class="template-btn">Other Posts</a>
             </div>

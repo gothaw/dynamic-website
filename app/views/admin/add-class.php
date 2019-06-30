@@ -13,13 +13,13 @@
                     </div>
                     <div class="form-field">
                         <label for="duration">Duration (in minutes, less than 120)</label>
-                        <input type="text" name="duration" id="duration"
+                        <input type="number" min="15" max="120" name="duration" id="duration"
                                value="<?php echo escape(Input::getValue('duration')) ?>" required
                                autocomplete="off">
                     </div>
                     <div class="form-field">
                         <label for="max_no_people">Max Number of People (no more than 35)</label>
-                        <input type="text" name="max_no_people" id="max_no_people"
+                        <input type="number" min="5" max="35" name="max_no_people" id="max_no_people"
                                value="<?php echo escape(Input::getValue('max_no_people')) ?>" required
                                autocomplete="off">
                     </div>

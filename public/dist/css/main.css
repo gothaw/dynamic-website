@@ -1006,23 +1006,27 @@ textarea:focus {
           margin-left: 20px; }
         .blog_right_sidebar .author_widget .social_icon a:hover {
           color: #f61b55; }
-  .blog_right_sidebar .popular_post_widget .post_item .media-body {
-    justify-content: center;
-    align-self: center;
-    padding-left: 20px; }
-    .blog_right_sidebar .popular_post_widget .post_item .media-body h5 {
-      font-size: 14px;
-      line-height: 20px;
-      margin-bottom: 4px;
-      transition: all 0.3s linear; }
-      .blog_right_sidebar .popular_post_widget .post_item .media-body h5:hover {
-        color: #f61b55; }
-    .blog_right_sidebar .popular_post_widget .post_item .media-body p {
-      font-size: 12px;
-      line-height: 21px;
-      margin-bottom: 0px; }
-  .blog_right_sidebar .popular_post_widget .post_item + .post_item {
-    margin-top: 20px; }
+  .blog_right_sidebar .popular_post_widget .post_item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+    .blog_right_sidebar .popular_post_widget .post_item .media-body {
+      justify-content: center;
+      align-self: center;
+      padding-left: 20px; }
+      .blog_right_sidebar .popular_post_widget .post_item .media-body .popular_post_title {
+        font-size: 14px !important;
+        line-height: 20px;
+        margin-bottom: 4px;
+        transition: all 0.3s linear; }
+        .blog_right_sidebar .popular_post_widget .post_item .media-body .popular_post_title:hover {
+          color: #f61b55; }
+      .blog_right_sidebar .popular_post_widget .post_item .media-body p {
+        font-size: 12px;
+        line-height: 21px;
+        margin-bottom: 0px; }
+    .blog_right_sidebar .popular_post_widget .post_item + .post_item {
+      margin-top: 20px; }
   .blog_right_sidebar .post_category_widget .cat-list li {
     border-bottom: 2px dotted #eee;
     transition: all 0.3s ease 0s;
@@ -2538,7 +2542,7 @@ h6 {
 
 .form-field {
   margin: 5px auto; }
-  .form-field input[type=text], .form-field input[type=email], .form-field input[type=password], .form-field input[type=date], .form-field input[type=time] {
+  .form-field input[type=text], .form-field input[type=email], .form-field input[type=password], .form-field input[type=date], .form-field input[type=time], .form-field input[type=number] {
     width: 100%;
     padding: 5px; }
   .form-field input[type=date], .form-field input[type=time] {

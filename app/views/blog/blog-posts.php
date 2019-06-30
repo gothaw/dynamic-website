@@ -12,6 +12,7 @@
                                 <li><span><?php echo escape(ucfirst($post['p_category'])) ?><i class="fa fa-tag"></i></span></li>
                                 <li><span><?php echo escape($post['p_date']) ?><i class="fa fa-calendar-o"></i></span></li>
                                 <li><span><?php echo escape(substr($post['p_time'],0,5)) ?><i class="fa fa-clock-o"></i></span></li>
+                                <li><span><?php echo escape($post['p_comments']) ?> Comments<i class="fa fa-comment-o"></i></span></li>
                             </ul>
                             <div class="post_tag">
                                 <?php if (isset($post['p_tags'])) {

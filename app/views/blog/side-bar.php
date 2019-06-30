@@ -18,35 +18,18 @@
             <div class="br"></div>
         </aside>
         <aside class="single_sidebar_widget popular_post_widget">
-            <h4 class="widget_title">Other Posts</h4>
-            <div class="media post_item">
-                <img src="<?php echo DIST ?>img/blog/popular-post/post1.jpg" alt="post">
-                <div class="media-body">
-                    <a href="#"><h5>Space The Final Frontier</h5></a>
-                    <p>02 Hours ago</p>
-                </div>
-            </div>
-            <div class="media post_item">
-                <img src="<?php echo DIST ?>img/blog/popular-post/post2.jpg" alt="post">
-                <div class="media-body">
-                    <a href="#"><h5>The Amazing Hubble</h5></a>
-                    <p>02 Hours ago</p>
-                </div>
-            </div>
-            <div class="media post_item">
-                <img src="<?php echo DIST ?>img/blog/popular-post/post3.jpg" alt="post">
-                <div class="media-body">
-                    <a href="#"><h5>Astronomy Or Astrology</h5></a>
-                    <p>03 Hours ago</p>
-                </div>
-            </div>
-            <div class="media post_item">
-                <img src="<?php echo DIST ?>img/blog/popular-post/post4.jpg" alt="post">
-                <div class="media-body">
-                    <a href="#"><h5>Asteroids telescope</h5></a>
-                    <p>01 Hours ago</p>
-                </div>
-            </div>
+            <h4 class="widget_title">Popular Posts</h4>
+            <?php if(isset($data['popularPosts'])){
+                foreach ($data['popularPosts'] as $post){ ?>
+                    <div class="post_item">
+                        <img src="<?php echo DIST . escape($post['p_thumb_url']) ?>" alt="<?php echo escape($post['p_img_alt']) ?>">
+                        <div class="media-body">
+                            <a href="<?php echo ROOT . 'blog/post/' . escape($post['p_id']) ?>"><h5 class="popular_post_title"><?php echo escape($post['p_title']) ?></h5></a>
+                            <p><?php echo escape($post['p_date']) ?></p>
+                        </div>
+                    </div>
+                <?php }
+            }?>
             <div class="br"></div>
         </aside>
         <aside class="single_sidebar_widget post_category_widget">

@@ -1,23 +1,19 @@
 <?php
 
-class Posts
+class BlogPosts
 {
     private $_database;
     private $_postData;
-    private $_categories;
-    private $_tags;
     private $_numberOfPages;
     private $_currentPageNumber;
 
     /**
-     *                          Posts constructor.
-     * @desc                    Sets database field and details to be displayed on blog sidebar i.e. categories, tags.
+     *                          BlogPosts constructor.
+     * @desc                    Sets database field.
      */
     public function __construct()
     {
         $this->_database = Database::getInstance();
-        $this->setCategoriesSideBar();
-        $this->setTagsSideBar();
     }
 
     /**
@@ -86,48 +82,6 @@ class Posts
         } else {
             $this->_currentPageNumber = $pageNumber;
         }
-    }
-
-    /**
-     * @method                  getCategories
-     * @desc                    Getter for _categories field.
-     * @return                  array|null
-     */
-    public function getCategories()
-    {
-        return $this->_categories;
-    }
-
-    /**
-     * @method                  setCategories
-     * @desc                    Sets post categories using SELECT DISTINCT on `post` table.
-     */
-    private function setCategoriesSideBar()
-    {
-        $sql = "SELECT DISTINCT `p_category`, COUNT(`p_category`) FROM `post` GROUP BY `p_category`;";
-
-        $this->_categories = $this->_database->query($sql)->getResult();
-    }
-
-    /**
-     * @method                  getTags
-     * @desc                    Getter for _tags field.
-     * @return                  array|null
-     */
-    public function getTags()
-    {
-        return $this->_tags;
-    }
-
-    /**
-     * @method                  setTags
-     * @desc                    Sets posts tags using SELECT DISTINCT on `post_tag` table.
-     */
-    private function setTagsSideBar()
-    {
-        $sql = "SELECT DISTINCT `pt_text` FROM `post_tag`;";
-
-        $this->_tags = $this->_database->query($sql)->getResult();
     }
 
     /**
@@ -243,6 +197,7 @@ class Posts
         $this->_postData = $this->_database->query($sql, [$postId])->getResultFirstRecord();
 
         $this->setPostTags();
+        $this->setPostText();
 
         return $this;
     }
@@ -250,17 +205,39 @@ class Posts
     /**
      * @method                  setPostSummary
      * @desc                    Adds posts summary element for each post in _postData. Post summary is first 350 characters from `p_text` database field.
-     *                          Requires setting _postData field.
+     *                          Requires setting _postData field. Works only with multiple posts.
      */
     private function setPostSummary()
     {
-        if (isset($this->_postData)) {
-            $tagsArray = ['<p>', '</p>', '<div>', '</div>', '<section>', '</section>'];
+        // Logic applies if multiple posts are set in _postData
+        if (isset($this->_postData[0]) && is_array($this->_postData[0])) {
             $size = count($this->_postData);
             for ($i = 0; $i < $size; $i++) {
-                $text = str_replace($tagsArray, '', $this->_postData[$i]['p_text']);
+                $text = $this->_postData[$i]['p_text'];
                 $this->_postData[$i] = array_merge($this->_postData[$i], ['p_summary' => substr($text, 0, 350) . '...']);
             }
+        }
+    }
+
+    /**
+     * @method                  setPostText
+     * @desc                    Replaces p_text field in _postData field with array by exploding it by new line.
+     *                          Each array element is a text paragraph. Works only with single post.
+     */
+    private function setPostText()
+    {
+        // Logic applies only if single post is set in _postData
+        if (!(isset($this->_postData[0]) && is_array($this->_postData[0]))) {
+            // Explodes by new line
+            $textArray = preg_split('/\r\n|\r|\n/', $this->_postData['p_text']);
+            // Removes empty array elements
+            $size = count($textArray);
+            for ($i = 0; $i < $size; $i++) {
+                if (empty($textArray[$i])) {
+                    array_splice($textArray, $i, 1);
+                }
+            }
+            $this->_postData['p_text'] = $textArray;
         }
     }
 

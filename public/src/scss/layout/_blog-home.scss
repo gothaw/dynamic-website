@@ -206,12 +206,15 @@
     }
     .popular_post_widget{
         .post_item{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             .media-body{
                 justify-content: center;
                 align-self: center;
                 padding-left: 20px;
-                h5{
-                    font-size: 14px;
+                .popular_post_title{
+                    font-size: 14px !important;
                     line-height: 20px;
                     margin-bottom: 4px;
                     transition: all 0.3s linear;
