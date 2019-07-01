@@ -2,8 +2,8 @@
 
 class BlogPosts
 {
+    private $_data;
     private $_database;
-    private $_postData;
     private $_numberOfPages;
     private $_currentPageNumber;
 
@@ -18,12 +18,12 @@ class BlogPosts
 
     /**
      * @method                  getData
-     * @desc                    Getter for _postData field.
+     * @desc                    Getter for _data field.
      * @return                  array|null
      */
     public function getData()
     {
-        return $this->_postData;
+        return $this->_data;
     }
 
     /**
@@ -89,7 +89,7 @@ class BlogPosts
      * @param                   $postsPerPage {int}
      * @param                   $pageNumber {int}
      * @param                   $category {string}
-     * @desc                    Selects posts from the database based on the page number and/or category. Sets _postData field.
+     * @desc                    Selects posts from the database based on the page number and/or category. Sets _data field.
      *                          Post category is an optional parameter.
      * @return                  $this
      */
@@ -116,13 +116,13 @@ class BlogPosts
                         `post`.`p_date` DESC,
                         `post`.`p_time` DESC
                     LIMIT ?,?;";
-            $this->_postData = $this->_database->query($sql, [$category, $skipped, $postsPerPage])->getResult();
+            $this->_data = $this->_database->query($sql, [$category, $skipped, $postsPerPage])->getResult();
         } else {
             $sql .= " ORDER BY
                         `post`.`p_date` DESC,
                         `post`.`p_time` DESC
                     LIMIT ?,?;";
-            $this->_postData = $this->_database->query($sql, [$skipped, $postsPerPage])->getResult();
+            $this->_data = $this->_database->query($sql, [$skipped, $postsPerPage])->getResult();
         }
 
         $this->setPostSummary();
@@ -136,7 +136,7 @@ class BlogPosts
      * @param                   $postsPerPage {int}
      * @param                   $pageNumber {int}
      * @param                   $tag {string}
-     * @desc                    Selects posts from the database based on the page number and tag. Sets _postData field.
+     * @desc                    Selects posts from the database based on the page number and tag. Sets _data field.
      * @return                  $this
      */
     public function selectPostsByTag($postsPerPage, $pageNumber, $tag)
@@ -167,7 +167,7 @@ class BlogPosts
                 LIMIT ?,?;
                 ";
 
-        $this->_postData = $this->_database->query($sql, [$tag, $skipped, $postsPerPage])->getResult();
+        $this->_data = $this->_database->query($sql, [$tag, $skipped, $postsPerPage])->getResult();
 
         $this->setPostSummary();
         $this->setPostTags();
@@ -194,7 +194,7 @@ class BlogPosts
                 WHERE 
                     `post`.`p_id` = ?;";
 
-        $this->_postData = $this->_database->query($sql, [$postId])->getResultFirstRecord();
+        $this->_data = $this->_database->query($sql, [$postId])->getResultFirstRecord();
 
         $this->setPostTags();
         $this->setPostText();
@@ -204,32 +204,32 @@ class BlogPosts
 
     /**
      * @method                  setPostSummary
-     * @desc                    Adds posts summary element for each post in _postData. Post summary is first 350 characters from `p_text` database field.
-     *                          Requires setting _postData field. Works only with multiple posts.
+     * @desc                    Adds posts summary element for each post in _data. Post summary is first 350 characters from `p_text` database field.
+     *                          Requires setting _data field. Works only with multiple posts.
      */
     private function setPostSummary()
     {
-        // Logic applies if multiple posts are set in _postData
-        if (isset($this->_postData[0]) && is_array($this->_postData[0])) {
-            $size = count($this->_postData);
+        // Logic applies if multiple posts are set in _data
+        if (isset($this->_data[0]) && is_array($this->_data[0])) {
+            $size = count($this->_data);
             for ($i = 0; $i < $size; $i++) {
-                $text = $this->_postData[$i]['p_text'];
-                $this->_postData[$i] = array_merge($this->_postData[$i], ['p_summary' => substr($text, 0, 350) . '...']);
+                $text = $this->_data[$i]['p_text'];
+                $this->_data[$i] = array_merge($this->_data[$i], ['p_summary' => substr($text, 0, 350) . '...']);
             }
         }
     }
 
     /**
      * @method                  setPostText
-     * @desc                    Replaces p_text field in _postData field with array by exploding it by new line.
+     * @desc                    Replaces p_text field in _data field with array by exploding it by new line.
      *                          Each array element is a text paragraph. Works only with single post.
      */
     private function setPostText()
     {
-        // Logic applies only if single post is set in _postData
-        if (!(isset($this->_postData[0]) && is_array($this->_postData[0]))) {
+        // Logic applies only if single post is set in _data
+        if (!(isset($this->_data[0]) && is_array($this->_data[0]))) {
             // Explodes by new line
-            $textArray = preg_split('/\r\n|\r|\n/', $this->_postData['p_text']);
+            $textArray = preg_split('/\r\n|\r|\n/', $this->_data['p_text']);
             // Removes empty array elements
             $size = count($textArray);
             for ($i = 0; $i < $size; $i++) {
@@ -237,36 +237,36 @@ class BlogPosts
                     array_splice($textArray, $i, 1);
                 }
             }
-            $this->_postData['p_text'] = $textArray;
+            $this->_data['p_text'] = $textArray;
         }
     }
 
     /**
      * @method                  setPostTags
-     * @desc                    Sets tags for posts in _postsData as arrays of values. Adds these arrays to _postData field using array_merge.
+     * @desc                    Sets tags for posts in _postsData as arrays of values. Adds these arrays to _data field using array_merge.
      *                          Uses select query with inner join between `post` and `post_tag` tables.
      */
     private function setPostTags()
     {
-        if (isset($this->_postData)) {
+        if (isset($this->_data)) {
             $idArray = [];
             $parameters = '';
 
-            // creates a string with ? depending on the size of _postData array
-            if (isset($this->_postData[0]) && is_array($this->_postData[0])) {
+            // creates a string with ? depending on the size of _data array
+            if (isset($this->_data[0]) && is_array($this->_data[0])) {
                 // Logic for multiple posts
                 $i = 1;
-                foreach ($this->_postData as $post) {
+                foreach ($this->_data as $post) {
                     $idArray [] = $post['p_id'];
                     $parameters .= '?';
-                    if ($i < count($this->_postData)) {
+                    if ($i < count($this->_data)) {
                         $parameters .= ', ';
                     }
                     $i++;
                 }
             } else {
                 // Logic for single post
-                $idArray [] = $this->_postData['p_id'];
+                $idArray [] = $this->_data['p_id'];
                 $parameters = '?';
             }
 
@@ -286,18 +286,18 @@ class BlogPosts
             // Selects tags from the database
             $tags = $this->_database->query($sql, $idArray)->getResult();
 
-            // Adds post tags to the _postData
-            if (isset($this->_postData[0]) && is_array($this->_postData[0])) {
+            // Adds post tags to the _data
+            if (isset($this->_data[0]) && is_array($this->_data[0])) {
                 // Logic for multiple posts
-                $size = count($this->_postData);
+                $size = count($this->_data);
                 for ($i = 0; $i < $size; $i++) {
                     $postTags = [];
                     foreach ($tags as $tag) {
-                        if ($tag['p_id'] === $this->_postData[$i]['p_id']) {
+                        if ($tag['p_id'] === $this->_data[$i]['p_id']) {
                             $postTags [] = $tag['pt_text'];
                         }
                     }
-                    $this->_postData[$i] = array_merge($this->_postData[$i], ['p_tags' => $postTags]);
+                    $this->_data[$i] = array_merge($this->_data[$i], ['p_tags' => $postTags]);
                 }
             } else {
                 // Logic for single post
@@ -305,7 +305,7 @@ class BlogPosts
                 foreach ($tags as $tag) {
                     $postTags [] = $tag['pt_text'];
                 }
-                $this->_postData = array_merge($this->_postData, ['p_tags' => $postTags]);
+                $this->_data = array_merge($this->_data, ['p_tags' => $postTags]);
             }
         }
     }

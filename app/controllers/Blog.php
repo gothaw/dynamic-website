@@ -90,8 +90,11 @@ class Blog extends Controller
     {
         $selectedPost = $this->_posts->selectPost($postId)->getData();
 
+        $postComments = $this->model('BlogComments')->selectComments($postId);
+
         $this->_view->addViewData([
             'post' => $selectedPost,
+            'postComments' => $postComments->getData()
         ]);
         $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
         $this->_view->renderView();
