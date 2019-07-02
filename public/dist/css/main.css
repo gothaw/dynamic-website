@@ -909,6 +909,9 @@ textarea:focus {
         color: #f61b55; }
       .blog_info .post_tag a.active {
         color: #f61b55; }
+    @media (max-width: 767.98px) {
+      .blog_info .post_tag {
+        text-align: left; } }
   .blog_info .blog_meta li a, .blog_info .blog_meta li span {
     font: 300 14px/20px;
     color: #777777;
@@ -924,9 +927,15 @@ textarea:focus {
     padding-left: 15px;
     line-height: 20px;
     vertical-align: middle; }
+  @media (max-width: 767.98px) {
+    .blog_info .blog_meta li {
+      text-align: left; } }
 
 .blog_post img {
   max-width: 100%; }
+
+.blog-button-wrapper {
+  text-align: center; }
 
 .blog_details {
   padding-top: 20px; }
@@ -1187,7 +1196,7 @@ textarea:focus {
   margin-top: 50px; }
   @media (max-width: 414px) {
     .comments-area {
-      padding: 50px 8px; } }
+      padding: 15px; } }
   .comments-area h4 {
     text-align: center;
     margin-bottom: 50px;
@@ -1208,9 +1217,9 @@ textarea:focus {
       .comments-area .comment-list .single-comment h5 {
         font-size: 12px; }
       .comments-area .comment-list .single-comment .date {
-        font-size: 11px; }
+        font-size: 12px; }
       .comments-area .comment-list .single-comment .comment {
-        font-size: 10px; } }
+        font-size: 12px; } }
   .comments-area .thumb {
     margin-right: 20px; }
   .comments-area .date {
@@ -1219,7 +1228,7 @@ textarea:focus {
     margin-bottom: 13px; }
   .comments-area .comment {
     color: #777777;
-    margin-bottom: 0px; }
+    margin-bottom: 15px; }
   .comments-area .btn-reply {
     background-color: #fff;
     color: #222222;

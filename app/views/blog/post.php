@@ -43,5 +43,31 @@
             </div>
         </div>
     </div>
+    <div class="comments-area">
+        <h4><?php echo escape($data['post']['p_comments']) ?> Comments</h4>
+        <div class="comment-list">
+            <div class="single-comment">
+                <?php if(isset($data['postComments']) && !empty($data['postComments'])) {
+                    foreach ($data['postComments'] as $comment) { ?>
+                    <div class="user">
+                        <div class="desc">
+                            <h5><?php echo escape($comment['pc_author']) ?></h5>
+                            <p class="date"><?php echo escape($comment['pc_date'] . ', ' . $comment['pc_time']) ?></p>
+                            <p class="comment"><?php echo escape($comment['pc_text']) ?></p>
+                        </div>
+                    </div>
+                <?php }
+                } else { ?>
+                    <div class="user">
+                        <div class="desc">
+                            <p class="comment">
+                                No comments so far. Feel free to comment.
+                            </p>
+                        </div>
+                    </div>
+                <?php }?>
+            </div>
+        </div>
+    </div>
 </div>
 <!--================Blog Area =================-->

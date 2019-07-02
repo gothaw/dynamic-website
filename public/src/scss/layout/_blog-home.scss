@@ -54,11 +54,6 @@
 
 
 /*============ blog_left_sidebar css ==============*/
-.blog_area{
-}
-.blog_left_sidebar{
-    
-}
 .blog_item{
     margin-bottom: 40px;
 }
@@ -75,6 +70,9 @@
 			&.active{
 				color: $primary-color;
 			}
+        }
+        @include phone {
+          text-align: left;
         }
     }
     .blog_meta{
@@ -97,6 +95,9 @@
                 line-height: 20px;
                 vertical-align: middle;
             }
+          @include phone {
+                text-align: left;
+          }
         }
     }
 }
@@ -104,6 +105,9 @@
     img{
         max-width: 100%;
     }
+}
+.blog-button-wrapper{
+  text-align: center;
 }
 .blog_details{
     padding-top: 20px;
@@ -231,7 +235,7 @@
             & + .post_item{
                 margin-top: 20px;
             }
-        }   
+        }
     }
     .post_category_widget{
         .cat-list{
@@ -244,7 +248,7 @@
                     line-height: 20px;
                     color: #777;
                     p{
-                        margin-bottom: 0px; 
+                        margin-bottom: 0px;
                     }
                 }
                 & + li{
@@ -262,7 +266,7 @@
     .newsletter_widget{
         text-align: center;
         p{
-            
+
         }
         .form-group{
             margin-bottom: 8px;

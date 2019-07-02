@@ -29,7 +29,9 @@
                             <div class="blog_details">
                                 <a href="<?php echo ROOT . 'blog/post/' . escape($post['p_id']) ?>"><h4><?php echo escape(ucwords($post['p_title'])) ?></h4></a>
                                 <p><?php echo escape($post['p_summary']) ?></p>
-                                <a href="<?php echo ROOT . 'blog/post/' . escape($post['p_id']) ?>" class="template-btn">View More</a>
+                                <div class="blog-button-wrapper">
+                                    <a href="<?php echo ROOT . 'blog/post/' . escape($post['p_id']) ?>" class="template-btn blog-button">View More</a>
+                                </div>
                             </div>
                         </div>
                     </div>

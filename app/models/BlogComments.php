@@ -37,7 +37,7 @@ class BlogComments
                 FROM 
                     `post_comment` 
                 WHERE
-                    `p_id` = ?
+                    `p_id` = ? AND `pc_approved` = 1
                 ORDER BY
                     `pc_date` ASC,
                     `pc_time` ASC;
