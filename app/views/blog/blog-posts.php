@@ -38,7 +38,7 @@
                 </article>
             <?php }
         } ?>
-        <nav class="blog-pagination justify-content-center d-flex">
+        <nav class="blog-pagination justify-content-center">
             <ul class="pagination">
                 <li class="page-item">
                     <a href="<?php  $previous = (intval($data['page']) !== 1) ? $data['page'] - 1 : '1';

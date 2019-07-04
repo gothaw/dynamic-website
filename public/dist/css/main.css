@@ -1114,6 +1114,18 @@ textarea:focus {
     border-radius: 0; }
   .blog-pagination .page-item {
     border: none; }
+  @media (min-width: 768px) {
+    .blog-pagination {
+      padding-left: 15px;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr); }
+      .blog-pagination .pagination {
+        grid-column: 4 / span 12;
+        justify-content: center; } }
+  @media (max-width: 767.98px) {
+    .blog-pagination .pagination {
+      display: flex;
+      justify-content: center; } }
 
 .page-link {
   background: transparent;

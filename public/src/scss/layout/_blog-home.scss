@@ -347,6 +347,21 @@
     .page-item {
         border: none;
     }
+    @include tablet-and-desktop{
+      padding-left: 15px;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      .pagination{
+        grid-column: 4 / span 12;
+        justify-content: center;
+      }
+    }
+    @include phone{
+      .pagination{
+        display: flex;
+        justify-content: center;
+      }
+    }
 }
 
 .page-link {

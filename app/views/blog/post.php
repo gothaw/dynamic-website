@@ -32,15 +32,16 @@
         </div>
         <div class="col-lg-9 col-md-9 blog_details">
             <h5><?php echo escape(ucwords($data['post']['p_title'])) ?></h5>
-                <?php
-                if(isset($data['post']['p_text'])){
+            <div class="blog_details">
+                <?php if(isset($data['post']['p_text'])){
                     foreach ($data['post']['p_text'] as $paragraph){ ?>
-                    <p><?php echo escape($paragraph) ?></p>
+                        <p><?php echo escape($paragraph) ?></p>
                     <?php }
                 } ?>
-            <div class="blog_details">
-                <a href="<?php echo ROOT . 'blog/' ?>" class="template-btn">Other Posts</a>
             </div>
+        </div>
+        <div class="blog-button-wrapper col-lg-12 section-padding5">
+            <a href="<?php echo ROOT . 'blog/' ?>" class="template-btn blog-button">Other Posts</a>
         </div>
     </div>
     <div class="comments-area">
