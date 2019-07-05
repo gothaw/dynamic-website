@@ -70,5 +70,20 @@
             </div>
         </div>
     </div>
+    <div class="comment-form">
+        <?php if($userIsLoggedIn) { ?>
+            <h4>Leave a Reply</h4>
+            <form>
+                <div class="form-group">
+                    <textarea class="form-control mb-10" rows="5" name="message" placeholder="Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
+                </div>
+                <a href="#" class="template-btn">Post Comment</a>
+            </form>
+        <?php } else { ?>
+            <h4>You need to be logged in to comment</h4>
+            <p>Please click button below to log in.</p>
+            <a href="<?php echo ROOT . 'login' ?>" class="template-btn">Login</a>
+        <?php } ?>
+    </div>
 </div>
 <!--================Blog Area =================-->

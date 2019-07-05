@@ -227,7 +227,7 @@ class BlogPosts
     private function setPostText()
     {
         // Logic applies only if single post is set in _data
-        if (!(isset($this->_data[0]) && is_array($this->_data[0]))) {
+        if (isset($this->_data) && !(isset($this->_data[0]) && is_array($this->_data[0]))) {
             // Explodes by new line
             $textArray = preg_split('/\r\n|\r|\n/', $this->_data['p_text']);
             // Removes empty array elements
