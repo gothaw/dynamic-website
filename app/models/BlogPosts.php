@@ -89,11 +89,12 @@ class BlogPosts
      * @param                   $postsPerPage {int}
      * @param                   $pageNumber {int}
      * @param                   $category {string}
+     * @param                   $includeSummaryAndTags {bool}
      * @desc                    Selects posts from the database based on the page number and/or category. Sets _data field.
      *                          Post category is an optional parameter.
      * @return                  $this
      */
-    public function selectPosts($postsPerPage, $pageNumber, $category = null)
+    public function selectPosts($postsPerPage, $pageNumber, $category = null, $includeSummaryAndTags = true)
     {
         // Sets blog pages
         $this->setBlogPages($postsPerPage, $pageNumber, ['category' => $category]);
@@ -125,8 +126,10 @@ class BlogPosts
             $this->_data = $this->_database->query($sql, [$skipped, $postsPerPage])->getResult();
         }
 
-        $this->setPostSummary();
-        $this->setPostTags();
+        if ($includeSummaryAndTags) {
+            $this->setPostSummary();
+            $this->setPostTags();
+        }
 
         return $this;
     }

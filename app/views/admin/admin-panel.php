@@ -9,7 +9,7 @@
                         <div class="admin-panel-icon">
                             <img src="<?php echo DIST . 'img/admin-panel/blog.png' ?>" width="150" height="150" alt="admin panel icon">
                         </div>
-                        <a class="admin-panel-btn" href="">Blog Posts</a>
+                        <a class="admin-panel-btn" href="<?php echo ROOT . 'admin-blog' ?>">Blog Posts</a>
                     </li>
                     <li class="admin-panel-item">
                         <div class="admin-panel-icon">
