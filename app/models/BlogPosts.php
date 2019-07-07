@@ -181,10 +181,11 @@ class BlogPosts
     /**
      * @method                  selectPost
      * @param                   $postId {string}
-     * @desc
+     * @param                   $postTextInParagraphs {bool}
+     * @desc                    Selects post form the database by $postId.
      * @return                  $this
      */
-    public function selectPost($postId)
+    public function selectPost($postId, $postTextInParagraphs = true)
     {
         $sql = "SELECT
                     *
@@ -199,8 +200,10 @@ class BlogPosts
 
         $this->_data = $this->_database->query($sql, [$postId])->getResultFirstRecord();
 
+        if ($postTextInParagraphs){
+            $this->setPostText();
+        }
         $this->setPostTags();
-        $this->setPostText();
 
         return $this;
     }

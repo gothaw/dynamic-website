@@ -39,8 +39,21 @@ class AdminBlog extends Controller
         $this->_view->renderView();
     }
 
-    public function edit($postId)
+    public function edit($postId = '')
     {
+        $selectedPost = $this->_posts->selectPost($postId, false)->getData();
+
+        if (isset($selectedPost) && is_numeric($postId)) {
+
+            $this->_view->addViewData([
+                'post' => $selectedPost
+            ]);
+            $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
+            $this->_view->renderView();
+        } else {
+            Redirect::to('admin-blog');
+        }
+
 
     }
 

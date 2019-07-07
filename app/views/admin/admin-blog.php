@@ -1,5 +1,4 @@
 <!-- Admin Schedule Starts -->
-<?php trace($data)?>
 <section class="table-area section-padding4">
     <div class="container">
         <div class="row">
