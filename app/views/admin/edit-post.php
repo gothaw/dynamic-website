@@ -7,23 +7,25 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="form-field">
-                        <label for="class_name">Post Title</label>
-                        <input type="text" name="class_name" id="class_name"
-                               value="<?php echo escape($data['selectedClass']['cl_name']) ?>" required
+                        <label for="post_title">Post Title</label>
+                        <input type="text" name="post_title" id="post_title"
+                               value="<?php echo escape(ucfirst($data['post']['p_title'])) ?>" required
                                autocomplete="off">
                     </div>
                     <div class="form-field">
-                        <label for="duration">Duration (in minutes, less than 120)</label>
-                        <input type="number" min="15" max="120" name="duration" id="duration"
-                               value="<?php echo escape($data['selectedClass']['cl_duration']) ?>" required
+                        <label for="post_category">Category</label>
+                        <input type="text" name="post_category" id="post_category"
+                               value="<?php echo escape(ucfirst($data['post']['p_category'])) ?>" required
                                autocomplete="off">
                     </div>
                     <div class="form-field">
-                        <label for="max_no_people">Max Number of People (no more than 35)</label>
-                        <input type="number" min="5" max="35" name="max_no_people" id="max_no_people"
-                               value="<?php echo escape($data['selectedClass']['cl_max_people']) ?>" required
+                        <label for="post_author">Author</label>
+                        <input type="text" name="post_author" id="post_author"
+                               value="<?php echo escape(ucwords($data['post']['p_author'])) ?>" required
                                autocomplete="off">
                     </div>
+
+
                     <div class="form-field">
                         <label for="class_image">Upload Class Image</label>
                         <div>Image to be 360x270. Max file size 500kB. Accepted file formats: .jpg, .jpeg, .png, .giff.</div>
