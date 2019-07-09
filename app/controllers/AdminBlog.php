@@ -45,8 +45,11 @@ class AdminBlog extends Controller
 
         if (isset($selectedPost) && is_numeric($postId)) {
 
+            $postImages = $this->model('BlogPostImages')->selectPostImages();
+
             $this->_view->addViewData([
-                'post' => $selectedPost
+                'post' => $selectedPost,
+                'images' => $postImages->getData()
             ]);
             $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
             $this->_view->renderView();

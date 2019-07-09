@@ -24,10 +24,17 @@ class BlogPostImages
         return $this->_data;
     }
 
-    public function selectClassImages()
+    /**
+     * @method                  selectPostImages
+     * @desc                    Select all images details from post_img table.
+     * @return                  $this
+     */
+    public function selectPostImages()
     {
-        $sql = "SELECT * FROM `post_image`";
+        $sql = "SELECT * FROM `post_img`";
 
+        $this->_data = $this->_database->query($sql)->getResult();
 
+        return $this;
     }
 }

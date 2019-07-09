@@ -2635,6 +2635,11 @@ h6 {
     background: transparent;
     border: 1px solid #f61b55; }
 
+.image-thumbnail-form {
+  padding: 15px 0;
+  max-width: 360px;
+  margin: 0 auto; }
+
 /* 17. Other */
 .section-padding {
   padding: 130px 0; }
