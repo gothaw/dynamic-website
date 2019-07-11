@@ -1,5 +1,5 @@
 <!-- Edit Post Form Area Starts -->
-<section class="section-padding4">
+<section id="edit-post" class="section-padding4">
     <div class="container">
         <form class="classes-form" action="" method="post" enctype="multipart/form-data">
             <h3 class="form-text">Edit Blog Post</h3>
@@ -72,7 +72,7 @@
                     <div class="form-field">
                         <div class="font-weight-bold pt-5">Image Thumbnail</div>
                         <div class="image-thumbnail-form">
-                            <img class="img-responsive" src="<?php echo DIST . escape($data['post']['p_img_url']) ?>"
+                            <img id="post-image" class="img-responsive" src="<?php echo DIST . escape($data['post']['p_img_url']) ?>"
                                  alt="<?php echo escape($data['post']['p_img_alt']) ?>">
                         </div>
                     </div>
@@ -80,6 +80,7 @@
                 <div class="col-lg-12">
                     <div class="form-field">
                         <label for="description">Post Body</label>
+                        <div>Max 5000 characters.</div>
                         <textarea class="form-text-area" name="description" id="description"
                                   required><?php echo escape($data['post']['p_text']) ?></textarea>
                     </div>

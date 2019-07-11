@@ -2,14 +2,14 @@
     https://github.com/hernansartorio/jquery-nice-select
     Made by Hernán Sartorio  */
 
-(function($) {
+(function ($) {
 
-    $.fn.niceSelect = function(method) {
+    $.fn.niceSelect = function (method) {
 
         // Methods
         if (typeof method == 'string') {
             if (method == 'update') {
-                this.each(function() {
+                this.each(function () {
                     var $select = $(this);
                     var $dropdown = $(this).next('.nice-select');
                     var open = $dropdown.hasClass('open');
@@ -24,7 +24,7 @@
                     }
                 });
             } else if (method == 'destroy') {
-                this.each(function() {
+                this.each(function () {
                     var $select = $(this);
                     var $dropdown = $(this).next('.nice-select');
 
@@ -46,7 +46,7 @@
         this.hide();
 
         // Create custom markup
-        this.each(function() {
+        this.each(function () {
             var $select = $(this);
 
             if (!$select.next().hasClass('nice-select')) {
@@ -69,7 +69,7 @@
 
             $dropdown.find('.current').html($selected.data('display') || $selected.text());
 
-            $options.each(function(i) {
+            $options.each(function (i) {
                 var $option = $(this);
                 var display = $option.data('display');
 
@@ -90,7 +90,7 @@
         $(document).off('.nice_select');
 
         // Open/close
-        $(document).on('click.nice_select', '.nice-select', function(event) {
+        $(document).on('click.nice_select', '.nice-select', function (event) {
             var $dropdown = $(this);
 
             $('.nice-select').not($dropdown).removeClass('open');
@@ -106,14 +106,14 @@
         });
 
         // Close when clicking outside
-        $(document).on('click.nice_select', function(event) {
+        $(document).on('click.nice_select', function (event) {
             if ($(event.target).closest('.nice-select').length === 0) {
                 $('.nice-select').removeClass('open').find('.option');
             }
         });
 
         // Option click
-        $(document).on('click.nice_select', '.nice-select .option:not(.disabled)', function(event) {
+        $(document).on('click.nice_select', '.nice-select .option:not(.disabled)', function (event) {
             var $option = $(this);
             var $dropdown = $option.closest('.nice-select');
 
@@ -130,7 +130,7 @@
         });
 
         // Keyboard events
-        $(document).on('keydown.nice_select', '.nice-select', function(event) {
+        $(document).on('keydown.nice_select', '.nice-select', function (event) {
             var $dropdown = $(this);
             var $focused_option = $($dropdown.find('.focus') || $dropdown.find('.list .option.selected'));
 
@@ -192,30 +192,50 @@
 
     /**
      * Custom Ajax Request - Not part of standard Library. Used in on click event. Created by Radoslaw Soltan
-     * Method used in admin panel to update class details (duration and max number of people).
-     * Used in adding and editing scheduled class.
+     * Method used in admin panel in AdminSchedule and AdminBlog controllers.
      */
-    function ajaxRequest($classId) {
-        if($('#edit-schedule').length || $('#add-schedule').length){
+    function ajaxRequest($id) {
 
-            const $classDuration         = $("#class_duration");
-            const $classNumberOfPeople   = $("#class_no_people");
+        if ($('#edit-schedule').length || $('#add-schedule').length) {
+
+            const $classDuration = $("#class_duration");
+            const $classNumberOfPeople = $("#class_no_people");
             let methodUrl;
 
-            if($('#add-schedule').length){
+            if ($('#add-schedule').length) {
                 methodUrl = "./changeSelectedClassDetails";
-            } else if($('#edit-schedule').length){
+            } else if ($('#edit-schedule').length) {
                 methodUrl = "../changeSelectedClassDetails";
             }
 
             $.ajax({
                 type: "POST",
-                data: {cl_id: $classId},
+                data: {cl_id: $id},
                 dataType: "JSON",
                 url: methodUrl,
                 success: function (data) {
                     $classDuration.html(encodeURI(data.duration));
                     $classNumberOfPeople.html(encodeURI(data.no_people));
+                }
+            });
+        } else if ($('#edit-post').length || $('#add-post').length) {
+
+            const $postImage = $("#post-image");
+            let methodUrl;
+
+            if ($('#add-post').length) {
+                methodUrl = "./changeSelectedImage";
+            } else if ($('#edit-post').length) {
+                methodUrl = "../changeSelectedImage";
+            }
+
+            $.ajax({
+                type: "POST",
+                data: {p_img_id: $id},
+                dataType: "JSON",
+                url: methodUrl,
+                success: function (data) {
+                    $postImage.prop({"src": encodeURI(data.imgUrl), "alt":encodeURI(data.imgAlt)});
                 }
             });
         }

@@ -298,7 +298,7 @@ class AdminSchedule extends Controller
         if (Input::exists() && is_numeric(Input::getValue('cl_id'))) {
             $selectedClass = $this->_classes->getClass(Input::getValue('cl_id'));
             if (isset($selectedClass)) {
-                $returnArray = array('duration' => $selectedClass['cl_duration'], 'no_people' => $selectedClass['cl_max_people']);
+                $returnArray = ['duration' => $selectedClass['cl_duration'], 'no_people' => $selectedClass['cl_max_people']];
                 echo json_encode($returnArray);
             }
         } else {

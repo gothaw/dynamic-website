@@ -45,7 +45,7 @@ class AdminBlog extends Controller
 
         if (isset($selectedPost) && is_numeric($postId)) {
 
-            $postImages = $this->model('BlogPostImages')->selectPostImages();
+            $postImages = $this->model('BlogPostImages')->selectImages();
 
             $this->_view->addViewData([
                 'post' => $selectedPost,
@@ -56,8 +56,19 @@ class AdminBlog extends Controller
         } else {
             Redirect::to('admin-blog');
         }
+    }
 
-
+    public function changeSelectedImage()
+    {
+        if (Input::exists() && is_numeric(Input::getValue('p_img_id'))) {
+            $selectedImage = $this->model('BlogPostImages')->selectImage(Input::getValue('p_img_id'))->getData();
+            if (isset($selectedImage)) {
+                $returnArray = ['imgUrl' => DIST . $selectedImage['p_img_url'], 'imgAlt' => $selectedImage['p_img_alt']];
+                echo json_encode($returnArray);
+            }
+        } else {
+            Redirect::to('admin-blog');
+        }
     }
 
 }
