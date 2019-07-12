@@ -137,13 +137,19 @@ class Validate
                                 }
                             }
                             break;
-                        case 'date':
+                        case 'future_date':
                             $dateArray = explode('-',$value);
                             if(!checkdate($dateArray[1],$dateArray[2],$dateArray[0])){
                                 $this->addError("This {$items[$item]['desc']} is invalid.");
                             }
                             if($value < date('Y-m-d')){
                                 $this->addError("This {$items[$item]['desc']} cannot be in the past.");
+                            }
+                            break;
+                        case 'date':
+                            $dateArray = explode('-',$value);
+                            if(!checkdate($dateArray[1],$dateArray[2],$dateArray[0])){
+                                $this->addError("This {$items[$item]['desc']} is invalid.");
                             }
                             break;
                         case 'time':

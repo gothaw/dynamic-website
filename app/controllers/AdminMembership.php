@@ -47,7 +47,7 @@ class AdminMembership extends Controller
 
                         // Validation using Validate object
                         $validate = new Validate();
-                        $validate->check($_POST, ValidationRules::getValidDateRules());
+                        $validate->check($_POST, ValidationRules::getValidFutureDateRules());
 
                         if ($validate->checkIfPassed()) {
                             try {

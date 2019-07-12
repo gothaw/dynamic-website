@@ -49,6 +49,51 @@ class ValidationRules
                 'required' => true,
                 'exists' => 'coach/co_id'
             ]
+        ], self::getValidFutureDateRules(), self::getValidTimeRules());
+
+        return $rulesArray;
+    }
+
+    /**
+     * @method                      getValidPostRules
+     * @desc                        Validation rules for adding and deleting posts in admin panel.
+     * @return                      array
+     */
+    public static function getValidPostRules()
+    {
+        $rulesArray = array_merge([
+            'post_title' => [
+                'desc' => 'post title',
+                'required' => true,
+                'min' => 2,
+                'max' => 150
+            ],
+            'post_category' => [
+                'desc' => 'post category',
+                'required' => true,
+                'min' => 2,
+            ],
+            'post_author' => [
+                'desc' => 'post author',
+                'required' => true,
+                'min' => 2,
+            ],
+            'post_tags' => [
+                'desc' => 'post tags',
+                'required' => true,
+                'min' => 2
+            ],
+            'post_image' => [
+                'desc' => 'post image',
+                'required' => true,
+                'exists' => 'post_img/p_img_id'
+            ],
+            'post_text' => [
+                'desc' => 'post body',
+                'required' => true,
+                'min' => 2,
+                'max' => 5000
+            ]
         ], self::getValidDateRules(), self::getValidTimeRules());
 
         return $rulesArray;
@@ -62,7 +107,7 @@ class ValidationRules
     public static function getValidUserIdRules()
     {
         $rulesArray = [
-            'user_id' =>[
+            'user_id' => [
                 'desc' => 'user',
                 'required' => true,
                 'exists' => 'user/u_id'
@@ -178,17 +223,30 @@ class ValidationRules
         return $rulesArray;
     }
 
-    /**
-     * @method                      getValidDateRules
-     * @desc                        Rules for valid date.
-     * @return                      array
-     */
     public static function getValidDateRules()
     {
         $rulesArray = [
             'date' => [
                 'desc' => 'date',
                 'date' => true,
+                'required' => true
+            ]
+        ];
+
+        return $rulesArray;
+    }
+
+    /**
+     * @method                      getValidFutureDateRules
+     * @desc                        Rules for valid future date.
+     * @return                      array
+     */
+    public static function getValidFutureDateRules()
+    {
+        $rulesArray = [
+            'date' => [
+                'desc' => 'date',
+                'future_date' => true,
                 'required' => true
             ]
         ];

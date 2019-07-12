@@ -45,6 +45,26 @@ class AdminBlog extends Controller
 
         if (isset($selectedPost) && is_numeric($postId)) {
 
+            if (Input::exists()) {
+                if (Token::check(Input::getValue('token'))) {
+
+                    $validate = new Validate();
+                    $validate->check($_POST, ValidationRules::getValidPostRules());
+
+                    if ($validate->checkIfPassed()) {
+
+                        echo 'ok';
+
+                    } else {
+                        // Display a validation error
+                        $errorMessage = $validate->getFirstErrorMessage();
+                        $this->_view->setViewError($errorMessage);
+                    }
+
+                }
+            }
+
+
             $postImages = $this->model('BlogPostImages')->selectImages();
 
             $this->_view->addViewData([

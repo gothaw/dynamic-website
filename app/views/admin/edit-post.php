@@ -79,9 +79,9 @@
                 </div>
                 <div class="col-lg-12">
                     <div class="form-field">
-                        <label for="description">Post Body</label>
+                        <label for="post_text">Post Body</label>
                         <div>Max 5000 characters.</div>
-                        <textarea class="form-text-area" name="description" id="description"
+                        <textarea class="form-text-area" name="post_text" id="post_text"
                                   required><?php echo escape($data['post']['p_text']) ?></textarea>
                     </div>
                 </div>
