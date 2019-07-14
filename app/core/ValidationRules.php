@@ -91,7 +91,7 @@ class ValidationRules
             'post_text' => [
                 'desc' => 'post body',
                 'required' => true,
-                'min' => 2,
+                'min' => 50,
                 'max' => 5000
             ]
         ], self::getValidDateRules(), self::getValidTimeRules());

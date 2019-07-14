@@ -200,7 +200,7 @@ class BlogPosts
 
         $this->_data = $this->_database->query($sql, [$postId])->getResultFirstRecord();
 
-        if ($postTextInParagraphs){
+        if ($postTextInParagraphs) {
             $this->setPostText();
         }
         $this->setPostTags();
@@ -313,6 +313,33 @@ class BlogPosts
                 }
                 $this->_data = array_merge($this->_data, ['p_tags' => $postTags]);
             }
+        }
+    }
+
+    /**
+     * @method                  addPost
+     * @param                   $fields {array}
+     * @desc                    Adds new blog post to the database.
+     * @throws                  Exception
+     */
+    public function addPost($fields = [])
+    {
+        if (!$this->_database->insert('post', $fields)) {
+            throw new Exception('There was a problem adding the blog post.');
+        }
+    }
+
+    /**
+     * @method                  updatePost
+     * @param                   $postId
+     * @param                   $fields {array}
+     * @desc                    Updates blog posts in the database.
+     * @throws                  Exception
+     */
+    public function updatePost($postId, $fields = [])
+    {
+        if (!$this->_database->update('post', 'p_id', $postId, $fields)) {
+            throw new Exception('There was a problem in updating the blog post.');
         }
     }
 }

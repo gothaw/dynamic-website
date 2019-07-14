@@ -48,12 +48,39 @@ class AdminBlog extends Controller
             if (Input::exists()) {
                 if (Token::check(Input::getValue('token'))) {
 
+                    // Validate using validate object
                     $validate = new Validate();
                     $validate->check($_POST, ValidationRules::getValidPostRules());
 
                     if ($validate->checkIfPassed()) {
 
-                        echo 'ok';
+                        $this->model('BlogPostTags');
+
+                        try {
+
+                            // Update blog post
+                            /*$this->_posts->updatePost($postId, [
+                                'p_title' => trim(Input::getValue('post_title')),
+                                'p_text' => trim(Input::getValue('post_text')),
+                                'p_category' => trim(strtolower(Input::getValue('post_category'))),
+                                'p_date' =>  trim(Input::getValue('date')),
+                                'p_time' => trim(Input::getValue('time')),
+                                'p_author' => trim(Input::getValue('post_author')),
+                                'p_img_id' => Input::getValue('post_image')
+                            ]);*/
+
+                            // Update blog post tags
+                            $blogPostTags = $this->model('BlogPostTags');
+
+                            $blogPostTags->insertTags($postId, trim(Input::getValue('post_tags')));
+
+                            /*Session::flash('admin', 'You successfully edited blog post.');
+                            Redirect::to('admin-blog');*/
+
+                        } catch (Exception $e) {
+                            $errorMessage = $e->getMessage();
+                            $this->_view->setViewError($errorMessage);
+                        }
 
                     } else {
                         // Display a validation error
