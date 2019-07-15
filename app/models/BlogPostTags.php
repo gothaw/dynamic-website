@@ -20,33 +20,35 @@ class BlogPostTags
      * @param                   $tagString {string} string of tags separated with commas, spaces or semicolons
      * @throws                  Exception
      */
-    public function insertTags($postId, $tagString)
+    public function updateTags($postId, $tagString)
     {
         $stringWithoutDelimiters = str_replace(',', '', str_replace(';', '', $tagString));
         $tagTextArray = explode(' ', $stringWithoutDelimiters);
 
-        /*if (!$this->_database->delete('post_tag', ['p_id', '=', $postId])) {
+        if (!$this->_database->delete('post_tag', ['p_id', '=', $postId])) {
             throw new Exception("There was problem deleting existing post tags");
-        }*/
+        }
 
         $size = count($tagTextArray);
-        $valuesString = '';
+        $placeholderString = '';
 
         for ($i = 0; $i < $size; $i++) {
-            $valuesString .= "(?, ?)";
+            $placeholderString .= "(?, ?)";
             if ($i < $size - 1) {
-                $valuesString .= ", ";
+                $placeholderString .= ", ";
             }
         }
 
         $valuesArray = [];
 
         foreach ($tagTextArray as $tag) {
-            $valuesArray [] = $postId;
-         }
+            array_push($valuesArray, $postId, strtolower($tag));
+        }
 
-        /*$sql = "INSERT INTO `post_tag` (`p_id`,`pt_text`) VALUES ${$valuesString}";*/
+        $sql = "INSERT INTO `post_tag` (`p_id`, `pt_text`) VALUES " . $placeholderString . ";";
 
-        echo $valuesString;
+        if (!$this->_database->query($sql,$valuesArray)) {
+            throw new Exception("There was problem adding new post tags");
+        }
     }
 }

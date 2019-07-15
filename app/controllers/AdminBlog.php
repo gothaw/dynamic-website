@@ -59,7 +59,7 @@ class AdminBlog extends Controller
                         try {
 
                             // Update blog post
-                            /*$this->_posts->updatePost($postId, [
+                            $this->_posts->updatePost($postId, [
                                 'p_title' => trim(Input::getValue('post_title')),
                                 'p_text' => trim(Input::getValue('post_text')),
                                 'p_category' => trim(strtolower(Input::getValue('post_category'))),
@@ -67,15 +67,14 @@ class AdminBlog extends Controller
                                 'p_time' => trim(Input::getValue('time')),
                                 'p_author' => trim(Input::getValue('post_author')),
                                 'p_img_id' => Input::getValue('post_image')
-                            ]);*/
+                            ]);
 
                             // Update blog post tags
                             $blogPostTags = $this->model('BlogPostTags');
+                            $blogPostTags->updateTags($postId, trim(Input::getValue('post_tags')));
 
-                            $blogPostTags->insertTags($postId, trim(Input::getValue('post_tags')));
-
-                            /*Session::flash('admin', 'You successfully edited blog post.');
-                            Redirect::to('admin-blog');*/
+                            Session::flash('admin', 'You successfully edited blog post.');
+                            Redirect::to('admin-blog');
 
                         } catch (Exception $e) {
                             $errorMessage = $e->getMessage();
