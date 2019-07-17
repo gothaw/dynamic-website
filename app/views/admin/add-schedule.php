@@ -52,7 +52,7 @@
                         <div class="form-field">
                             <label for="date">Date</label>
                             <input type="date" name="date" id="date" value="<?php
-                            if (Input::exists()) {
+                            if (Input::exists('date')) {
                                 echo escape(Input::getValue('date'));
                             } else {
                                 echo date('Y-m-d');
@@ -61,7 +61,7 @@
                         <div class="form-field">
                             <label for="time">Time</label>
                             <input type="time" name="time" id="time" value="<?php
-                            if (Input::exists()) {
+                            if (Input::exists('time')) {
                                 echo Input::getValue('time');
                             } else {
                                 echo date('H:i');

@@ -72,6 +72,9 @@ switch ($subName){
     case 'admin-blog/edit':
         include("../app/views/admin/edit-post.php");
         break;
+    case 'admin-blog/add':
+        include("../app/views/admin/add-post.php");
+        break;
     default:
         include("../app/views/admin/admin-panel.php");
 }

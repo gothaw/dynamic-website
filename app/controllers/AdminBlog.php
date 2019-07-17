@@ -63,7 +63,7 @@ class AdminBlog extends Controller
                                 'p_title' => trim(Input::getValue('post_title')),
                                 'p_text' => trim(Input::getValue('post_text')),
                                 'p_category' => trim(strtolower(Input::getValue('post_category'))),
-                                'p_date' =>  trim(Input::getValue('date')),
+                                'p_date' => trim(Input::getValue('date')),
                                 'p_time' => trim(Input::getValue('time')),
                                 'p_author' => trim(Input::getValue('post_author')),
                                 'p_img_id' => Input::getValue('post_image')
@@ -90,7 +90,6 @@ class AdminBlog extends Controller
                 }
             }
 
-
             $postImages = $this->model('BlogPostImages')->selectImages();
 
             $this->_view->addViewData([
@@ -102,6 +101,25 @@ class AdminBlog extends Controller
         } else {
             Redirect::to('admin-blog');
         }
+    }
+
+    public function add()
+    {
+        if (Input::exists()) {
+            if (Token::check(Input::getValue('token'))) {
+
+
+
+            }
+        }
+
+        $postImages = $this->model('BlogPostImages')->selectImages();
+        $this->_view->addViewData([
+            'images' => $postImages->getData()
+        ]);
+
+        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
+        $this->_view->renderView();
     }
 
     public function changeSelectedImage()
