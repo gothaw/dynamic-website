@@ -20,7 +20,7 @@
                     <div class="form-field">
                         <label for="post_author">Author</label>
                         <input type="text" name="post_author" id="post_author"
-                               value="<?php echo escape(Input::getValue('post_author')) ?>" required
+                               value="<?php echo escape(ucwords(Input::getValue('post_author'))) ?>" required
                                autocomplete="off">
                     </div>
                     <div class="form-field">

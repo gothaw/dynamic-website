@@ -342,4 +342,22 @@ class BlogPosts
             throw new Exception('There was a problem in updating the blog post.');
         }
     }
+
+    /**
+     * @method                  findMostRecentPostById
+     * @desc                    Selects the most recently added post to the database. That is with highest p_id.
+     * @return                  int|null
+     */
+    public function findMostRecentPostById()
+    {
+        $sql = "SELECT `p_id` FROM `post` ORDER BY `p_id` DESC LIMIT 1 ";
+
+        $post = $this->_database->query($sql)->getResultFirstRecord();
+
+        if(isset($post)){
+            return $post['p_id'];
+        } else {
+            return null;
+        }
+    }
 }

@@ -54,8 +54,6 @@ class AdminBlog extends Controller
 
                     if ($validate->checkIfPassed()) {
 
-                        $this->model('BlogPostTags');
-
                         try {
 
                             // Update blog post
@@ -65,7 +63,7 @@ class AdminBlog extends Controller
                                 'p_category' => trim(strtolower(Input::getValue('post_category'))),
                                 'p_date' => trim(Input::getValue('date')),
                                 'p_time' => trim(Input::getValue('time')),
-                                'p_author' => trim(Input::getValue('post_author')),
+                                'p_author' => trim(strtolower(Input::getValue('post_author'))),
                                 'p_img_id' => Input::getValue('post_image')
                             ]);
 
@@ -73,7 +71,7 @@ class AdminBlog extends Controller
                             $blogPostTags = $this->model('BlogPostTags');
                             $blogPostTags->updateTags($postId, trim(Input::getValue('post_tags')));
 
-                            Session::flash('admin', 'You successfully edited blog post.');
+                            Session::flash('admin', 'You successfully edited the blog post.');
                             Redirect::to('admin-blog');
 
                         } catch (Exception $e) {
@@ -108,8 +106,44 @@ class AdminBlog extends Controller
         if (Input::exists()) {
             if (Token::check(Input::getValue('token'))) {
 
+                // Validate using validate object
+                $validate = new Validate();
+                $validate->check($_POST, ValidationRules::getValidPostRules());
 
+                if ($validate->checkIfPassed()) {
 
+                    try {
+
+                        // Add blog post
+                        $this->_posts->addPost([
+                            'p_title' => trim(Input::getValue('post_title')),
+                            'p_text' => trim(Input::getValue('post_text')),
+                            'p_category' => trim(strtolower(Input::getValue('post_category'))),
+                            'p_date' => trim(Input::getValue('date')),
+                            'p_time' => trim(Input::getValue('time')),
+                            'p_author' => trim(strtolower(Input::getValue('post_author'))),
+                            'p_comments' => 0,
+                            'p_img_id' => Input::getValue('post_image')
+                        ]);
+
+                        // Add blog post tags
+                        $blogPostId = $this->_posts->findMostRecentPostById();
+                        $blogPostTags = $this->model('BlogPostTags');
+                        $blogPostTags->updateTags($blogPostId, trim(Input::getValue('post_tags')));
+
+                        Session::flash('admin', 'You successfully added a blog post.');
+                        Redirect::to('admin-blog');
+
+                    } catch (Exception $e) {
+                        $errorMessage = $e->getMessage();
+                        $this->_view->setViewError($errorMessage);
+                    }
+
+                } else {
+                    // Display a validation error
+                    $errorMessage = $validate->getFirstErrorMessage();
+                    $this->_view->setViewError($errorMessage);
+                }
             }
         }
 
