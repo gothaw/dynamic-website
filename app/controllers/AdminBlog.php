@@ -101,6 +101,36 @@ class AdminBlog extends Controller
         }
     }
 
+    public function delete($postId = '')
+    {
+        if (Input::exists()) {
+            if (Token::check(Input::getValue('token'))) {
+
+                $selectedPost = $this->_posts->selectPost($postId, false)->getData();
+
+                if (isset($selectedPost) && is_numeric($postId)) {
+                    try {
+                        // Delete Post tags
+                        $blogPostTags = $this->model('BlogPostTags');
+                        $blogPostTags->deleteTags($postId);
+
+                        // Delete Post
+                        $this->_posts->deletePost($postId);
+
+                        Session::flash('admin', 'Blog post has been deleted.');
+                        Redirect::to('admin-blog');
+                    } catch (Exception $e) {
+                        $errorMessage = $e->getMessage();
+                        $this->_view->setViewError($errorMessage);
+                    }
+                }
+            }
+        }
+        $this->_view->addViewData(['itemToBeDeleted' => 'blog post']);
+        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
+        $this->_view->renderView();
+    }
+
     public function add()
     {
         if (Input::exists()) {
@@ -129,7 +159,7 @@ class AdminBlog extends Controller
                         // Add blog post tags
                         $blogPostId = $this->_posts->findMostRecentPostById();
                         $blogPostTags = $this->model('BlogPostTags');
-                        $blogPostTags->updateTags($blogPostId, trim(Input::getValue('post_tags')));
+                        $blogPostTags->insertTags($blogPostId, trim(Input::getValue('post_tags')));
 
                         Session::flash('admin', 'You successfully added a blog post.');
                         Redirect::to('admin-blog');

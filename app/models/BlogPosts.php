@@ -344,6 +344,19 @@ class BlogPosts
     }
 
     /**
+     * @method                  deletePost
+     * @param                   $postId
+     * @desc                    Method deletes post from the database.
+     * @throws                  Exception
+     */
+    public function deletePost($postId)
+    {
+        if (!$this->_database->delete('post', ['p_id', '=', $postId])) {
+            throw new Exception("There was problem deleting existing post tags");
+        }
+    }
+
+    /**
      * @method                  findMostRecentPostById
      * @desc                    Selects the most recently added post to the database. That is with highest p_id.
      * @return                  int|null
@@ -354,7 +367,7 @@ class BlogPosts
 
         $post = $this->_database->query($sql)->getResultFirstRecord();
 
-        if(isset($post)){
+        if (isset($post)) {
             return $post['p_id'];
         } else {
             return null;
