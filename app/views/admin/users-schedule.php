@@ -1,4 +1,4 @@
-<!-- Membership Search Starts Here -->
+<!-- Users in Scheduled Class Starts Here -->
 <section class="table-area section-padding4">
     <div class="container">
         <div class="row">
@@ -67,10 +67,10 @@
         <div class="row">
             <div class="col-lg-12 admin-navigate-buttons">
                 <div>
-                    <a class="template-btn" href="<?php echo ROOT . 'admin-schedule' ?>">Back to Schedule</a>
+                    <a class="template-btn" href="<?php echo ROOT . 'admin-schedule/edit/' . escape($data['scheduledClass']['sc_id']) ?>">Back to Scheduled Class</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- Membership Search Ends Here -->
+<!-- Users in Scheduled Class Ends Here -->

@@ -3,10 +3,9 @@
     <div class="container">
         <div class="row">
             <?php
-            switch ($subName)
-            {
+            switch ($subName) {
                 case 'blog/post':
-                    include("../app/views/blog/post.php");
+                    include("../app/views/blog/single-post.php");
                     break;
                 default:
                     include("../app/views/blog/blog-posts.php");

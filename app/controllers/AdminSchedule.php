@@ -202,9 +202,12 @@ class AdminSchedule extends Controller
                 'scheduledClass' => $scheduledClass,
                 'users' => $users
             ]);
+            $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
+            $this->_view->renderView();
+
+        } else {
+            Redirect::to('admin-schedule');
         }
-        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
-        $this->_view->renderView();
     }
 
     private function usersAdd($scheduledId)

@@ -52,10 +52,10 @@ switch ($subName){
         include("../app/views/admin/admin-schedule.php");
         break;
     case 'admin-schedule/edit':
-        include("../app/views/admin/edit-schedule.php");
+        include("../app/views/admin/edit-scheduled-class.php");
         break;
     case 'admin-schedule/add':
-        include("../app/views/admin/add-schedule.php");
+        include("../app/views/admin/add-scheduled-class.php");
         break;
     case 'admin-schedule/delete':
         include("../app/views/admin/delete-item.php");
@@ -77,6 +77,12 @@ switch ($subName){
         break;
     case 'admin-blog/delete':
         include("../app/views/admin/delete-item.php");
+        break;
+    case 'admin-blog/comments':
+        include("../app/views/admin/blog-comments.php");
+        break;
+    case 'admin-blog/comments-edit':
+        include("../app/views/admin/edit-comment.php");
         break;
     default:
         include("../app/views/admin/admin-panel.php");

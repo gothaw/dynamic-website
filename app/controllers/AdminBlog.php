@@ -186,6 +186,33 @@ class AdminBlog extends Controller
         $this->_view->renderView();
     }
 
+    public function comments($postId = '')
+    {
+        $selectedPost = $this->_posts->selectPost($postId, false)->getData();
+
+        if (isset($selectedPost) && is_numeric($postId)) {
+
+            $comments = $this->model("BlogComments")->selectComments($postId);
+
+            $this->_view->addViewData([
+                'comments' => $comments->getData(),
+                'selectedPost' => $selectedPost
+            ]);
+
+            $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
+            $this->_view->renderView();
+
+        } else {
+            Redirect::to('admin-blog');
+        }
+    }
+
+    public function commentsEdit($postId = '', $postCommentId = '')
+    {
+        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . toLispCase(__FUNCTION__));
+        $this->_view->renderView();
+    }
+
     public function changeSelectedImage()
     {
         if (Input::exists() && is_numeric(Input::getValue('p_img_id'))) {

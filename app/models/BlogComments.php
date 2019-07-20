@@ -28,6 +28,7 @@ class BlogComments
      * @method                  selectComments
      * @param                   $postId
      * @desc                    Selects comments from the database for selected post.
+     *                          Selects only approved posts and order them by date and time.
      * @return                  $this
      */
     public function selectComments($postId)

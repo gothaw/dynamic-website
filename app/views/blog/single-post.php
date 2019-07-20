@@ -52,7 +52,7 @@
                     foreach ($data['postComments'] as $comment) { ?>
                     <div class="user">
                         <div class="desc">
-                            <h5><?php echo escape($comment['pc_author']) ?></h5>
+                            <h5><?php echo escape(ucwords($comment['pc_author'])) ?></h5>
                             <p class="date"><?php echo escape($comment['pc_date'] . ', ' . $comment['pc_time']) ?></p>
                             <p class="comment"><?php echo escape($comment['pc_text']) ?></p>
                         </div>

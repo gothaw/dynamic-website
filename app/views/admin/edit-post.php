@@ -104,7 +104,7 @@
                             Post</a>
                     </div>
                     <div>
-                        <a class="template-btn" href="<?php echo ROOT . 'admin-blog' ?>">View Post Comments</a>
+                        <a class="template-btn" href="<?php echo ROOT . 'admin-blog/comments/' . escape($data['post']['p_id']) ?>">View Post Comments</a>
                     </div>
                 </div>
             </div>
