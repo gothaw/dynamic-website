@@ -1,7 +1,7 @@
 <!-- Register Form Area Starts -->
 <section class="section-padding5 section-padding3">
     <div class="container">
-        <form class="register-form" action="" method="post">
+        <form class="wide-form" action="" method="post">
             <h3>Add Member</h3>
             <div class="form-text">
                 Please provide following details to register new user:

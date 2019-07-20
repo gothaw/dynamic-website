@@ -1,7 +1,7 @@
 <!-- Add Post Form Area Starts -->
 <section id="add-post" class="section-padding4">
     <div class="container">
-        <form class="classes-form" action="" method="post" enctype="multipart/form-data">
+        <form class="wide-form" action="" method="post" enctype="multipart/form-data">
             <h3 class="form-text">Edit Blog Post</h3>
             <div class="row">
                 <div class="col-lg-6">

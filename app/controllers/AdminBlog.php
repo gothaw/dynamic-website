@@ -207,10 +207,24 @@ class AdminBlog extends Controller
         }
     }
 
-    public function commentsEdit($postId = '', $postCommentId = '')
+    public function commentsEdit($postCommentId = '')
     {
-        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . toLispCase(__FUNCTION__));
-        $this->_view->renderView();
+        $selectedComment = $this->model("BlogComments")->selectComment($postCommentId);
+
+        if (isset($selectedComment) && is_numeric($postCommentId)) {
+
+
+
+            $this->_view->addViewData([
+                'selectedComment' => $selectedComment->getData(),
+            ]);
+
+            $this->_view->setSubName(toLispCase(__CLASS__) . '/' . toLispCase(__FUNCTION__));
+            $this->_view->renderView();
+
+        } else {
+            Redirect::to('admin-blog');
+        }
     }
 
     public function changeSelectedImage()

@@ -2,7 +2,7 @@
 <section id="edit-schedule" class="section-padding4">
     <div class="container">
         <h3 class="form-text">Update Scheduled Class</h3>
-        <form class="schedule-form" action="" method="post">
+        <form class="narrow-form" action="" method="post">
             <div class="form-text">
                 Fill the fields below to update scheduled class.
             </div>

@@ -49,4 +49,17 @@ class BlogComments
         return $this;
     }
 
+    /**
+     * @method                  selectComment
+     * @param                   $postCommentId
+     * @desc                    Selects comment from the database base on the post comment id.
+     * @return                  $this
+     */
+    public function selectComment($postCommentId)
+    {
+        $this->_data = $this->_database->select('post_comment', ['pc_id', '=', $postCommentId])->getResultFirstRecord();
+
+        return $this;
+    }
+
 }

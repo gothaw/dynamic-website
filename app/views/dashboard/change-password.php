@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <h3 class="form-text">Change Password</h3>
-                <form class="change-password-form" action="<?php echo ROOT . "dashboard/changepass" ?>" method="post">
+                <form class="narrow-form" action="<?php echo ROOT . "dashboard/changepass" ?>" method="post">
                     <div class="form-text">
                         Please provide your current and new password:
                     </div>

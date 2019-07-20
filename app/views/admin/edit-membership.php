@@ -1,7 +1,7 @@
 <!-- Edit Membership Starts -->
 <section class="section-padding4">
     <div class="container">
-        <form class="update-form" action="" method="post">
+        <form class="narrow-form" action="" method="post">
             <h3 class="form-text">Update Membership</h3>
             <div class="row">
                 <div class="col-lg-12">

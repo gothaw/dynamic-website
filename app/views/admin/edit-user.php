@@ -1,7 +1,7 @@
 <!-- Edit User Details Form Area Starts -->
 <section class="section-padding4">
     <div class="container">
-        <form class="update-form" action="" method="post">
+        <form class="narrow-form" action="" method="post">
             <h3 class="form-text">Update User Details</h3>
             <div class="form-text">
                 Fill the fields below to update user personal details.
