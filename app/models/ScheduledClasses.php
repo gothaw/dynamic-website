@@ -388,7 +388,7 @@ class ScheduledClasses
     /**
      * @method                  addOnePersonToClass
      * @param                   $scheduledId {`sc_id` column in `schedule` table}
-     * @desc                    Method adds 1 in `sc_no_people` field for record where `sc_id` is equal to $scheduledId.
+     * @desc                    Method adds 1 to total number of people in selected class.
      *                          Uses update method from Database object. Requires setting _data field.
      * @throws                  Exception
      */
@@ -408,7 +408,7 @@ class ScheduledClasses
     /**
      * @method                  removeOnePersonFromClass
      * @param                   $scheduledId {`sc_id` column in `schedule` table}
-     * @desc                    Method removes 1 in `sc_no_people` field for record where `sc_id` is equal to $scheduledId.
+     * @desc                    Method removes 1 from total number of people in selected class.
      *                          Uses update method from Database object. Requires setting _data.
      * @throws                  Exception
      */

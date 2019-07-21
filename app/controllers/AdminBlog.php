@@ -213,11 +213,12 @@ class AdminBlog extends Controller
         }
     }
 
-    public function commentsEdit($postCommentId = '')
+    public function commentsEdit($postId = '' , $postCommentId = '')
     {
+        $selectedPost = $this->_posts->selectPost($postId)->getData();
         $selectedComment = $this->model("BlogComments")->selectComment($postCommentId);
 
-        if (isset($selectedComment) && is_numeric($postCommentId)) {
+        if (isset($selectedPost) && isset($selectedComment)) {
 
             if (Input::exists()) {
                 if (Token::check(Input::getValue('token'))) {
@@ -239,7 +240,7 @@ class AdminBlog extends Controller
                             ]);
 
                             Session::flash('admin', 'You successfully edited post comment.');
-                            Redirect::to('admin-blog');
+                            Redirect::to('admin-blog/comments/' . $postId);
 
                         } catch (Exception $e) {
                             $errorMessage = $e->getMessage();
@@ -256,6 +257,7 @@ class AdminBlog extends Controller
             }
 
             $this->_view->addViewData([
+                'selectedPost' => $selectedPost,
                 'selectedComment' => $selectedComment->getData()
             ]);
 
@@ -267,9 +269,37 @@ class AdminBlog extends Controller
         }
     }
 
-    public function commentDelete()
+    public function commentsDelete($postId = '', $postCommentId = '')
     {
+        if (Input::exists()) {
+            if (Token::check(Input::getValue('token'))) {
 
+                $selectedPost = $this->_posts->selectPost($postId);
+                $selectedComment = $this->model("BlogComments")->selectComment($postCommentId);
+
+                if (isset($selectedPost) && isset($selectedComment)) {
+
+                    try {
+
+                        // Delete comment
+                        $selectedComment->deleteComment($postCommentId);
+
+                        // Decrease total number of comments under the post by 1
+                        $selectedPost->removeOneCommentFromPost();
+
+                        Session::flash('admin', 'You successfully deleted post comment.');
+                        Redirect::to('admin-blog/comments/' . $postId);
+
+                    } catch (Exception $e) {
+                        $errorMessage = $e->getMessage();
+                        $this->_view->setViewError($errorMessage);
+                    }
+                }
+            }
+        }
+        $this->_view->addViewData(['itemToBeDeleted' => 'comment']);
+        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . toLispCase(__FUNCTION__));
+        $this->_view->renderView();
     }
 
 

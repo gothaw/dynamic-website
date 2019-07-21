@@ -389,7 +389,7 @@ class BlogPosts
 
     /**
      * @method                  addOneCommentToPost
-     * @desc                    Method adds 1 to `p_comments` field for selected post record.
+     * @desc                    Method adds 1 to total number of comments for selected post record.
      *                          Uses update method from Database object. Requires setting _data with a single post.
      * @throws                  Exception
      */
@@ -406,7 +406,7 @@ class BlogPosts
 
     /**
      * @method                  removeOneCommentFromPost
-     * @desc                    Method removes 1 from `p_comments` field for selected post record.
+     * @desc                    Method removes 1 from total number of comments for selected post record.
      *                          Uses update method from Database object. Requires setting _data with a single post.
      * @throws                  Exception
      */

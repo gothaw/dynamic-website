@@ -49,7 +49,7 @@
                         <a class="template-btn" href="<?php echo ROOT . 'admin-blog' ?>">Back to Blog</a>
                     </div>
                     <div>
-                        <a class="template-btn" href="<?php echo ROOT . 'admin-blog/comments-delete/' . $data['selectedComment']['pc_id'] ?>">Delete Comment</a>
+                        <a class="template-btn" href="<?php echo ROOT . 'admin-blog/comments-delete/' . $data['selectedPost']['p_id'] . '/' . $data['selectedComment']['pc_id'] ?>">Delete Comment</a>
                     </div>
                 </div>
             </div>

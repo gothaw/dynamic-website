@@ -139,9 +139,6 @@ class Blog extends Controller
                             'pc_approved' => 0
                         ]);
 
-                        // Increase number of comments under the post by 1
-                        $selectedPost->addOneCommentToPost();
-
                         Session::flash('blog', 'Thank you for commenting. Your comment will be added when it is accepted by our moderators.');
                         Redirect::to('blog/post/' . $postId);
 

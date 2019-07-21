@@ -2,7 +2,7 @@
 
 //CONTENT
 include("../app/views/_includes/view-error.php");
-switch ($subName){
+switch ($subName) {
     case 'admin-membership':
         include("../app/views/admin/user-search.php");
         break;
@@ -83,6 +83,9 @@ switch ($subName){
         break;
     case 'admin-blog/comments-edit':
         include("../app/views/admin/edit-comment.php");
+        break;
+    case 'admin-blog/comments-delete':
+        include("../app/views/admin/delete-item.php");
         break;
     default:
         include("../app/views/admin/admin-panel.php");
