@@ -43,7 +43,7 @@ class AdminClasses extends Controller
 
                     // Validation using Validate object
                     $validate = new Validate();
-                    $validate->check($_POST, ValidationRules::getValidClassRules());
+                    $validate->check($_POST, ValidationRules::getClassDetailsRules());
 
                     // Create new File
                     $image = new File('class_image');
@@ -151,7 +151,7 @@ class AdminClasses extends Controller
 
                 // Validation using Validate object
                 $validate = new Validate();
-                $validate->check($_POST, ValidationRules::getValidClassRules());
+                $validate->check($_POST, ValidationRules::getClassDetailsRules());
 
                 // Create new File
                 $image = new File('class_image');

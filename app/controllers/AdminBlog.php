@@ -50,7 +50,7 @@ class AdminBlog extends Controller
 
                     // Validate using validate object
                     $validate = new Validate();
-                    $validate->check($_POST, ValidationRules::getValidPostRules());
+                    $validate->check($_POST, ValidationRules::getPostRules());
 
                     if ($validate->checkIfPassed()) {
 
@@ -138,7 +138,7 @@ class AdminBlog extends Controller
 
                 // Validate using validate object
                 $validate = new Validate();
-                $validate->check($_POST, ValidationRules::getValidPostRules());
+                $validate->check($_POST, ValidationRules::getPostRules());
 
                 if ($validate->checkIfPassed()) {
 
@@ -213,10 +213,43 @@ class AdminBlog extends Controller
 
         if (isset($selectedComment) && is_numeric($postCommentId)) {
 
+            if (Input::exists()) {
+                if (Token::check(Input::getValue('token'))) {
 
+                    // Validate using validate object
+                    $validate = new Validate();
+                    $validate->check($_POST, ValidationRules::getEditPostCommentRules());
+
+                    if ($validate->checkIfPassed()) {
+
+                        try {
+
+                            $selectedComment->updateComment($postCommentId, [
+                                'pc_date' => trim(Input::getValue('date')),
+                                'pc_time' => trim(Input::getValue('time')),
+                                'pc_text' => trim(Input::getValue('comment_text')),
+                                'pc_author' => trim(Input::getValue('comment_author')),
+                            ]);
+
+                            Session::flash('admin', 'You successfully edited post comment.');
+                            Redirect::to('admin-blog');
+
+                        } catch (Exception $e) {
+                            $errorMessage = $e->getMessage();
+                            $this->_view->setViewError($errorMessage);
+                        }
+
+                    } else {
+                        // Display a validation error
+                        $errorMessage = $validate->getFirstErrorMessage();
+                        $this->_view->setViewError($errorMessage);
+                    }
+
+                }
+            }
 
             $this->_view->addViewData([
-                'selectedComment' => $selectedComment->getData(),
+                'selectedComment' => $selectedComment->getData()
             ]);
 
             $this->_view->setSubName(toLispCase(__CLASS__) . '/' . toLispCase(__FUNCTION__));
@@ -226,6 +259,10 @@ class AdminBlog extends Controller
             Redirect::to('admin-blog');
         }
     }
+
+
+
+
 
     public function changeSelectedImage()
     {

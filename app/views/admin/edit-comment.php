@@ -6,8 +6,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="form-field">
-                        <label for="author">Author</label>
-                        <input type="text" id="author" name="author" value="<?php echo escape(ucwords($data['selectedComment']['pc_author'])) ?>" autocomplete="off">
+                        <label for="comment_author">Author</label>
+                        <input type="text" id="comment_author" name="comment_author" value="<?php echo escape(ucwords($data['selectedComment']['pc_author'])) ?>" autocomplete="off">
                     </div>
                     <div class="form-field-flex">
                         <div class="form-field">
@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <div class="form-field">
-                        <label for="post_text">Comment Body</label>
+                        <label for="comment_text">Comment Body</label>
                         <div>Max 2000 characters.</div>
                         <textarea class="form-text-area" name="comment_text" id="comment_text"
                                   required><?php echo escape($data['selectedComment']['pc_text']) ?></textarea>
@@ -44,9 +44,12 @@
         </form>
         <div class="row">
             <div class="col-lg-12">
-                <div class="admin-navigate-buttons">
+                <div class="admin-navigate-buttons admin-navigate-buttons-flex">
                     <div>
                         <a class="template-btn" href="<?php echo ROOT . 'admin-blog' ?>">Back to Blog</a>
+                    </div>
+                    <div>
+                        <a class="template-btn" href="<?php echo ROOT . 'admin-blog/comments-delete/' . $data['selectedComment']['pc_id'] ?>">Delete Comment</a>
                     </div>
                 </div>
             </div>

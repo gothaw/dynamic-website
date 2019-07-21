@@ -28,7 +28,7 @@ class Login extends Controller
 
                 // Validation using Validate object
                 $validate = new Validate();
-                $validate->check($_POST, ValidationRules::getValidLoginRules());
+                $validate->check($_POST, ValidationRules::getLoginRules());
 
                 if ($validate->checkIfPassed()) {
 

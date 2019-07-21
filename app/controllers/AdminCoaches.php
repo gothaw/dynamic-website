@@ -43,7 +43,7 @@ class AdminCoaches extends Controller
 
                     // Validation using Validate object
                     $validate = new Validate();
-                    $validate->check($_POST, ValidationRules::getValidCoachRules());
+                    $validate->check($_POST, ValidationRules::getCoachDetailsRules());
 
                     // Create new File
                     $image = new File('coach_image');
@@ -143,7 +143,7 @@ class AdminCoaches extends Controller
 
                 // Validation using Validate object
                 $validate = new Validate();
-                $validate->check($_POST, ValidationRules::getValidCoachRules());
+                $validate->check($_POST, ValidationRules::getCoachDetailsRules());
 
                 // Create new File
                 $image = new File('coach_image');

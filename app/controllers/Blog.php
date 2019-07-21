@@ -42,7 +42,7 @@ class Blog extends Controller
 
         // Validation using Validate object
         $validate = new Validate();
-        $validate->check(['tag' => $tag], ValidationRules::getValidPostTagRules());
+        $validate->check(['tag' => $tag], ValidationRules::getPostTagRules());
 
         if($validate->checkIfPassed()){
 
@@ -67,7 +67,7 @@ class Blog extends Controller
 
         // Validation using Validate object
         $validate = new Validate();
-        $validate->check(['category' => $category], ValidationRules::getValidPostCategoryRules());
+        $validate->check(['category' => $category], ValidationRules::getPostCategoryRules());
 
         if($validate->checkIfPassed()){
 

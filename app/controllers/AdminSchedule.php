@@ -216,7 +216,7 @@ class AdminSchedule extends Controller
             if (Token::check(Input::getValue('token'))) {
 
                 $validate = new Validate();
-                $validate->check($_POST, ValidationRules::getValidUserIdRules());
+                $validate->check($_POST, ValidationRules::getUserIdRules());
 
                 if ($validate->checkIfPassed()) {
 

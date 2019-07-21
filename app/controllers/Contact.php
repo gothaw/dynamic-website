@@ -28,7 +28,7 @@ class Contact extends Controller
 
                 // Validation using Validate object
                 $validate = new Validate();
-                $validate->check($_POST, ValidationRules::getValidMessageRules());
+                $validate->check($_POST, ValidationRules::getContactFormMessageRules());
 
                 if ($validate->checkIfPassed()) {
 

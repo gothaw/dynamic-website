@@ -358,7 +358,7 @@ class BlogPosts
 
     /**
      * @method                  findMostRecentPostById
-     * @desc                    Selects the most recently added post to the database. That is with highest p_id.
+     * @desc                    Selects the most recently added post to the database. That is with the highest p_id.
      * @return                  int|null
      */
     public function findMostRecentPostById()
@@ -372,5 +372,15 @@ class BlogPosts
         } else {
             return null;
         }
+    }
+
+    public function increaseNumberOfComments()
+    {
+
+    }
+
+    public function decreaseNumberOfComments()
+    {
+
     }
 }

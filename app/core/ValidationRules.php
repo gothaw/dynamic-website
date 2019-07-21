@@ -9,7 +9,7 @@ class ValidationRules
      */
     public static function getRegisterUserRules()
     {
-        $rulesArray = array_merge(self::getUpdateUserRules(), self::getValidUsernameRules(), self::getValidUserEmailRules(), self::getValidPasswordRules());
+        $rulesArray = array_merge(self::getUpdateUserRules(), self::getUsernameRules(), self::getUserEmailRules(), self::getPasswordRules());
 
         return $rulesArray;
     }
@@ -21,7 +21,7 @@ class ValidationRules
      */
     public static function getRegisterUserRulesAdminPanel()
     {
-        $rulesArray = array_merge(self::getUpdateUserRules(), self::getValidUsernameRules(), self::getValidUserEmailRules(), self::getValidPasswordRules(), [
+        $rulesArray = array_merge(self::getUpdateUserRules(), self::getUsernameRules(), self::getUserEmailRules(), self::getPasswordRules(), [
             'permission' => [
                 'desc' => 'User permission group',
                 'required' => true
@@ -49,17 +49,17 @@ class ValidationRules
                 'required' => true,
                 'exists' => 'coach/co_id'
             ]
-        ], self::getValidFutureDateRules(), self::getValidTimeRules());
+        ], self::getFutureDateRules(), self::getTimeRules());
 
         return $rulesArray;
     }
 
     /**
-     * @method                      getValidPostRules
+     * @method                      getPostRules
      * @desc                        Validation rules for adding and deleting posts in admin panel.
      * @return                      array
      */
-    public static function getValidPostRules()
+    public static function getPostRules()
     {
         $rulesArray = array_merge([
             'post_title' => [
@@ -94,17 +94,56 @@ class ValidationRules
                 'min' => 50,
                 'max' => 5000
             ]
-        ], self::getValidDateRules(), self::getValidTimeRules());
+        ], self::getDateRules(), self::getTimeRules());
 
         return $rulesArray;
     }
 
     /**
-     * @method                      getValidUserIdRules
+     * @method                      getEditPostCommentRules
+     * @desc                        Valid rules for post comment. Used when editing post comment in admin panel.
+     * @return                      array
+     */
+    public static function getEditPostCommentRules()
+    {
+        $rulesArray = array_merge(self::getAddPostCommentRules(),
+            [
+                'comment_author' => [
+                    'desc' => 'comment author',
+                    'required' => true,
+                    'min' => 2,
+                    'max' => 120
+                ]
+            ], self::getDateRules(), self::getTimeRules());
+
+        return $rulesArray;
+    }
+
+    /**
+     * @method                      getAddPostCommentRules
+     * @desc                        Valid rules for comment text. Used when user adds comment under a post.
+     * @return                      array
+     */
+    public static function getAddPostCommentRules()
+    {
+        $rulesArray = [
+            'comment_text' => [
+                'desc' => 'comment body',
+                'required' => true,
+                'min' => 2,
+                'max' => 2000
+            ]
+        ];
+
+        return $rulesArray;
+    }
+
+    /**
+     * @method                      getUserIdRules
      * @desc                        Valid user id rules. Used for signing up user to a scheduled class in admin panel.
      * @return                      array
      */
-    public static function getValidUserIdRules()
+    public static function getUserIdRules()
     {
         $rulesArray = [
             'user_id' => [
@@ -153,7 +192,7 @@ class ValidationRules
      */
     public static function getChangePasswordRules()
     {
-        $passwordRules = self::getValidPasswordRules();
+        $passwordRules = self::getPasswordRules();
 
         $passwordRules['password']['desc'] = 'new password';
         $passwordRules['password_again']['desc'] = 'repeating new password';
@@ -169,11 +208,11 @@ class ValidationRules
     }
 
     /**
-     * @method                      getValidLoginRules
+     * @method                      getLoginRules
      * @desc                        Rules for valid login attempt.
      * @return                      array
      */
-    public static function getValidLoginRules()
+    public static function getLoginRules()
     {
         $rulesArray = [
             'username' => [
@@ -190,11 +229,11 @@ class ValidationRules
     }
 
     /**
-     * @method                      getValidMessageRules
+     * @method                      getContactFormMessageRules
      * @desc                        Rules for valid message sent using contact form.
      * @return                      array
      */
-    public static function getValidMessageRules()
+    public static function getContactFormMessageRules()
     {
         $rulesArray = [
             'name' => [
@@ -223,7 +262,12 @@ class ValidationRules
         return $rulesArray;
     }
 
-    public static function getValidDateRules()
+    /**
+     * @method                      getDateRules
+     * @desc                        Rules for valid date.
+     * @return                      array
+     */
+    public static function getDateRules()
     {
         $rulesArray = [
             'date' => [
@@ -237,11 +281,11 @@ class ValidationRules
     }
 
     /**
-     * @method                      getValidFutureDateRules
+     * @method                      getFutureDateRules
      * @desc                        Rules for valid future date.
      * @return                      array
      */
-    public static function getValidFutureDateRules()
+    public static function getFutureDateRules()
     {
         $rulesArray = [
             'date' => [
@@ -255,11 +299,11 @@ class ValidationRules
     }
 
     /**
-     * @method                      getValidTimeRules
+     * @method                      getTimeRules
      * @desc                        Rules for valid time.
      * @return                      array
      */
-    public static function getValidTimeRules()
+    public static function getTimeRules()
     {
         $rulesArray = [
             'time' => [
@@ -273,11 +317,11 @@ class ValidationRules
     }
 
     /**
-     * @method                      getValidCoachRules
+     * @method                      getCoachDetailsRules
      * @desc                        Rules for valid coach details.
      * @return                      array
      */
-    public static function getValidCoachRules()
+    public static function getCoachDetailsRules()
     {
         $rulesArray = [
             'first_name' => [
@@ -319,11 +363,11 @@ class ValidationRules
 
 
     /**
-     * @method                      getValidClassRules
+     * @method                      getClassDetailsRules
      * @desc                        Rules for valid class details.
      * @return                      array
      */
-    public static function getValidClassRules()
+    public static function getClassDetailsRules()
     {
         $rulesArray = [
             'class_name' => [
@@ -365,11 +409,11 @@ class ValidationRules
 
 
     /**
-     * @method                      getValidPostCategoryRules
+     * @method                      getPostCategoryRules
      * @desc                        Valid post categories rules. Used in selecting posts by category and validating get parameter.
      * @return                      array
      */
-    public static function getValidPostCategoryRules()
+    public static function getPostCategoryRules()
     {
         $rulesArray = [
             'category' => [
@@ -381,11 +425,11 @@ class ValidationRules
     }
 
     /**
-     * @method                      getValidPostTagRules
+     * @method                      getPostTagRules
      * @desc                        Valid post tag rules. Used in selecting posts by tag and validating get parameter.
      * @return                      array
      */
-    public static function getValidPostTagRules()
+    public static function getPostTagRules()
     {
         $rulesArray = [
             'tag' => [
@@ -434,11 +478,11 @@ class ValidationRules
     }
 
     /**
-     * @method                      getValidUsernameRules
+     * @method                      getUsernameRules
      * @desc                        Rules for valid username
      * @return                      array
      */
-    private static function getValidUsernameRules()
+    private static function getUsernameRules()
     {
         $rulesArray = [
             'username' => [
@@ -455,11 +499,11 @@ class ValidationRules
     }
 
     /**
-     * @method                      getValidUserEmailRules
+     * @method                      getUserEmailRules
      * @desc                        Rules for valid email address.
      * @return                      array
      */
-    private static function getValidUserEmailRules()
+    private static function getUserEmailRules()
     {
         $rulesArray = [
             'email' => [
@@ -474,11 +518,11 @@ class ValidationRules
     }
 
     /**
-     * @method                      getValidPasswordRules
+     * @method                      getPasswordRules
      * @desc                        Rules for valid password.
      * @return                      array
      */
-    private static function getValidPasswordRules()
+    private static function getPasswordRules()
     {
         $rulesArray = [
             'password' => [
