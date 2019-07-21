@@ -1,4 +1,5 @@
 <!--================Blog Area =================-->
+<?php include("../app/views/_includes/view-error.php"); ?>
 <section class="blog_area section-padding4">
     <div class="container">
         <div class="row">

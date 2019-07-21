@@ -104,4 +104,17 @@ class BlogComments
             throw new Exception("There was a problem in deleting the post comment");
         }
     }
+
+    /**
+     * @method                  deleteCommentsByPostId
+     * @param                   $postId
+     * @desc                    Deletes all post comments with given p_id.
+     * @throws                  Exception
+     */
+    public function deleteCommentsByPostId($postId)
+    {
+        if (!$this->_database->delete('post_comment', ['p_id', '=', $postId])) {
+            throw new Exception("There was a problem in deleting comments for given post.");
+        }
+    }
 }

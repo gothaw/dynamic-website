@@ -109,16 +109,22 @@ class AdminBlog extends Controller
                 $selectedPost = $this->_posts->selectPost($postId, false)->getData();
 
                 if (isset($selectedPost) && is_numeric($postId)) {
+
                     try {
                         // Delete Post tags
                         $blogPostTags = $this->model('BlogPostTags');
                         $blogPostTags->deleteTags($postId);
+
+                        // Delete Post comments
+                        $blogComments = $this->model('BlogComments');
+                        $blogComments->deleteCommentsByPostId($postId);
 
                         // Delete Post
                         $this->_posts->deletePost($postId);
 
                         Session::flash('admin', 'Blog post has been deleted.');
                         Redirect::to('admin-blog');
+
                     } catch (Exception $e) {
                         $errorMessage = $e->getMessage();
                         $this->_view->setViewError($errorMessage);
@@ -224,11 +230,12 @@ class AdminBlog extends Controller
 
                         try {
 
+                            // Update comment
                             $selectedComment->updateComment($postCommentId, [
                                 'pc_date' => trim(Input::getValue('date')),
                                 'pc_time' => trim(Input::getValue('time')),
                                 'pc_text' => trim(Input::getValue('comment_text')),
-                                'pc_author' => trim(Input::getValue('comment_author')),
+                                'pc_author' => trim(Input::getValue('comment_author'))
                             ]);
 
                             Session::flash('admin', 'You successfully edited post comment.');
@@ -260,8 +267,10 @@ class AdminBlog extends Controller
         }
     }
 
+    public function commentDelete()
+    {
 
-
+    }
 
 
     public function changeSelectedImage()

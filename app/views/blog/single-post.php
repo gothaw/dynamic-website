@@ -3,7 +3,8 @@
     <div class="single-post row">
         <div class="col-lg-12">
             <div class="feature-img">
-                <img class="img-fluid" src="<?php echo DIST . escape($data['post']['p_img_url']) ?>" alt="<?php echo escape($data['post']['p_img_alt']) ?>">
+                <img class="img-fluid" src="<?php echo DIST . escape($data['post']['p_img_url']) ?>"
+                     alt="<?php echo escape($data['post']['p_img_alt']) ?>">
             </div>
         </div>
         <div class="col-lg-3  col-md-3">
@@ -16,11 +17,15 @@
                     } ?>
                 </div>
                 <ul class="blog_meta list">
-                    <li><span><?php echo escape(ucwords($data['post']['p_author'])) ?><i class="fa fa-user-o"></i></span></li>
-                    <li><span><?php echo escape(ucfirst($data['post']['p_category'])) ?><i class="fa fa-tag"></i></span></li>
+                    <li><span><?php echo escape(ucwords($data['post']['p_author'])) ?><i
+                                    class="fa fa-user-o"></i></span></li>
+                    <li><span><?php echo escape(ucfirst($data['post']['p_category'])) ?><i class="fa fa-tag"></i></span>
+                    </li>
                     <li><span><?php echo escape($data['post']['p_date']) ?><i class="fa fa-calendar-o"></i></span></li>
-                    <li><span><?php echo escape(substr($data['post']['p_time'],0,5)) ?><i class="fa fa-clock-o"></i></span></li>
-                    <li><span><?php echo escape($data['post']['p_comments']) ?> Comments<i class="fa fa-comment-o"></i></span></li>
+                    <li><span><?php echo escape(substr($data['post']['p_time'], 0, 5)) ?><i
+                                    class="fa fa-clock-o"></i></span></li>
+                    <li><span><?php echo escape($data['post']['p_comments']) ?> Comments<i class="fa fa-comment-o"></i></span>
+                    </li>
                 </ul>
                 <ul class="social-links">
                     <li><a href="https://www.facebook.com" target="_blank"><i class="fa fa-facebook"></i></a></li>
@@ -33,8 +38,8 @@
         <div class="col-lg-9 col-md-9 blog_details">
             <h5><?php echo escape(ucwords($data['post']['p_title'])) ?></h5>
             <div class="blog_details">
-                <?php if(isset($data['post']['p_text'])){
-                    foreach ($data['post']['p_text'] as $paragraph){ ?>
+                <?php if (isset($data['post']['p_text'])) {
+                    foreach ($data['post']['p_text'] as $paragraph) { ?>
                         <p><?php echo escape($paragraph) ?></p>
                     <?php }
                 } ?>
@@ -48,36 +53,39 @@
         <h4><?php echo escape($data['post']['p_comments']) ?> Comments</h4>
         <div class="comment-list">
             <div class="single-comment">
-                <?php if(isset($data['postComments']) && !empty($data['postComments'])) {
+                <?php if (isset($data['postComments']) && !empty($data['postComments'])) {
                     foreach ($data['postComments'] as $comment) { ?>
-                    <div class="user">
-                        <div class="desc">
-                            <h5><?php echo escape(ucwords($comment['pc_author'])) ?></h5>
-                            <p class="date"><?php echo escape($comment['pc_date'] . ', ' . $comment['pc_time']) ?></p>
-                            <p class="comment"><?php echo escape($comment['pc_text']) ?></p>
+                        <div class="user">
+                            <div class="desc">
+                                <h5><?php echo escape(ucwords($comment['pc_author'])) ?></h5>
+                                <p class="date"><?php echo escape($comment['pc_date'] . ', ' . $comment['pc_time']) ?></p>
+                                <p class="comment"><?php echo escape($comment['pc_text']) ?></p>
+                            </div>
                         </div>
-                    </div>
-                <?php }
+                    <?php }
                 } else { ?>
                     <div class="user">
                         <div class="desc">
                             <p class="comment">
-                                No comments so far. Feel free to comment.
+                                No comments to display. Feel free to comment.
                             </p>
                         </div>
                     </div>
-                <?php }?>
+                <?php } ?>
             </div>
         </div>
     </div>
     <div class="comment-form">
-        <?php if($userIsLoggedIn) { ?>
+        <?php if ($userIsLoggedIn) { ?>
             <h4>Leave a Reply</h4>
-            <form>
-                <div class="form-group">
-                    <textarea class="form-control mb-10" rows="5" name="message" placeholder="Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
+            <form action="" method="post">
+                <div class="form-field">
+                    <div class="field-hint">Max 2000 characters.</div>
+                    <textarea class="form-control mb-10" rows="5" name="comment_text" placeholder="Message"
+                              onfocus="this.placeholder = ''" onblur="this.placeholder = 'Message'" required><?php echo escape(Input::getValue('comment_text')) ?></textarea>
                 </div>
-                <a href="#" class="template-btn">Post Comment</a>
+                <input type="hidden" name="token" value="<?php echo Token::generate() ?>">
+                <input class="template-btn" type="submit" value="Post Comment">
             </form>
         <?php } else { ?>
             <h4>You need to be logged in to comment</h4>

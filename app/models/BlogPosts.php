@@ -27,6 +27,19 @@ class BlogPosts
     }
 
     /**
+     * @method                  getPostIdFromData
+     * @desc                    Returns post id from the data field. Works only if single post was selected.
+     * @return                  int|null
+     */
+    public function getPostIdFromData()
+    {
+        if (!isset($this->_data[0]) && !is_array($this->_data[0])) {
+            return $this->_data['p_id'];
+        }
+        return null;
+    }
+
+    /**
      * @method                  getNumberOfPages
      * @desc                    Getter for _numberOfPages field.
      * @return                  int
@@ -374,13 +387,37 @@ class BlogPosts
         }
     }
 
-    public function increaseNumberOfComments()
+    /**
+     * @method                  addOneCommentToPost
+     * @desc                    Method adds 1 to `p_comments` field for selected post record.
+     *                          Uses update method from Database object. Requires setting _data with a single post.
+     * @throws                  Exception
+     */
+    public function addOneCommentToPost()
     {
+        $selectedPost = $this->getData();
 
+        if (isset($selectedPost) && !isset($selectedPost[0]) && !is_array($selectedPost[0])) {
+            if (!$this->_database->update('post', 'p_id', $selectedPost['p_id'], ['p_comments' => $selectedPost['p_comments'] + 1])) {
+                throw new Exception("There was a problem in increasing number of comments under this post.");
+            }
+        }
     }
 
-    public function decreaseNumberOfComments()
+    /**
+     * @method                  removeOneCommentFromPost
+     * @desc                    Method removes 1 from `p_comments` field for selected post record.
+     *                          Uses update method from Database object. Requires setting _data with a single post.
+     * @throws                  Exception
+     */
+    public function removeOneCommentFromPost()
     {
+        $selectedPost = $this->getData();
 
+        if (isset($selectedPost) && !isset($selectedPost[0]) && !is_array($selectedPost[0])) {
+            if (!$this->_database->update('post', 'p_id', $selectedPost['p_id'], ['p_comments' => $selectedPost['p_comments'] - 1])) {
+                throw new Exception("There was a problem in increasing number of comments under this post.");
+            }
+        }
     }
 }

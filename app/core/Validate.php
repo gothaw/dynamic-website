@@ -37,7 +37,7 @@ class Validate
                         case 'min':
 
                             if (strlen($value) < $ruleValue) {
-                                $this->addError("{$items[$item]['desc']} must be a minimum of {$ruleValue} characters.");
+                                $this->addError("{$items[$item]['desc']} must be a more than {$ruleValue} characters.");
                             }
 
                             break;
@@ -51,7 +51,7 @@ class Validate
                         case 'max':
 
                             if (strlen($value) > $ruleValue) {
-                                $this->addError("{$items[$item]['desc']} must be a maximum of {$ruleValue} characters.");
+                                $this->addError("{$items[$item]['desc']} must be a less than {$ruleValue} characters.");
                             }
 
                             break;

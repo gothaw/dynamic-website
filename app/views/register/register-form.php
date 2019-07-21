@@ -42,7 +42,7 @@
                     </div>
                     <div class="form-field">
                         <label for="password">Password</label>
-                        <div class="password-hint">Min. 8 characters. Must include number, lowercase and uppercase letter.</div>
+                        <div class="field-hint">Min. 8 characters. Must include number, lowercase and uppercase letter.</div>
                         <input type="password" name="password" id="password" required autocomplete="off">
                     </div>
                     <div class="form-field">
