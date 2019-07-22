@@ -92,7 +92,7 @@ class Blog extends Controller
 
         if (isset($selectedPost) && is_numeric($postId)) {
 
-            $postComments = $this->model('BlogComments')->selectComments($postId);
+            $postComments = $this->model('BlogComments')->selectPostComments($postId);
 
             $this->addComment($selectedPost);
 

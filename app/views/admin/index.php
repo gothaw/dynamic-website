@@ -87,6 +87,12 @@ switch ($subName) {
     case 'admin-blog/comments-delete':
         include("../app/views/admin/_includes/delete-item.php");
         break;
+    case 'admin-comments':
+        include("../app/views/admin/comments/admin-comments.php");
+        break;
+    case 'admin-blog-images':
+        include("../app/views/admin/blog_images/admin-blog-images.php");
+        break;
     default:
         include("../app/views/admin/_includes/admin-panel.php");
 }

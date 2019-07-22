@@ -198,7 +198,7 @@ class AdminBlog extends Controller
 
         if (isset($selectedPost) && is_numeric($postId)) {
 
-            $comments = $this->model("BlogComments")->selectComments($postId);
+            $comments = $this->model("BlogComments")->selectPostComments($postId);
 
             $this->_view->addViewData([
                 'comments' => $comments->getData(),

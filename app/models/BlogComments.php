@@ -25,23 +25,20 @@ class BlogComments
     }
 
     /**
-     * @method                  selectComments
+     * @method                  selectPostComments
      * @param                   $postId
-     * @param                   $isApproved
      * @desc                    Selects comments from the database for selected post.
      *                          Selects only approved posts and order them by date and time.
      * @return                  $this
      */
-    public function selectComments($postId, $isApproved = true)
+    public function selectPostComments($postId)
     {
-        $approvedComment = ($isApproved) ? 1 : 0;
-
         $sql = "SELECT
                     * 
                 FROM 
                     `post_comment` 
                 WHERE
-                    `p_id` = ? AND `pc_approved` = {$approvedComment}
+                    `p_id` = ? AND `pc_approved` = 1
                 ORDER BY
                     `pc_date` ASC,
                     `pc_time` ASC;
@@ -63,6 +60,14 @@ class BlogComments
         $this->_data = $this->_database->select('post_comment', ['pc_id', '=', $postCommentId])->getResultFirstRecord();
 
         return $this;
+    }
+
+    /**
+     *
+     */
+    public function selectCommentsForApproval()
+    {
+
     }
 
     /**
