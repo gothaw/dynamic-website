@@ -85,7 +85,7 @@ class BlogPosts
      * @param                   $postsPerPage {int}
      * @param                   $pageNumber {int}
      * @param                   $parameter {array}
-     * @desc                    Sets total number of pages and current page fields.
+     * @desc                    Sets total number of pages and current page fields. Validates parameter for current page number.
      */
     private function setBlogPages($postsPerPage, $pageNumber, $parameter)
     {
@@ -112,7 +112,7 @@ class BlogPosts
         // Sets blog pages
         $this->setBlogPages($postsPerPage, $pageNumber, ['category' => $category]);
 
-        // Gets number of posts equal to _postsPerPage but skips firsts $skipped posts
+        // Gets number of posts equal to _postsPerPage but skips first $skipped posts
         $skipped = $postsPerPage * $this->_currentPageNumber - $postsPerPage;
 
         $sql = "SELECT

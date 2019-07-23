@@ -4,6 +4,8 @@ class BlogComments
 {
     private $_data;
     private $_database;
+    private $_numberOfPages;
+    private $_currentPageNumber;
 
     /**
      *                          BlogComments constructor.
@@ -22,6 +24,60 @@ class BlogComments
     public function getData()
     {
         return $this->_data;
+    }
+
+    /**
+     * @method                  getNumberOfPages
+     * @desc                    Getter for _numberOfPages field.
+     * @return                  int
+     */
+    public function getNumberOfPages()
+    {
+        return $this->_numberOfPages;
+    }
+
+    /**
+     * @method                  getCurrentPageNumber
+     * @desc                    Getter for _currentPageNumber field.
+     * @return                  int
+     */
+    public function getCurrentPageNumber()
+    {
+        return $this->_currentPageNumber;
+    }
+
+    /**
+     * @method                  setNumberOfPages
+     * @param                   $commentsPerPage {int}
+     * @param                   $isApproved {bool}
+     * @desc                    Sets _numberOfPages field.
+     */
+    private function setNumberOfPages($commentsPerPage, $isApproved)
+    {
+        $approvedComments = ($isApproved) ? 1 : 0;
+
+        $sql = "SELECT COUNT(*) FROM `post_comment` WHERE `pc_approved` = {$approvedComments}";
+
+        $rowCount = $this->_database->query($sql)->getResultFirstRecord()['COUNT(*)'];
+
+        $this->_numberOfPages = ceil($rowCount / $commentsPerPage);
+    }
+
+    /**
+     * @method                  setCommentAdminAreaPages
+     * @param                   $commentsPerPage {int}
+     * @param                   $pageNumber {int}
+     * @param                   $isApproved {bool}
+     * @desc                    Sets total number of pages and current page fields. Validates parameter for current page number.
+     */
+    private function setCommentAdminAreaPages($commentsPerPage, $pageNumber, $isApproved)
+    {
+        $this->setNumberOfPages($commentsPerPage, $isApproved);
+        if ($pageNumber < '1' || $pageNumber > $this->_numberOfPages || !is_numeric($pageNumber)) {
+            $this->_currentPageNumber = '1';
+        } else {
+            $this->_currentPageNumber = $pageNumber;
+        }
     }
 
     /**
@@ -63,11 +119,35 @@ class BlogComments
     }
 
     /**
-     *
+     * @method                  selectCommentsForApproval
+     * @param                   $commentsPerPage {int}
+     * @param                   $pageNumber {int}
+     * @desc                    Selects comments for approval from the database. Sets _data field.
+     *                          Comments in admin panel are listed in a table with a number of comments per page.
+     * @return                  $this
      */
-    public function selectCommentsForApproval()
+    public function selectCommentsForApproval($commentsPerPage, $pageNumber)
     {
+        // Set comment admin area pages
+        $this->setCommentAdminAreaPages($commentsPerPage, $pageNumber, false);
 
+        // Gets number of comments equal to _commentsPerPage but skips first $skipped comments
+        $skipped = $commentsPerPage * $this->_currentPageNumber - $commentsPerPage;
+
+        $sql = "SELECT
+                    *
+                FROM 
+                    `post_comment`
+                WHERE 
+                    `pc_approved` = 0
+                ORDER BY
+                        `pc_date` ASC,
+                        `pc_time` ASC
+                LIMIT ?,?;";
+
+        $this->_data = $this->_database->query($sql, [$skipped, $commentsPerPage])->getResult();
+
+        return $this;
     }
 
     /**

@@ -26,10 +26,13 @@ class AdminComments extends Controller
         }
     }
 
-    public function index()
+    public function index($pageNumber = '1')
     {
+        $this->_comments->selectCommentsForApproval(10,$pageNumber);
         $this->_view->addViewData([
-            'comments' => $this->_comments->getData()
+            'comments' => $this->_comments->getData(),
+            'page' => $this->_comments->getCurrentPageNumber(),
+            'lastPage' => $this->_comments->getNumberOfPages()
         ]);
         $this->_view->setSubName(toLispCase(__CLASS__));
         $this->_view->renderView();
