@@ -1,4 +1,4 @@
-<!-- Admin Schedule Starts -->
+<!-- Admin Blog Area Starts -->
 <section class="table-area section-padding4">
     <div class="container">
         <div class="row">
@@ -96,13 +96,10 @@
                     <div>
                         <a class="template-btn" href="<?php echo ROOT . $subName . '/add' ?>">Add Post</a>
                     </div>
-                    <div>
-                        <a class="template-btn" href="<?php echo ROOT . 'admin-blog-images' ?>">Images Gallery</a>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Admin Schedule Ends -->
+<!-- Admin Blog Area Ends -->

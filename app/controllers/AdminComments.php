@@ -28,7 +28,7 @@ class AdminComments extends Controller
 
     public function index($pageNumber = '1')
     {
-        $this->_comments->selectCommentsForApproval(10,$pageNumber);
+        $this->_comments->selectCommentsForApproval(1,$pageNumber);
         $this->_view->addViewData([
             'comments' => $this->_comments->getData(),
             'page' => $this->_comments->getCurrentPageNumber(),

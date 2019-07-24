@@ -45,11 +45,17 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="admin-navigate-buttons admin-navigate-buttons-flex">
+                    <?php if($data['selectedComment']['pc_approved'] === '1') { ?>
+                        <div>
+                            <a class="template-btn" href="<?php echo ROOT . 'admin-blog/comments/' . escape($data['selectedPost']['p_id'])  ?>">Back to Comments</a>
+                        </div>
+                    <?php } else { ?>
+                        <div>
+                            <a class="template-btn" href="<?php echo ROOT . 'admin-comments' ?>">Back to Comments</a>
+                        </div>
+                    <?php } ?>
                     <div>
-                        <a class="template-btn" href="<?php echo ROOT . 'admin-blog' ?>">Back to Blog</a>
-                    </div>
-                    <div>
-                        <a class="template-btn" href="<?php echo ROOT . 'admin-blog/comments-delete/' . $data['selectedPost']['p_id'] . '/' . $data['selectedComment']['pc_id'] ?>">Delete Comment</a>
+                        <a class="template-btn" href="<?php echo escape(ROOT . 'admin-blog/comments-delete/' . $data['selectedPost']['p_id'] . '/' . $data['selectedComment']['pc_id']) ?>">Delete Comment</a>
                     </div>
                 </div>
             </div>
