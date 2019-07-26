@@ -135,9 +135,13 @@ class BlogComments
         $skipped = $commentsPerPage * $this->_currentPageNumber - $commentsPerPage;
 
         $sql = "SELECT
-                    *
+                    `post_comment`.*,
+                    `post`.`p_title`
                 FROM 
                     `post_comment`
+                INNER JOIN
+                    `post`
+                ON `post`.`p_id` = `post_comment`.`p_id`
                 WHERE 
                     `pc_approved` = 0
                 ORDER BY

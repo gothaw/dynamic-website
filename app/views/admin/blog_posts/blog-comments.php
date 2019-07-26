@@ -30,10 +30,10 @@
                                 <td><?php echo escape(substr($comment['pc_time'], 0, -3)) ?></td>
                                 <td><?php echo escape(substr($comment['pc_text'], 0, 25)) . '...' ?></td>
                                 <td>
-                                    <a class="template-btn" href="<?php echo ROOT . $subName . '-edit/' . $data['selectedPost']['p_id'] . '/' . escape($comment['pc_id']) ?>">Edit</a>
+                                    <a class="template-btn" href="<?php echo escape(ROOT . $subName . '-edit/' . $data['selectedPost']['p_id'] . '/' . $comment['pc_id']) ?>">Edit</a>
                                 </td>
                                 <td>
-                                    <a class="template-btn" href="<?php echo ROOT . $subName . '-delete/' . $data['selectedPost']['p_id'] . '/' . escape($comment['pc_id']) ?>">Remove</a>
+                                    <a class="template-btn" href="<?php echo escape(ROOT . $subName . '-delete/' . $data['selectedPost']['p_id'] . '/' . $comment['pc_id']) ?>">Remove</a>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -47,7 +47,7 @@
         <div class="row">
             <div class="col-lg-12 admin-navigate-buttons">
                 <div>
-                    <a class="template-btn" href="<?php echo ROOT .  'admin-blog/edit/' . escape($data['selectedPost']['p_id']) ?>">Back to Post</a>
+                    <a class="template-btn" href="<?php echo escape(ROOT .  'admin-blog/edit/' . $data['selectedPost']['p_id']) ?>">Back to Post</a>
                 </div>
             </div>
         </div>

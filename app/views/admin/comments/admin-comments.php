@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-top text-center">
-                    <h3>Blog Posts</h3>
+                    <h3>Comments for approval</h3>
                 </div>
             </div>
         </div>
@@ -27,15 +27,15 @@
                         foreach ($data['comments'] as $comment) { ?>
                             <tr>
                                 <td class="name"><?php echo escape($comment['pc_id']) ?></td>
-                                <td><?php echo escape(substr($comment['p_title'], 0, 20)) . '...' ?></td>
+                                <td><?php echo escape(substr($comment['p_title'], 0, 25)) . '...' ?></td>
                                 <td><?php echo escape($comment['pc_date']) ?></td>
                                 <td><?php echo substr(escape($comment['pc_time']), 0, -3) ?></td>
                                 <td><?php echo escape(ucwords($comment['pc_author'])) ?></td>
                                 <td><a class="template-btn"
-                                       href="<?php echo ROOT . $subName . '/edit/' . escape($comment['p_id']) ?>">View</a>
+                                       href="<?php echo escape(ROOT . $subName . '/edit/' . $comment['pc_id']) ?>">View</a>
                                 </td>
                                 <td><a class="template-btn"
-                                       href="<?php echo ROOT . $subName . '/delete/' . escape($comment['p_id']) ?>">Delete</a>
+                                       href="<?php echo escape(ROOT . $subName  . '/delete/' . $comment['pc_id']) ?>">Delete</a>
                                 </td>
                             </tr>
                         <?php }

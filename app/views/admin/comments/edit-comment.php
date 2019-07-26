@@ -46,10 +46,10 @@
             <div class="col-lg-12">
                 <div class="admin-navigate-buttons admin-navigate-buttons-flex">
                     <div>
-                        <a class="template-btn" href="<?php echo ROOT . 'admin-blog/comments/' . escape($data['selectedPost']['p_id'])  ?>">Back to Comments</a>
+                        <a class="template-btn" href="<?php echo ROOT . 'admin-comments'  ?>">Back to Comments</a>
                     </div>
                     <div>
-                        <a class="template-btn" href="<?php echo escape(ROOT . 'admin-blog/comments-delete/' . $data['selectedPost']['p_id'] . '/' . $data['selectedComment']['pc_id']) ?>">Delete Comment</a>
+                        <a class="template-btn" href="<?php echo escape(ROOT . 'admin-comments/delete/' . $data['selectedComment']['pc_id']) ?>">Delete Comment</a>
                     </div>
                 </div>
             </div>

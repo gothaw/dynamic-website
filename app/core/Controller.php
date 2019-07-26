@@ -55,6 +55,10 @@ class Controller
     }
 
     /**
+     *  Methods containing logic that is shared by more than one controller:
+     */
+
+    /**
      * @method              userSearch
      * @desc                Method handles functionality of user search bar in members and membership admin panel.
      *                      It gets data using UserSearch model and adds it to the view.
@@ -90,7 +94,7 @@ class Controller
 
     /**
      * @method              insertUserDetails
-     * @param               $user
+     * @param               $user {object}
      * @param               $groupId {groupId as int, 1 for standard user}
      * @desc                Method inserts user details to the database. Used in register user and admin panel.
      * @throws              Exception
@@ -112,5 +116,52 @@ class Controller
             'u_group_id' => $groupId,
             'u_joined' => date('Y-m-d H-i-s')
         ]);
+    }
+
+    /**
+     * @method              editComment
+     * @param               $selectedComment {BlogComments object}
+     * @param               $postCommentId {int}
+     * @param               $redirect {string}
+     * @desc                Edits post comment fields in the database. This does validation of data using validate object and does CSRF token check.
+     *                      After updating the post comment, it redirects to $redirect location. Used in AdminBlog and AdminComments controllers.
+     */
+    protected function updateComment($selectedComment, $postCommentId, $redirect)
+    {
+        if (Input::exists()) {
+            if (Token::check(Input::getValue('token'))) {
+
+                // Validate using validate object
+                $validate = new Validate();
+                $validate->check($_POST, ValidationRules::getEditPostCommentRules());
+
+                if ($validate->checkIfPassed()) {
+
+                    try {
+
+                        // Update comment
+                        $selectedComment->updateComment($postCommentId, [
+                            'pc_date' => trim(Input::getValue('date')),
+                            'pc_time' => trim(Input::getValue('time')),
+                            'pc_text' => trim(Input::getValue('comment_text')),
+                            'pc_author' => trim(Input::getValue('comment_author'))
+                        ]);
+
+                        Session::flash('admin', 'You successfully edited post comment.');
+                        Redirect::to($redirect);
+
+                    } catch (Exception $e) {
+                        $errorMessage = $e->getMessage();
+                        $this->_view->setViewError($errorMessage);
+                    }
+
+                } else {
+                    // Display a validation error
+                    $errorMessage = $validate->getFirstErrorMessage();
+                    $this->_view->setViewError($errorMessage);
+                }
+
+            }
+        }
     }
 }

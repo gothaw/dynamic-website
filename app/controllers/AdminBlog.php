@@ -220,41 +220,8 @@ class AdminBlog extends Controller
 
         if (isset($selectedPost) && isset($selectedComment)) {
 
-            if (Input::exists()) {
-                if (Token::check(Input::getValue('token'))) {
-
-                    // Validate using validate object
-                    $validate = new Validate();
-                    $validate->check($_POST, ValidationRules::getEditPostCommentRules());
-
-                    if ($validate->checkIfPassed()) {
-
-                        try {
-
-                            // Update comment
-                            $selectedComment->updateComment($postCommentId, [
-                                'pc_date' => trim(Input::getValue('date')),
-                                'pc_time' => trim(Input::getValue('time')),
-                                'pc_text' => trim(Input::getValue('comment_text')),
-                                'pc_author' => trim(Input::getValue('comment_author'))
-                            ]);
-
-                            Session::flash('admin', 'You successfully edited post comment.');
-                            Redirect::to('admin-blog/comments/' . $postId);
-
-                        } catch (Exception $e) {
-                            $errorMessage = $e->getMessage();
-                            $this->_view->setViewError($errorMessage);
-                        }
-
-                    } else {
-                        // Display a validation error
-                        $errorMessage = $validate->getFirstErrorMessage();
-                        $this->_view->setViewError($errorMessage);
-                    }
-
-                }
-            }
+            // Updates comment using method in parent class
+            $this->updateComment($selectedComment, $postCommentId, 'admin-blog/comments/' . $postId);
 
             $this->_view->addViewData([
                 'selectedPost' => $selectedPost,
@@ -274,13 +241,12 @@ class AdminBlog extends Controller
         if (Input::exists()) {
             if (Token::check(Input::getValue('token'))) {
 
-                $selectedPost = $this->_posts->selectPost($postId);
+                $selectedPost = $this->model('BlogPosts')->selectPost($postId);
                 $selectedComment = $this->model("BlogComments")->selectComment($postCommentId);
 
                 if (isset($selectedPost) && isset($selectedComment)) {
 
                     try {
-
                         // Delete comment
                         $selectedComment->deleteComment($postCommentId);
 
