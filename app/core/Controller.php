@@ -1,6 +1,6 @@
 <?php
 
-class Controller
+abstract class Controller
 {
     protected $_view;
     protected $_navPages;
@@ -21,6 +21,12 @@ class Controller
         $this->_path = $currentPage->getPageUrl();
         $this->_user = $this->model('User');
     }
+
+    /**
+     * @method              index
+     * @desc                Default method in a controller. Renders index.html for given controller.
+     */
+    abstract public function index();
 
     /**
      * @method              model
@@ -96,7 +102,8 @@ class Controller
      * @method              insertUserDetails
      * @param               $user {object}
      * @param               $groupId {groupId as int, 1 for standard user}
-     * @desc                Method inserts user details to the database. Used in register user and admin panel.
+     * @desc                Method inserts user details to the database. Uses password salt from Hash class.
+     *                      Used in register user and admin panel.
      * @throws              Exception
      */
     protected function insertUserDetails($user, $groupId = 1)

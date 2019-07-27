@@ -5,6 +5,12 @@ class AdminBlog extends Controller
     private $_page;
     private $_posts;
 
+    /**
+     *                          AdminBlog constructor.
+     * @desc                    Constructor for admin blog panel controller. Checks if user is logged in and has admin permission before instantiating view.
+     *                          Instantiates view with user, navigation bar and this page data.
+     *                          If user is not logged in or does not have admin permission it redirects to home page.
+     */
     public function __construct()
     {
         $this->_page = 'admin';
@@ -27,6 +33,13 @@ class AdminBlog extends Controller
         }
     }
 
+    /**
+     * @method                  index
+     * @param                   $pageNumber {string}
+     * @desc                    Default controller method. Renders admin panel - blog section. Displays blog posts in a table with 10 posts per page.
+     *                          Invokes selectPosts method for given page number passed as parameter in URL.
+     *                          Adds selected posts data to the view along with current page number and last page number.
+     */
     public function index($pageNumber = '1')
     {
         $this->_posts->selectPosts(10, $pageNumber, null, false);
@@ -39,6 +52,14 @@ class AdminBlog extends Controller
         $this->_view->renderView();
     }
 
+    /**
+     * @method                  edit
+     * @param                   $postId {string}
+     * @desc                    Method for edit blog post form page in admin panel. Adds selected post and blog images data to the view.
+     *                          If parameter for post id is invalid it redirects to index method.
+     *                          Handles edit blog post form submission. Validates the $_POST data using validate object.
+     *                          If validation passes it updates blog posts and blog post tags.
+     */
     public function edit($postId = '')
     {
         $selectedPost = $this->_posts->selectPost($postId, false)->getData();
@@ -101,6 +122,12 @@ class AdminBlog extends Controller
         }
     }
 
+    /**
+     * @method                  delete
+     * @param                   $postId {string}
+     * @desc                    Method for delete blog post confirmation page. It handles form submission if user decides to delete post.
+     *                          It instantiates relevant models to deletes post tags, post comments and blog post.
+     */
     public function delete($postId = '')
     {
         if (Input::exists()) {
@@ -137,6 +164,12 @@ class AdminBlog extends Controller
         $this->_view->renderView();
     }
 
+    /**
+     * @method                  add
+     * @desc                    Method for add blog post form page in admin panel. Adds blog post images data to the view.
+     *                          It handles form submission. Validates $_POST data using validate object.
+     *                          It adds blog to the database. It gets the id of the blog post that has been inserted to the database and uses this id to add blog post tags to the database.
+     */
     public function add()
     {
         if (Input::exists()) {
@@ -192,6 +225,12 @@ class AdminBlog extends Controller
         $this->_view->renderView();
     }
 
+    /**
+     * @method                  comments
+     * @param                   $postId {string}
+     * @desc                    Method for comments under selected post in admin panel. It displays comments under selected post in a table.
+     *                          It adds data for selected comments and selected post to the view.
+     */
     public function comments($postId = '')
     {
         $selectedPost = $this->_posts->selectPost($postId, false)->getData();
@@ -213,6 +252,13 @@ class AdminBlog extends Controller
         }
     }
 
+    /**
+     * @method                  commentsEdit
+     * @param                   $postId {string}
+     * @param                   $postCommentId {string}
+     * @desc                    Method for edit comment form for selected post. It adds data for selected comment and selected post to the view.
+     *                          It handles for submission. Validates $_POST data using validate object. If validation passes it updates comment data.
+     */
     public function commentsEdit($postId = '' , $postCommentId = '')
     {
         $selectedPost = $this->_posts->selectPost($postId)->getData();
@@ -269,12 +315,19 @@ class AdminBlog extends Controller
         }
     }
 
+    /**
+     * @method                  commentsDelete
+     * @param                   $postId {string}
+     * @param                   $postCommentId {string}
+     * @desc                    Method for delete comment confirmation page. It handles form submission if user decides to delete comment.
+     *                          It instantiates relevant models to delete comment and remove one comment from total number of comments under selected post.
+     */
     public function commentsDelete($postId = '', $postCommentId = '')
     {
         if (Input::exists()) {
             if (Token::check(Input::getValue('token'))) {
 
-                $selectedPost = $this->model('BlogPosts')->selectPost($postId);
+                $selectedPost = $this->_posts->selectPost($postId);
                 $selectedComment = $this->model("BlogComments")->selectComment($postCommentId);
 
                 if (isset($selectedPost) && isset($selectedComment)) {
@@ -301,7 +354,10 @@ class AdminBlog extends Controller
         $this->_view->renderView();
     }
 
-
+    /**
+     * @method                  changeSelectedImage
+     * @desc                    Handles AJAX request from jquery-nice-select.js script for select tag. It changes blog image thumbnail when user changes select tag.
+     */
     public function changeSelectedImage()
     {
         if (Input::exists() && is_numeric(Input::getValue('p_img_id'))) {

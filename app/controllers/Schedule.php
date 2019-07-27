@@ -6,6 +6,11 @@ class Schedule extends Controller
     private $_schedule;
     private $_classes;
 
+    /**
+     *                          Schedule constructor.
+     * @desc                    Constructor for schedule page controller. It instantiates database models and selects seven upcoming scheduled classes and four featured classes.
+     *                          Instantiates view with schedule, classes, navigation bar and this page data.
+     */
     public function __construct()
     {
         $this->_page = 'schedule';
@@ -23,11 +28,24 @@ class Schedule extends Controller
         ]);
     }
 
+    /**
+     * @method                  index
+     * @desc                    Default controller method. Renders scheduled classes page.
+     */
     public function index()
     {
         $this->_view->renderView();
     }
 
+    /**
+     * @method                  signUp
+     * @param                   $scheduledId {string}
+     * @desc                    Method handles signing up to upcoming class. Functionality available only for logged in users.
+     *                          It uses ScheduledClasses model to validate if user can sign up to the class i.e. membership is not expired, class is not full etc.
+     *                          It also checks if user already signed up to the class by using UserClasses model.
+     *                          If validation passes it signs user up to the class and adds one person to total number of members that signed up to that scheduled class.
+     *                          After signing up successfully it redirects to the dashboard.
+     */
     public function signUp($scheduledId = '')
     {
         if ($this->_user->isLoggedIn() && is_numeric($scheduledId)) {

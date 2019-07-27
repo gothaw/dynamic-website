@@ -7,6 +7,11 @@ class Dashboard extends Controller
     private $_userClasses;
     private $_membership;
 
+    /**
+     *                          Dashboard constructor.
+     * @desc                    Constructor for user account dashboard.  View is instantiated if user is logged in.
+     *                          View is instantiated with user info data such as user personal data, scheduled classes that user signed up to, user membership info and admin permissions.
+     */
     public function __construct()
     {
         $this->_page = 'dashboard';
@@ -36,17 +41,30 @@ class Dashboard extends Controller
         }
     }
 
+    /**
+     * @method                  index
+     * @desc                    Default controller method. It dashboard page view.
+     */
     public function index()
     {
         $this->_view->renderView();
     }
 
+    /**
+     * @method                  logout
+     * @desc                    Log outs user using User model method and redirects to home page.
+     */
     public function logout()
     {
         $this->_user->logoutUser();
         Redirect::to('home');
     }
 
+    /**
+     * @method                  edit
+     * @desc                    Method for edit user personal details form. It handles form submission. Validates $_POST data using validate object.
+     *                          If validation passes, it updates users details using method from parent class - updateUserDetails.
+     */
     public function edit()
     {
         if (Input::exists()) {
@@ -80,6 +98,12 @@ class Dashboard extends Controller
         $this->_view->renderView();
     }
 
+    /**
+     * @method                  changePass
+     * @desc                    Method for change password form. It handles form submission. Validates $_POST data using validate object.
+     *                          It also checks if password provided by user in current password field matches actual password stored in database.
+     *                          If password matches and validation passes, it updates password using User model methods updateUser.
+     */
     public function changePass()
     {
         if (Input::exists()) {
@@ -129,6 +153,12 @@ class Dashboard extends Controller
         $this->_view->renderView();
     }
 
+    /**
+     * @method                  drop
+     * @param                   $scheduledId {string}
+     * @desc                    Method used to drop user from classes that user signed up for. It validates url parameter by checking if user signed up to the class.
+     *                          If validation passes it removes class from User Classes and removes one person from total number of members that signed up to that class.
+     */
     public function drop($scheduledId = '')
     {
         if (is_numeric($scheduledId)) {
@@ -137,6 +167,7 @@ class Dashboard extends Controller
             $scheduledClass = $schedule->selectClass($scheduledId)->getData();
 
             if (isset($scheduledClass) && $this->_userClasses->checkIfSignedUp($scheduledId)) {
+
                 // User class id from user_class table
                 $userClassId = $this->_userClasses->getUserClassId($scheduledId);
 
@@ -159,6 +190,10 @@ class Dashboard extends Controller
         $this->_view->renderView();
     }
 
+    /**
+     * @method                  membership
+     * @desc                    Method for renew membership form. Form submission handled by PayPal API.
+     */
     public function membership()
     {
         $this->_view->setSubName(__FUNCTION__);

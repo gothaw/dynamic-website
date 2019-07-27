@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                                  Class ValidationRules
+ * @desc                            Collection of validation rules as static methods.
+ */
 class ValidationRules
 {
     /**

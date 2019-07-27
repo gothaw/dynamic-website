@@ -6,6 +6,11 @@ class Home extends Controller
     private $_classes = null;
     private $_opinions = null;
 
+    /**
+     *                          Home constructor.
+     * @desc                    Constructor for the home page.
+     *                          Instantiates view with classes, client opinions, navigation bar and this page data.
+     */
     public function __construct()
     {
         $this->_page = 'home';
@@ -24,6 +29,10 @@ class Home extends Controller
         ]);
     }
 
+    /**
+     *                          index
+     * @desc                    Default method for home page. Renders home page view.
+     */
     public function index()
     {
         // Home banner used instead of standard banner

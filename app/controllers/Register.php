@@ -4,6 +4,11 @@ class Register extends Controller
 {
     private $_page;
 
+    /**
+     *                          Register constructor.
+     * @desc                    Constructor for register form page. View is instantiated if user is not logged in.
+     *                          Instantiates view with navigation bar and this page data.
+     */
     public function __construct()
     {
         $this->_page = 'register';
@@ -21,6 +26,11 @@ class Register extends Controller
         }
     }
 
+    /**
+     * @method                  index
+     * @desc                    Default method for register form page. It handles form submission.
+     *                          Validates the $_POST data using validate object. If validation passes it inserts new user to the database using method from parent class - insertUserDetails.
+     */
     public function index()
     {
         if (Input::exists()) {

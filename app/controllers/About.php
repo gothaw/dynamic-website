@@ -6,6 +6,11 @@ class About extends Controller
     private $_classes;
     private $_coaches;
 
+    /**
+     *                          About constructor.
+     * @desc                    Constructor for about page controller. Instantiates classes and coaches models and selects data from the database.
+     *                          Instantiates view with classes, coaches, navigation bar and this page data.
+     */
     public function __construct()
     {
         $this->_page = 'about';
@@ -24,6 +29,10 @@ class About extends Controller
         ]);
     }
 
+    /**
+     * @method              index
+     * @desc                Default controller method. Renders about page view.
+     */
     public function index()
     {
         $this->_view->renderView();

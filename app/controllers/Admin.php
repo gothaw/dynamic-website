@@ -4,6 +4,12 @@ class Admin extends Controller
 {
     private $_page;
 
+    /**
+     *                          Admin constructor.
+     * @desc                    Constructor for admin dashboard page controller. Checks if user is logged in and has admin permission before instantiating view.
+     *                          Instantiates view with user, navigation bar and this page data.
+     *                          If user is not logged in or does not have admin permission it redirects to home page.
+     */
     public function __construct()
     {
         $this->_page = 'admin';
@@ -24,15 +30,12 @@ class Admin extends Controller
         }
     }
 
+    /**
+     * @method                  index
+     * @desc                    Default controller method. Renders admin panel page view.
+     */
     public function index()
     {
-        $this->_view->renderView();
-    }
-
-    public function members()
-    {
-        $this->userSearch();
-        $this->_view->setSubName(__FUNCTION__);
         $this->_view->renderView();
     }
 }

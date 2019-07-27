@@ -6,6 +6,11 @@ class Blog extends Controller
     private $_posts;
     private $_sideBar;
 
+    /**
+     *                          Blog constructor.
+     * @desc                    Constructor for blog page. It instantiates database models and selects blog posts and blog side bar data.
+     *                          Instantiates view with posts, blog side bar, navigation bar and this page data.
+     */
     public function __construct()
     {
         $this->_page = 'blog';
@@ -24,6 +29,13 @@ class Blog extends Controller
         ]);
     }
 
+    /**
+     * @method                  index
+     * @param                   $page {string}
+     * @desc                    Default controller method. Renders main blog page with most recent blog posts. Displays four blog posts per page.
+     *                          Invokes selectPosts method for given page number passed as parameter in URL.
+     *                          Adds selected posts data to the view along with current page number and last page number.
+     */
     public function index($page = '1')
     {
         $this->_posts->selectPosts(4, $page);
@@ -36,6 +48,14 @@ class Blog extends Controller
         $this->_view->renderView();
     }
 
+    /**
+     * @method                  tag
+     * @param                   $tag {string}
+     * @param                   $page {string}
+     * @desc                    Method used to select blog posts by tag. It validates tag URL parameter using Validate object.
+     *                          If passes, it invokes selectPostsByTag method for given page number and tag.
+     *                          Adds selected posts data to the view along with current page number and last page number.
+     */
     public function tag($tag = '', $page = '1')
     {
         $tag = str_replace('_', ' ', $tag);
@@ -61,6 +81,14 @@ class Blog extends Controller
         }
     }
 
+    /**
+     * @method                  category
+     * @param                   $category {string}
+     * @param                   $page {string}
+     * @desc                    Method used to select blog posts by category. It validates category URL parameter using Validate object.
+     *                          If passes, it invokes selectPosts method for given page number and category.
+     *                          Adds selected posts data to the view along with current page number and last page number.
+     */
     public function category($category = '', $page = '1')
     {
         $category = str_replace('_', ' ', $category);
@@ -86,6 +114,12 @@ class Blog extends Controller
         }
     }
 
+    /**
+     * @method                  post
+     * @param                   $postId {string}
+     * @desc                    Method used to display selected post. It uses BlogComments model to select post comments.
+     *                          It adds data for selected post and comments to the view. It also handles form submission if user adds comment - invokes addComment method.
+     */
     public function post($postId = '')
     {
         $selectedPost = $this->_posts->selectPost($postId);
@@ -109,7 +143,10 @@ class Blog extends Controller
     }
 
     /**
-     * @param $selectedPost {object} BlogPosts object with single post selected in _data field.
+     * @method                  addComment
+     * @param                   $selectedPost {object} BlogPosts object with single post selected in _data field.
+     * @desc                    Private method to handle adding comment functionality. It validates form data using Validate object.
+     *                          If validation passes, it adds comment to the database. The comment is displayed in admin panel for approval or moderation.
      */
     private function addComment($selectedPost)
     {
