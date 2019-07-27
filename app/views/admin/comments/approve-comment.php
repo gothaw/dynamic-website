@@ -1,7 +1,7 @@
 <!-- Edit Comment Starts -->
 <section id="edit-schedule" class="section-padding4">
     <div class="container">
-        <h3 class="form-text">Edit Comment</h3>
+        <h3 class="form-text">Edit & Approve Comment</h3>
         <form class="narrow-form" action="" method="post">
             <div class="row">
                 <div class="col-lg-12">
@@ -39,7 +39,7 @@
             </div>
             <div class="form-button">
                 <input type="hidden" name="token" value="<?php echo Token::generate() ?>">
-                <input type="submit" class="template-btn" value="update">
+                <input type="submit" class="template-btn" value="approve">
             </div>
         </form>
         <div class="row">

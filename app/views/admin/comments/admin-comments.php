@@ -32,7 +32,7 @@
                                 <td><?php echo substr(escape($comment['pc_time']), 0, -3) ?></td>
                                 <td><?php echo escape(ucwords($comment['pc_author'])) ?></td>
                                 <td><a class="template-btn"
-                                       href="<?php echo escape(ROOT . $subName . '/edit/' . $comment['pc_id']) ?>">View</a>
+                                       href="<?php echo escape(ROOT . $subName . '/approve/' . $comment['p_id'] . '/' . $comment['pc_id']) ?>">Approve</a>
                                 </td>
                                 <td><a class="template-btn"
                                        href="<?php echo escape(ROOT . $subName  . '/delete/' . $comment['pc_id']) ?>">Delete</a>
