@@ -45,8 +45,8 @@ class AdminCoaches extends Controller
                     $validate = new Validate();
                     $validate->check($_POST, ValidationRules::getCoachDetailsRules());
 
-                    // Create new File
-                    $image = new File('coach_image');
+                    // Create new Image
+                    $image = new Image('coach_image');
 
                     if ($validate->checkIfPassed()) {
                         if (!$image->exists() || $image->checkIfValid(500, ['jpg', 'jpeg', 'png', 'gif'])) {
@@ -67,7 +67,7 @@ class AdminCoaches extends Controller
                                 if ($image->exists()) {
 
                                     // Replaces image and updates image info in the database
-                                    $newImageUrl = $this->_coaches->getImageLocation($coachId) . "/coach-{$coachId}." . $image->getFileExtension();
+                                    $newImageUrl = $this->_coaches->getImageLocation($coachId) . "/coach-{$coachId}." . $image->getImageExtension();
                                     $image->replace('dist/' . $selectedCoach['co_img'], 'dist/' . $newImageUrl);
                                     $this->_coaches->updateCoach($coachId, [
                                         'co_img' => $newImageUrl
@@ -110,8 +110,8 @@ class AdminCoaches extends Controller
                 $selectedCoach = $this->_coaches->getCoach($coachId);
                 if (isset($selectedCoach) && is_numeric($coachId)) {
 
-                    // Instantiating new file object
-                    $file = new File();
+                    // Instantiating new Image object
+                    $file = new Image();
 
                     try {
                         // Delete coaches from scheduled classes
@@ -145,8 +145,8 @@ class AdminCoaches extends Controller
                 $validate = new Validate();
                 $validate->check($_POST, ValidationRules::getCoachDetailsRules());
 
-                // Create new File
-                $image = new File('coach_image');
+                // Create new Image
+                $image = new Image('coach_image');
 
                 if ($validate->checkIfPassed()) {
                     if ($image->checkIfValid(500, ['jpg', 'jpeg', 'png', 'gif'])) {
@@ -154,7 +154,7 @@ class AdminCoaches extends Controller
                         try {
 
                             // Uploads image and inserts image info into the database
-                            $imageUrl = $this->_coaches->getImageLocation() . '/coach-' . uniqid() . '.' . $image->getFileExtension();
+                            $imageUrl = $this->_coaches->getImageLocation() . '/coach-' . uniqid() . '.' . $image->getImageExtension();
                             $image->upload('dist/' . $imageUrl);
 
                             // Inserts class details

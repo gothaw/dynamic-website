@@ -45,8 +45,8 @@ class AdminClasses extends Controller
                     $validate = new Validate();
                     $validate->check($_POST, ValidationRules::getClassDetailsRules());
 
-                    // Create new File
-                    $image = new File('class_image');
+                    // Create new Image
+                    $image = new Image('class_image');
 
                     if ($validate->checkIfPassed()) {
                         if (!$image->exists() || $image->checkIfValid(500, ['jpg', 'jpeg', 'png', 'giff'])) {
@@ -63,7 +63,7 @@ class AdminClasses extends Controller
                                 if ($image->exists()) {
 
                                     // Replaces image and updates image info in the database
-                                    $newImageUrl = $this->_classes->getImageLocation($classId) . "/class-{$classId}." . $image->getFileExtension();
+                                    $newImageUrl = $this->_classes->getImageLocation($classId) . "/class-{$classId}." . $image->getImageExtension();
                                     $image->replace('dist/' . $selectedClass['cl_img_url'], 'dist/' . $newImageUrl);
 
                                     $this->_classes->updateClassImageDetails($classId, [
@@ -116,8 +116,8 @@ class AdminClasses extends Controller
                 $selectedClass = $this->_classes->getClass($classId);
                 if (isset($selectedClass) && is_numeric($classId)) {
 
-                    // Instantiating new file object
-                    $file = new File();
+                    // Instantiating new image object
+                    $image = new Image();
 
                     try {
                         // Delete scheduled classes
@@ -127,7 +127,7 @@ class AdminClasses extends Controller
                         // Delete class image details
                         $this->_classes->deleteClassImageDetails($classId);
                         // Delete class image
-                        $file->delete('dist/' . $selectedClass['cl_img_url']);
+                        $image->delete('dist/' . $selectedClass['cl_img_url']);
 
                         Session::flash('admin', 'Selected class has been deleted.');
                         Redirect::to('admin-classes');
@@ -153,8 +153,8 @@ class AdminClasses extends Controller
                 $validate = new Validate();
                 $validate->check($_POST, ValidationRules::getClassDetailsRules());
 
-                // Create new File
-                $image = new File('class_image');
+                // Create new Image
+                $image = new Image('class_image');
 
                 if ($validate->checkIfPassed()) {
                     if ($image->checkIfValid(500, ['jpg', 'jpeg', 'png', 'gif'])) {
@@ -162,7 +162,7 @@ class AdminClasses extends Controller
                         try {
 
                             // Uploads image and inserts image info into the database
-                            $imageUrl = $this->_classes->getImageLocation() . '/class-' . uniqid() . '.' . $image->getFileExtension();
+                            $imageUrl = $this->_classes->getImageLocation() . '/class-' . uniqid() . '.' . $image->getImageExtension();
                             $image->upload('dist/' . $imageUrl);
 
                             $this->_classes->addClassImageDetails([

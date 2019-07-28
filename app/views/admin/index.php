@@ -99,6 +99,9 @@ switch ($subName) {
     case 'admin-blog-images':
         include("../app/views/admin/blog_images/admin-blog-images.php");
         break;
+    case 'admin-blog-images/add':
+        include("../app/views/admin/blog_images/admin-blog-images-add.php");
+        break;
     default:
         include("../app/views/admin/_includes/admin-panel.php");
 }

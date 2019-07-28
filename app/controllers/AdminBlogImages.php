@@ -36,4 +36,17 @@ class AdminBlogImages extends Controller
         $this->_view->setSubName(toLispCase(__CLASS__));
         $this->_view->renderView();
     }
+
+    public function add()
+    {
+        if (Input::exists()) {
+            if (Token::check(Input::getValue('token'))) {
+
+
+
+            }
+        }
+        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
+        $this->_view->renderView();
+    }
 }

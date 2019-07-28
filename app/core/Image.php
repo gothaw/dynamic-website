@@ -1,13 +1,13 @@
 <?php
 
-class File
+class Image
 {
     private $_file;
     private $_error;
 
     /**
-     *                          File constructor.
-     * @param                   $name {name of the file in $_FILE super global}
+     *                          Image constructor.
+     * @param                   $name {name of the image in $_FILE super global}
      * @desc                    Sets _file field.
      */
     public function __construct($name = null)
@@ -48,19 +48,19 @@ class File
     }
 
     /**
-     * @method                  getFileExtension
-     * @desc                    Returns file extension from _file field.
+     * @method                  getImageExtension
+     * @desc                    Returns image extension from _file field.
      * @return                  string
      */
-    public function getFileExtension()
+    public function getImageExtension()
     {
-        $fileExtension = explode('.', $this->_file['name']);
-        return strtolower(end($fileExtension));
+        $imageExtension = explode('.', $this->_file['name']);
+        return strtolower(end($imageExtension));
     }
 
     /**
      * @method                  exists
-     * @desc                    Checks if file has been upload i.e. upload error in $_FILE is different than 4.
+     * @desc                    Checks if image has been upload i.e. upload error in $_FILE is different than 4.
      * @return                  bool
      */
     public function exists()
@@ -72,17 +72,17 @@ class File
      * @method                  checkIfValid
      * @param                   $maxSize {in kB}
      * @param                   $fileTypes {array of strings}
-     * @desc                    Validates uploaded file. Checks if there is no $_FILE error, file size is not exceeded and file has required extension.
+     * @desc                    Validates uploaded image. Checks if there is no $_FILE error, image size is not exceeded and image has required extension.
      * @return                  bool
      */
     public function checkIfValid($maxSize, $fileTypes = [])
     {
         if ($this->_file['error'] !== 0) {
-            $this->setError("Something went wrong when uploading the file. Please select different one.");
+            $this->setError("Something went wrong when uploading the image. Please select different one.");
         } else if ($this->_file['size'] > $maxSize * 1000) {
-            $this->setError("File size exceeds {$maxSize}kB. Please select smaller file.");
-        } else if (!in_array($this->getFileExtension(), $fileTypes)) {
-            $this->setError("Invalid file format. Accepted file formats: " . implode(', ', $fileTypes));
+            $this->setError("Image size exceeds {$maxSize}kB. Please select smaller image.");
+        } else if (!in_array($this->getImageExtension(), $fileTypes)) {
+            $this->setError("Invalid image format. Accepted file formats: " . implode(', ', $fileTypes));
         }
         if (!isset($this->_error)) {
             return true;
@@ -93,7 +93,7 @@ class File
     /**
      * @method                  upload
      * @param                   $destination
-     * @desc                    Uploads file using move_uploaded_file.
+     * @desc                    Uploads image using move_uploaded_file.
      */
     public function upload($destination){
         move_uploaded_file($this->_file['tmp_name'], $destination);
@@ -101,19 +101,19 @@ class File
 
     /**
      * @method                  replace
-     * @param                   $oldFileDestination {file url}
-     * @param                   $newFileDestination {file url}
-     * @desc                    Deletes one file and adds a new one.
+     * @param                   $oldImageDestination {image url}
+     * @param                   $newImageDestination {image url}
+     * @desc                    Deletes one image and adds a new one.
      */
-    public function replace($oldFileDestination, $newFileDestination){
-        $this->delete($oldFileDestination);
-        $this->upload($newFileDestination);
+    public function replace($oldImageDestination, $newImageDestination){
+        $this->delete($oldImageDestination);
+        $this->upload($newImageDestination);
     }
 
     /**
      * @method                  delete
-     * @param                   $destination {file url}
-     * @desc                    Deletes file using unlink.
+     * @param                   $destination {image url}
+     * @desc                    Deletes image using unlink.
      */
     public function delete($destination){
         unlink($destination);

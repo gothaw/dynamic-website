@@ -1,4 +1,4 @@
-<!-- Edit Class Form Area Starts -->
+<!-- Add Class Form Area Starts -->
 <section class="section-padding4">
     <div class="container">
         <form class="wide-form" action="" method="post" enctype="multipart/form-data">
@@ -61,4 +61,4 @@
         </div>
     </div>
 </section>
-<!-- Edit Class Form Area Ends -->
+<!-- Add Class Form Area Ends -->
