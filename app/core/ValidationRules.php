@@ -90,7 +90,7 @@ class ValidationRules
             'post_image' => [
                 'desc' => 'post image',
                 'required' => true,
-                'exists' => 'post_img/p_img_id'
+                'exists' => 'post_image/p_img_id'
             ],
             'post_text' => [
                 'desc' => 'post body',
@@ -99,6 +99,20 @@ class ValidationRules
                 'max' => 5000
             ]
         ], self::getDateRules(), self::getTimeRules());
+
+        return $rulesArray;
+    }
+
+    public static function getBlogImageRules()
+    {
+        $rulesArray = [
+            'post_image_text' => [
+                'desc' => 'image description',
+                'required' => true,
+                'min' => 2,
+                'max' => 50
+            ]
+        ];
 
         return $rulesArray;
     }

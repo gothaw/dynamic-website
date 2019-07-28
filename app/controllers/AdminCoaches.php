@@ -67,7 +67,7 @@ class AdminCoaches extends Controller
                                 if ($image->exists()) {
 
                                     // Replaces image and updates image info in the database
-                                    $newImageUrl = $this->_coaches->getImageLocation($coachId) . "/coach-{$coachId}." . $image->getImageExtension();
+                                    $newImageUrl = $this->_coaches->getImagePath($coachId) . "/coach-{$coachId}." . $image->getImageExtension();
                                     $image->replace('dist/' . $selectedCoach['co_img'], 'dist/' . $newImageUrl);
                                     $this->_coaches->updateCoach($coachId, [
                                         'co_img' => $newImageUrl
@@ -111,7 +111,7 @@ class AdminCoaches extends Controller
                 if (isset($selectedCoach) && is_numeric($coachId)) {
 
                     // Instantiating new Image object
-                    $file = new Image();
+                    $image = new Image();
 
                     try {
                         // Delete coaches from scheduled classes
@@ -119,7 +119,7 @@ class AdminCoaches extends Controller
                         // Delete coach
                         $this->_coaches->deleteCoach($coachId);
                         // Delete coach image
-                        $file->delete('dist/' . $selectedCoach['co_img']);
+                        $image->delete('dist/' . $selectedCoach['co_img']);
 
                         Session::flash('admin', 'Selected coach has been deleted.');
                         Redirect::to('admin-coaches');
@@ -154,7 +154,7 @@ class AdminCoaches extends Controller
                         try {
 
                             // Uploads image and inserts image info into the database
-                            $imageUrl = $this->_coaches->getImageLocation() . '/coach-' . uniqid() . '.' . $image->getImageExtension();
+                            $imageUrl = $this->_coaches->getImagePath() . '/coach-' . uniqid() . '.' . $image->getImageExtension();
                             $image->upload('dist/' . $imageUrl);
 
                             // Inserts class details

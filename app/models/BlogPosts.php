@@ -120,9 +120,9 @@ class BlogPosts
                 FROM 
                     `post`
                 INNER JOIN
-                    `post_img`
+                    `post_image`
                 ON
-                    `post`.`p_img_id` = `post_img`.`p_img_id`";
+                    `post`.`p_img_id` = `post_image`.`p_img_id`";
 
         if (isset($category)) {
             $sql .= " WHERE `post`.`p_category` = ?
@@ -168,9 +168,9 @@ class BlogPosts
                 FROM 
                     `post`
                 INNER JOIN
-                    `post_img`
+                    `post_image`
                 ON
-                    `post`.`p_img_id` = `post_img`.`p_img_id`
+                    `post`.`p_img_id` = `post_image`.`p_img_id`
                 INNER JOIN
                     `post_tag`
                 ON  
@@ -205,9 +205,9 @@ class BlogPosts
                 FROM 
                     `post`
                 INNER JOIN
-                    `post_img`
+                    `post_image`
                 ON
-                    `post`.`p_img_id` = `post_img`.`p_img_id`
+                    `post`.`p_img_id` = `post_image`.`p_img_id`
                 WHERE 
                     `post`.`p_id` = ?;";
 

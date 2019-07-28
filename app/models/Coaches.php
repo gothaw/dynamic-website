@@ -25,12 +25,12 @@ class Coaches
     }
 
     /**
-     * @method              getImageLocation
+     * @method              getImagePath
      * @param               $coachId
-     * @desc                Gets class image location in dist folder. By default: 'img/classes'.
+     * @desc                Gets class image path in dist folder. By default: 'img/classes'.
      * @return              string
      */
-    public function getImageLocation($coachId = null)
+    public function getImagePath($coachId = null)
     {
         if (isset($coachId)) {
             $imageUrlArray = explode('/', $this->getCoach($coachId)['co_img']);

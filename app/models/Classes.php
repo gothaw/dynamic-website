@@ -25,17 +25,19 @@ class Classes
     }
 
     /**
-     * @method              getImageLocation
+     * @method              getImagePath
      * @param               $classId
-     * @desc                Gets class image location in dist folder. By default: 'img/classes'.
+     * @desc                Gets class image path in dist folder. By default: 'img/classes'.
      * @return              string
      */
-    public function getImageLocation($classId = null)
+    public function getImagePath($classId = null)
     {
         if (isset($classId)) {
+            // Edit mode
             $imageUrlArray = explode('/', $this->getClass($classId)['cl_img_url']);
             return implode('/', array_splice($imageUrlArray, 0, -1));
         } else {
+            // Add mode
             return 'img/classes';
         }
     }

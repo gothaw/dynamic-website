@@ -63,7 +63,7 @@ class AdminClasses extends Controller
                                 if ($image->exists()) {
 
                                     // Replaces image and updates image info in the database
-                                    $newImageUrl = $this->_classes->getImageLocation($classId) . "/class-{$classId}." . $image->getImageExtension();
+                                    $newImageUrl = $this->_classes->getImagePath($classId) . "/class-{$classId}." . $image->getImageExtension();
                                     $image->replace('dist/' . $selectedClass['cl_img_url'], 'dist/' . $newImageUrl);
 
                                     $this->_classes->updateClassImageDetails($classId, [
@@ -162,7 +162,7 @@ class AdminClasses extends Controller
                         try {
 
                             // Uploads image and inserts image info into the database
-                            $imageUrl = $this->_classes->getImageLocation() . '/class-' . uniqid() . '.' . $image->getImageExtension();
+                            $imageUrl = $this->_classes->getImagePath() . '/class-' . uniqid() . '.' . $image->getImageExtension();
                             $image->upload('dist/' . $imageUrl);
 
                             $this->_classes->addClassImageDetails([

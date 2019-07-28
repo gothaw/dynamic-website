@@ -81,14 +81,14 @@ class BlogSideBar
                     `post`.`p_id`,
                     `p_title`,
                     `p_date`,
-                    `post_img`.`p_thumb_url`,
-                    `post_img`.`p_img_alt`
+                    `post_image`.`p_thumb_url`,
+                    `post_image`.`p_img_alt`
                 FROM 
                     `post`
                 INNER JOIN
-                    `post_img`
+                    `post_image`
                 ON
-                    `post`.`p_img_id` = `post_img`.`p_img_id`
+                    `post`.`p_img_id` = `post_image`.`p_img_id`
                 ORDER BY `p_comments`
                 DESC
                 LIMIT 4";
