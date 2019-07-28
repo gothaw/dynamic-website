@@ -463,6 +463,15 @@ textarea:focus {
   background: #ffffff;
   transition: 0.5s; }
 
+.feature-footer-default-img {
+  padding: 15px 20px;
+  margin: 15px 20px;
+  background: #ffffff;
+  transition: 0.5s;
+  border: solid black 2px; }
+  .feature-footer-default-img p {
+    margin: 0; }
+
 /* 7. Service */
 .service-area {
   background-color: #b0b0b0;

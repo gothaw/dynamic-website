@@ -4,14 +4,16 @@ class BlogPostImages
 {
     private $_data;
     private $_database;
+    private $_defaultImageData;
 
     /**
      *                          BlogPostImages constructor.
-     * @desc                    Sets database field.
+     * @desc                    Sets database field and default image field.
      */
     public function __construct()
     {
         $this->_database = Database::getInstance();
+        $this->_defaultImageData = $this->_database->select('post_img', ['p_img_default', '=', '1'])->getResultFirstRecord();
     }
 
     /**
@@ -25,13 +27,24 @@ class BlogPostImages
     }
 
     /**
+     * @method                  getDefaultImageData
+     * @desc                    Getter for _defaultImageData field.
+     * @return                  array|null
+     */
+    public function getDefaultImageData()
+    {
+        return $this->_defaultImageData;
+    }
+
+
+    /**
      * @method                  selectPostImages
-     * @desc                    Select all images details from post_img table.
+     * @desc                    Select all images details from post_img table. Does not select default image.
      * @return                  $this
      */
     public function selectImages()
     {
-        $sql = "SELECT * FROM `post_img`";
+        $sql = "SELECT * FROM `post_img` WHERE `p_img_default` = '0'";
 
         $this->_data = $this->_database->query($sql)->getResult();
 

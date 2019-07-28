@@ -28,8 +28,10 @@ class AdminBlogImages extends Controller
 
     public function index()
     {
+        $this->_blogImages->selectImages();
         $this->_view->addViewData([
-            'images' => $this->_blogImages->getData()
+            'images' => $this->_blogImages->getData(),
+            'defaultImage' => $this->_blogImages->getDefaultImageData()
         ]);
         $this->_view->setSubName(toLispCase(__CLASS__));
         $this->_view->renderView();

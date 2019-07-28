@@ -1,6 +1,6 @@
 <?php
 
-//CONTENT
+// Views in admin panel controlled by secondary view name ($subName)
 include("../app/views/_includes/view-error.php");
 switch ($subName) {
     case 'admin-membership':
