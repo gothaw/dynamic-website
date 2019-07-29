@@ -2,7 +2,7 @@
 
 class Database
 {
-    private static $_instance   = null;
+    private static $_instance = null;
 
     //PDO object instance variables
     private $_host;
@@ -11,10 +11,10 @@ class Database
     private $_databaseName;
     private $_pdo;
     //Other instance variables
-    private $_error             = false;
+    private $_error = false;
     private $_query;
     private $_result;
-    private $_resultRowCount    = 0;
+    private $_resultRowCount = 0;
 
     /**
      *                      Database constructor.
@@ -64,9 +64,9 @@ class Database
             if (count($parameters)) {
                 $i = 1;
                 foreach ($parameters as $parameter) {
-                    if(is_integer($parameter)){
+                    if (is_integer($parameter)) {
                         $this->_query->bindValue($i, $parameter, PDO::PARAM_INT);
-                    }else{
+                    } else {
                         $this->_query->bindValue($i, $parameter);
                     }
                     $i++;
@@ -97,7 +97,8 @@ class Database
      * @desc                Gets a first record from query result.
      * @return              array
      */
-    public function getResultFirstRecord(){
+    public function getResultFirstRecord()
+    {
         return $this->getResult()[0];
     }
 
@@ -106,7 +107,8 @@ class Database
      * @desc                Gets row count of a query.
      * @return              int
      */
-    public function getResultRowCount(){
+    public function getResultRowCount()
+    {
         return $this->_resultRowCount;
     }
 
@@ -128,22 +130,23 @@ class Database
      * @desc                Method invoked in select and delete methods e.g SELECT * FROM users WHERE username = 'alex'
      * @return              $this|bool
      */
-    public function simpleQuery($action, $table, $where = []) {
+    public function simpleQuery($action, $table, $where = [])
+    {
         // $where requires 3 fields that is a field, an operator and a value
-        if(count($where) === 3){
-            $operators = ['=','>','<','>=','<='];
+        if (count($where) === 3) {
+            $operators = ['=', '>', '<', '>=', '<='];
 
             $field = $where[0];
             $operator = $where[1];
             $value = $where[2];
 
-            if(in_array($operator, $operators)){
+            if (in_array($operator, $operators)) {
 
                 $sql = "{$action} FROM {$table} WHERE {$field} ${operator} ?;";
 
                 $this->query($sql, [$value]);
 
-                if(!$this->getQueryError()){
+                if (!$this->getQueryError()) {
                     return $this;
                 }
             }
@@ -158,7 +161,8 @@ class Database
      * @desc                Method invokes simpleQuery method to carry out SELECT query e.g SELECT * FROM users WHERE username = 'alex'
      * @return              bool|$this
      */
-    public function select($table, $where){
+    public function select($table, $where)
+    {
         return $this->simpleQuery('SELECT *', $table, $where);
     }
 
@@ -169,8 +173,9 @@ class Database
      * @desc                Method invokes simpleQuery method to carry out DELETE query e.g DELETE FROM users WHERE id = '125'
      * @return              bool|$this
      */
-    public function delete($table,$where){
-        return $this->simpleQuery('DELETE',$table,$where);
+    public function delete($table, $where)
+    {
+        return $this->simpleQuery('DELETE', $table, $where);
     }
 
     /**
@@ -183,24 +188,25 @@ class Database
      *                      Method invokes query method to prepare and execute the query.
      * @return              bool
      */
-    public function insert($table, $fields = []){
+    public function insert($table, $fields = [])
+    {
         $keys = array_keys($fields);
         $parameters = array_values($fields);
         $values = '';
 
         // creates a string with ? depending on the size of $fields array
         $i = 1;
-        foreach($fields as $field){
+        foreach ($fields as $field) {
             $values .= "?";
-            if($i < count($fields)) {
+            if ($i < count($fields)) {
                 $values .= ', ';
             }
             $i++;
         }
 
-        $sql = "INSERT INTO {$table} (`". implode("`,`",$keys) . "`) VALUES ({$values})";
+        $sql = "INSERT INTO {$table} (`" . implode("`,`", $keys) . "`) VALUES ({$values})";
 
-        if(!$this->query($sql, $parameters)->getQueryError()){
+        if (!$this->query($sql, $parameters)->getQueryError()) {
             return true;
         }
         return false;
@@ -217,15 +223,16 @@ class Database
      *                      Method invokes query method to prepare and execute the query.
      * @return              bool
      */
-    public function update($table, $where, $id, $fields){
+    public function update($table, $where, $id, $fields)
+    {
         $set = '';
         $parameters = array_values($fields);
 
         // creates a string with columns and ? as placeholders for parameters
         $i = 1;
-        foreach($fields as $key => $value){
+        foreach ($fields as $key => $value) {
             $set .= "{$key} = ?";
-            if($i < count($fields)){
+            if ($i < count($fields)) {
                 $set .= ', ';
             }
             $i++;
@@ -233,7 +240,7 @@ class Database
 
         $sql = "UPDATE {$table} SET {$set} WHERE {$where} = {$id}";
 
-        if(!$this->query($sql, $parameters)->getQueryError()){
+        if (!$this->query($sql, $parameters)->getQueryError()) {
             return true;
         }
         return false;

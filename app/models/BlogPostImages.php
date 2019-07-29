@@ -76,15 +76,25 @@ class BlogPostImages
 
     /**
      * @method                  selectImage
-     * @param                   $postImageId
+     * @param                   $blogImageId
      * @desc                    Selects image from the database for given p_img_id.
      * @return                  $this
      */
-    public function selectImage($postImageId)
+    public function selectImage($blogImageId)
     {
-        $this->_data = $this->_database->select('post_image', ['p_img_id', '=', $postImageId])->getResultFirstRecord();
+        $this->_data = $this->_database->select('post_image', ['p_img_id', '=', $blogImageId])->getResultFirstRecord();
 
         return $this;
+    }
+
+    /**
+     * @method                  checkIfDefaultImage
+     * @desc                    Checks if selected image is a default image. Requires setting data field with single image.
+     * @return                  bool
+     */
+    public function checkIfDefaultImage()
+    {
+        return ($this->_data['p_img_default'] === '1') ? true : false;
     }
 
     /**
@@ -97,6 +107,24 @@ class BlogPostImages
     {
         if (!$this->_database->insert('post_image', $fields)) {
             throw new Exception('There was a problem in adding new post image.');
+        }
+    }
+
+    /**
+     * @method                  deleteImageDetails
+     * @param                   $blogImageId {int}
+     * @desc                    Deletes blog post image details from the database. Does not delete default image.
+     * @throws                  Exception
+     */
+    public function deleteImageDetails($blogImageId)
+    {
+        $sql = "DELETE FROM `post_image` WHERE `p_img_id` = ? AND `p_img_default` = 0;";
+
+        $isDeleted = $this->_database->query($sql, [$blogImageId]);
+
+        if(!$isDeleted)
+        {
+            throw new Exception('There was a problem in deleting blog post image');
         }
     }
 }

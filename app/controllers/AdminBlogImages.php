@@ -102,6 +102,23 @@ class AdminBlogImages extends Controller
         if (Input::exists()) {
             if (Token::check(Input::getValue('token'))) {
 
+                $selectedImage = $this->_blogImages->selectImage($blogImageId)->getData();
+
+                if (isset($selectedImage) && !$this->_blogImages->checkIfDefaultImage()) {
+
+                    // Instantiating new image object
+                    $image = new Image();
+
+                    try {
+
+
+
+                    } catch (Exception $e) {
+                        $errorMessage = $e->getMessage();
+                        $this->_view->setViewError($errorMessage);
+                    }
+
+                }
             }
         }
         $this->_view->addViewData(['itemToBeDeleted' => 'image']);
