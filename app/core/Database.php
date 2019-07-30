@@ -215,15 +215,15 @@ class Database
     /**
      * @method              update
      * @param               $table {table name in database}
-     * @param               $where {column name in the WHERE clause}
-     * @param               $id {value of under $where column for given record}
+     * @param               $whereColumn {column name in the WHERE clause}
+     * @param               $whereValue {value of under $where column for given record}
      * @param               $fields {fields to be updated in the database}
      *                      Method creates an UPDATE statement template with ? as placeholders, for example,
      *                      UPDATE `user` SET `name` = ?, `age` = ?, `email` = ? WHERE `u_id` = 4;
      *                      Method invokes query method to prepare and execute the query.
      * @return              bool
      */
-    public function update($table, $where, $id, $fields)
+    public function update($table, $whereColumn, $whereValue, $fields = [])
     {
         $set = '';
         $parameters = array_values($fields);
@@ -238,7 +238,7 @@ class Database
             $i++;
         }
 
-        $sql = "UPDATE {$table} SET {$set} WHERE {$where} = {$id}";
+        $sql = "UPDATE {$table} SET {$set} WHERE {$whereColumn} = {$whereValue}";
 
         if (!$this->query($sql, $parameters)->getQueryError()) {
             return true;

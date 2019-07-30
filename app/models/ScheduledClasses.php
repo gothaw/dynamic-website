@@ -453,8 +453,7 @@ class ScheduledClasses
      */
     public function deleteCoach($coachId)
     {
-        $sql = "UPDATE `schedule` SET `co_id` = NULL WHERE co_id = ?;";
-        if (!$this->_database->query($sql, [(int)$coachId])) {
+        if (!$this->_database->update('schedule', 'co_id', $coachId, ['co_id' => NULL])) {
             throw new Exception("There was a problem in deleting coach from scheduled classes.");
         }
     }

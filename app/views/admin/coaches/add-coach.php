@@ -2,7 +2,7 @@
 <section class="section-padding4">
     <div class="container">
         <form class="wide-form" action="" method="post" enctype="multipart/form-data">
-            <h3 class="form-text">Edit/Delete Coach</h3>
+            <h3 class="form-text">Add Coach</h3>
             <div class="row">
                 <div class="col-lg-6">
                     <div class="form-field">
@@ -46,7 +46,7 @@
             </div>
             <div class="form-button">
                 <input type="hidden" name="token" value="<?php echo Token::generate() ?>">
-                <input type="submit" class="template-btn" value="update">
+                <input type="submit" class="template-btn" value="add">
             </div>
         </form>
         <div class="row">

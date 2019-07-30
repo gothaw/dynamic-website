@@ -118,13 +118,30 @@ class BlogPostImages
      */
     public function deleteImageDetails($blogImageId)
     {
+        // Replaces blogImage id with default image id in blog posts
+        $this->replacePostImagesWithDefaultImage($blogImageId);
+
         $sql = "DELETE FROM `post_image` WHERE `p_img_id` = ? AND `p_img_default` = 0;";
 
         $isDeleted = $this->_database->query($sql, [$blogImageId]);
 
-        if(!$isDeleted)
-        {
+        if (!$isDeleted) {
             throw new Exception('There was a problem in deleting blog post image');
+        }
+    }
+
+    /**
+     * @method                  replacePostImageWithDefaultImage
+     * @param                   $blogImageId {int}
+     * @desc                    Replaces given blog post image id in post table with default image id. Useful when given blog post image is to be deleted.
+     * @throws                  Exception
+     */
+    private function replacePostImagesWithDefaultImage($blogImageId)
+    {
+        $defaultId = $this->_defaultImageData['p_img_id'];
+
+        if (!$this->_database->update('post', 'p_img_id', $blogImageId, ['p_img_id' => $defaultId])) {
+            throw new Exception('There was a problem in deleting blog post image from existing posts.');
         }
     }
 }

@@ -111,6 +111,11 @@ class AdminBlogImages extends Controller
 
                     try {
 
+                        // Delete thumbnail
+
+                        // Delete image
+
+                        // Delete image details from the database
 
 
                     } catch (Exception $e) {
