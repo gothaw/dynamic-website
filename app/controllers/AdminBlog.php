@@ -36,7 +36,7 @@ class AdminBlog extends Controller
     /**
      * @method                  index
      * @param                   $pageNumber {string}
-     * @desc                    Default controller method. Renders admin panel - blog section. Displays blog posts in a table with 10 posts per page.
+     * @desc                    Default controller method. Renders admin panel - blog section. Displays blog posts in a table with data for 10 posts per page.
      *                          Invokes selectPosts method for given page number passed as parameter in URL.
      *                          Adds selected posts data to the view along with current page number and last page number.
      */
@@ -49,6 +49,67 @@ class AdminBlog extends Controller
             'lastPage' => $this->_posts->getNumberOfPages()
         ]);
         $this->_view->setSubName(toLispCase(__CLASS__));
+        $this->_view->renderView();
+    }
+
+    /**
+     * @method                  add
+     * @desc                    Method for adding blog post form page in admin panel. Adds blog post images data to the view.
+     *                          It handles form submission. Validates $_POST data using validate object.
+     *                          It adds blog to the database. It gets the id of the blog post that has been inserted to the database and uses this id to add blog post tags to the database.
+     */
+    public function add()
+    {
+        if (Input::exists()) {
+            if (Token::check(Input::getValue('token'))) {
+
+                // Validate using validate object
+                $validate = new Validate();
+                $validate->check($_POST, ValidationRules::getPostRules());
+
+                if ($validate->checkIfPassed()) {
+
+                    try {
+
+                        // Add blog post
+                        $this->_posts->addPost([
+                            'p_title' => trim(Input::getValue('post_title')),
+                            'p_text' => trim(Input::getValue('post_text')),
+                            'p_category' => trim(strtolower(Input::getValue('post_category'))),
+                            'p_date' => trim(Input::getValue('date')),
+                            'p_time' => trim(Input::getValue('time')),
+                            'p_author' => trim(strtolower(Input::getValue('post_author'))),
+                            'p_comments' => 0,
+                            'p_img_id' => Input::getValue('post_image')
+                        ]);
+
+                        // Add blog post tags
+                        $blogPostId = $this->_posts->findMostRecentPostById();
+                        $blogPostTags = $this->model('BlogPostTags');
+                        $blogPostTags->insertTags($blogPostId, trim(Input::getValue('post_tags')));
+
+                        Session::flash('admin', 'You successfully added a blog post.');
+                        Redirect::to('admin-blog');
+
+                    } catch (Exception $e) {
+                        $errorMessage = $e->getMessage();
+                        $this->_view->setViewError($errorMessage);
+                    }
+
+                } else {
+                    // Display a validation error
+                    $errorMessage = $validate->getFirstErrorMessage();
+                    $this->_view->setViewError($errorMessage);
+                }
+            }
+        }
+
+        $postImages = $this->model('BlogPostImages')->selectImages();
+        $this->_view->addViewData([
+            'images' => $postImages->getData()
+        ]);
+
+        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
         $this->_view->renderView();
     }
 
@@ -125,8 +186,8 @@ class AdminBlog extends Controller
     /**
      * @method                  delete
      * @param                   $postId {string}
-     * @desc                    Method for delete blog post confirmation page. It handles form submission if user decides to delete post.
-     *                          It instantiates relevant models to deletes post tags, post comments and blog post.
+     * @desc                    Method for delete blog post confirmation page. It handles form submission if user decides to delete the post.
+     *                          It instantiates relevant models to delete post tags, post comments and blog post.
      */
     public function delete($postId = '')
     {
@@ -160,67 +221,6 @@ class AdminBlog extends Controller
             }
         }
         $this->_view->addViewData(['itemToBeDeleted' => 'blog post']);
-        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
-        $this->_view->renderView();
-    }
-
-    /**
-     * @method                  add
-     * @desc                    Method for add blog post form page in admin panel. Adds blog post images data to the view.
-     *                          It handles form submission. Validates $_POST data using validate object.
-     *                          It adds blog to the database. It gets the id of the blog post that has been inserted to the database and uses this id to add blog post tags to the database.
-     */
-    public function add()
-    {
-        if (Input::exists()) {
-            if (Token::check(Input::getValue('token'))) {
-
-                // Validate using validate object
-                $validate = new Validate();
-                $validate->check($_POST, ValidationRules::getPostRules());
-
-                if ($validate->checkIfPassed()) {
-
-                    try {
-
-                        // Add blog post
-                        $this->_posts->addPost([
-                            'p_title' => trim(Input::getValue('post_title')),
-                            'p_text' => trim(Input::getValue('post_text')),
-                            'p_category' => trim(strtolower(Input::getValue('post_category'))),
-                            'p_date' => trim(Input::getValue('date')),
-                            'p_time' => trim(Input::getValue('time')),
-                            'p_author' => trim(strtolower(Input::getValue('post_author'))),
-                            'p_comments' => 0,
-                            'p_img_id' => Input::getValue('post_image')
-                        ]);
-
-                        // Add blog post tags
-                        $blogPostId = $this->_posts->findMostRecentPostById();
-                        $blogPostTags = $this->model('BlogPostTags');
-                        $blogPostTags->insertTags($blogPostId, trim(Input::getValue('post_tags')));
-
-                        Session::flash('admin', 'You successfully added a blog post.');
-                        Redirect::to('admin-blog');
-
-                    } catch (Exception $e) {
-                        $errorMessage = $e->getMessage();
-                        $this->_view->setViewError($errorMessage);
-                    }
-
-                } else {
-                    // Display a validation error
-                    $errorMessage = $validate->getFirstErrorMessage();
-                    $this->_view->setViewError($errorMessage);
-                }
-            }
-        }
-
-        $postImages = $this->model('BlogPostImages')->selectImages();
-        $this->_view->addViewData([
-            'images' => $postImages->getData()
-        ]);
-
         $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
         $this->_view->renderView();
     }

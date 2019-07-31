@@ -122,7 +122,7 @@ class ScheduledClasses
 
     /**
      * @method                  getClassName
-     * @param                   $scheduledId
+     * @param                   $scheduledId {int}
      * @desc                    Gets $scheduledId class name from _data field. Additionally, capitalizes every word.
      * @return                  string
      */
@@ -232,7 +232,7 @@ class ScheduledClasses
      * @param                   $newDate {Y-m-d}
      * @param                   $newStartTime {H:i}
      * @param                   $newDuration {class duration in minutes}
-     * @param                   $scheduledId {scheduledId}
+     * @param                   $scheduledId {int}
      * @desc                    Checks if class time and duration provided for a new scheduled class or class update are valid.
      *                          This is there is no time clash with other classes in the database.
      * @return                  bool
@@ -284,8 +284,8 @@ class ScheduledClasses
 
     /**
      * @method                  validateClassTypeChange
-     * @param                   $maxNumberOfPeople
-     * @param                   $scheduledId
+     * @param                   $maxNumberOfPeople {int}
+     * @param                   $scheduledId {int}
      * @desc                    Checks if a new class limit for number of people is not exceeded, when changing the class type.
      * @return                  bool
      */
@@ -318,7 +318,7 @@ class ScheduledClasses
 
     /**
      * @method                  updateScheduledClass
-     * @param                   $scheduledId
+     * @param                   $scheduledId {int}
      * @param                   $fields {fields to be inserted to the database as an associative array}
      * @desc                    Updates scheduled class in the database.
      * @throws                  Exception
@@ -332,7 +332,7 @@ class ScheduledClasses
 
     /**
      * @method                  deleteScheduledClass
-     * @param                   $scheduledId
+     * @param                   $scheduledId {int}
      * @desc                    Deletes scheduled class from the database. Also removes all members from that class.
      * @throws                  Exception
      */
@@ -350,8 +350,8 @@ class ScheduledClasses
 
     /**
      * @method                  checkIfPossibleToSignUp
-     * @param                   $membershipExpiryDate
-     * @param                   $scheduledId
+     * @param                   $membershipExpiryDate {date Y-m-d}
+     * @param                   $scheduledId {int}
      * @desc                    Validates signing up to class shown in the schedule. Requires setting _data field.
      * @return                  bool
      */
@@ -427,7 +427,7 @@ class ScheduledClasses
 
     /**
      * @method                  deleteClassesByClassId
-     * @param                   $classId
+     * @param                   $classId {int}
      * @desc                    Deletes scheduled classes by cl_id using two sql queries. Deletes rows from both 'schedule' and 'user_class' tables.
      * @throws                  Exception
      */
@@ -447,7 +447,7 @@ class ScheduledClasses
 
     /**
      * @method                  deleteCoach
-     * @param                   $coachId
+     * @param                   $coachId {int}
      * @desc                    Deletes coach from scheduled classes by replacing co_id with null.
      * @throws                  Exception
      */

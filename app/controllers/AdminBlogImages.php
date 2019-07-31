@@ -112,10 +112,14 @@ class AdminBlogImages extends Controller
                     try {
 
                         // Delete thumbnail
-
+                        $image->delete('dist/' . $selectedImage['p_thumb_url']);
                         // Delete image
-
+                        $image->delete('dist/' . $selectedImage['p_img_url']);
                         // Delete image details from the database
+                        $this->_blogImages->deleteImageDetails($blogImageId);
+
+                        Session::flash('admin', 'Selected image has been deleted from the gallery.');
+                        Redirect::to('admin-blog-images');
 
 
                     } catch (Exception $e) {

@@ -112,7 +112,7 @@ class Image
 
     /**
      * @method                  upload
-     * @param                   $destination
+     * @param                   $destination {url in a dist folder}
      * @desc                    Uploads image using move_uploaded_file.
      */
     public function upload($destination)
@@ -122,8 +122,8 @@ class Image
 
     /**
      * @method                  replace
-     * @param                   $oldImageDestination {image url}
-     * @param                   $newImageDestination {image url}
+     * @param                   $oldImageDestination {image url in a dist folder}
+     * @param                   $newImageDestination {image url in a dist folder}
      * @desc                    Deletes one image and adds a new one.
      */
     public function replace($oldImageDestination, $newImageDestination)
@@ -134,7 +134,7 @@ class Image
 
     /**
      * @method                  delete
-     * @param                   $destination {image url}
+     * @param                   $destination {image url in a dist folder}
      * @desc                    Deletes image using unlink.
      */
     public function delete($destination)
