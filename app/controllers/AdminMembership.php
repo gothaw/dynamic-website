@@ -4,6 +4,12 @@ class AdminMembership extends Controller
 {
     private $_page;
 
+    /**
+     *                          AdminMembership constructor.
+     * @desc                    Constructor for admin membership panel controller. Checks if user is logged in and has admin permission before instantiating view.
+     *                          Instantiates view with user, navigation bar and this page data.
+     *                          If user is not logged in or does not have admin permission it redirects to home page.
+     */
     public function __construct()
     {
         $this->_page = 'admin';
@@ -24,6 +30,10 @@ class AdminMembership extends Controller
         }
     }
 
+    /**
+     *                          index
+     * @desc                    Default controller method. Renders admin panel - membership area. It invokes userSearch method from the parent.
+     */
     public function index()
     {
         $this->userSearch();
@@ -31,6 +41,12 @@ class AdminMembership extends Controller
         $this->_view->renderView();
     }
 
+    /**
+     * @method                  edit
+     * @param                   $userId {string}
+     * @desc                    Method for editing user's membership in admin panel. It adds user and user's membership data to the view.
+     *                          It handles form submission. Validates $_POST data using validate object. If validation passes it updates user's membership
+     */
     public function edit($userId = '')
     {
         if (is_numeric($userId)) {
@@ -81,6 +97,11 @@ class AdminMembership extends Controller
         $this->_view->renderView();
     }
 
+    /**
+     * @method                  cancel
+     * @param                   $userId {string}
+     * @desc                    Method for canceling user's membership confirmation page. It handles form submission if user decides to cancel user's membership.
+     */
     public function cancel($userId = '')
     {
         if(Input::exists()){
