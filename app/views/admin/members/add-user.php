@@ -54,7 +54,7 @@
                         <label for="permission">Permission</label>
                         <select class="form-field-select" name="permission" id="permission">
                             <?php foreach ($data['userGroups'] as $group) { ?>
-                                <option value="<?php echo escape($group['u_group_name']) ?>" <?php
+                                <option value="<?php echo escape($group['u_group_id']) ?>" <?php
                                 if ($group['u_group_id'] === 1) {
                                     echo "selected";
                                 } ?>><?php echo escape($group['u_group_name']) ?></option>

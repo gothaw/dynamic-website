@@ -65,16 +65,19 @@ class AdminMembers extends Controller
 
                     // Register a User
                     $user = $this->model('User');
-                    $groupId = $userGroups->getIdForGroupName(trim(Input::getValue('permission')));
+                    $groupId = trim(Input::getValue('permission'));
 
                     try {
+
                         $this->insertUserDetails($user, $groupId);
                         Session::flash('admin', 'You have registered a new gym member.');
                         Redirect::to('admin-members');
+
                     } catch (Exception $e) {
                         $errorMessage = $e->getMessage();
                         $this->_view->setViewError($errorMessage);
                     }
+
                 } else {
                     //Display an Error
                     $errorMessage = $validate->getFirstErrorMessage();
@@ -94,7 +97,7 @@ class AdminMembers extends Controller
      * @param                   $userId {string}
      * @desc                    Method for editing selected user data in admin panel. It adds user groups and selected user data to the view.
      *                          It handles form submission. Validates $_POST data using validate object. If validation passes, it updates details by invoking updateUserDetails method from the parent.
-     *                          It also updates user permissions.
+     *                          It also updates user permissions using updateUser.
      */
     public function edit($userId = '')
     {
@@ -122,7 +125,7 @@ class AdminMembers extends Controller
                             $this->updateUserDetails($selectedUser, $userId);
 
                             // Update User permissions
-                            $groupId = $userGroups->getIdForGroupName(trim(Input::getValue('permission')));
+                            $groupId = trim(Input::getValue('permission'));
                             $selectedUser->updateUser([
                                 'u_group_id' => $groupId,
                             ], $userId);
@@ -155,6 +158,14 @@ class AdminMembers extends Controller
         $this->_view->renderView();
     }
 
+    /**
+     * @method                  delete
+     * @param                   $userId {string}
+     * @desc                    Method for deleting selected user confirmation page. It handles form submission if user decides to delete selected user.
+     *                          It instantiates Membership, UserClasses and Scheduled Classes models. Deletes user membership and all user classes.
+     *                          If user signed up to a future scheduled class, it reduces number of people that signed up to that class by one.
+     *                          After carrying out these delete and update queries, it deletes the user from the database.
+     */
     public function delete($userId = '')
     {
         if (Input::exists()) {
@@ -164,12 +175,17 @@ class AdminMembers extends Controller
 
                 if (is_numeric($userId) && isset($selectedUser)) {
 
+                    // User Data
                     $selectedUserData = $selectedUser->getData();
+
+                    // Instantiate User Membership model
                     $membership = $this->model('Membership', $userId);
 
+                    // Instantiate User Classes model and select future classes
                     $userClasses = $this->model('UserClasses', $userId)->selectClasses();
                     $userClassesData = $userClasses->getClassesData();
 
+                    // Instantiate Scheduled Classes model and select future classes
                     $schedule = $this->model('ScheduledClasses')->selectClasses();
 
                     try {
@@ -177,7 +193,7 @@ class AdminMembers extends Controller
                         // Delete membership
                         $membership->cancelMembership($userId);
                         // Delete users classes
-                        $userClasses->deleteClassesForUserId();
+                        $userClasses->deleteClassesForSelectedUser();
                         // Reduces number of people on future classes by 1.
                         foreach ($userClassesData as $class) {
                             $schedule->removeOnePersonFromClass($class['sc_id']);

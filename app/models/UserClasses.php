@@ -200,11 +200,11 @@ class UserClasses
     }
 
     /**
-     * @method          deleteClassesForUserId
+     * @method          deleteClassesForSelectedUser
      * @desc            Method deletes all user classes for user with _userId.
      * @throws          Exception
      */
-    public function deleteClassesForUserId()
+    public function deleteClassesForSelectedUser()
     {
         $sql = "
                 DELETE 

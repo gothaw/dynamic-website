@@ -13,7 +13,12 @@ class ValidationRules
      */
     public static function getRegisterUserRules()
     {
-        $rulesArray = array_merge(self::getUpdateUserRules(), self::getUsernameRules(), self::getUserEmailRules(), self::getPasswordRules());
+        $rulesArray = array_merge(
+            self::getUserDetailsRules(),
+            self::getUsernameRules(),
+            self::getUserEmailRules(),
+            self::getPasswordRules()
+        );
 
         return $rulesArray;
     }
@@ -25,12 +30,55 @@ class ValidationRules
      */
     public static function getRegisterUserRulesAdminPanel()
     {
-        $rulesArray = array_merge(self::getUpdateUserRules(), self::getUsernameRules(), self::getUserEmailRules(), self::getPasswordRules(), [
+        $rulesArray = array_merge(
+            self::getUserDetailsRules(),
+            self::getUsernameRules(),
+            self::getUserEmailRules(),
+            self::getPasswordRules(),
+            self::getUserGroupRules()
+        );
+
+        return $rulesArray;
+    }
+
+    /**
+     * @method                      getUpdateUserRules
+     * @desc                        Validation rules when user wants to update personal details.
+     * @return                      array
+     */
+    public static function getUpdateUserRules()
+    {
+        $rulesArray = self::getUserDetailsRules();
+
+        return $rulesArray;
+    }
+
+    /**
+     * @method                      getUpdateUserRulesAdminPanel
+     * @desc                        Validation rules to update user personal details from admin panel.
+     * @return                      array
+     */
+    public static function getUpdateUserRulesAdminPanel()
+    {
+        $rulesArray = array_merge(self::getUserDetailsRules(), self::getUserGroupRules());
+
+        return $rulesArray;
+    }
+
+    /**
+     * @method                      getUserGroupRules
+     * @desc                        Validation rules for user group.
+     * @return                      array
+     */
+    private static function getUserGroupRules()
+    {
+        $rulesArray = [
             'permission' => [
                 'desc' => 'User permission group',
+                'exists' => 'user_group/u_group_id',
                 'required' => true
             ]
-        ]);
+        ];
 
         return $rulesArray;
     }
@@ -170,35 +218,6 @@ class ValidationRules
                 'exists' => 'user/u_id'
             ]
         ];
-
-        return $rulesArray;
-    }
-
-    /**
-     * @method                      getUpdateUserRules
-     * @desc                        Validation rules when user wants to update personal details.
-     * @return                      array
-     */
-    public static function getUpdateUserRules()
-    {
-        $rulesArray = self::getUserDetailsRules();
-
-        return $rulesArray;
-    }
-
-    /**
-     * @method                      getUpdateUserRulesAdminPanel
-     * @desc                        Validation rules to update user personal details from admin panel.
-     * @return                      array
-     */
-    public static function getUpdateUserRulesAdminPanel()
-    {
-        $rulesArray = array_merge(self::getUserDetailsRules(), [
-            'permission' => [
-                'desc' => 'User permission group',
-                'required' => true
-            ]
-        ]);
 
         return $rulesArray;
     }

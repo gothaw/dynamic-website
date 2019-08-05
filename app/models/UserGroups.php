@@ -27,20 +27,4 @@ class UserGroups
     {
         return $this->_data;
     }
-
-    /**
-     * @method              getIdForGroupName
-     * @param               $groupName
-     * @desc                Gets group id based on name. If not found, returns 1 which is group id for standard user.
-     * @return              int
-     */
-    public function getIdForGroupName($groupName)
-    {
-        foreach ($this->_data as $group){
-            if($group['u_group_name'] === $groupName){
-                return $group['u_group_id'];
-            }
-        }
-        return 1;
-    }
 }
