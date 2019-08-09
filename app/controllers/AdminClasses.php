@@ -5,6 +5,13 @@ class AdminClasses extends Controller
     private $_page;
     private $_classes;
 
+    /**
+     *                          AdminClasses constructor.
+     * @desc                    Constructor for admin classes panel controller. Checks if user is logged in and has admin permission before instantiating view.
+     *                          Instantiates classes model and selects all classes from the database.
+     *                          Passes this data to the view along with user, navigation and this page data.
+     *                          If user is not logged in or does not have admin permission it redirects to home page.
+     */
     public function __construct()
     {
         $this->_page = 'admin';
@@ -27,9 +34,79 @@ class AdminClasses extends Controller
         }
     }
 
+    /**
+     * @method                  index
+     * @desc                    Default controller method. Renders admin panel - classes area. Displays classes in a image gallery.
+     */
     public function index()
     {
         $this->_view->setSubName(toLispCase(__CLASS__));
+        $this->_view->renderView();
+    }
+
+    /**
+     * @method                  add
+     * @desc
+     */
+    public function add()
+    {
+        if (Input::exists()) {
+            if (Token::check(Input::getValue('token'))) {
+
+                // Validation using Validate object
+                $validate = new Validate();
+                $validate->check($_POST, ValidationRules::getClassDetailsRules());
+
+                // Create new Image
+                $image = new Image('class_image');
+
+                if ($validate->checkIfPassed()) {
+                    if ($image->checkIfValid(500, ['jpg', 'jpeg', 'png', 'gif'])) {
+
+                        try {
+
+                            // Uploads image and inserts image info into the database
+                            $imageUrl = $this->_classes->getImagePath() . '/class-' . uniqid() . '.' . $image->getImageExtension();
+                            $image->upload('dist/' . $imageUrl);
+
+                            $this->_classes->addClassImageDetails([
+                                'cl_img_alt' => trim(Input::getValue('class_image_text')),
+                                'cl_img_url' => $imageUrl
+                            ]);
+
+                            // Finds class image id based on url
+                            $classImgId = $this->_classes->findClassImageId($imageUrl);
+
+                            // Inserts class details
+                            $this->_classes->addClass([
+                                'cl_name' => trim(Input::getValue('class_name')),
+                                'cl_desc' => trim(Input::getValue('description')),
+                                'cl_duration' => trim(Input::getValue('duration')),
+                                'cl_max_people' => trim(Input::getValue('max_no_people')),
+                                'cl_img_id' => $classImgId
+                            ]);
+
+                            Session::flash('admin', 'The class has been added.');
+                            Redirect::to('admin-classes');
+
+                        } catch (Exception $e) {
+                            $errorMessage = $e->getMessage();
+                            $this->_view->setViewError($errorMessage);
+                        }
+
+                    } else {
+                        // Display file validation error
+                        $errorMessage = $image->getError();
+                        $this->_view->setViewError($errorMessage);
+                    }
+                } else {
+                    // Display validation error
+                    $errorMessage = $validate->getFirstErrorMessage();
+                    $this->_view->setViewError($errorMessage);
+                }
+            }
+        }
+        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
         $this->_view->renderView();
     }
 
@@ -140,68 +217,6 @@ class AdminClasses extends Controller
             }
         }
         $this->_view->addViewData(['itemToBeDeleted' => 'class']);
-        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
-        $this->_view->renderView();
-    }
-
-    public function add()
-    {
-        if (Input::exists()) {
-            if (Token::check(Input::getValue('token'))) {
-
-                // Validation using Validate object
-                $validate = new Validate();
-                $validate->check($_POST, ValidationRules::getClassDetailsRules());
-
-                // Create new Image
-                $image = new Image('class_image');
-
-                if ($validate->checkIfPassed()) {
-                    if ($image->checkIfValid(500, ['jpg', 'jpeg', 'png', 'gif'])) {
-
-                        try {
-
-                            // Uploads image and inserts image info into the database
-                            $imageUrl = $this->_classes->getImagePath() . '/class-' . uniqid() . '.' . $image->getImageExtension();
-                            $image->upload('dist/' . $imageUrl);
-
-                            $this->_classes->addClassImageDetails([
-                                'cl_img_alt' => trim(Input::getValue('class_image_text')),
-                                'cl_img_url' => $imageUrl
-                            ]);
-
-                            // Finds class image id based on url
-                            $classImgId = $this->_classes->findClassImageId($imageUrl);
-
-                            // Inserts class details
-                            $this->_classes->addClass([
-                                'cl_name' => trim(Input::getValue('class_name')),
-                                'cl_desc' => trim(Input::getValue('description')),
-                                'cl_duration' => trim(Input::getValue('duration')),
-                                'cl_max_people' => trim(Input::getValue('max_no_people')),
-                                'cl_img_id' => $classImgId
-                            ]);
-
-                            Session::flash('admin', 'The class has been added.');
-                            Redirect::to('admin-classes');
-
-                        } catch (Exception $e) {
-                            $errorMessage = $e->getMessage();
-                            $this->_view->setViewError($errorMessage);
-                        }
-
-                    } else {
-                        // Display file validation error
-                        $errorMessage = $image->getError();
-                        $this->_view->setViewError($errorMessage);
-                    }
-                } else {
-                    // Display validation error
-                    $errorMessage = $validate->getFirstErrorMessage();
-                    $this->_view->setViewError($errorMessage);
-                }
-            }
-        }
         $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
         $this->_view->renderView();
     }

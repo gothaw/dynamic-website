@@ -5,6 +5,13 @@ class AdminCoaches extends Controller
     private $_page;
     private $_coaches;
 
+    /**
+     *                          AdminCoaches constructor.
+     * @desc                    Constructor for admin coaches panel controller. Checks if user is logged in and has admin permission before instantiating view.
+     *                          Instantiates coaches model and selects all coaches from the database.
+     *                          Passes this data to the view along with user, navigation and this page data.
+     *                          If user is not logged in or does not have admin permission it redirects to home page.
+     */
     public function __construct()
     {
         $this->_page = 'admin';
@@ -27,12 +34,89 @@ class AdminCoaches extends Controller
         }
     }
 
+    /**
+     * @method                  index
+     * @desc                    Default controller method. Renders admin panel - coach area. Displays coaches in a image gallery.
+     */
     public function index()
     {
         $this->_view->setSubName(toLispCase(__CLASS__));
         $this->_view->renderView();
     }
 
+    /**
+     * @method                  add
+     * @desc                    Method for adding a new coach form page in admin panel. Handles form submission.
+     *                          Validates $_POST data using validate object. Also instantiates Image object, and checks if submitted image in $_FILES super global is valid.
+     *                          Valid image: max size 500kB, formats: .jpg, .jpeg, .png and .gif.
+     *                          If both validation checks are passed, it uploads the image to dist/img/coaches and adds coach data to the database.
+     */
+    public function add()
+    {
+        if (Input::exists()) {
+            if (Token::check(Input::getValue('token'))) {
+
+                // Validation using Validate object
+                $validate = new Validate();
+                $validate->check($_POST, ValidationRules::getCoachDetailsRules());
+
+                // Create new Image
+                $image = new Image('coach_image');
+
+                if ($validate->checkIfPassed()) {
+                    if ($image->checkIfValid(500, ['jpg', 'jpeg', 'png', 'gif'])) {
+
+                        try {
+
+                            // Uploads image and inserts image info into the database
+                            $imageUrl = $this->_coaches->getImagePath() . '/coach-' . uniqid() . '.' . $image->getImageExtension();
+                            $image->upload('dist/' . $imageUrl);
+
+                            // Inserts class details
+                            $this->_coaches->addCoach([
+                                'co_first_name' => trim(Input::getValue('first_name')),
+                                'co_last_name' => trim(Input::getValue('last_name')),
+                                'co_email' => trim(Input::getValue('email')),
+                                'co_focus' => trim(Input::getValue('focus')),
+                                'co_img' => $imageUrl,
+                                'co_facebook' => trim(Input::getValue('facebook_profile')),
+                                'co_twitter' => trim(Input::getValue('twitter_profile')),
+                                'co_linkedin' => trim(Input::getValue('linkedin_profile'))
+                            ]);
+
+                            Session::flash('admin', 'The coach has been added.');
+                            Redirect::to('admin-coaches');
+
+                        } catch (Exception $e) {
+                            $errorMessage = $e->getMessage();
+                            $this->_view->setViewError($errorMessage);
+                        }
+
+                    } else {
+                        // Display file validation error
+                        $errorMessage = $image->getError();
+                        $this->_view->setViewError($errorMessage);
+                    }
+                } else {
+                    // Display validation error
+                    $errorMessage = $validate->getFirstErrorMessage();
+                    $this->_view->setViewError($errorMessage);
+                }
+            }
+        }
+        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
+        $this->_view->renderView();
+    }
+
+    /**
+     * @method                  edit
+     * @param                   $coachId {string}
+     * @desc                    Method for editing an existing coach form page in admin panel. Handles form submission.
+     *                          Validates $_POST data using validate object. Also instantiates Image object, and checks if no image has been submitted or if submitted image in $_FILES is valid.
+     *                          Valid image: max size: 500kB, formats: .jpg, .jpeg, .png and .gif.
+     *                          If validation passes, it updates coach details in the database.
+     *                          If valid image has been submitted, it replaces current image with a new one and updates the image url in the database.
+     */
     public function edit($coachId = '')
     {
         $selectedCoach = $this->_coaches->getCoach($coachId);
@@ -102,6 +186,13 @@ class AdminCoaches extends Controller
         $this->_view->renderView();
     }
 
+    /**
+     * @method                  delete
+     * @param                   $coachId {string}
+     * @desc                    Method for deleting coach confirmation page. It handles form submission if user decides to delete selected coach.
+     *                          It instantiates Image object and Scheduled Classes model. It deletes selected coach from scheduled classes and deletes coach data from the database.
+     *                          It also deletes coach image using Image object method.
+     */
     public function delete($coachId = '')
     {
         if (Input::exists()) {
@@ -132,63 +223,6 @@ class AdminCoaches extends Controller
             }
         }
         $this->_view->addViewData(['itemToBeDeleted' => 'coach']);
-        $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
-        $this->_view->renderView();
-    }
-
-    public function add()
-    {
-        if (Input::exists()) {
-            if (Token::check(Input::getValue('token'))) {
-
-                // Validation using Validate object
-                $validate = new Validate();
-                $validate->check($_POST, ValidationRules::getCoachDetailsRules());
-
-                // Create new Image
-                $image = new Image('coach_image');
-
-                if ($validate->checkIfPassed()) {
-                    if ($image->checkIfValid(500, ['jpg', 'jpeg', 'png', 'gif'])) {
-
-                        try {
-
-                            // Uploads image and inserts image info into the database
-                            $imageUrl = $this->_coaches->getImagePath() . '/coach-' . uniqid() . '.' . $image->getImageExtension();
-                            $image->upload('dist/' . $imageUrl);
-
-                            // Inserts class details
-                            $this->_coaches->addCoach([
-                                'co_first_name' => trim(Input::getValue('first_name')),
-                                'co_last_name' => trim(Input::getValue('last_name')),
-                                'co_email' => trim(Input::getValue('email')),
-                                'co_focus' => trim(Input::getValue('focus')),
-                                'co_img' => $imageUrl,
-                                'co_facebook' => trim(Input::getValue('facebook_profile')),
-                                'co_twitter' => trim(Input::getValue('twitter_profile')),
-                                'co_linkedin' => trim(Input::getValue('linkedin_profile'))
-                            ]);
-
-                            Session::flash('admin', 'The coach has been added.');
-                            Redirect::to('admin-coaches');
-
-                        } catch (Exception $e) {
-                            $errorMessage = $e->getMessage();
-                            $this->_view->setViewError($errorMessage);
-                        }
-
-                    } else {
-                        // Display file validation error
-                        $errorMessage = $image->getError();
-                        $this->_view->setViewError($errorMessage);
-                    }
-                } else {
-                    // Display validation error
-                    $errorMessage = $validate->getFirstErrorMessage();
-                    $this->_view->setViewError($errorMessage);
-                }
-            }
-        }
         $this->_view->setSubName(toLispCase(__CLASS__) . '/' . __FUNCTION__);
         $this->_view->renderView();
     }

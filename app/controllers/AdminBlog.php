@@ -36,7 +36,7 @@ class AdminBlog extends Controller
     /**
      * @method                  index
      * @param                   $pageNumber {string}
-     * @desc                    Default controller method. Renders admin panel - blog section. Displays blog posts in a table with data for 10 posts per page.
+     * @desc                    Default controller method. Renders admin panel - blog section. Displays blog posts data in a table with 10 posts per page.
      *                          Invokes selectPosts method for given page number passed as parameter in URL.
      *                          Adds selected posts data to the view along with current page number and last page number.
      */
