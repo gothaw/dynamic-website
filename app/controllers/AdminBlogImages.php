@@ -5,6 +5,12 @@ class AdminBlogImages extends Controller
     private $_page;
     private $_blogImages;
 
+    /**
+     *                          AdminBlogImages constructor.
+     * @desc                    Constructor for admin blog post images panel controller. Checks if user is logged in and has admin permission before instantiating view.
+     *                          Instantiates view with user, navigation and this page data.
+     *                          If user is not logged in or does not have admin permission it redirects to home page.
+     */
     public function __construct()
     {
         $this->_page = 'admin';
@@ -26,6 +32,10 @@ class AdminBlogImages extends Controller
         }
     }
 
+    /**
+     * @method                  index
+     * @desc                    Default controller method. Renders admin panel - blog images area. Displays blog post images in a gallery.
+     */
     public function index()
     {
         $this->_blogImages->selectImages();
@@ -37,6 +47,13 @@ class AdminBlogImages extends Controller
         $this->_view->renderView();
     }
 
+    /**
+     * @method                  add
+     * @desc                    Method for adding a new blog post image form page in admin panel. It handles form submission.
+     *                          Validates $_POST data using validate object. Also instantiates Image object, and checks if submitted image in $_FILES super global is valid.
+     *                          Valid image: max size 500kB, formats: .jpg, .jpeg, .png and .gif.
+     *                          If validation passes it uploads image and image thumbnail and inserts image details to the database.
+     */
     public function add()
     {
         if (Input::exists()) {
@@ -97,6 +114,13 @@ class AdminBlogImages extends Controller
         $this->_view->renderView();
     }
 
+    /**
+     * @method                  delete
+     * @param                   $blogImageId {string}
+     * @desc                    Method for deleting blog post image confirmation page. It handles form submission if user decides to delete selected image.
+     *                          It allows for deleting an image unless selected image is a default image.
+     *                          It deletes image and image thumbnail and image details from the database.
+     */
     public function delete($blogImageId = '')
     {
         if (Input::exists()) {

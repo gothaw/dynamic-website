@@ -115,7 +115,7 @@ class AdminCoaches extends Controller
      *                          Validates $_POST data using validate object. Also instantiates Image object, and checks if no image has been submitted or if submitted image in $_FILES is valid.
      *                          Valid image: max size: 500kB, formats: .jpg, .jpeg, .png and .gif.
      *                          If validation passes, it updates coach details in the database.
-     *                          If valid image has been submitted, it replaces current image with a new one and updates the image url in the database.
+     *                          If valid image has been submitted, it replaces the current image with the new one and updates the image url in the database.
      */
     public function edit($coachId = '')
     {
@@ -191,7 +191,7 @@ class AdminCoaches extends Controller
      * @param                   $coachId {string}
      * @desc                    Method for deleting coach confirmation page. It handles form submission if user decides to delete selected coach.
      *                          It instantiates Image object and Scheduled Classes model. It deletes selected coach from scheduled classes and deletes coach data from the database.
-     *                          It also deletes coach image using Image object method.
+     *                          It also deletes coach image using Image object.
      */
     public function delete($coachId = '')
     {

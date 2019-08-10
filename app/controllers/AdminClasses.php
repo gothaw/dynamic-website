@@ -46,7 +46,11 @@ class AdminClasses extends Controller
 
     /**
      * @method                  add
-     * @desc
+     * @desc                    Method for adding a new class form page in admin panel. Handles form submission.
+     *                          Validates $_POST data using validate object. Also instantiates Image object, and checks if submitted image in $_FILES super global is valid.
+     *                          Valid image: max size 500kB, formats: .jpg, .jpeg, .png and .gif.
+     *                          If both validation checks are passed, it uploads the image to dist/img/classes and adds image details to the database.
+     *                          It uses the class image id and updates class details.
      */
     public function add()
     {
@@ -110,6 +114,15 @@ class AdminClasses extends Controller
         $this->_view->renderView();
     }
 
+    /**
+     * @method                  edit
+     * @param                   $classId {string}
+     * @desc                    Method for editing an existing class form page in admin panel. Handles form submission.
+     *                          Validates $_POST data using validate object. Also instantiates Image object, and checks if no image has been submitted or if submitted image in $_FILES is valid.
+     *                          Valid image: max size: 500kB, formats: .jpg, .jpeg, .png and .gif.
+     *                          If validation passes, it updates class details in the database.
+     *                          If valid image has been submitted, it replaces the current image with the new one and updates the image url in the database.
+     */
     public function edit($classId = '')
     {
         $selectedClass = $this->_classes->getClass($classId);
@@ -185,6 +198,13 @@ class AdminClasses extends Controller
         $this->_view->renderView();
     }
 
+    /**
+     * @method                  delete
+     * @param                   $classId {string}
+     * @desc                    Method for deleting class confirmation page. It handles form submission if user decides to delete selected class.
+     *                          It instantiates Image object and Scheduled Classes model. It deletes selected class type from scheduled classes and deletes class data from the database.
+     *                          It also deletes class image using Image object and class image details.
+     */
     public function delete($classId = '')
     {
         if (Input::exists()) {
