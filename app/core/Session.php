@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                          Class Session
+ * @desc                    Class with static methods to manipulate values in $_SESSION. Allows for checking if exist, getting, adding and deleting values in session.
+ */
 class Session
 {
     /**

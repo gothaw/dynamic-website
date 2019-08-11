@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                              Class Login
+ * @desc                        Controller for login page.
+ */
 class Login extends Controller
 {
     private $_page;

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                              Class Admin
+ * @desc                        Controller for Admin panel menu page.
+ */
 class Admin extends Controller
 {
     private $_page;

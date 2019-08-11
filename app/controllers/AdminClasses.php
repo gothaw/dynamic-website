@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                              Class AdminClasses
+ * @desc                        Controller for admin panel classes area. Includes method to add, edit and delete class types that are run by the gym.
+ */
 class AdminClasses extends Controller
 {
     private $_page;
@@ -153,7 +157,7 @@ class AdminClasses extends Controller
                                 if ($image->exists()) {
 
                                     // Replaces image and updates image info in the database
-                                    $newImageUrl = $this->_classes->getImagePath($classId) . "/class-{$classId}." . $image->getImageExtension();
+                                    $newImageUrl = $this->_classes->getImagePath() . "/class-{$classId}." . $image->getImageExtension();
                                     $image->replace('dist/' . $selectedClass['cl_img_url'], 'dist/' . $newImageUrl);
 
                                     $this->_classes->updateClassImageDetails($classId, [

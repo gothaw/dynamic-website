@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                              Class About
+ * @desc                        Controller for about us page.
+ */
 class About extends Controller
 {
     private $_page;

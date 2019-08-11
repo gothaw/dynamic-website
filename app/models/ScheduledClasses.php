@@ -1,5 +1,11 @@
 <?php
 
+/**
+ *                              Class ScheduledClasses
+ * @desc                        Model for scheduled classes. Allows for selecting, adding, editing and deleting scheduled class data from `schedule` table.
+ *                              Pagination functionality used in admin panel scheduled classes area.
+ *                              It also does validation if user can sign up to a class or class can be updated with data provided in admin panel.
+ */
 class ScheduledClasses
 {
     private $_data;

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ *                          Class UserClasses
+ * @desc                    Model for user classes. Allows for working with data from `user_class` table.
+ *                          This includes selecting classes for given user id or selecting all users that signed up to a given class.
+ *                          Allows for signing up, checking if signed up and dropping user from the class.
+ */
 class UserClasses
 {
     private $_database;

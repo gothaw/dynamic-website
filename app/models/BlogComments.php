@@ -1,5 +1,10 @@
 <?php
 
+/**
+ *                              Class BlogComments
+ * @desc                        Model for blog comments. Allows for selecting, adding, editing and deleting comments in `post_comment` table.
+ *                              Pagination functionality used in admin panel comment moderation area.
+ */
 class BlogComments
 {
     private $_data;

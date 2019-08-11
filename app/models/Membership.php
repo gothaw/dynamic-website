@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                              Class Membership
+ * @desc                        Model for user membership. Allows for selecting membership info for given user id, checking if membership is valid, updating membership and canceling it.
+ */
 class Membership
 {
     private $_data;

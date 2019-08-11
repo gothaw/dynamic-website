@@ -1,5 +1,11 @@
 <?php
 
+/**
+ *                              Class AdminBlog
+ * @desc                        Controller for admin panel blog post area. Includes methods to add, edit and delete blog posts.
+ *                              Additionally, allows for viewing comments under selected posts and editing or deleting comments.
+ *                              Shows only approved comments.
+ */
 class AdminBlog extends Controller
 {
     private $_page;

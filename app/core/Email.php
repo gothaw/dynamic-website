@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                                  Class Email
+ * @desc                            Class used to create an email after submitting contact form. Includes a method used send email using mail() function.
+ */
 class Email
 {
     private $_name;

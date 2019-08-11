@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                          Class UserGroups
+ * @desc                    Model for user permission groups. Allows for selecting user permissions in `user_group` table.
+ */
 class UserGroups
 {
     private $_data;

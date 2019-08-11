@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                              Class Schedule
+ * @desc                        Controller for scheduled classes page. Includes method to sing up to scheduled class if user is logged in.
+ */
 class Schedule extends Controller
 {
     private $_page;

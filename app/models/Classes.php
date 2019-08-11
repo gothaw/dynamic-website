@@ -1,17 +1,23 @@
 <?php
 
+/**
+ *                          Class Classes
+ * @desc                    Model for class types and class types images. Allows for selecting, adding, editing and deleting data in `class` and `class_image` tables.
+ */
 class Classes
 {
     private $_data;
     private $_database;
+    private $_imagePath;
 
     /**
      *                      Classes constructor.
-     * @desc                Sets database field.
+     * @desc                Sets database field. Sets class image path in dist folder.
      */
     public function __construct()
     {
         $this->_database = Database::getInstance();
+        $this->_imagePath = 'img/classes';
     }
 
     /**
@@ -26,20 +32,12 @@ class Classes
 
     /**
      * @method              getImagePath
-     * @param               $classId
-     * @desc                Gets class image path in dist folder. By default: 'img/classes'.
+     * @desc                Gets class image path in dist folder.
      * @return              string
      */
-    public function getImagePath($classId = null)
+    public function getImagePath()
     {
-        if (isset($classId)) {
-            // Edit mode
-            $imageUrlArray = explode('/', $this->getClass($classId)['cl_img_url']);
-            return implode('/', array_splice($imageUrlArray, 0, -1));
-        } else {
-            // Add mode
-            return 'img/classes';
-        }
+        return $this->_imagePath;
     }
 
     /**

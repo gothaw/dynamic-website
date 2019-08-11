@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                              Class Dashboard
+ * @desc                        Controller for user account page. Includes methods edit user details, change password, extend membership, drop out from scheduled class and log out.
+ */
 class Dashboard extends Controller
 {
     private $_page;

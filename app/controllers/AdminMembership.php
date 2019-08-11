@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                              Class AdminMembership
+ * @desc                        Controller for admin panel membership area. Includes methods to edit and cancel user membership.
+ */
 class AdminMembership extends Controller
 {
     private $_page;

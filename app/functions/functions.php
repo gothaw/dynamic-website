@@ -1,6 +1,10 @@
 <?php
 
 /**
+ *                  General functions used in different controllers and views.
+ */
+
+/**
  * @function        escape
  * @param           $string
  * @desc            Function escapes a string using htmlentities() function.

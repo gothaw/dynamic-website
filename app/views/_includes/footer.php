@@ -52,10 +52,9 @@
     </footer>
     <!-- Footer Area End -->
     <!-- Javascript -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="<?php echo DIST?>/js/vendor/jquery-3.4.1.min.js"></script>
     <script src="<?php echo DIST?>/js/vendor/bootstrap-4.1.3.min.js"></script>
     <script src="<?php echo DIST?>/js/vendor/wow.min.js"></script>
-    <script src="<?php echo DIST?>/js/vendor/owl-carousel.min.js"></script>
     <script src="<?php echo DIST?>/js/bundle.js"></script>
     </body>
 </html>

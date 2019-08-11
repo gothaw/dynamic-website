@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                          Class NavBarPages
+ * @desc                    Model for navigation bar data. Allows for selecting url data and names for navigation bar from `page` table.
+ */
 class NavBarPages
 {
     private $_data;

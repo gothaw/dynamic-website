@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                              Class Contact
+ * @desc                        Controller for contact page. Includes method for contact form submission.
+ */
 class Contact extends Controller
 {
     private $_page;

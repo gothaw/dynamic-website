@@ -1,5 +1,10 @@
 <?php
 
+/**
+ *                              Class Image
+ * @desc                        Class used to instantiate image from $_FILES super global. It includes methods to validate image, upload, delete and replace images.
+ *                              Additionally, includes a method to create an image thumbnail.
+ */
 class Image
 {
     private $_file;

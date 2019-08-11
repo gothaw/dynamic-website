@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                              Class Home
+ * @desc                        Controller for home page.
+ */
 class Home extends Controller
 {
     private $_page;

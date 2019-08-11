@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                              Class BlogSideBar
+ * @desc                        Model for blog side bar. Allows for selecting data for blog side bar. This includes categories, tags and popular posts.
+ */
 class BlogSideBar
 {
     private $_database;
@@ -9,7 +13,7 @@ class BlogSideBar
 
     /**
      *                          BlogSideBar constructor.
-     * @desc                    Sets database field.
+     * @desc                    Sets database field. Sets categories, tags and popular post on blog side bar.
      */
     public function __construct()
     {
@@ -75,7 +79,7 @@ class BlogSideBar
      * @method                  setPopularPosts
      * @desc                    Sets popular posts on the side bar. Popularity measured by number of comments.
      */
-    public function setPopularPosts()
+    private function setPopularPosts()
     {
         $sql = "SELECT 
                     `post`.`p_id`,

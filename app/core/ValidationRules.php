@@ -2,7 +2,7 @@
 
 /**
  *                                  Class ValidationRules
- * @desc                            Collection of validation rules as static methods.
+ * @desc                            Collection of validation rules as static methods. Used in a check method in Validate object.
  */
 class ValidationRules
 {
@@ -151,6 +151,11 @@ class ValidationRules
         return $rulesArray;
     }
 
+    /**
+     * @method                      getBlogImageRules
+     * @desc                        Validation rules for blog post image description.
+     * @return                      array
+     */
     public static function getBlogImageRules()
     {
         $rulesArray = [
@@ -167,7 +172,7 @@ class ValidationRules
 
     /**
      * @method                      getEditPostCommentRules
-     * @desc                        Valid rules for post comment. Used when editing post comment in admin panel.
+     * @desc                        Validation rules for post comment. Used when editing post comment in admin panel.
      * @return                      array
      */
     public static function getEditPostCommentRules()
@@ -398,7 +403,6 @@ class ValidationRules
         return $rulesArray;
     }
 
-
     /**
      * @method                      getClassDetailsRules
      * @desc                        Rules for valid class details.
@@ -443,7 +447,6 @@ class ValidationRules
 
         return $rulesArray;
     }
-
 
     /**
      * @method                      getPostCategoryRules

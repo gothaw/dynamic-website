@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                              Class AdminMembers
+ * @desc                        Controller for admin panel members area. Includes methods to add, edit and delete gym members.
+ */
 class AdminMembers extends Controller
 {
     private $_page;

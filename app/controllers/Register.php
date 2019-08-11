@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                              Class Register
+ * @desc                        Controller for register user page.
+ */
 class Register extends Controller
 {
     private $_page;

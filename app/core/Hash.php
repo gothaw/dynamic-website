@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                      Class Hash
+ * @desc                Class for generating hash and salt.
+ */
 class Hash
 {
     /**

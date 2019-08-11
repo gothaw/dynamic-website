@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                          Class Redirect
+ * @desc                    Class with static redirect method that uses header() function.
+ */
 class Redirect
 {
     /**

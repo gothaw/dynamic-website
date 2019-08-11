@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                              Class AdminCoaches
+ * @desc                        Controller for admin panel coaches area. Includes methods to add, edit and delete coaches working at the gym.
+ */
 class AdminCoaches extends Controller
 {
     private $_page;
@@ -151,7 +155,7 @@ class AdminCoaches extends Controller
                                 if ($image->exists()) {
 
                                     // Replaces image and updates image info in the database
-                                    $newImageUrl = $this->_coaches->getImagePath($coachId) . "/coach-{$coachId}." . $image->getImageExtension();
+                                    $newImageUrl = $this->_coaches->getImagePath() . "/coach-{$coachId}." . $image->getImageExtension();
                                     $image->replace('dist/' . $selectedCoach['co_img'], 'dist/' . $newImageUrl);
                                     $this->_coaches->updateCoach($coachId, [
                                         'co_img' => $newImageUrl

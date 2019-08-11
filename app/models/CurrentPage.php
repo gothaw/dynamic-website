@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                          Class CurrentPage
+ * @desc                    Model for current page details. Allows for selecting this page info from `page` table. This includes page name, keywords, footer theme, banner type.
+ */
 class CurrentPage
 {
     private $_data;

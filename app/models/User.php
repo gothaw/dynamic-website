@@ -1,5 +1,10 @@
 <?php
 
+/**
+ *                              Class User
+ *                              Model for user. Allows for logging in, registering and logging out user.
+ *                              Also includes functionality to create, edit and delete users and checking user permissions.
+ */
 class User
 {
     private $_database;

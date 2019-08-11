@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                              Class Config
+ * @desc                        Class with static method to get config parameters from config.php file.
+ */
 class Config
 {
     /**

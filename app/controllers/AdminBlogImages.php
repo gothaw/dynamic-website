@@ -1,5 +1,10 @@
 <?php
 
+/**
+ *                              Class AdminBlogImages
+ * @desc                        Controller for admin blog images area. It includes methods to view blog images, add a new image and delete an existing one.
+ *                              Does not allow for deleting a default blog post image.
+ */
 class AdminBlogImages extends Controller
 {
     private $_page;

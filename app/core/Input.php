@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                          Class Input
+ * @desc                    Class with static methods to check if exist/get values from $_POST and $_GET super globals.
+ */
 class Input
 {
     /**

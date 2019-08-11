@@ -1,5 +1,11 @@
 <?php
 
+/**
+ *                          Class Database
+ * @desc                    Database wrapper. Uses PDO object to establish connection with the database.
+ *                          Includes method to carry out SQL queries and generic select, update, insert and delete queries.
+ *                          Uses prepared statements to protect from SQL injection attacks. Uses private static field to keep instance of the database - singleton pattern.
+ */
 class Database
 {
     private static $_instance = null;
@@ -130,7 +136,7 @@ class Database
      * @desc                Method invoked in select and delete methods e.g SELECT * FROM users WHERE username = 'alex'
      * @return              $this|bool
      */
-    public function simpleQuery($action, $table, $where = [])
+    private function simpleQuery($action, $table, $where = [])
     {
         // $where requires 3 fields that is a field, an operator and a value
         if (count($where) === 3) {

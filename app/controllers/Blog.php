@@ -1,5 +1,10 @@
 <?php
 
+/**
+ *                              Class Blog
+ * @desc                        Controller for blog page. Includes method to display blog posts by page, category or tag.
+ *                              Also includes methods to display selected post and add comments. Comments are added under a post after they are approved in admin panel.
+ */
 class Blog extends Controller
 {
     private $_page;

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                          Class Cookie
+ * @desc                    Class with static methods to add and delete values in cookies.
+ */
 class Cookie
 {
     /**

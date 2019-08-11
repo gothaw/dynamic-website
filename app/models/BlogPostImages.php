@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                              Class BlogPostImages
+ * @desc                        Model for blog post images. Allows for selecting, adding, editing and deleting blog images data in `post_image` table.
+ */
 class BlogPostImages
 {
     private $_data;

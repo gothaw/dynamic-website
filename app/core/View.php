@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                                  Class View
+ * @desc                            Class used to create a view. Includes view name, path and data. Allows for displaying page content in browser.
+ */
 class View
 {
     private $_viewName;

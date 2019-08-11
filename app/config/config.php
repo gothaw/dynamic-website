@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                  Configuration and Constants
+ */
+
 //=========== DEFINING CONSTANTS AND GLOBAL VARIABLES ===========
 
 define("ROOT", "http://localhost/php/dynamic-website/public/");

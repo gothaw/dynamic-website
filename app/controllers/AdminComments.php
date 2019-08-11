@@ -1,5 +1,10 @@
 <?php
 
+/**
+ *                              Class AdminComments
+ * @desc                        Controller for admin panel comment moderation and approval area. Displays only unapproved comments.
+ *                              Includes methods to approve/edit and delete unapproved comments.
+ */
 class AdminComments extends Controller
 {
     private $_page;

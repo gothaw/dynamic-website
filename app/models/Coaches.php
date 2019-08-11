@@ -1,17 +1,23 @@
 <?php
 
+/**
+ *                          Class Coaches
+ * @desc                    Model for coaches working at the gym. Allows for selecting, adding, editing and deleting coaches data from `coach` table.
+ */
 class Coaches
 {
     private $_data;
     private $_database;
+    private $_imagePath;
 
     /**
      *                      Coaches constructor.
-     * @desc                Sets database field.
+     * @desc                Sets database field. Sets coaches image path in dist folder.
      */
     public function __construct()
     {
         $this->_database = Database::getInstance();
+        $this->_imagePath = 'img/coaches';
     }
 
     /**
@@ -26,18 +32,12 @@ class Coaches
 
     /**
      * @method              getImagePath
-     * @param               $coachId
-     * @desc                Gets class image path in dist folder. By default: 'img/classes'.
+     * @desc                Gets class image path in dist folder.
      * @return              string
      */
-    public function getImagePath($coachId = null)
+    public function getImagePath()
     {
-        if (isset($coachId)) {
-            $imageUrlArray = explode('/', $this->getCoach($coachId)['co_img']);
-            return implode('/', array_splice($imageUrlArray, 0, -1));
-        } else {
-            return 'img/coaches';
-        }
+        return $this->_imagePath;
     }
 
     /**

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ *                              Class Validate
+ * @desc                        Primary validation class that uses check method to check the value provided in a form field against validation rules.
+ *                              If validation fails an error is added to error array.
+ */
 class Validate
 {
     private $_passed = false;

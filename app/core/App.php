@@ -1,5 +1,11 @@
 <?php
 
+/**
+ *                              Class App
+ * @desc                        Core class of the app that uses simple routing based on the url provided.
+ *                              The url is based on the rewrite base in .htaccess file. The url: controller/method/parameter-1/parameter-2/.../parameter-n
+ *                              It uses callback function with given controller, method and parameter array.
+ */
 class App
 {
     private $_controller = 'home';
@@ -9,9 +15,9 @@ class App
     /**
      *                          App constructor.
      * @desc                    Main app constructor. It uses parseUrl method to get an $url array.
-     *                          It uses simple routing, where the first element of the array is a controller in controllers folder and
+     *                          It implements simple routing, where the first element of the array is a controller in controllers folder and
      *                          the second is a method in that controller e.g index or login. The rest of array element are parameters passed to the controller.
-     *                          It calls the callback with given controller, method and parameters using call_user_func_array.
+     *                          It uses the callback with given controller, method and parameters using call_user_func_array.
      */
     public function __construct()
     {

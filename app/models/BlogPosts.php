@@ -1,5 +1,10 @@
 <?php
 
+/**
+ *                              Class BlogPosts
+ * @desc                        Model for blog posts. Allows for selecting, adding, editing and deleting blog post data from `post` table.
+ *                              Pagination functionality used in admin panel, selecting posts by tag, category or page number on blog page.
+ */
 class BlogPosts
 {
     private $_data;

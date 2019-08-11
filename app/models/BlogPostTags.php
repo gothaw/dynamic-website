@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                              Class BlogPostTags
+ * @desc                        Model for blog post tags. Allows for adding, deleting and updating tags data in `post_tag` table.
+ */
 class BlogPostTags
 {
     private $_database;

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ *                          Class Controller
+ * @desc                    Parent controller class. Includes fields that are shared between all controllers and methods to require models and to instantiate a view.
+ *                          Additionally, includes methods that contain logic that is shared by more than one controller.
+ */
 abstract class Controller
 {
     protected $_view;
@@ -24,7 +29,7 @@ abstract class Controller
 
     /**
      * @method              index
-     * @desc                Default method in a controller. Renders index.html for given controller.
+     * @desc                Default method in a controller. Renders index.php for given view.
      */
     abstract public function index();
 

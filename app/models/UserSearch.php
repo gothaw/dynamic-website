@@ -1,5 +1,10 @@
 <?php
 
+/**
+ *                          Class UserSearch
+ *                          Model for user search in admin panel. Used in admin panel members and membership area.
+ *                          Allows for getting data from `user` and `membership` tables based on search results.
+ */
 class UserSearch
 {
     private $_data;

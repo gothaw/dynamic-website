@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *                          Class ClientOpinions
+ * @desc                    Model for client opinions shown on home page slider.
+ */
 class ClientOpinions
 {
     private $_data;

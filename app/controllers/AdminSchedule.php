@@ -1,5 +1,10 @@
 <?php
 
+/**
+ *                              Class AdminSchedule
+ * @desc                        Controller for admin panel scheduled classes area. Allows for displaying scheduled classes. Includes methods to add, edit and delete scheduled classes.
+ *                              Additionally, allows for viewing users that singed up to selected class, removing users and signing up users to that class.
+ */
 class AdminSchedule extends Controller
 {
     private $_page;
