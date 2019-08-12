@@ -42,8 +42,8 @@ abstract class Controller
      */
     protected function model($model, $parameter = null)
     {
-        if (file_exists('../app/models/' . $model . '.php')) {
-            require_once '../app/models/' . $model . '.php';
+        if (file_exists('./app/models/' . $model . '.php')) {
+            require_once './app/models/' . $model . '.php';
             return new $model($parameter);
         }
         return null;
@@ -59,7 +59,7 @@ abstract class Controller
      */
     protected function view($viewName, $view, $data = [])
     {
-        if (file_exists('../app/views/' . $view . '/index.php')) {
+        if (file_exists('./app/views/' . $view . '/index.php')) {
             $this->_view = new View($viewName, $view, $data);
             $this->_view->setUserIsLoggedIn($this->_user->isLoggedIn());
         }

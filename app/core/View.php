@@ -103,20 +103,20 @@ class View
         $userIsLoggedIn = $this->_userIsLoggedIn;
 
         // HEAD
-        include("../app/views/_includes/top.php");
+        include("./app/views/_includes/top.php");
 
         // HEADER AND PRELOADER
-        include("../app/views/_includes/preloader.php");
-        include("../app/views/_includes/header.php");
+        include("./app/views/_includes/preloader.php");
+        include("./app/views/_includes/header.php");
 
         if ($includeStandardBanner) {
-            include("../app/views/_includes/banner.php");
+            include("./app/views/_includes/banner.php");
         }
 
         // CONTENT
-        require_once '../app/views/' . $this->_viewPath . '/index.php';
+        require_once './app/views/' . $this->_viewPath . '/index.php';
 
         // FOOTER
-        include("../app/views/_includes/footer.php");
+        include("./app/views/_includes/footer.php");
     }
 }

@@ -17,12 +17,12 @@ class Redirect
                 switch ($location){
                     case 404:
                         header('HTTP/1.0 404 Not Found');
-                        include_once ('../app/views/_errors/not-found-error.php');
+                        include_once ('./app/views/_errors/not-found-error.php');
                         exit();
                     break;
                     case 500:
                         header('HTTP/1.1 500 Internal Server Error');
-                        include_once ('../app/views/_errors/db-error.php');
+                        include_once ('./app/views/_errors/db-error.php');
                         exit();
                     break;
                 }

@@ -23,12 +23,12 @@ class App
     {
         $url = $this->parseUrl();
 
-        if (file_exists('../app/controllers/' . $this->toPascalCase($url[0]) . '.php')) {
+        if (file_exists('./app/controllers/' . $this->toPascalCase($url[0]) . '.php')) {
             $this->_controller = $this->toPascalCase($url[0]);
             unset($url[0]);
         }
 
-        require_once '../app/controllers/' . $this->_controller . '.php';
+        require_once './app/controllers/' . $this->_controller . '.php';
 
         $this->_controller = new $this->_controller;
 

@@ -1,2 +1,4 @@
 <?php
-header('Location: http://localhost/php/dynamic-website/public/');
+require_once './app/init.php';
+
+$app = new App;
