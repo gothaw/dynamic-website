@@ -198,7 +198,7 @@ class AdminMembers extends Controller
                         $membership->cancelMembership($userId);
                         // Delete users classes
                         $userClasses->deleteClassesForSelectedUser();
-                        // Reduces number of people on future classes by 1.
+                        // Reduces number of people on future classes by 1. Attendance on old classes unchanged - kept as it is for the record.
                         foreach ($userClassesData as $class) {
                             $schedule->removeOnePersonFromClass($class['sc_id']);
                         }

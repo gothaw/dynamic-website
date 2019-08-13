@@ -367,7 +367,7 @@ class ScheduledClasses
 
         if (isset($selectedClass)) {
 
-            if ($selectedClass['cl_max_people'] < $selectedClass['sc_no_people']) {
+            if ($selectedClass['cl_max_people'] <= $selectedClass['sc_no_people']) {
 
                 $this->addError("Sorry this class is already fully booked. Please select different one.");
 
@@ -375,7 +375,7 @@ class ScheduledClasses
 
                 $this->addError("Please renew membership before signing up to this class.");
 
-            } elseif (date('Y-m-d') > $selectedClass['sc_class_date']) {
+            } elseif (date('Y-m-d') > $selectedClass['sc_class_date'] || (date('Y-m-d') == $selectedClass['sc_class_date'] && $selectedClass['sc_class_time'] < date('H:i'))) {
 
                 $this->addError("You cannot sign up to the class that was in the past.");
 

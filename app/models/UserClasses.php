@@ -115,7 +115,7 @@ class UserClasses
                 ";
 
         if ($onlyFutureClasses) {
-            $sql .= " AND `sc_class_date` > CURDATE() OR (`sc_class_date` = CURDATE() AND `schedule`.`sc_class_time` > CURTIME())";
+            $sql .= " AND (`sc_class_date` > CURDATE() OR (`sc_class_date` = CURDATE() AND `schedule`.`sc_class_time` > CURTIME()))";
         }
         $sql .= " ORDER BY `schedule`.`sc_class_date` ASC";
 

@@ -17,7 +17,7 @@
                             <th class="head" scope="col">Last Name</th>
                             <th class="head" scope="col">Username</th>
                             <th class="head" scope="col">Email</th>
-                            <?php if($data['scheduledClass']['sc_class_date'] > date('Y-m-d')) {?>
+                            <?php if($data['scheduledClass']['sc_class_date'] > date('Y-m-d') || ($data['scheduledClass']['sc_class_date'] == date('Y-m-d') && $data['scheduledClass']['sc_class_time'] > date('H:i'))) {?>
                             <th class="head" scope="col">Delete</th>
                             <?php }?>
                         </tr>
@@ -30,7 +30,7 @@
                                 <td><?php echo ucfirst(escape($user['u_last_name'])) ?></td>
                                 <td><?php echo escape($user['u_username']) ?></td>
                                 <td><?php echo escape($user['u_email']) ?></td>
-                                <?php if($data['scheduledClass']['sc_class_date'] > date('Y-m-d')) {?>
+                                <?php if($data['scheduledClass']['sc_class_date'] > date('Y-m-d') || ($data['scheduledClass']['sc_class_date'] == date('Y-m-d') && $data['scheduledClass']['sc_class_time'] > date('H:i'))) {?>
                                 <td><a class="template-btn"
                                        href="<?php echo ROOT . $subName . '-delete/' . escape($data['scheduledClass']['sc_id']) . '/' . escape($user['u_id']) ?>">Remove</a>
                                 </td>
@@ -46,7 +46,7 @@
         } ?>
         <div class="row">
             <div class="col-lg-12 section-padding5">
-                <?php if($data['scheduledClass']['sc_class_date'] > date('Y-m-d')) { ?>
+                <?php if($data['scheduledClass']['sc_class_date'] > date('Y-m-d') || ($data['scheduledClass']['sc_class_date'] == date('Y-m-d') && $data['scheduledClass']['sc_class_time'] > date('H:i'))) { ?>
                 <p class="form-text font-weight-bold">You can add user to the class by entering user ID and clicking sign up button.</p>
                 <form class="search-form" action="" method="post">
                     <div class="search-field-wrapper">

@@ -18,7 +18,7 @@
                         <th class="head" scope="col">Date</th>
                         <th class="head" scope="col">Time</th>
                         <th class="head" scope="col">Author</th>
-                        <th class="head" scope="col">Edit</th>
+                        <th class="head" scope="col">Approve</th>
                         <th class="head" scope="col">Delete</th>
                     </tr>
                     </thead>
@@ -32,7 +32,7 @@
                                 <td><?php echo substr(escape($comment['pc_time']), 0, -3) ?></td>
                                 <td><?php echo escape(ucwords($comment['pc_author'])) ?></td>
                                 <td><a class="template-btn"
-                                       href="<?php echo escape(ROOT . $subName . '/approve/' . $comment['p_id'] . '/' . $comment['pc_id']) ?>">Approve</a>
+                                       href="<?php echo escape(ROOT . $subName . '/approve/' . $comment['p_id'] . '/' . $comment['pc_id']) ?>">Edit/Approve</a>
                                 </td>
                                 <td><a class="template-btn"
                                        href="<?php echo escape(ROOT . $subName  . '/delete/' . $comment['pc_id']) ?>">Delete</a>
