@@ -4,21 +4,21 @@ Dynamic website design created in PHP using model-view-controller architectural 
 
 ### Website Structure
 
-The app serves as a website of a gym and fitness centre. It includes:
+The app serves as website of a gym and fitness centre. It includes:
 
-**Home** - 
+**Home** - home page, with short about us section, client opinions and featured gym classes
 
-**Blog** - 
+**Blog** - blog page with dynamically generated blog posts, side bar with posts categories and tags, clicking on these displays relevant posts based on tag/category selected
 
-**About** - 
+**About** - about page with classes types that are run in the gym and team members
 
-**Schedule** - 
+**Schedule** - upcoming classes schedule, logged in users are allowed to sign up to a class
 
-**Contact** - 
+**Contact** - contact page with a map, contact form and address details
 
-**Dashboard** - 
+**Dashboard** - user account page with account summary and possibility to buy membership via PayPal, change personal details and change password
 
-**Admin Panel** - 
+**Admin Panel** - admin panel section that allows for editing classes, coaches, gym members details and upcoming classes. Also allows for adding new blog posts and moderating comments
 
 ### MVC Pattern
 
@@ -26,9 +26,9 @@ The MVC definition as found on the web (source: [TutorialsTeacher](https://www.t
 
 **Model:** Model represents shape of the data and business logic. It maintains the data of the application. Model objects retrieve and store model state in a database.
 
-**View:** View is a user interface. View display data using model to the user and also enables them to modify the data.
+**View:** View is a user interface. View displays data using model to the user and also enables them to modify the data.
 
-**Controller:** Controller handles the user request. Typically, user interact with View, which in-turn raises appropriate URL request, this request will be handled by a controller. The controller renders the appropriate view with the model data as a response.
+**Controller:** Controller handles the user requests. User interact with View, which in-turn raises appropriate URL request, this request will be handled by a controller. The Controller renders the appropriate View with the model data as a response.
 
  ![mvc-pattern](https://www.tutorialsteacher.com/Content/images/mvc/mvc-architecture.png)
  
@@ -63,3 +63,7 @@ Images not included in the template assets are free and open source and were tak
 * https://www.pexels.com
 * https://pixabay.com
 * https://www.flaticon.com 
+
+### Disclaimer
+
+Newsletter functionality has not been implemented, it is recommended using some third party API such as [Mailgun](https://www.mailgun.com). Some additional security measures are required in register and login pages to protect the website from spam and multiple requests.
