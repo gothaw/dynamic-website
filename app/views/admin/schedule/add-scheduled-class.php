@@ -72,7 +72,7 @@
             </div>
             <div class="form-button">
                 <input type="hidden" name="token" value="<?php echo Token::generate() ?>">
-                <input type="submit" class="template-btn" value="submit">
+                <input type="submit" class="template-btn" value="add">
             </div>
         </form>
         <div class="row">

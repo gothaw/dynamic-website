@@ -81,11 +81,11 @@ class AdminBlogImages extends Controller
 
                             // Uploads image thumbnail
                             $thumbnailUrl = $this->_blogImages->getThumbnailPath() . '/thumb-post-img-' . $uniqueId . '.' . $image->getImageExtension();
-                            $image->createThumbnail(100, 56, 'dist/' . $thumbnailUrl);
+                            $image->createThumbnail(100, 56, DIST_RELATIVE_PATH . $thumbnailUrl);
 
                             // Uploads image
                             $imageUrl = $this->_blogImages->getImagePath() . '/post-img-' . $uniqueId . '.' . $image->getImageExtension();
-                            $image->upload('dist/' . $imageUrl);
+                            $image->upload(DIST_RELATIVE_PATH . $imageUrl);
 
                             // Inserts image details to the database
                             $this->_blogImages->addImageDetails([
@@ -141,9 +141,9 @@ class AdminBlogImages extends Controller
                     try {
 
                         // Delete thumbnail
-                        $image->delete('dist/' . $selectedImage['p_thumb_url']);
+                        $image->delete(DIST_RELATIVE_PATH . $selectedImage['p_thumb_url']);
                         // Delete image
-                        $image->delete('dist/' . $selectedImage['p_img_url']);
+                        $image->delete(DIST_RELATIVE_PATH . $selectedImage['p_img_url']);
                         // Delete image details from the database
                         $this->_blogImages->deleteImageDetails($blogImageId);
 

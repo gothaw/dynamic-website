@@ -52,7 +52,7 @@ class ClientOpinions
                 LIMIT ?;
                 ";
 
-        $this->_data = $this->_database->query($sql,[(int)$numberOfOpinions])->getResult();
+        $this->_data = $this->_database->query($sql,[$numberOfOpinions])->getResult();
 
         return $this;
     }

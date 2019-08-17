@@ -119,7 +119,7 @@ class UserClasses
         }
         $sql .= " ORDER BY `schedule`.`sc_class_date` ASC";
 
-        $this->_classesData = $this->_database->query($sql, [(int)$this->_userId])->getResult();
+        $this->_classesData = $this->_database->query($sql, [$this->_userId])->getResult();
 
         return $this;
     }
@@ -151,7 +151,7 @@ class UserClasses
                     `schedule`.`sc_id` = ?;
                ";
 
-        $this->_usersData = $this->_database->query($sql, [(int)$scheduledId])->getResult();
+        $this->_usersData = $this->_database->query($sql, [$scheduledId])->getResult();
 
         return $this;
     }
@@ -223,7 +223,7 @@ class UserClasses
                 WHERE
                     `u_id` = ?";
 
-        $isDeleted = $this->_database->query($sql, [(int)$this->_userId]);
+        $isDeleted = $this->_database->query($sql, [$this->_userId]);
 
         if (!$isDeleted) {
             throw new Exception("Could not delete user classes. Sorry.");

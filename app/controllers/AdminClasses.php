@@ -75,7 +75,7 @@ class AdminClasses extends Controller
 
                             // Uploads image and inserts image info into the database
                             $imageUrl = $this->_classes->getImagePath() . '/class-' . uniqid() . '.' . $image->getImageExtension();
-                            $image->upload('dist/' . $imageUrl);
+                            $image->upload(DIST_RELATIVE_PATH . $imageUrl);
 
                             $this->_classes->addClassImageDetails([
                                 'cl_img_alt' => trim(Input::getValue('class_image_text')),
@@ -158,7 +158,7 @@ class AdminClasses extends Controller
 
                                     // Replaces image and updates image info in the database
                                     $newImageUrl = $this->_classes->getImagePath() . "/class-{$classId}." . $image->getImageExtension();
-                                    $image->replace('dist/' . $selectedClass['cl_img_url'], 'dist/' . $newImageUrl);
+                                    $image->replace(DIST_RELATIVE_PATH . $selectedClass['cl_img_url'], DIST_RELATIVE_PATH . $newImageUrl);
 
                                     $this->_classes->updateClassImageDetails($classId, [
                                         'cl_img_alt' => trim(Input::getValue('class_image_text')),
@@ -228,7 +228,7 @@ class AdminClasses extends Controller
                         // Delete class image details
                         $this->_classes->deleteClassImageDetails($classId);
                         // Delete class image
-                        $image->delete('dist/' . $selectedClass['cl_img_url']);
+                        $image->delete(DIST_RELATIVE_PATH . $selectedClass['cl_img_url']);
 
                         Session::flash('admin', 'Selected class has been deleted.');
                         Redirect::to('admin-classes');

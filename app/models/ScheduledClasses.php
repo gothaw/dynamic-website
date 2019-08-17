@@ -441,10 +441,10 @@ class ScheduledClasses
     {
         // Removing users from scheduled classes (nested query)
         $sql = "DELETE FROM `user_class` WHERE `sc_id` IN (SELECT `sc_id` FROM `schedule` WHERE `cl_id` = ?);";
-        $isEachUserClassRemoved = !$this->_database->query($sql, [(int)$classId]);
+        $isEachUserClassRemoved = !$this->_database->query($sql, [$classId]);
         // Removing scheduled classes
         $sql = "DELETE FROM `schedule` WHERE `cl_id` = ?";
-        $isEachScheduledClassRemoved = !$this->_database->query($sql, [(int)$classId]);
+        $isEachScheduledClassRemoved = !$this->_database->query($sql, [$classId]);
 
         if ($isEachUserClassRemoved && $isEachScheduledClassRemoved) {
             throw new Exception("There was problem in deleting scheduled classes.");

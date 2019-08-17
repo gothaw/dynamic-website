@@ -7,7 +7,8 @@
 //=========== DEFINING CONSTANTS AND GLOBAL VARIABLES ===========
 
 define("ROOT", "http://localhost/php/dynamic-website/");
-define("DIST", ROOT . "public/dist/");
+define("DIST_RELATIVE_PATH", "public/dist/");
+define("DIST", ROOT . DIST_RELATIVE_PATH);
 define("EMAIL_TO", "info@radsoltan.net");
 
 $GLOBALS['config'] = [

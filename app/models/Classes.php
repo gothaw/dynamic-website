@@ -138,6 +138,9 @@ class Classes
      */
     public function deleteClass($classId)
     {
+        if (!$this->_database->update('opinion', 'cl_id', $classId, ['cl_id' => NULL])) {
+            throw new Exception('There was problem in deleting the class from client opinions');
+        }
         if (!$this->_database->delete('class', ['cl_id', '=', $classId])) {
             throw new Exception('There was problem in deleting the class');
         }

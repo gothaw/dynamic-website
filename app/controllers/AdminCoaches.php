@@ -57,6 +57,9 @@ class AdminCoaches extends Controller
      */
     public function add()
     {
+        trace($this->_coaches->getImagePath());
+
+
         if (Input::exists()) {
             if (Token::check(Input::getValue('token'))) {
 
@@ -67,6 +70,7 @@ class AdminCoaches extends Controller
                 // Create new Image
                 $image = new Image('coach_image');
 
+
                 if ($validate->checkIfPassed()) {
                     if ($image->checkIfValid(500, ['jpg', 'jpeg', 'png', 'gif'])) {
 
@@ -74,7 +78,8 @@ class AdminCoaches extends Controller
 
                             // Uploads image and inserts image info into the database
                             $imageUrl = $this->_coaches->getImagePath() . '/coach-' . uniqid() . '.' . $image->getImageExtension();
-                            $image->upload('dist/' . $imageUrl);
+
+                            $image->upload(DIST_RELATIVE_PATH . $imageUrl);
 
                             // Inserts class details
                             $this->_coaches->addCoach([
@@ -156,7 +161,7 @@ class AdminCoaches extends Controller
 
                                     // Replaces image and updates image info in the database
                                     $newImageUrl = $this->_coaches->getImagePath() . "/coach-{$coachId}." . $image->getImageExtension();
-                                    $image->replace('dist/' . $selectedCoach['co_img'], 'dist/' . $newImageUrl);
+                                    $image->replace(DIST_RELATIVE_PATH . $selectedCoach['co_img'], DIST_RELATIVE_PATH . $newImageUrl);
                                     $this->_coaches->updateCoach($coachId, [
                                         'co_img' => $newImageUrl
                                     ]);
@@ -214,7 +219,7 @@ class AdminCoaches extends Controller
                         // Delete coach
                         $this->_coaches->deleteCoach($coachId);
                         // Delete coach image
-                        $image->delete('dist/' . $selectedCoach['co_img']);
+                        $image->delete(DIST_RELATIVE_PATH . $selectedCoach['co_img']);
 
                         Session::flash('admin', 'Selected coach has been deleted.');
                         Redirect::to('admin-coaches');
