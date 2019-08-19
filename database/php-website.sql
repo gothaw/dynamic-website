@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 18 Sie 2019, 01:10
--- Wersja serwera: 10.1.36-MariaDB
--- Wersja PHP: 7.2.11
+-- Generation Time: Aug 19, 2019 at 10:45 PM
+-- Server version: 10.1.36-MariaDB
+-- PHP Version: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Baza danych: `php-website`
+-- Database: `php-website`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `class`
+-- Table structure for table `class`
 --
 
 CREATE TABLE `class` (
@@ -38,7 +38,7 @@ CREATE TABLE `class` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Zrzut danych tabeli `class`
+-- Dumping data for table `class`
 --
 
 INSERT INTO `class` (`cl_id`, `cl_name`, `cl_desc`, `cl_duration`, `cl_max_people`, `cl_img_id`) VALUES
@@ -54,7 +54,7 @@ INSERT INTO `class` (`cl_id`, `cl_name`, `cl_desc`, `cl_duration`, `cl_max_peopl
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `class_image`
+-- Table structure for table `class_image`
 --
 
 CREATE TABLE `class_image` (
@@ -64,7 +64,7 @@ CREATE TABLE `class_image` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Zrzut danych tabeli `class_image`
+-- Dumping data for table `class_image`
 --
 
 INSERT INTO `class_image` (`cl_img_id`, `cl_img_url`, `cl_img_alt`) VALUES
@@ -80,7 +80,7 @@ INSERT INTO `class_image` (`cl_img_id`, `cl_img_url`, `cl_img_alt`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `coach`
+-- Table structure for table `coach`
 --
 
 CREATE TABLE `coach` (
@@ -96,7 +96,7 @@ CREATE TABLE `coach` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Zrzut danych tabeli `coach`
+-- Dumping data for table `coach`
 --
 
 INSERT INTO `coach` (`co_id`, `co_first_name`, `co_last_name`, `co_email`, `co_focus`, `co_img`, `co_facebook`, `co_twitter`, `co_linkedin`) VALUES
@@ -110,7 +110,7 @@ INSERT INTO `coach` (`co_id`, `co_first_name`, `co_last_name`, `co_email`, `co_f
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `membership`
+-- Table structure for table `membership`
 --
 
 CREATE TABLE `membership` (
@@ -120,7 +120,7 @@ CREATE TABLE `membership` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Zrzut danych tabeli `membership`
+-- Dumping data for table `membership`
 --
 
 INSERT INTO `membership` (`me_id`, `u_id`, `me_expiry_date`) VALUES
@@ -148,7 +148,7 @@ INSERT INTO `membership` (`me_id`, `u_id`, `me_expiry_date`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `opinion`
+-- Table structure for table `opinion`
 --
 
 CREATE TABLE `opinion` (
@@ -160,7 +160,7 @@ CREATE TABLE `opinion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Zrzut danych tabeli `opinion`
+-- Dumping data for table `opinion`
 --
 
 INSERT INTO `opinion` (`op_id`, `op_client_name`, `op_photo_url`, `op_desc`, `cl_id`) VALUES
@@ -176,7 +176,7 @@ INSERT INTO `opinion` (`op_id`, `op_client_name`, `op_photo_url`, `op_desc`, `cl
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `page`
+-- Table structure for table `page`
 --
 
 CREATE TABLE `page` (
@@ -192,7 +192,7 @@ CREATE TABLE `page` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Zrzut danych tabeli `page`
+-- Dumping data for table `page`
 --
 
 INSERT INTO `page` (`pg_ID`, `pg_name`, `pg_order`, `pg_url`, `pg_title`, `pg_desc`, `pg_keys`, `pg_footer`, `pg_banner`) VALUES
@@ -209,7 +209,7 @@ INSERT INTO `page` (`pg_ID`, `pg_name`, `pg_order`, `pg_url`, `pg_title`, `pg_de
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `post`
+-- Table structure for table `post`
 --
 
 CREATE TABLE `post` (
@@ -225,7 +225,7 @@ CREATE TABLE `post` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Zrzut danych tabeli `post`
+-- Dumping data for table `post`
 --
 
 INSERT INTO `post` (`p_id`, `p_title`, `p_text`, `p_category`, `p_date`, `p_time`, `p_author`, `p_comments`, `p_img_id`) VALUES
@@ -251,7 +251,7 @@ INSERT INTO `post` (`p_id`, `p_title`, `p_text`, `p_category`, `p_date`, `p_time
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `post_comment`
+-- Table structure for table `post_comment`
 --
 
 CREATE TABLE `post_comment` (
@@ -265,7 +265,7 @@ CREATE TABLE `post_comment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Zrzut danych tabeli `post_comment`
+-- Dumping data for table `post_comment`
 --
 
 INSERT INTO `post_comment` (`pc_id`, `p_id`, `pc_date`, `pc_time`, `pc_text`, `pc_author`, `pc_approved`) VALUES
@@ -315,7 +315,7 @@ INSERT INTO `post_comment` (`pc_id`, `p_id`, `pc_date`, `pc_time`, `pc_text`, `p
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `post_image`
+-- Table structure for table `post_image`
 --
 
 CREATE TABLE `post_image` (
@@ -327,7 +327,7 @@ CREATE TABLE `post_image` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Zrzut danych tabeli `post_image`
+-- Dumping data for table `post_image`
 --
 
 INSERT INTO `post_image` (`p_img_id`, `p_img_url`, `p_thumb_url`, `p_img_alt`, `p_img_default`) VALUES
@@ -342,7 +342,7 @@ INSERT INTO `post_image` (`p_img_id`, `p_img_url`, `p_thumb_url`, `p_img_alt`, `
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `post_tag`
+-- Table structure for table `post_tag`
 --
 
 CREATE TABLE `post_tag` (
@@ -352,7 +352,7 @@ CREATE TABLE `post_tag` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Zrzut danych tabeli `post_tag`
+-- Dumping data for table `post_tag`
 --
 
 INSERT INTO `post_tag` (`pt_id`, `p_id`, `pt_text`) VALUES
@@ -410,7 +410,7 @@ INSERT INTO `post_tag` (`pt_id`, `p_id`, `pt_text`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `schedule`
+-- Table structure for table `schedule`
 --
 
 CREATE TABLE `schedule` (
@@ -423,7 +423,7 @@ CREATE TABLE `schedule` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Zrzut danych tabeli `schedule`
+-- Dumping data for table `schedule`
 --
 
 INSERT INTO `schedule` (`sc_id`, `cl_id`, `co_id`, `sc_no_people`, `sc_class_date`, `sc_class_time`) VALUES
@@ -454,7 +454,7 @@ INSERT INTO `schedule` (`sc_id`, `cl_id`, `co_id`, `sc_no_people`, `sc_class_dat
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
@@ -474,7 +474,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Zrzut danych tabeli `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`u_id`, `u_first_name`, `u_last_name`, `u_address_1`, `u_address_2`, `u_postcode`, `u_city`, `u_username`, `u_email`, `u_password`, `u_salt`, `u_group_id`, `u_joined`) VALUES
@@ -513,7 +513,7 @@ INSERT INTO `user` (`u_id`, `u_first_name`, `u_last_name`, `u_address_1`, `u_add
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `user_class`
+-- Table structure for table `user_class`
 --
 
 CREATE TABLE `user_class` (
@@ -523,7 +523,7 @@ CREATE TABLE `user_class` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Zrzut danych tabeli `user_class`
+-- Dumping data for table `user_class`
 --
 
 INSERT INTO `user_class` (`uc_id`, `u_id`, `sc_id`) VALUES
@@ -698,7 +698,7 @@ INSERT INTO `user_class` (`uc_id`, `u_id`, `sc_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `user_group`
+-- Table structure for table `user_group`
 --
 
 CREATE TABLE `user_group` (
@@ -708,7 +708,7 @@ CREATE TABLE `user_group` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Zrzut danych tabeli `user_group`
+-- Dumping data for table `user_group`
 --
 
 INSERT INTO `user_group` (`u_group_id`, `u_group_name`, `u_permissions`) VALUES
@@ -718,7 +718,7 @@ INSERT INTO `user_group` (`u_group_id`, `u_group_name`, `u_permissions`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `user_session`
+-- Table structure for table `user_session`
 --
 
 CREATE TABLE `user_session` (
@@ -728,77 +728,77 @@ CREATE TABLE `user_session` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Indeksy dla zrzutów tabel
+-- Indexes for dumped tables
 --
 
 --
--- Indeksy dla tabeli `class`
+-- Indexes for table `class`
 --
 ALTER TABLE `class`
   ADD PRIMARY KEY (`cl_id`),
   ADD KEY `cl_img_id` (`cl_img_id`);
 
 --
--- Indeksy dla tabeli `class_image`
+-- Indexes for table `class_image`
 --
 ALTER TABLE `class_image`
   ADD PRIMARY KEY (`cl_img_id`);
 
 --
--- Indeksy dla tabeli `coach`
+-- Indexes for table `coach`
 --
 ALTER TABLE `coach`
   ADD PRIMARY KEY (`co_id`);
 
 --
--- Indeksy dla tabeli `membership`
+-- Indexes for table `membership`
 --
 ALTER TABLE `membership`
   ADD PRIMARY KEY (`me_id`),
   ADD KEY `u_id` (`u_id`);
 
 --
--- Indeksy dla tabeli `opinion`
+-- Indexes for table `opinion`
 --
 ALTER TABLE `opinion`
   ADD PRIMARY KEY (`op_id`),
   ADD KEY `cl_id` (`cl_id`);
 
 --
--- Indeksy dla tabeli `page`
+-- Indexes for table `page`
 --
 ALTER TABLE `page`
   ADD PRIMARY KEY (`pg_ID`);
 
 --
--- Indeksy dla tabeli `post`
+-- Indexes for table `post`
 --
 ALTER TABLE `post`
   ADD PRIMARY KEY (`p_id`),
   ADD KEY `p_img_id` (`p_img_id`);
 
 --
--- Indeksy dla tabeli `post_comment`
+-- Indexes for table `post_comment`
 --
 ALTER TABLE `post_comment`
   ADD PRIMARY KEY (`pc_id`),
   ADD KEY `p_id` (`p_id`);
 
 --
--- Indeksy dla tabeli `post_image`
+-- Indexes for table `post_image`
 --
 ALTER TABLE `post_image`
   ADD PRIMARY KEY (`p_img_id`);
 
 --
--- Indeksy dla tabeli `post_tag`
+-- Indexes for table `post_tag`
 --
 ALTER TABLE `post_tag`
   ADD PRIMARY KEY (`pt_id`),
   ADD KEY `p_id` (`p_id`);
 
 --
--- Indeksy dla tabeli `schedule`
+-- Indexes for table `schedule`
 --
 ALTER TABLE `schedule`
   ADD PRIMARY KEY (`sc_id`),
@@ -806,14 +806,14 @@ ALTER TABLE `schedule`
   ADD KEY `co_id` (`co_id`);
 
 --
--- Indeksy dla tabeli `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`u_id`),
   ADD KEY `u_group_id` (`u_group_id`);
 
 --
--- Indeksy dla tabeli `user_class`
+-- Indexes for table `user_class`
 --
 ALTER TABLE `user_class`
   ADD PRIMARY KEY (`uc_id`),
@@ -821,13 +821,13 @@ ALTER TABLE `user_class`
   ADD KEY `sc_id` (`sc_id`);
 
 --
--- Indeksy dla tabeli `user_group`
+-- Indexes for table `user_group`
 --
 ALTER TABLE `user_group`
   ADD PRIMARY KEY (`u_group_id`);
 
 --
--- Indeksy dla tabeli `user_session`
+-- Indexes for table `user_session`
 --
 ALTER TABLE `user_session`
   ADD PRIMARY KEY (`us_id`),
@@ -838,157 +838,157 @@ ALTER TABLE `user_session`
 --
 
 --
--- AUTO_INCREMENT dla tabeli `class`
+-- AUTO_INCREMENT for table `class`
 --
 ALTER TABLE `class`
   MODIFY `cl_id` smallint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT dla tabeli `class_image`
+-- AUTO_INCREMENT for table `class_image`
 --
 ALTER TABLE `class_image`
   MODIFY `cl_img_id` smallint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
--- AUTO_INCREMENT dla tabeli `coach`
+-- AUTO_INCREMENT for table `coach`
 --
 ALTER TABLE `coach`
   MODIFY `co_id` smallint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT dla tabeli `membership`
+-- AUTO_INCREMENT for table `membership`
 --
 ALTER TABLE `membership`
   MODIFY `me_id` smallint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT dla tabeli `opinion`
+-- AUTO_INCREMENT for table `opinion`
 --
 ALTER TABLE `opinion`
   MODIFY `op_id` smallint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT dla tabeli `page`
+-- AUTO_INCREMENT for table `page`
 --
 ALTER TABLE `page`
   MODIFY `pg_ID` smallint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT dla tabeli `post`
+-- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
   MODIFY `p_id` smallint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- AUTO_INCREMENT dla tabeli `post_comment`
+-- AUTO_INCREMENT for table `post_comment`
 --
 ALTER TABLE `post_comment`
   MODIFY `pc_id` smallint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
--- AUTO_INCREMENT dla tabeli `post_image`
+-- AUTO_INCREMENT for table `post_image`
 --
 ALTER TABLE `post_image`
   MODIFY `p_img_id` smallint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT dla tabeli `post_tag`
+-- AUTO_INCREMENT for table `post_tag`
 --
 ALTER TABLE `post_tag`
   MODIFY `pt_id` smallint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
--- AUTO_INCREMENT dla tabeli `schedule`
+-- AUTO_INCREMENT for table `schedule`
 --
 ALTER TABLE `schedule`
   MODIFY `sc_id` smallint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- AUTO_INCREMENT dla tabeli `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `u_id` smallint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
--- AUTO_INCREMENT dla tabeli `user_class`
+-- AUTO_INCREMENT for table `user_class`
 --
 ALTER TABLE `user_class`
   MODIFY `uc_id` smallint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=174;
 
 --
--- AUTO_INCREMENT dla tabeli `user_group`
+-- AUTO_INCREMENT for table `user_group`
 --
 ALTER TABLE `user_group`
   MODIFY `u_group_id` smallint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT dla tabeli `user_session`
+-- AUTO_INCREMENT for table `user_session`
 --
 ALTER TABLE `user_session`
   MODIFY `us_id` smallint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- Ograniczenia dla zrzutów tabel
+-- Constraints for dumped tables
 --
 
 --
--- Ograniczenia dla tabeli `class`
+-- Constraints for table `class`
 --
 ALTER TABLE `class`
   ADD CONSTRAINT `class_ibfk_1` FOREIGN KEY (`cl_img_id`) REFERENCES `class_image` (`cl_img_id`) ON UPDATE CASCADE;
 
 --
--- Ograniczenia dla tabeli `membership`
+-- Constraints for table `membership`
 --
 ALTER TABLE `membership`
   ADD CONSTRAINT `membership_ibfk_1` FOREIGN KEY (`u_id`) REFERENCES `user` (`u_id`) ON UPDATE CASCADE;
 
 --
--- Ograniczenia dla tabeli `opinion`
+-- Constraints for table `opinion`
 --
 ALTER TABLE `opinion`
   ADD CONSTRAINT `opinion_ibfk_1` FOREIGN KEY (`cl_id`) REFERENCES `class` (`cl_id`) ON UPDATE CASCADE;
 
 --
--- Ograniczenia dla tabeli `post`
+-- Constraints for table `post`
 --
 ALTER TABLE `post`
   ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`p_img_id`) REFERENCES `post_image` (`p_img_id`) ON UPDATE CASCADE;
 
 --
--- Ograniczenia dla tabeli `post_comment`
+-- Constraints for table `post_comment`
 --
 ALTER TABLE `post_comment`
   ADD CONSTRAINT `post_comment_ibfk_1` FOREIGN KEY (`p_id`) REFERENCES `post` (`p_id`) ON UPDATE CASCADE;
 
 --
--- Ograniczenia dla tabeli `post_tag`
+-- Constraints for table `post_tag`
 --
 ALTER TABLE `post_tag`
   ADD CONSTRAINT `post_tag_ibfk_1` FOREIGN KEY (`p_id`) REFERENCES `post` (`p_id`) ON UPDATE CASCADE;
 
 --
--- Ograniczenia dla tabeli `schedule`
+-- Constraints for table `schedule`
 --
 ALTER TABLE `schedule`
   ADD CONSTRAINT `schedule_ibfk_1` FOREIGN KEY (`cl_id`) REFERENCES `class` (`cl_id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `schedule_ibfk_2` FOREIGN KEY (`co_id`) REFERENCES `coach` (`co_id`) ON UPDATE CASCADE;
 
 --
--- Ograniczenia dla tabeli `user`
+-- Constraints for table `user`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`u_group_id`) REFERENCES `user_group` (`u_group_id`) ON UPDATE CASCADE;
 
 --
--- Ograniczenia dla tabeli `user_class`
+-- Constraints for table `user_class`
 --
 ALTER TABLE `user_class`
   ADD CONSTRAINT `user_class_ibfk_1` FOREIGN KEY (`sc_id`) REFERENCES `schedule` (`sc_id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `user_class_ibfk_2` FOREIGN KEY (`u_id`) REFERENCES `user` (`u_id`) ON UPDATE CASCADE;
 
 --
--- Ograniczenia dla tabeli `user_session`
+-- Constraints for table `user_session`
 --
 ALTER TABLE `user_session`
   ADD CONSTRAINT `user_session_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`u_id`);
