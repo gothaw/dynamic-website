@@ -287,7 +287,7 @@ class ValidationRules
                 'desc' => 'email subject',
                 'required' => true,
                 'min' => 2,
-                'max' => 20
+                'max' => 200
             ],
             'email' => [
                 'desc' => 'your email address',

@@ -7,6 +7,7 @@
                 <h4 class="pt-3 pb-5">Subscribe to our newsletter and get a <span>20%</span> discount coupon code!</h4>
                 <form action="" method="post">
                     <input type="email" name="email" placeholder="Your email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your email'" required>
+                    <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
                     <button type="submit" name="submit" class="template-btn">subscribe</button>
                 </form>
             </div>

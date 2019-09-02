@@ -64,6 +64,12 @@ Images not included in the template assets are free and open source and were tak
 * https://pixabay.com
 * https://www.flaticon.com 
 
+Website uses reCAPTCHA v3 to protect against spam and bots.
+
+### Deployment
+
+App configuration is handled by config.php file. In order to deploy the app, fill in database info and reCAPTCHA API keys in $GLOBALS variable. 
+
 ### Disclaimer
 
-Newsletter functionality has not been implemented, it is recommended using some third party API such as [Mailgun](https://www.mailgun.com). Some additional security measures are required in register and login pages to protect the website from spam and multiple requests.
+Newsletter functionality has not been implemented, it is recommended using some third party API such as [Mailgun](https://www.mailgun.com).

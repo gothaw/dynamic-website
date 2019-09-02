@@ -53,6 +53,7 @@
             </div>
             <div class="form-button">
                 <input type="hidden" name="token" value="<?php echo Token::generate() ?>">
+                <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
                 <input type="submit" class="template-btn" value="register">
             </div>
         </form>

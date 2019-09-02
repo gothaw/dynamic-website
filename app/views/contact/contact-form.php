@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="col-lg-9">
-                <form method="post" action="<?php echo ROOT . 'contact/send' ?>">
+                <form method="post" action="">
                     <div class="left">
                         <input type="text" name="name" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" autocomplete="off" required
                                value="<?php echo escape(Input::getValue('name')) ?>">
@@ -46,6 +46,7 @@
                     </div>
                     <div class="contact-form-button-wrapper">
                         <input type="hidden" name="token" value="<?php echo Token::generate() ?>">
+                        <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
                         <input type="submit" class="template-btn" value="send message">
                     </div>
                 </form>

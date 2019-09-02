@@ -38,7 +38,7 @@ class Register extends Controller
     public function index()
     {
         if (Input::exists()) {
-            if (Token::check(Input::getValue('token'))) {
+            if (Token::check(Input::getValue('token')) && $this->getCaptcha(Input::getValue('g-recaptcha-response'))) {
 
                 // Validation using Validate object
                 $validate = new Validate();

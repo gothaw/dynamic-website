@@ -30,6 +30,7 @@ class Contact extends Controller
      */
     public function index()
     {
+        $this->send();
         $this->_view->renderView();
     }
 
@@ -38,10 +39,10 @@ class Contact extends Controller
      * @desc                    Method handles submission of contact form. Validates form data using validate object.
      *                          If validation passes it sends email using Email class.
      */
-    public function send()
+    private function send()
     {
         if (Input::exists()) {
-            if (Token::check(Input::getValue('token'))) {
+            if (Token::check(Input::getValue('token')) && $this->getCaptcha(Input::getValue('g-recaptcha-response'))) {
 
                 // Validation using Validate object
                 $validate = new Validate();
@@ -74,6 +75,5 @@ class Contact extends Controller
                 }
             }
         }
-        $this->_view->renderView();
     }
 }

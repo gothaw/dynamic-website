@@ -72,7 +72,7 @@ class Dashboard extends Controller
     public function edit()
     {
         if (Input::exists()) {
-            if (Token::check(Input::getValue('token'))) {
+            if (Token::check(Input::getValue('token')) && $this->getCaptcha(Input::getValue('g-recaptcha-response'))) {
 
                 // Validation using Validate object
                 $validate = new Validate();
@@ -111,7 +111,7 @@ class Dashboard extends Controller
     public function changePass()
     {
         if (Input::exists()) {
-            if (Token::check(Input::getValue('token'))) {
+            if (Token::check(Input::getValue('token')) && $this->getCaptcha(Input::getValue('g-recaptcha-response'))) {
 
                 // Generates hashed password using salt stored in the database and current password provided in the form
                 $currentPasswordProvided = Hash::generateHash(Input::getValue('password_current'), $this->_userData['u_salt']);

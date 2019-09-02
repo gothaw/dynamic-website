@@ -61,6 +61,7 @@
                     </div>
                     <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Enter email"
                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email'">
+                    <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
                 </div>
                 <a href="#" class="bbtns">Subscribe</a>
             </div>

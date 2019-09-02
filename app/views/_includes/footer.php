@@ -19,6 +19,7 @@
                             <p class="mb-4">Sign up to our newsletter. We send discount codes and only the best offers!</p>
                             <form action="#">
                                 <input type="email" placeholder="Your email here" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your email here'" required>
+                                <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
                                 <button type="submit" class="template-btn"><i class="fa fa-long-arrow-right"></i></button>
                             </form>
                         </div>
@@ -55,6 +56,16 @@
     <script src="<?php echo DIST?>/js/vendor/jquery-3.4.1.min.js"></script>
     <script src="<?php echo DIST?>/js/vendor/bootstrap-4.1.3.min.js"></script>
     <script src="<?php echo DIST?>/js/vendor/wow.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=<?php echo $GLOBALS['config']['recaptcha']['site_key'] ?>"></script>
+    <script>
+        grecaptcha.ready(function() {
+            grecaptcha.execute('<?php echo $GLOBALS['config']['recaptcha']['site_key']; ?>', {action: '<?php echo $data['pageDetails']['pg_name']; ?>'}).then(function(token) {
+                if(document.getElementById('g-recaptcha-response')){
+                    document.getElementById('g-recaptcha-response').value = token;
+                }
+            });
+        });
+    </script>
     <script src="<?php echo DIST?>/js/bundle.js"></script>
     </body>
 </html>

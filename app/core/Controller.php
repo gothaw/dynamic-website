@@ -129,4 +129,25 @@ abstract class Controller
             'u_joined' => date('Y-m-d H-i-s')
         ]);
     }
+
+    /**
+     * @method              getCaptcha
+     * @param               $token {reCAPTCHA user response token from g-recaptcha-response}
+     * @desc                Method used to get request from reCAPTCHA API. It uses secret API key and user token from g-recaptcha-response.
+     *                      The is a json object with a score (1.0 is very likely a good interaction, 0.0 is very likely a bot).
+     *                      Method returns true if response is success and score is greater > 0.5.
+     * @return              bool
+     */
+    protected function getCaptcha($token)
+    {
+        $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $GLOBALS['config']['recaptcha']['private_key'] . '&response=' . $token);
+
+        $decodedResponse = json_decode($response);
+
+        if($decodedResponse->success === true && $decodedResponse->score > 0.5) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
