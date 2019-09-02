@@ -68,7 +68,11 @@ Website uses reCAPTCHA v3 to protect against spam and bots.
 
 ### Deployment
 
-App configuration is handled by config.php file. In order to deploy the app, fill in database info and reCAPTCHA API keys in $GLOBALS variable. 
+App configuration is handled by config.php file. In order to deploy the app, change *EMAIL_TO* and *ROOT* constants to production values. Additionally, fill in database info and reCAPTCHA API keys in *$GLOBALS* variable.
+
+It is also recommended switching error handling to production.
+
+Configuration file allows for changing the time zone, which is by default set to GMT. 
 
 ### Disclaimer
 
