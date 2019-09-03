@@ -28,7 +28,7 @@ class App
             unset($url[0]);
         }
 
-        require_once './app/controllers/' . $this->_controller . '.php';
+        require_once './app/controllers/' . $this->toPascalCase($this->_controller) . '.php';
 
         $this->_controller = new $this->_controller;
 

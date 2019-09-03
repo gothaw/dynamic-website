@@ -46,6 +46,17 @@ HTML5, CSS5, JavaScript, PHP
 
 [Bootstrap](https://getbootstrap.com) 
 
+### Deployment
+
+App configuration is handled by config.php file. In order to deploy the app:
+ 
+ - Change *EMAIL_TO* and *ROOT* constants to production values
+ - Fill in database info and reCAPTCHA API keys in *$GLOBALS* variable.
+ - Switch error handling to production
+ - Set the time zone
+ 
+Additionally, change the rewrite base in .htaccess file in the main project folder to production value. 
+
 ### Authors
 
 Radoslaw Soltan
@@ -66,13 +77,6 @@ Images not included in the template assets are free and open source and were tak
 
 Website uses reCAPTCHA v3 to protect against spam and bots.
 
-### Deployment
-
-App configuration is handled by config.php file. In order to deploy the app, change *EMAIL_TO* and *ROOT* constants to production values. Additionally, fill in database info and reCAPTCHA API keys in *$GLOBALS* variable.
-
-It is also recommended switching error handling to production.
-
-Configuration file allows for changing the time zone, which is by default set to GMT. 
 
 ### Disclaimer
 

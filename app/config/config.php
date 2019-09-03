@@ -37,11 +37,13 @@ $GLOBALS['config'] = [
 date_default_timezone_set('Europe/London');
 
 //=================  ERROR HANDLING (DEVELOPMENT) ===============
+// Comment/Delete code below for production build
 
 ini_set('display_errors', 'on');
 error_reporting(E_ALL);
 
 //=================  ERROR HANDLING (PRODUCTION) =================
+// Uncomment code below for production build
 
 /*ini_set('display_errors','off');
 error_reporting(0);*/
