@@ -272,7 +272,7 @@ class AdminSchedule extends Controller
                 if ($validate->checkIfPassed()) {
 
                     $userId = trim(Input::getValue('user_id'));
-                    $membershipExpiryDate = $this->model('membership', $userId)->getExpiryDate();
+                    $membershipExpiryDate = $this->model('Membership', $userId)->getExpiryDate();
 
                     if ($this->_schedule->checkIfPossibleToSignUp($membershipExpiryDate, $scheduledId)) {
 

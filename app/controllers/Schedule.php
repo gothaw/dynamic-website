@@ -55,7 +55,7 @@ class Schedule extends Controller
         if ($this->_user->isLoggedIn() && is_numeric($scheduledId)) {
 
             $userId = $this->_user->getId();
-            $membershipExpiryDate = $this->model('membership', $userId)->getExpiryDate();
+            $membershipExpiryDate = $this->model('Membership', $userId)->getExpiryDate();
 
             if ($this->_schedule->checkIfPossibleToSignUp($membershipExpiryDate, $scheduledId)) {
 
