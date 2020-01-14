@@ -23,7 +23,7 @@ class App
     {
         $url = $this->parseUrl();
 
-        if (file_exists('./app/controllers/' . $this->toPascalCase($url[0]) . '.php')) {
+        if (isset($url[0]) && file_exists('./app/controllers/' . $this->toPascalCase($url[0]) . '.php')) {
             $this->_controller = $this->toPascalCase($url[0]);
             unset($url[0]);
         }

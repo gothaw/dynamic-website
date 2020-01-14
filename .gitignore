@@ -8,10 +8,6 @@
 
 node_modules/
 
-#venodor
-
-vendor/
-
 #composer config
 
 app/config/composer-config.php
